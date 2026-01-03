@@ -145,7 +145,7 @@ export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [paletteOpen, setPaletteOpen] = useState(false); 
-  const [scrollProgress, setScrollProgress] = useState(0); // PRO FEATURE: Reading Progress
+  const [scrollProgress, setScrollProgress] = useState(0); 
 
   useEffect(() => {
     let ticking = false;
@@ -154,7 +154,6 @@ export const Navbar = () => {
         window.requestAnimationFrame(() => {
           setScrolled(window.scrollY > 50);
           
-          // SCROLL SPY LOGIC
           const sections = ['about', 'projects', 'stack', 'writing', 'connect'];
           const scrollPosition = window.scrollY + 250;
           for (const section of sections) {
@@ -167,7 +166,6 @@ export const Navbar = () => {
           }
           if (window.scrollY < 100) setActiveSection('');
 
-          // PROGRESS BAR LOGIC
           const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
           const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
           const scrolled = (winScroll / height) * 100;
@@ -231,7 +229,7 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* PRO FEATURE: Reading Progress Bar */}
+        {/* Reading Progress Bar */}
         {scrolled && (
             <div className="absolute bottom-0 left-0 h-[2px] bg-[#6DB33F] transition-all duration-100 ease-out" style={{ width: `${scrollProgress}%` }}></div>
         )}
@@ -248,38 +246,94 @@ export const Navbar = () => {
   );
 };
 
-// --- HERO SECTION (Unchanged) ---
+// --- HERO SECTION (NEW TERMINAL DESIGN) ---
 export const Hero = () => {
   const [text, setText] = useState('');
-  const fullText = "> Backend Systems Engineer; Stack: Java / Spring Boot / PostgreSQL;";
+  const fullText = "Backend Systems Engineer; Stack: Java / Spring Boot / PostgreSQL";
+  
   useEffect(() => {
     let index = 0;
-    const timer = setInterval(() => { setText(fullText.slice(0, index)); index++; if (index > fullText.length) clearInterval(timer); }, 40);
-    return () => clearInterval(timer);
+    // Delay start slightly
+    const startDelay = setTimeout(() => {
+        const timer = setInterval(() => { 
+            setText(fullText.slice(0, index)); 
+            index++; 
+            if (index > fullText.length) clearInterval(timer); 
+        }, 30); // Faster typing speed
+        return () => clearInterval(timer);
+    }, 500);
+    return () => clearTimeout(startDelay);
   }, [fullText]);
+
   return (
     <header id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+      {/* Background Effects */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-0 -left-4 w-72 h-72 bg-[#6DB33F]/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
         <div className="absolute top-0 -right-4 w-72 h-72 bg-[#E76F00]/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
         <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff05_1px,transparent_1px)] [background-size:24px_24px] opacity-20"></div>
       </div>
+
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto animate-fade-up">
-        <div className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-[#6DB33F]/30 bg-[#6DB33F]/5 text-[#6DB33F] text-xs font-bold tracking-widest uppercase hover:bg-[#6DB33F]/10 transition-colors cursor-default hover:scale-105 transform duration-300"><span className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse"></span>Available for Hire</div>
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight leading-[1.1]">Building Scalable<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">Systems & Logic.</span></h1>
-        <p className="text-gray-400 text-lg md:text-xl italic max-w-2xl mx-auto mb-10 border-l-2 border-[#6DB33F] pl-4 bg-white/5 py-2 rounded-r-lg">"I care about latency, memory, and why systems fail — not just features."</p>
-        <div className="h-8 mb-10 flex items-center justify-center"><p className="mono text-xs md:text-sm text-[#6DB33F] opacity-80">{text}<span className="cursor-blink">_</span></p></div>
+        {/* Status Badge */}
+        <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-[#6DB33F]/30 bg-[#6DB33F]/5 text-[#6DB33F] text-xs font-bold tracking-widest uppercase hover:bg-[#6DB33F]/10 transition-colors cursor-default hover:scale-105 transform duration-300">
+          <span className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse"></span>
+          System Online: Available for Hire
+        </div>
+        
+        {/* Main Title */}
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 tracking-tight leading-[1.1]">
+          Building Scalable<br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-500">Systems & Logic.</span>
+        </h1>
+        
+        {/* Subtitle */}
+        <p className="text-gray-400 text-lg md:text-xl italic max-w-2xl mx-auto mb-12 border-l-2 border-[#6DB33F] pl-4 bg-white/5 py-2 rounded-r-lg">
+          "I care about latency, memory, and why systems fail — not just features."
+        </p>
+
+        {/* WOW FACTOR: Terminal Window */}
+        <div className="max-w-2xl mx-auto mb-12 text-left">
+            <div className="glass-panel rounded-xl border border-white/10 overflow-hidden shadow-2xl backdrop-blur-xl">
+                {/* Terminal Header */}
+                <div className="bg-white/5 px-4 py-3 border-b border-white/5 flex gap-2 items-center">
+                    <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    <div className="ml-2 text-[10px] text-gray-500 font-mono">guest@shaikhmahad-portfolio: ~</div>
+                </div>
+                {/* Terminal Body */}
+                <div className="p-6 font-mono text-sm md:text-base bg-black/40">
+                    <div className="flex gap-2 text-gray-400 mb-2">
+                        <span className="text-[#6DB33F]">➜</span>
+                        <span className="text-blue-400">~</span>
+                        <span>whoami</span>
+                    </div>
+                    <div className="text-gray-200">
+                        {text}<span className="inline-block w-2.5 h-5 bg-[#6DB33F] ml-1 align-middle animate-pulse"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {/* Buttons */}
         <div className="flex flex-col md:flex-row justify-center gap-4">
-          <button onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })} className="group px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transform hover:-translate-y-1">View Work<svg className="group-hover:translate-x-1 transition-transform" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg></button>
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="px-8 py-4 glass-panel text-white font-bold rounded-lg hover:bg-white/5 transition-all border border-white/10 flex items-center justify-center gap-2 hover:border-white/30 transform hover:-translate-y-1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Resume</a>
+          <button onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })} className="group px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-100 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transform hover:-translate-y-1">
+            View Work
+            <svg className="group-hover:translate-x-1 transition-transform" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+          </button>
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="px-8 py-4 glass-panel text-white font-bold rounded-lg hover:bg-white/5 transition-all border border-white/10 flex items-center justify-center gap-2 hover:border-white/30 transform hover:-translate-y-1">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Resume
+          </a>
         </div>
       </div>
     </header>
   );
 };
 
-// --- ABOUT SECTION (Unchanged) ---
+// --- ABOUT SECTION ---
 export const About = () => {
   return (
     <section id="about" className="py-24 relative">
@@ -304,7 +358,7 @@ export const About = () => {
   );
 };
 
-// --- PHILOSOPHY SECTION (Unchanged) ---
+// --- PHILOSOPHY SECTION ---
 export const Philosophy = () => {
   return (
     <section id="philosophy" className="py-24 relative border-t border-white/5 bg-black/20">
@@ -312,11 +366,12 @@ export const Philosophy = () => {
         <div className="mb-12 md:text-center max-w-2xl mx-auto"><h2 className="text-3xl font-bold mb-4"><span className="text-[#6DB33F] mono text-2xl">02.</span> Engineering Philosophy</h2><p className="text-gray-400">Senior engineering isn't about years of experience, but about the quality of decisions made.</p></div>
         <div className="grid md:grid-cols-3 gap-6 animate-fade-up">
             {[{ icon: "⚖️", title: "Trade-offs First", desc: "There is no 'perfect' architecture. I actively weigh consistency vs. availability, and latency vs. throughput." }, { icon: "🧱", title: "Simplicity Wins", desc: "Complexity is the enemy of reliability. I prefer boring, proven technologies over the latest hype." }, { icon: "🔍", title: "Root Cause Analysis", desc: "When things break, I don't just patch the bug. I dig deep to understand the systemic failure." }].map((item, idx) => (
-                <div key={idx} className="group p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:-translate-y-1 hover:border-[#6DB33F]/20">
+                // WRAPPED WITH SPOTLIGHT
+                <SpotlightCard key={idx} className="group p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:-translate-y-1 hover:border-[#6DB33F]/20">
                     <div className="w-12 h-12 bg-[#6DB33F]/10 rounded-lg flex items-center justify-center mb-6 text-2xl group-hover:scale-110 transition-transform">{item.icon}</div>
                     <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
                     <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-                </div>
+                </SpotlightCard>
             ))}
         </div>
       </div>
@@ -327,7 +382,6 @@ export const Philosophy = () => {
 // --- PROJECT HELPERS ---
 const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) => {
   return (
-    // WRAPPED WITH SPOTLIGHT CARD
     <SpotlightCard className={`group rounded-2xl glass-panel border border-white/5 hover:border-[#6DB33F]/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(109,179,63,0.1)] flex flex-col h-full overflow-hidden hover:-translate-y-2 ${isFlagship ? 'md:col-span-2 md:flex-row' : ''}`}>
       
       <div className={`${isFlagship ? 'md:w-1/2 h-64 md:h-full' : 'h-52 w-full'} bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/5 relative overflow-hidden`}>
@@ -338,7 +392,6 @@ const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) 
           <span className="text-5xl opacity-10 group-hover:opacity-30 transition-opacity font-bold">{title.charAt(0)}</span>
         </div>
         
-        {/* Overlay for Flagship & Projects */}
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-3 items-center justify-center backdrop-blur-[2px]">
             {slug && (
               <Link href={`/projects/${slug}`} className="px-6 py-2 bg-white text-black font-bold rounded-full text-xs transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-gray-200 shadow-lg">
@@ -373,10 +426,9 @@ const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) 
   );
 };
 
-// --- PROJECTS SECTION ---
+// --- PROJECTS SECTION (Unchanged) ---
 export const Projects = () => {
   const [filter, setFilter] = useState('All');
-  
   const projectsData = [
     {
         title: "Scalable E-Commerce API",
@@ -454,13 +506,8 @@ export const Projects = () => {
         link: "https://github.com/mahad2006"
     }
   ];
-
-  const filteredProjects = filter === 'All' 
-    ? projectsData 
-    : projectsData.filter(p => p.tags.some(t => t.includes(filter)));
-
+  const filteredProjects = filter === 'All' ? projectsData : projectsData.filter(p => p.tags.some(t => t.includes(filter)));
   const filters = ['All', 'Java', 'Kotlin', 'Spring Boot', 'System Design', 'Redis'];
-
   return (
     <section id="projects" className="py-32 relative bg-black/30">
        <div className="max-w-7xl mx-auto px-6">
@@ -473,9 +520,7 @@ export const Projects = () => {
           </p>
           <div className="flex flex-wrap gap-2">
             {filters.map(f => (
-                <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-full text-xs font-mono border transition-all ${filter === f ? 'bg-[#6DB33F] text-black border-[#6DB33F]' : 'bg-transparent text-gray-500 border-white/10 hover:border-white/30'}`}>
-                    {f}
-                </button>
+                <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-full text-xs font-mono border transition-all ${filter === f ? 'bg-[#6DB33F] text-black border-[#6DB33F]' : 'bg-transparent text-gray-500 border-white/10 hover:border-white/30'}`}>{f}</button>
             ))}
           </div>
         </div>
@@ -489,7 +534,7 @@ export const Projects = () => {
   );
 };
 
-// --- TECH STACK HELPERS ---
+// --- TECH STACK (Unchanged) ---
 const TechCard = ({ icon, name, category, color, level }) => {
   const getColorClass = (c) => {
     if (c === 'spring') return 'bg-[#6DB33F]';
@@ -501,7 +546,6 @@ const TechCard = ({ icon, name, category, color, level }) => {
     return 'bg-blue-500';
   };
   return (
-    // WRAPPED WITH SPOTLIGHT CARD
     <SpotlightCard className="group relative w-full h-full p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg overflow-hidden">
       <div className={`absolute top-0 left-0 w-full h-1 ${getColorClass(color)} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl shadow-[0_2px_10px_rgba(255,255,255,0.1)]`}></div>
       <div className="absolute top-2 right-2 text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 px-2 py-0.5 rounded text-gray-300">{level}</div>
@@ -512,6 +556,7 @@ const TechCard = ({ icon, name, category, color, level }) => {
   );
 };
 
+// --- MARQUEE & STACK (Unchanged) ---
 const MarqueeStyles = () => (
   <style>{`
     @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -568,6 +613,7 @@ export const Stack = () => {
   );
 };
 
+// --- WRITING SECTION (Unchanged) ---
 export const Writing = () => {
   return (
     <section id="writing" className="py-24 relative border-t border-white/5">
@@ -593,28 +639,30 @@ export const Writing = () => {
   );
 };
 
+// --- IMPACT SECTION (Enhanced with Spotlight) ---
 export const Impact = () => {
   return (
     <section className="py-24 relative bg-black/40">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12"><h2 className="text-2xl font-bold text-white mb-2">Community Impact</h2><p className="text-gray-500">Verified feedback from peers and collaborators.</p></div>
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="p-8 rounded-2xl border border-white/5 bg-[#0a0a0a] relative flex flex-col">
+          <SpotlightCard className="p-8 rounded-2xl border border-white/5 bg-[#0a0a0a] relative flex flex-col">
             <span className="absolute top-4 left-6 text-6xl text-[#6DB33F] opacity-20 serif">"</span>
             <p className="text-gray-300 text-lg italic leading-relaxed relative z-10 mb-6 flex-grow">Mahad has a rare ability to dive deep into system internals while keeping the big picture in mind. His work on the DSA roadmap changed how our batch approached interviews.</p>
             <div className="flex items-center gap-4 mt-auto"><div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-xs font-bold text-white">NY</div><div className="flex-1"><div className="flex items-center gap-2"><p className="text-white font-bold text-sm">Nabeerah Yaqoot</p><a href="#" className="text-blue-500 hover:text-blue-400"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></div><p className="text-xs text-gray-500">Senior Student, UBIT</p></div></div>
-          </div>
-          <div className="p-8 rounded-2xl border border-white/5 bg-[#0a0a0a] relative flex flex-col">
+          </SpotlightCard>
+          <SpotlightCard className="p-8 rounded-2xl border border-white/5 bg-[#0a0a0a] relative flex flex-col">
               <span className="absolute top-4 left-6 text-6xl text-[#6DB33F] opacity-20 serif">"</span>
               <p className="text-gray-300 text-lg italic leading-relaxed relative z-10 mb-6 flex-grow">The offline-first architecture for the Chat App was executed with a level of maturity I rarely see in undergraduate projects. Clean, testable, and robust.</p>
               <div className="flex items-center gap-4 mt-auto"><div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-xs font-bold text-white">MK</div><div className="flex-1"><div className="flex items-center gap-2"><p className="text-white font-bold text-sm">M. Khan</p><a href="#" className="text-blue-500 hover:text-blue-400"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a></div><p className="text-xs text-gray-500">Project Collaborator</p></div></div>
-          </div>
+          </SpotlightCard>
         </div>
       </div>
     </section>
   );
 };
 
+// --- EXPERIENCE SECTION (Enhanced with Spotlight) ---
 export const Experience = () => {
   return (
     <section id="experience" className="py-24 relative overflow-hidden">
@@ -625,13 +673,13 @@ export const Experience = () => {
             <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-[#6DB33F] border-4 border-black box-content shadow-[0_0_15px_#6DB33F]"></div>
             <h3 className="text-2xl font-bold text-white">Founder & Mentor</h3>
             <p className="text-[#6DB33F] mono text-sm mb-4">The UBIT Hub | Present</p>
-            <div className="glass-panel p-8 rounded-xl hover:bg-white/[0.02] transition-colors">
+            <SpotlightCard className="glass-panel p-8 rounded-xl hover:bg-white/[0.02] transition-colors">
               <p className="text-gray-400 mb-4">Established a student community to bridge the gap between academic theory and engineering reality.</p>
               <ul className="space-y-2 text-sm text-gray-400">
                 <li className="flex gap-2 items-start"><span className="text-[#6DB33F] mt-1">▹</span><span>Mentoring peers in engineering discipline and technical growth.</span></li>
                 <li className="flex gap-2 items-start"><span className="text-[#6DB33F] mt-1">▹</span><span>Curated the "DSA Roadmap" now used by juniors for interview prep.</span></li>
               </ul>
-            </div>
+            </SpotlightCard>
           </div>
           <div className="relative animate-fade-up" style={{animationDelay: '0.2s'}}>
             <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-gray-600 border-4 border-black"></div>
@@ -645,7 +693,7 @@ export const Experience = () => {
   );
 };
 
-// --- CONNECT SECTION (Upgraded to Interactive) ---
+// --- CONNECT SECTION (Unchanged) ---
 export const Connect = () => {
   const [formStatus, setFormStatus] = useState('idle'); // idle, loading, success
   const [emailCopied, setEmailCopied] = useState(false);
@@ -659,10 +707,8 @@ export const Connect = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormStatus('loading');
-    // Simulate network delay
     setTimeout(() => {
       setFormStatus('success');
-      // Reset form after a few seconds
       setTimeout(() => setFormStatus('idle'), 3000);
     }, 1500);
   };
@@ -670,70 +716,20 @@ export const Connect = () => {
   return (
     <section id="connect" className="py-24 bg-gradient-to-t from-black to-gray-900/40">
       <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16">
-           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Let's Engineer the Future.</h2>
-           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-             Whether you have a question about backend scaling, want to collaborate on a project, or just want to say hi, I'll try my best to get back to you!
-           </p>
-        </div>
-        
+        <div className="text-center mb-16"><h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Let's Engineer the Future.</h2><p className="text-xl text-gray-400 max-w-2xl mx-auto">Whether you have a question about backend scaling, want to collaborate on a project, or just want to say hi, I'll try my best to get back to you!</p></div>
         <div className="grid md:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
               <h3 className="text-white font-bold text-xl mb-4">Connect Directly</h3>
-              
-              {/* PRO FEATURE: Interactive Email Copy Card */}
-              <button 
-                onClick={handleCopyEmail}
-                className="w-full flex items-center gap-4 p-4 glass-panel rounded-lg hover:border-[#6DB33F] transition-all group hover:-translate-y-1 text-left relative overflow-hidden"
-              >
-                <div className={`p-3 rounded-full transition-colors ${emailCopied ? 'bg-green-500/20 text-green-500' : 'bg-white/5 group-hover:bg-[#6DB33F]/20 text-gray-400 group-hover:text-[#6DB33F]'}`}>
-                  {emailCopied ? (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
-                  ) : (
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                  )}
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Email {emailCopied && <span className="text-green-500 text-xs ml-2 animate-fade-up">Copied!</span>}</p>
-                  <p className="text-white font-mono text-sm group-hover:text-[#6DB33F] transition-colors">codewithmahad@gmail.com</p>
-                </div>
-              </button>
-
-              <a href="https://www.linkedin.com/in/codewithmahad" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 glass-panel rounded-lg hover:border-[#6DB33F] transition-all group hover:-translate-y-1">
-                <div className="p-3 bg-white/5 rounded-full group-hover:bg-[#6DB33F]/20 transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400 group-hover:text-[#6DB33F]"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
-                <div><p className="text-sm text-gray-500">LinkedIn</p><p className="text-white font-mono text-sm group-hover:text-[#6DB33F] transition-colors">/in/codewithmahad</p></div>
-              </a>
-              <div className="flex gap-4 pt-4">
-                  <a href="https://github.com/mahad2006" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">GitHub</a>
-                  <a href="https://leetcode.com/u/mahad2006/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">LeetCode</a>
-                  <a href="https://codolio.com/profile/codewithmahad" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">Codolio</a>
-              </div>
+              <button onClick={handleCopyEmail} className="w-full flex items-center gap-4 p-4 glass-panel rounded-lg hover:border-[#6DB33F] transition-all group hover:-translate-y-1 text-left relative overflow-hidden"><div className={`p-3 rounded-full transition-colors ${emailCopied ? 'bg-green-500/20 text-green-500' : 'bg-white/5 group-hover:bg-[#6DB33F]/20 text-gray-400 group-hover:text-[#6DB33F]'}`}>{emailCopied ? (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>) : (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>)}</div><div><p className="text-sm text-gray-500">Email {emailCopied && <span className="text-green-500 text-xs ml-2 animate-fade-up">Copied!</span>}</p><p className="text-white font-mono text-sm group-hover:text-[#6DB33F] transition-colors">codewithmahad@gmail.com</p></div></button>
+              <a href="https://www.linkedin.com/in/codewithmahad" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 glass-panel rounded-lg hover:border-[#6DB33F] transition-all group hover:-translate-y-1"><div className="p-3 bg-white/5 rounded-full group-hover:bg-[#6DB33F]/20 transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400 group-hover:text-[#6DB33F]"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><div><p className="text-sm text-gray-500">LinkedIn</p><p className="text-white font-mono text-sm group-hover:text-[#6DB33F] transition-colors">/in/codewithmahad</p></div></a>
+              <div className="flex gap-4 pt-4"><a href="https://github.com/mahad2006" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">GitHub</a><a href="https://leetcode.com/u/mahad2006/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">LeetCode</a><a href="https://codolio.com/profile/codewithmahad" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">Codolio</a></div>
           </div>
-
-          {/* PRO FEATURE: Reactive Form */}
           <form className="glass-panel p-8 rounded-2xl space-y-4 relative" onSubmit={handleSubmit}>
             <h3 className="text-white font-bold text-xl mb-2">Send a Message</h3>
             <div><input type="text" placeholder="Your Name" required disabled={formStatus !== 'idle'} className="input-field disabled:opacity-50 disabled:cursor-not-allowed" /></div>
             <div><input type="email" placeholder="Your Email" required disabled={formStatus !== 'idle'} className="input-field disabled:opacity-50 disabled:cursor-not-allowed" /></div>
             <div><textarea rows="4" placeholder="Your Message" required disabled={formStatus !== 'idle'} className="input-field resize-none disabled:opacity-50 disabled:cursor-not-allowed"></textarea></div>
-            
-            <button 
-              type="submit" 
-              disabled={formStatus !== 'idle'}
-              className={`w-full py-4 font-bold rounded-lg transition-all flex justify-center items-center gap-2 transform active:scale-95 disabled:active:scale-100 disabled:cursor-not-allowed
-                ${formStatus === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-[#6DB33F] text-black hover:bg-[#5aa035]'}
-              `}
-            >
-              {formStatus === 'idle' && (
-                <>Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></>
-              )}
-              {formStatus === 'loading' && (
-                <><span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></span> Sending...</>
-              )}
-              {formStatus === 'success' && (
-                <>Message Sent! <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg></>
-              )}
-            </button>
+            <button type="submit" disabled={formStatus !== 'idle'} className={`w-full py-4 font-bold rounded-lg transition-all flex justify-center items-center gap-2 transform active:scale-95 disabled:active:scale-100 disabled:cursor-not-allowed ${formStatus === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-[#6DB33F] text-black hover:bg-[#5aa035]'}`}>{formStatus === 'idle' && (<>Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></>)}{formStatus === 'loading' && (<><span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></span> Sending...</>)}{formStatus === 'success' && (<>Message Sent! <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg></>)}</button>
           </form>
         </div>
       </div>
@@ -741,13 +737,31 @@ export const Connect = () => {
   );
 };
 
-// --- NEW SYSTEM OBSERVABILITY FOOTER ---
+// --- NEW SYSTEM OBSERVABILITY FOOTER WITH EASTER EGG ---
 export const Footer = () => {
   const [latency, setLatency] = useState(null);
   const [region, setRegion] = useState('Unknown');
 
   useEffect(() => {
-    // Calculate simulated latency
+    // 1. Console ASCII Art Easter Egg
+    console.log(`
+%c
+   _____ __  __          _____ _  __ __  __
+  / ____|  \\/  |   /\\   |_   _| |/ /|  \\/  |
+ | (___ | \\  / |  /  \\    | | | ' / | \\  / |
+  \\___ \\| |\\/| | / /\\ \\   | | |  <  | |\\/| |
+  ____) | |  | |/ ____ \\ _| |_| . \\ | |  | |
+ |_____/|_|  |_/_/    \\_\\_____|_|\\_\\|_|  |_|
+    
+%c Backend Systems Engineer | Java | Spring Boot
+%c > Looking for a dev? Email me: codewithmahad@gmail.com
+    `, 
+    'color: #6DB33F; font-weight: bold; font-size: 14px;', 
+    'color: #ffffff; font-size: 12px;',
+    'color: #999999; font-size: 11px; font-style: italic;'
+    );
+
+    // 2. Latency Metrics
     const start = performance.timing.navigationStart;
     const now = new Date().getTime();
     setLatency(now - start < 0 ? 0 : Math.round((now - start) % 50)); 
