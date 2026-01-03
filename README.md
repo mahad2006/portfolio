@@ -3,7 +3,7 @@
 > A high-performance, single-file React portfolio designed for a Backend Systems Engineer.
 
 <div align="center">
-  <img src="./banner.png" width="100%" alt="Portfolio Banner" />
+  <img src="./portfolio/banner.png" width="100%" alt="Portfolio Banner" />
 </div>
 
 ## Overview
