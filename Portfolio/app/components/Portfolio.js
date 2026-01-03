@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image'; // PERFORMANCE: Use Next.js Image component
+import Link from 'next/link';   // NAVIGATION: For Case Study links
 
 // --- COMMAND PALETTE COMPONENT ---
 const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
@@ -358,7 +359,7 @@ export const Philosophy = () => {
 }
 
 // --- PROJECT HELPERS ---
-const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship }) => {
+const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) => {
   return (
     <div className={`group relative rounded-2xl glass-panel border border-white/5 hover:border-[#6DB33F]/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(109,179,63,0.1)] flex flex-col h-full overflow-hidden hover:-translate-y-2 ${isFlagship ? 'md:col-span-2 md:flex-row' : ''}`}>
       
@@ -376,9 +377,18 @@ const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship }) => {
         <div className={`${image ? 'hidden' : 'flex'} w-full h-full bg-gradient-to-br from-[#1a1a1a] to-black items-center justify-center`}>
           <span className="text-5xl opacity-10 group-hover:opacity-30 transition-opacity font-bold">{title.charAt(0)}</span>
         </div>
-        {/* Overlay for Flagship */}
-          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center backdrop-blur-[2px]">
-              <a href={link} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-white text-black font-bold rounded-full text-sm transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-gray-200 shadow-lg">View Source Code</a>
+        
+        {/* Overlay for Flagship & Projects */}
+        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-3 items-center justify-center backdrop-blur-[2px]">
+            {/* If we have a case study slug, show this button */}
+            {slug && (
+              <Link href={`/projects/${slug}`} className="px-6 py-2 bg-white text-black font-bold rounded-full text-xs transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-gray-200 shadow-lg">
+                Read Case Study
+              </Link>
+            )}
+            <a href={link} target="_blank" rel="noopener noreferrer" className="px-6 py-2 glass-panel text-white border border-white/20 font-bold rounded-full text-xs transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75 hover:bg-white/10">
+              View Source
+            </a>
         </div>
       </div>
 
@@ -388,9 +398,6 @@ const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship }) => {
                 {isFlagship && <span className="text-[#6DB33F] text-xs font-bold tracking-widest uppercase mb-2 block">Flagship Project</span>}
                 <h3 className={`${isFlagship ? 'text-3xl' : 'text-2xl'} font-bold text-white group-hover:text-[#6DB33F] transition-colors leading-tight`}>{title}</h3>
             </div>
-            <a href={link} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors p-1 bg-white/5 rounded-full hover:bg-white/10">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-            </a>
         </div>
         <div className="space-y-4 mb-8 text-sm text-gray-400 leading-relaxed border-l-2 border-white/5 pl-4 group-hover:border-[#6DB33F]/50 transition-colors">
             <div><span className="text-gray-200 font-semibold block mb-1 uppercase text-xs tracking-wider">Problem</span>{caseStudy.problem}</div>
@@ -414,6 +421,7 @@ export const Projects = () => {
   const projectsData = [
     {
         title: "Scalable E-Commerce API",
+        slug: "scalable-ecommerce", // Linked to dynamic page
         isFlagship: true,
         caseStudy: {
           problem: "High latency in product search during simulated concurrent user spikes.",
@@ -425,6 +433,7 @@ export const Projects = () => {
     },
     {
         title: "Derivify: Calculus Toolkit",
+        slug: "derivify-calculus", // Linked to dynamic page
         isFlagship: false,
         image: "/derivify.png",
         caseStudy: {
@@ -437,6 +446,7 @@ export const Projects = () => {
     },
     {
         title: "Distributed Caching Layer",
+        slug: "distributed-caching", // Added slug
         isFlagship: false,
         caseStudy: {
           problem: "Database bottlenecks observed during repetitive read operations.",
@@ -448,6 +458,7 @@ export const Projects = () => {
     },
      {
         title: "Quizzler App",
+        slug: "quizzler-app", // Added slug
         isFlagship: false,
         image: "/quizzler.png",
         caseStudy: {
@@ -460,6 +471,7 @@ export const Projects = () => {
     },
     {
         title: "Real-Time Chat Android",
+        slug: "realtime-chat", // Added slug
         isFlagship: false,
           caseStudy: {
           problem: "Unreliable message delivery in areas with poor network connectivity.",
@@ -471,6 +483,7 @@ export const Projects = () => {
     },
     {
         title: "DSA Roadmap & Guide",
+        slug: "dsa-roadmap", // Added slug
         isFlagship: false,
         image: "/roadmap.png",
         caseStudy: {
