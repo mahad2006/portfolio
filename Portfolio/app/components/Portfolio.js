@@ -1,8 +1,49 @@
 'use client'; 
 
-import React, { useState, useEffect, useCallback } from 'react';
-import Image from 'next/image'; // PERFORMANCE: Use Next.js Image component
-import Link from 'next/link';   // NAVIGATION: For Case Study links
+import React, { useState, useEffect, useRef } from 'react';
+import Image from 'next/image'; 
+import Link from 'next/link';
+
+// --- SPOTLIGHT CARD HELPER (New UI Feature) ---
+// This adds the "Pro" glowing effect that follows your mouse
+const SpotlightCard = ({ children, className = "" }) => {
+  const divRef = useRef(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = useState(0);
+
+  const handleMouseMove = (e) => {
+    if (!divRef.current) return;
+    const rect = divRef.current.getBoundingClientRect();
+    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  const handleFocus = () => {
+    setOpacity(1);
+  };
+
+  const handleBlur = () => {
+    setOpacity(0);
+  };
+
+  return (
+    <div
+      ref={divRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleFocus}
+      onMouseLeave={handleBlur}
+      className={`relative overflow-hidden ${className}`}
+    >
+      <div
+        className="pointer-events-none absolute -inset-px transition opacity duration-300"
+        style={{
+          opacity,
+          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(109, 179, 63, 0.15), transparent 40%)`,
+        }}
+      />
+      {children}
+    </div>
+  );
+};
 
 // --- COMMAND PALETTE COMPONENT ---
 const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
@@ -24,10 +65,8 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
     opt.label.toLowerCase().includes(query.toLowerCase())
   );
 
-  // Reset selection when query changes
   useEffect(() => setSelectedIndex(0), [query]);
 
-  // Keyboard navigation within palette
   useEffect(() => {
     if (!isOpen) return;
     const handleKey = (e) => {
@@ -271,7 +310,8 @@ export const Philosophy = () => {
 // --- PROJECT HELPERS ---
 const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) => {
   return (
-    <div className={`group relative rounded-2xl glass-panel border border-white/5 hover:border-[#6DB33F]/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(109,179,63,0.1)] flex flex-col h-full overflow-hidden hover:-translate-y-2 ${isFlagship ? 'md:col-span-2 md:flex-row' : ''}`}>
+    // WRAPPED WITH SPOTLIGHT CARD
+    <SpotlightCard className={`group rounded-2xl glass-panel border border-white/5 hover:border-[#6DB33F]/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(109,179,63,0.1)] flex flex-col h-full overflow-hidden hover:-translate-y-2 ${isFlagship ? 'md:col-span-2 md:flex-row' : ''}`}>
       
       <div className={`${isFlagship ? 'md:w-1/2 h-64 md:h-full' : 'h-52 w-full'} bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/5 relative overflow-hidden`}>
         {image ? (
@@ -312,7 +352,7 @@ const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) 
           ))}
         </div>
       </div>
-    </div>
+    </SpotlightCard>
   );
 };
 
@@ -323,7 +363,7 @@ export const Projects = () => {
   const projectsData = [
     {
         title: "Scalable E-Commerce API",
-        slug: "scalable-ecommerce", // Linked to dynamic page
+        slug: "scalable-ecommerce",
         isFlagship: true,
         caseStudy: {
           problem: "High latency in product search during simulated concurrent user spikes.",
@@ -335,7 +375,7 @@ export const Projects = () => {
     },
     {
         title: "Derivify: Calculus Toolkit",
-        slug: "derivify-calculus", // Linked to dynamic page
+        slug: "derivify-calculus",
         isFlagship: false,
         image: "/derivify.png",
         caseStudy: {
@@ -348,7 +388,7 @@ export const Projects = () => {
     },
     {
         title: "Distributed Caching Layer",
-        slug: "distributed-caching", // Added slug
+        slug: "distributed-caching",
         isFlagship: false,
         caseStudy: {
           problem: "Database bottlenecks observed during repetitive read operations.",
@@ -360,7 +400,7 @@ export const Projects = () => {
     },
      {
         title: "Quizzler App",
-        slug: "quizzler-app", // Added slug
+        slug: "quizzler-app",
         isFlagship: false,
         image: "/quizzler.png",
         caseStudy: {
@@ -373,7 +413,7 @@ export const Projects = () => {
     },
     {
         title: "Real-Time Chat Android",
-        slug: "realtime-chat", // Added slug
+        slug: "realtime-chat",
         isFlagship: false,
           caseStudy: {
           problem: "Unreliable message delivery in areas with poor network connectivity.",
@@ -385,7 +425,7 @@ export const Projects = () => {
     },
     {
         title: "DSA Roadmap & Guide",
-        slug: "dsa-roadmap", // Added slug
+        slug: "dsa-roadmap",
         isFlagship: false,
         image: "/roadmap.png",
         caseStudy: {
@@ -432,7 +472,7 @@ export const Projects = () => {
   );
 };
 
-// --- TECH STACK, MARQUEE, WRITING, IMPACT, EXPERIENCE SECTIONS (Unchanged) ---
+// --- TECH STACK HELPERS ---
 const TechCard = ({ icon, name, category, color, level }) => {
   const getColorClass = (c) => {
     if (c === 'spring') return 'bg-[#6DB33F]';
@@ -444,13 +484,14 @@ const TechCard = ({ icon, name, category, color, level }) => {
     return 'bg-blue-500';
   };
   return (
-    <div className="group relative w-full h-full p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg overflow-hidden">
+    // WRAPPED WITH SPOTLIGHT CARD
+    <SpotlightCard className="group relative w-full h-full p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg overflow-hidden">
       <div className={`absolute top-0 left-0 w-full h-1 ${getColorClass(color)} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl shadow-[0_2px_10px_rgba(255,255,255,0.1)]`}></div>
       <div className="absolute top-2 right-2 text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 px-2 py-0.5 rounded text-gray-300">{level}</div>
       <div className="mb-4 text-gray-300 group-hover:text-white transition-colors transform group-hover:scale-110 duration-300 origin-left">{icon}</div>
       <h3 className="text-lg font-bold text-white mb-1">{name}</h3>
       <p className="text-xs text-gray-500 font-mono uppercase tracking-wider">{category}</p>
-    </div>
+    </SpotlightCard>
   );
 };
 
