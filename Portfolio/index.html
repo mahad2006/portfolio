@@ -1,224 +1,514 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shaikh Mahad | Backend Systems Engineer</title>
     
-    <!-- React & ReactDOM (The Engine) -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- Babel (To understand JSX) -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- Tailwind CSS (The Styling) -->
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-    <div id="root"></div>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <!-- YOUR PORTFOLIO CODE STARTS HERE -->
-    <script type="text/babel">
-        const { useState, useEffect } = React;
+    <style>
+        :root {
+            --color-spring: #6DB33F;
+            --color-java: #E76F00;
+        }
 
-        // --- PASTE THE CONTENT OF YOUR PORTFOLIO.JSX HERE ---
-        // (I have included the full logic below for you to copy directly)
+        body {
+            background-color: #050505;
+            color: #e5e5e5;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444; 
+        }
+
+        /* Glassmorphism utility */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .tech-card-gradient {
+            background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
         
-        // 1. Global Styles
-        const GlobalStyles = () => (
-            <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
-                body { background-color: #050505; color: #e5e5e5; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-                h1, h2, h3, .mono { font-family: 'JetBrains Mono', monospace; }
-                ::-webkit-scrollbar { width: 8px; }
-                ::-webkit-scrollbar-track { background: #0a0a0a; }
-                ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-                ::-webkit-scrollbar-thumb:hover { background: #444; }
-                @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-                .animate-float { animation: float 6s ease-in-out infinite; }
-                .glass-panel { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-                .tech-card-gradient { background: linear-gradient(145deg, #111111 0%, #0a0a0a 100%); }
-                .cursor-blink { animation: blink 1s step-end infinite; }
-                @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-            `}</style>
-        );
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
 
-        // 2. Components
-        const Navbar = () => {
-            const [scrolled, setScrolled] = useState(false);
-            useEffect(() => {
-                const handleScroll = () => setScrolled(window.scrollY > 50);
-                window.addEventListener('scroll', handleScroll);
-                return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
-            const scrollTo = (id) => {
-                const element = document.getElementById(id);
-                if (element) element.scrollIntoView({ behavior: 'smooth' });
-            };
-            return (
-                <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass-panel py-4' : 'bg-transparent py-6'}`}>
-                    <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                        <div className="text-xl font-bold mono tracking-tighter text-white">
-                            <span className="text-[#6DB33F]">&lt;</span>Shaikh_Mahad<span className="text-[#6DB33F]">/&gt;</span>
-                        </div>
-                        <div className="hidden md:flex space-x-8 text-sm font-medium text-gray-400">
-                            {['About', 'Stack', 'Experience', 'Connect'].map((item) => (
-                                <button key={item} onClick={() => scrollTo(item.toLowerCase())} className="hover:text-[#6DB33F] transition-colors">{item}</button>
-                            ))}
-                        </div>
-                    </div>
-                </nav>
-            );
-        };
+        /* Typing cursor */
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
 
-        const Hero = () => {
-            const [text, setText] = useState('');
-            const fullText = "> Backend Systems Engineer; Stack: Java / Spring Boot / PostgreSQL;";
-            useEffect(() => {
-                let index = 0;
-                const timer = setInterval(() => {
-                    setText(fullText.slice(0, index));
-                    index++;
-                    if (index > fullText.length) clearInterval(timer);
-                }, 50);
-                return () => clearInterval(timer);
-            }, []);
-            return (
-                <header className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-                    <div className="absolute inset-0 z-0 opacity-20"><div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:16px_16px]"></div></div>
-                    <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#6DB33F]/10 rounded-full blur-[120px] animate-pulse"></div>
-                    <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#E76F00]/10 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s'}}></div>
-                    <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-                        <div className="inline-block mb-4 px-4 py-1 rounded-full border border-[#6DB33F]/30 bg-[#6DB33F]/5 text-[#6DB33F] text-xs font-bold tracking-widest uppercase">Open to Work & Collaboration</div>
-                        <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">Building Scalable<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Systems & Logic.</span></h1>
-                        <div className="h-16 mb-8 flex items-center justify-center"><p className="mono text-sm md:text-lg text-[#6DB33F] bg-black/50 px-4 py-2 rounded-lg border border-gray-800">{text}<span className="cursor-blink">_</span></p></div>
-                        <div className="flex flex-col md:flex-row justify-center gap-4">
-                            <button onClick={() => document.getElementById('stack').scrollIntoView({ behavior: 'smooth' })} className="px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2">View Tech Stack<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg></button>
-                            <button onClick={() => document.getElementById('connect').scrollIntoView({ behavior: 'smooth' })} className="px-8 py-4 glass-panel text-white font-bold rounded-lg hover:bg-white/10 transition-all border border-white/10">Contact Me</button>
-                        </div>
-                    </div>
-                </header>
-            );
-        };
+        /* Selection Color */
+        ::selection {
+            background: #6DB33F;
+            color: black;
+        }
+    </style>
+</head>
+<body class="antialiased">
 
-        const About = () => (
-            <section id="about" className="py-24 relative">
-                <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                    <div className="relative group">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-[#6DB33F] to-[#E76F00] rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-                        <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-black aspect-[4/5] md:aspect-square">
-                            <img src="./profile.png" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='flex'; }} alt="Shaikh Mahad" className="w-full h-full object-cover"/>
-                            <div className="hidden w-full h-full absolute inset-0 bg-gradient-to-br from-gray-800 to-black flex items-center justify-center text-center p-8"><div><p className="text-6xl mb-4">👨‍💻</p><p className="text-gray-400 text-sm">(Add 'profile.png' to folder)</p></div></div>
-                        </div>
-                    </div>
-                    <div>
-                        <h2 className="text-3xl font-bold mb-6 flex items-center gap-3"><span className="text-[#6DB33F]">01.</span> About Me</h2>
-                        <div className="space-y-6 text-gray-400 leading-relaxed text-lg">
-                            <p>I am a <span className="text-white font-semibold">Software Engineering undergraduate</span> at UBIT (University of Karachi) with a strong bias toward backend systems, correctness, and performance.</p>
-                            <p>I enjoy working close to fundamentals — <span className="text-white">data structures, object-oriented design, and system internals</span>. I care deeply about <i>why</i> a system is built a certain way, not just how it works.</p>
-                            <div className="p-6 bg-white/5 border-l-4 border-[#6DB33F] rounded-r-lg"><p className="text-sm italic text-gray-300">"Earlier, I worked extensively on Native Android development. Today, I am channeling that experience into backend engineering with Java and Spring Boot."</p></div>
-                            <p>Founder of <span className="text-white font-semibold">The UBIT Hub</span> — mentoring students in engineering discipline.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        );
-
-        const TechCard = ({ icon, name, category, color }) => {
-            const getColorClass = (c) => {
-                if (c === 'spring') return 'bg-[#6DB33F]';
-                if (c === 'java') return 'bg-[#E76F00]';
-                if (c === 'purple-500') return 'bg-purple-500';
-                if (c === 'green-400') return 'bg-green-400';
-                if (c === 'red-500') return 'bg-red-500';
-                if (c === 'white') return 'bg-white';
-                return 'bg-blue-500';
-            };
-            return (
-                <div className="group relative p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
-                    <div className={`absolute top-0 left-0 w-full h-1 ${getColorClass(color)} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl`}></div>
-                    <div className="mb-4 text-gray-300 group-hover:text-white transition-colors">{icon}</div>
-                    <h3 className="text-lg font-bold text-white mb-1">{name}</h3>
-                    <p className="text-xs text-gray-500 font-mono uppercase tracking-wider">{category}</p>
-                </div>
-            );
-        };
-
-        const Stack = () => (
-            <section id="stack" className="py-24 bg-black/50">
-                <div className="max-w-7xl mx-auto px-6">
-                    <div className="text-center mb-16"><h2 className="text-3xl font-bold mb-4"><span className="text-[#6DB33F]">02.</span> Engineering Stack</h2><p className="text-gray-400">Tools and technologies I use to build scalable systems.</p></div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                        <TechCard icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>} name="Java" category="Core Language" color="java" />
-                        <TechCard icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>} name="Spring Boot" category="Backend Framework" color="spring" />
-                        <TechCard icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>} name="PostgreSQL" category="Database" color="blue-500" />
-                        <TechCard icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>} name="System Design" category="Architecture" color="white" />
-                        <TechCard icon={<span className="text-2xl font-bold">K</span>} name="Kotlin" category="Android / Multiplatform" color="purple-500" />
-                        <TechCard icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>} name="Jetpack Compose" category="Modern UI" color="green-400" />
-                        <TechCard icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><path d="M2 12h20M2 12l5-5m-5 5l5 5"/></svg>} name="Redis" category="Caching" color="red-500" />
-                        <TechCard icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>} name="Spring Security" category="Security" color="spring" />
-                    </div>
-                    <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="p-6 rounded-xl border border-white/5 bg-white/[0.02]"><h3 className="mono text-[#6DB33F] mb-2 text-sm">Dev Toolkit</h3><div className="flex flex-wrap gap-2">{['Docker', 'Git', 'Linux', 'Maven', 'Postman', 'IntelliJ'].map(tool => (<span key={tool} className="px-3 py-1 bg-white/10 rounded text-xs font-mono text-gray-300">{tool}</span>))}</div></div>
-                        <div className="p-6 rounded-xl border border-white/5 bg-white/[0.02]"><h3 className="mono text-[#E76F00] mb-2 text-sm">Focus Areas</h3><ul className="text-sm text-gray-400 space-y-1"><li>• System Internals (JVM Architecture)</li><li>• Algorithmic Problem Solving (LeetCode)</li><li>• Database Engineering (Indexing/Optimization)</li></ul></div>
-                    </div>
-                </div>
-            </section>
-        );
-
-        const Experience = () => (
-            <section id="experience" className="py-24 relative overflow-hidden">
-                <div className="max-w-5xl mx-auto px-6">
-                    <h2 className="text-3xl font-bold mb-12 flex items-center gap-3"><span className="text-[#6DB33F]">03.</span> Impact & Leadership</h2>
-                    <div className="relative border-l border-white/10 pl-8 ml-4 space-y-16">
-                        <div className="relative">
-                            <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-[#6DB33F] border-4 border-black"></div>
-                            <h3 className="text-2xl font-bold text-white">Founder & Mentor</h3>
-                            <p className="text-[#6DB33F] mono text-sm mb-4">The UBIT Hub | Present</p>
-                            <div className="glass-panel p-6 rounded-xl"><p className="text-gray-400 mb-4">Established a student community to bridge the gap between academic theory and engineering reality.</p><ul className="space-y-2 text-sm text-gray-400"><li className="flex gap-2"><span className="text-[#6DB33F]">▹</span> Mentoring peers in engineering discipline and technical growth.</li><li className="flex gap-2"><span className="text-[#6DB33F]">▹</span> Fostering a culture of collaboration within the university.</li></ul></div>
-                        </div>
-                        <div className="relative">
-                            <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-gray-600 border-4 border-black"></div>
-                            <h3 className="text-2xl font-bold text-white">Software Engineering Undergraduate</h3>
-                            <p className="text-gray-500 mono text-sm mb-4">UBIT, University of Karachi | 2025 - 2028</p>
-                            <p className="text-gray-400 max-w-2xl">Focusing on Data Structures, Algorithms, and Distributed Systems. Transitioned from building native Android apps to engineering robust backend architectures.</p>
-                        </div>
-                    </div>
-                    <div className="mt-20"><h3 className="mono text-sm text-gray-500 mb-4">&lt;Global_Metrics /&gt;</h3><div className="w-full overflow-hidden rounded-xl border border-white/10 bg-black"><img src="https://raw.githubusercontent.com/mahad2006/mahad2006/main/profile-3d-contrib/profile-night-green.svg" alt="GitHub Contributions" className="w-full object-cover opacity-90 hover:opacity-100 transition-opacity" /></div></div>
-                </div>
-            </section>
-        );
-
-        const Connect = () => (
-            <section id="connect" className="py-24 bg-gradient-to-t from-black to-gray-900/20">
-                <div className="max-w-4xl mx-auto px-6 text-center">
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">Let's Engineer the Future.</h2>
-                    <p className="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">I am looking to connect with engineers and founders working on scalable systems. Whether it's about Algorithms, Java, or System Design.</p>
-                    <div className="flex flex-wrap justify-center gap-6 mb-16">
-                        <a href="mailto:codewithmahad@gmail.com" className="group flex items-center gap-3 px-6 py-4 bg-white text-black font-bold rounded-lg hover:bg-[#6DB33F] hover:text-white transition-all"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="group-hover:animate-bounce"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>codewithmahad@gmail.com</a>
-                        <a href="https://www.linkedin.com/in/codewithmahad" target="_blank" className="flex items-center gap-3 px-6 py-4 glass-panel text-white font-bold rounded-lg hover:border-[#6DB33F]/50 transition-all"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
-                        <a href="https://github.com/mahad2006" target="_blank" className="flex items-center gap-3 px-6 py-4 glass-panel text-white font-bold rounded-lg hover:border-white transition-all"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
-                    </div>
-                    <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 mono"><p>© 2026 Shaikh Mahad. All rights reserved.</p><div className="flex gap-4 mt-4 md:mt-0"><a href="https://leetcode.com/u/mahad2006/" className="hover:text-[#6DB33F] transition-colors">LeetCode</a><a href="https://codolio.com/profile/codewithmahad" className="hover:text-[#6DB33F] transition-colors">Codolio</a></div></div>
-                </div>
-            </section>
-        );
-
-        const App = () => (
-            <div className="antialiased selection:bg-[#6DB33F] selection:text-black">
-                <GlobalStyles />
-                <Navbar />
-                <Hero />
-                <About />
-                <Stack />
-                <Experience />
-                <Connect />
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent py-6">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="text-xl font-bold mono tracking-tighter text-white">
+                Shaikh Mahad<span class="text-[#6DB33F]">.</span>
             </div>
-        );
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400">
+                <a href="#about" class="hover:text-[#6DB33F] transition-colors">About</a>
+                <a href="#projects" class="hover:text-[#6DB33F] transition-colors">Projects</a>
+                <a href="#stack" class="hover:text-[#6DB33F] transition-colors">Stack</a>
+                <a href="#experience" class="hover:text-[#6DB33F] transition-colors">Experience</a>
+                <a href="#connect" class="hover:text-[#6DB33F] transition-colors">Connect</a>
+            </div>
+        </div>
+    </nav>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
+    <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
+            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#333_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        </div>
+        
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-[#6DB33F]/10 rounded-full blur-[120px] animate-pulse pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#E76F00]/10 rounded-full blur-[120px] animate-pulse pointer-events-none" style="animation-delay: 1s;"></div>
+
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+            <div class="inline-block mb-4 px-4 py-1 rounded-full border border-[#6DB33F]/30 bg-[#6DB33F]/5 text-[#6DB33F] text-xs font-bold tracking-widest uppercase">
+                Open to Work & Collaboration
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-tight">
+                Building Scalable<br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">Systems & Logic.</span>
+            </h1>
+            
+            <div class="h-16 mb-8 flex items-center justify-center">
+                <p class="mono text-sm md:text-lg text-[#6DB33F] bg-black/50 px-4 py-2 rounded-lg border border-gray-800">
+                    <span id="typing-text"></span><span class="cursor-blink">_</span>
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button onclick="document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })" class="px-8 py-4 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2">
+                    View Projects
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+                </button>
+                <button class="px-8 py-4 glass-panel text-white font-bold rounded-lg hover:bg-white/10 transition-all border border-white/10 flex items-center justify-center gap-2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download Resume
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-[#6DB33F] to-[#E76F00] rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-black aspect-[4/5] md:aspect-square">
+                    <img 
+                        src="./profile.png" 
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                        alt="Shaikh Mahad" 
+                        class="w-full h-full object-cover"
+                    />
+                    <div class="hidden w-full h-full absolute inset-0 bg-gradient-to-br from-gray-800 to-black flex flex-col items-center justify-center text-center p-8">
+                        <p class="text-6xl mb-4">👨‍💻</p>
+                        <p class="text-gray-400 text-sm">(Place 'profile.png' in folder)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-3xl font-bold mb-6 flex items-center gap-3">
+                    <span class="text-[#6DB33F]">01.</span> About Me
+                </h2>
+                <div class="space-y-6 text-gray-400 leading-relaxed text-lg">
+                    <p>
+                        I am a <span class="text-white font-semibold">Software Engineering undergraduate</span> at UBIT (University of Karachi) with a strong bias toward backend systems, correctness, and performance.
+                    </p>
+                    <p>
+                        I enjoy working close to fundamentals — <span class="text-white">data structures, object-oriented design, and system internals</span>. I care deeply about <i>why</i> a system is built a certain way, not just how it works.
+                    </p>
+                    <div class="p-6 bg-white/5 border-l-4 border-[#6DB33F] rounded-r-lg">
+                        <p class="text-sm italic text-gray-300">
+                            "Earlier, I worked extensively on Native Android development. Today, I am channeling that experience into backend engineering with Java and Spring Boot."
+                        </p>
+                    </div>
+                    <p>
+                        Founder of <span class="text-white font-semibold">The UBIT Hub</span> — mentoring students in engineering discipline.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 relative bg-black/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span class="text-[#6DB33F]">02.</span> Featured Projects
+                </h2>
+                <p class="text-gray-400 max-w-2xl">
+                    A selection of scalable systems and applications I've engineered. Focusing on performance, clean architecture, and real-world utility.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="group relative p-8 rounded-2xl glass-panel border border-white/5 hover:border-[#6DB33F]/30 transition-all duration-300 hover:-translate-y-2 flex flex-col">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-3 rounded-lg bg-white/5 text-white">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6 4 4 8-8"/></svg>
+                        </div>
+                        <a href="https://github.com/mahad2006/scalable-ecommerce" target="_blank" class="text-gray-500 hover:text-white transition-colors text-xs font-mono border border-gray-800 px-3 py-1 rounded-full flex items-center gap-1">
+                            View Source <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-[#6DB33F] transition-colors">Scalable E-Commerce API</h3>
+                    <div class="mb-6 space-y-3">
+                        <div class="flex items-start gap-3 text-sm text-gray-300">
+                            <span class="text-[#6DB33F] mt-1">⚡</span> <span class="leading-snug">Reduced query latency by 45% using optimized PostgreSQL indexing strategies.</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-gray-300">
+                            <span class="text-[#6DB33F] mt-1">⚡</span> <span class="leading-snug">Implemented RBAC with JWT, securing endpoints for 3 distinct user roles.</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-gray-300">
+                            <span class="text-[#6DB33F] mt-1">⚡</span> <span class="leading-snug">Dockerized microservices architecture for consistent deployment.</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                        <span class="px-2 py-1 text-xs font-mono rounded bg-white/5 text-gray-500 border border-white/5">Java</span>
+                        <span class="px-2 py-1 text-xs font-mono rounded bg-white/5 text-gray-500 border border-white/5">Spring Boot</span>
+                        <span class="px-2 py-1 text-xs font-mono rounded bg-white/5 text-gray-500 border border-white/5">PostgreSQL</span>
+                        <span class="px-2 py-1 text-xs font-mono rounded bg-white/5 text-gray-500 border border-white/5">Docker</span>
+                    </div>
+                </div>
+
+                <div class="group relative p-8 rounded-2xl glass-panel border border-white/5 hover:border-[#6DB33F]/30 transition-all duration-300 hover:-translate-y-2 flex flex-col">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-3 rounded-lg bg-white/5 text-white">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6 4 4 8-8"/></svg>
+                        </div>
+                        <a href="https://github.com/mahad2006/realtime-chat-android" target="_blank" class="text-gray-500 hover:text-white transition-colors text-xs font-mono border border-gray-800 px-3 py-1 rounded-full flex items-center gap-1">
+                            View Source <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-[#6DB33F] transition-colors">Real-Time Chat Android App</h3>
+                    <div class="mb-6 space-y-3">
+                        <div class="flex items-start gap-3 text-sm text-gray-300">
+                            <span class="text-[#6DB33F] mt-1">⚡</span> <span class="leading-snug">Achieved <100ms message delivery using WebSockets.</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-gray-300">
+                            <span class="text-[#6DB33F] mt-1">⚡</span> <span class="leading-snug">Implemented offline-first architecture with RoomDB for seamless UX in low-network areas.</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-gray-300">
+                            <span class="text-[#6DB33F] mt-1">⚡</span> <span class="leading-snug">Clean MVVM architecture ensuring 90% code testability.</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                        <span class="px-2 py-1 text-xs font-mono rounded bg-white/5 text-gray-500 border border-white/5">Kotlin</span>
+                        <span class="px-2 py-1 text-xs font-mono rounded bg-white/5 text-gray-500 border border-white/5">Jetpack Compose</span>
+                        <span class="px-2 py-1 text-xs font-mono rounded bg-white/5 text-gray-500 border border-white/5">WebSockets</span>
+                    </div>
+                </div>
+
+                <div class="group relative p-8 rounded-2xl glass-panel border border-white/5 hover:border-[#6DB33F]/30 transition-all duration-300 hover:-translate-y-2 flex flex-col">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-3 rounded-lg bg-white/5 text-white">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17l6-6 4 4 8-8"/></svg>
+                        </div>
+                        <a href="https://github.com/mahad2006/distributed-cache" target="_blank" class="text-gray-500 hover:text-white transition-colors text-xs font-mono border border-gray-800 px-3 py-1 rounded-full flex items-center gap-1">
+                            View Source <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        </a>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4 group-hover:text-[#6DB33F] transition-colors">Distributed Caching Layer</h3>
+                    <div class="mb-6 space-y-3">
+                        <div class="flex items-start gap-3 text-sm text-gray-300">
+                            <span class="text-[#6DB33F] mt-1">⚡</span> <span class="leading-snug">Decreased database load by 40% via custom Redis caching implementation.</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-gray-300">
+                            <span class="text-[#6DB33F] mt-1">⚡</span> <span class="leading-snug">Designed LRU eviction policies to manage memory efficiency.</span>
+                        </div>
+                        <div class="flex items-start gap-3 text-sm text-gray-300">
+                            <span class="text-[#6DB33F] mt-1">⚡</span> <span class="leading-snug">Synchronized cache invalidation across distributed instances.</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                        <span class="px-2 py-1 text-xs font-mono rounded bg-white/5 text-gray-500 border border-white/5">System Design</span>
+                        <span class="px-2 py-1 text-xs font-mono rounded bg-white/5 text-gray-500 border border-white/5">Redis</span>
+                        <span class="px-2 py-1 text-xs font-mono rounded bg-white/5 text-gray-500 border border-white/5">Java</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stack" class="py-24 bg-black/50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">
+                    <span class="text-[#6DB33F]">03.</span> Engineering Stack
+                </h2>
+                <p class="text-gray-400">Tools and technologies I use to build scalable systems.</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div class="group relative p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#E76F00] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl"></div>
+                    <div class="mb-4 text-gray-300 group-hover:text-white transition-colors">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-8 h-8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Java</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Core Language</p>
+                </div>
+
+                <div class="group relative p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#6DB33F] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl"></div>
+                    <div class="mb-4 text-gray-300 group-hover:text-white transition-colors">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-8 h-8"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Spring Boot</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Backend Framework</p>
+                </div>
+
+                <div class="group relative p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl"></div>
+                    <div class="mb-4 text-gray-300 group-hover:text-white transition-colors">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-8 h-8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">PostgreSQL</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Database</p>
+                </div>
+
+                <div class="group relative p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl"></div>
+                    <div class="mb-4 text-gray-300 group-hover:text-white transition-colors">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-8 h-8"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">System Design</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Architecture</p>
+                </div>
+
+                <div class="group relative p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl"></div>
+                    <div class="mb-4 text-gray-300 group-hover:text-white transition-colors">
+                        <span class="text-2xl font-bold">K</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Kotlin</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Android</p>
+                </div>
+
+                <div class="group relative p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-green-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl"></div>
+                    <div class="mb-4 text-gray-300 group-hover:text-white transition-colors">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-8 h-8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Jetpack Compose</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Modern UI</p>
+                </div>
+
+                <div class="group relative p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-red-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl"></div>
+                    <div class="mb-4 text-gray-300 group-hover:text-white transition-colors">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-8 h-8"><path d="M2 12h20M2 12l5-5m-5 5l5 5"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Redis</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Caching</p>
+                </div>
+
+                <div class="group relative p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#6DB33F] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl"></div>
+                    <div class="mb-4 text-gray-300 group-hover:text-white transition-colors">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-8 h-8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Spring Security</h3>
+                    <p class="text-xs text-gray-500 font-mono uppercase tracking-wider">Security</p>
+                </div>
+            </div>
+
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-6 rounded-xl border border-white/5 bg-white/[0.02]">
+                    <h3 class="mono text-[#6DB33F] mb-2 text-sm">Dev Toolkit</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 bg-white/10 rounded text-xs font-mono text-gray-300">Docker</span>
+                        <span class="px-3 py-1 bg-white/10 rounded text-xs font-mono text-gray-300">Git</span>
+                        <span class="px-3 py-1 bg-white/10 rounded text-xs font-mono text-gray-300">Linux</span>
+                        <span class="px-3 py-1 bg-white/10 rounded text-xs font-mono text-gray-300">Maven</span>
+                        <span class="px-3 py-1 bg-white/10 rounded text-xs font-mono text-gray-300">Postman</span>
+                        <span class="px-3 py-1 bg-white/10 rounded text-xs font-mono text-gray-300">IntelliJ</span>
+                    </div>
+                </div>
+                <div class="p-6 rounded-xl border border-white/5 bg-white/[0.02]">
+                    <h3 class="mono text-[#E76F00] mb-2 text-sm">Focus Areas</h3>
+                    <ul class="text-sm text-gray-400 space-y-1">
+                        <li>• System Internals (JVM Architecture)</li>
+                        <li>• Algorithmic Problem Solving (LeetCode)</li>
+                        <li>• Database Engineering (Indexing/Optimization)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-24 relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 flex items-center gap-3">
+                <span class="text-[#6DB33F]">04.</span> Impact & Leadership
+            </h2>
+            
+            <div class="relative border-l border-white/10 pl-8 ml-4 space-y-16">
+                <div class="relative">
+                    <div class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-[#6DB33F] border-4 border-black"></div>
+                    <h3 class="text-2xl font-bold text-white">Founder & Mentor</h3>
+                    <p class="text-[#6DB33F] mono text-sm mb-4">The UBIT Hub | Present</p>
+                    <div class="glass-panel p-6 rounded-xl">
+                        <p class="text-gray-400 mb-4">
+                            Established a student community to bridge the gap between academic theory and engineering reality.
+                        </p>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li class="flex gap-2">
+                                <span class="text-[#6DB33F]">▹</span> Mentoring peers in engineering discipline and technical growth.
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-[#6DB33F]">▹</span> Fostering a culture of collaboration within the university.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-gray-600 border-4 border-black"></div>
+                    <h3 class="text-2xl font-bold text-white">Software Engineering Undergraduate</h3>
+                    <p class="text-gray-500 mono text-sm mb-4">UBIT, University of Karachi | 2025 - 2028</p>
+                    <p class="text-gray-400 max-w-2xl">
+                        Focusing on Data Structures, Algorithms, and Distributed Systems. Transitioned from building native Android apps to engineering robust backend architectures.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-20">
+                <h3 class="mono text-sm text-gray-500 mb-4">&lt;Global_Metrics /&gt;</h3>
+                <div class="w-full overflow-hidden rounded-xl border border-white/10 bg-black">
+                    <img 
+                        src="https://raw.githubusercontent.com/mahad2006/mahad2006/main/profile-3d-contrib/profile-night-green.svg" 
+                        alt="GitHub Contributions" 
+                        class="w-full object-cover opacity-90 hover:opacity-100 transition-opacity"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="connect" class="py-24 bg-gradient-to-t from-black to-gray-900/20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold text-white mb-8">Let's Engineer the Future.</h2>
+            <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">
+                I am looking to connect with engineers and founders working on scalable systems. Whether it's about Algorithms, Java, or System Design.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-6 mb-16">
+                <a href="mailto:codewithmahad@gmail.com" class="group flex items-center gap-3 px-6 py-4 bg-white text-black font-bold rounded-lg hover:bg-[#6DB33F] hover:text-white transition-all">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="group-hover:animate-bounce"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    codewithmahad@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/codewithmahad" target="_blank" class="flex items-center gap-3 px-6 py-4 glass-panel text-white font-bold rounded-lg hover:border-[#6DB33F]/50 transition-all">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/mahad2006" target="_blank" class="flex items-center gap-3 px-6 py-4 glass-panel text-white font-bold rounded-lg hover:border-white transition-all">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    GitHub
+                </a>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 mono">
+                <p>© 2026 Shaikh Mahad. All rights reserved.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="https://leetcode.com/u/mahad2006/" class="hover:text-[#6DB33F] transition-colors">LeetCode</a>
+                    <a href="https://codolio.com/profile/codewithmahad" class="hover:text-[#6DB33F] transition-colors">Codolio</a>
+                    <a href="https://monkeytype.com/profile/CodeWithMahad1" class="hover:text-[#6DB33F] transition-colors">Monkeytype</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 1. TYPING EFFECT
+        document.addEventListener('DOMContentLoaded', () => {
+            const textElement = document.getElementById('typing-text');
+            const fullText = "> Backend Systems Engineer; Stack: Java / Spring Boot / PostgreSQL;";
+            let index = 0;
+
+            const typeWriter = () => {
+                if (index <= fullText.length) {
+                    textElement.textContent = fullText.slice(0, index);
+                    index++;
+                    setTimeout(typeWriter, 50);
+                }
+            };
+
+            typeWriter();
+        });
+
+        // 2. NAVBAR SCROLL EFFECT
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('glass-panel', 'py-4');
+                nav.classList.remove('bg-transparent', 'py-6');
+            } else {
+                nav.classList.remove('glass-panel', 'py-4');
+                nav.classList.add('bg-transparent', 'py-6');
+            }
+        });
+
+        // 3. THROTTLE FUNCTION (Optional, for performance if we add more scroll events)
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
     </script>
 </body>
 </html>
