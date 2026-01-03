@@ -8,7 +8,8 @@ import {
   Writing,
   Impact,
   Experience,
-  Connect
+  Connect,
+  Footer // <--- ADD THIS IMPORT
 } from './components/Portfolio';
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
       <Impact />
       <Experience />
       <Connect />
+      <Footer /> {/* <--- ADD THIS LINE at the bottom */}
     </div>
   );
 }
