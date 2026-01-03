@@ -245,7 +245,7 @@ export const Navbar = () => {
   );
 };
 
-// --- HERO SECTION (UPGRADED: INTERACTIVE TERMINAL) ---
+// --- HERO SECTION (Unchanged) ---
 export const Hero = () => {
   const [history, setHistory] = useState([
     { text: "Welcome to ShaikhMahad-OS v1.0.0", type: "system" },
@@ -902,3 +902,78 @@ export const Footer = () => {
     </footer>
   )
 }
+
+// --- NEW MANDATORY FEATURES: SCROLL TO TOP & JSON-LD ---
+
+export const ScrollToTop = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const toggleVisibility = () => {
+      // Show button when page is scrolled down
+      if (window.scrollY > 500) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
+  return (
+    <button
+      onClick={scrollToTop}
+      className={`fixed bottom-8 right-8 z-50 p-4 rounded-full bg-[#6DB33F] text-black shadow-lg shadow-[#6DB33F]/20 transition-all duration-300 hover:scale-110 hover:bg-white ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none"
+      }`}
+      aria-label="Scroll to top"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <path d="M12 19V5M5 12l7-7 7 7"/>
+      </svg>
+    </button>
+  );
+};
+
+export const JsonLd = () => {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Shaikh Mahad",
+    "url": "https://shaikhmahad.vercel.app",
+    "jobTitle": "Backend Systems Engineer",
+    "sameAs": [
+      "https://github.com/mahad2006",
+      "https://www.linkedin.com/in/codewithmahad"
+    ],
+    "knowsAbout": ["Java", "Spring Boot", "PostgreSQL", "Distributed Systems", "System Design"]
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+};
+
+export const PrintStyles = () => (
+  <style>{`
+    @media print {
+      body { background: white !important; color: black !important; }
+      nav, footer, .animate-blob, button { display: none !important; }
+      .glass-panel { background: none !important; border: 1px solid #ccc !important; box-shadow: none !important; color: black !important; }
+      h1, h2, h3, p, span { color: black !important; text-shadow: none !important; }
+      a { text-decoration: underline; color: black !important; }
+    }
+  `}</style>
+);
