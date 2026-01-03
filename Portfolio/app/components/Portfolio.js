@@ -4,8 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image'; 
 import Link from 'next/link';
 
-// --- SPOTLIGHT CARD HELPER (New UI Feature) ---
-// This adds the "Pro" glowing effect that follows your mouse
+// --- SPOTLIGHT CARD HELPER (Unchanged) ---
 const SpotlightCard = ({ children, className = "" }) => {
   const divRef = useRef(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -45,7 +44,7 @@ const SpotlightCard = ({ children, className = "" }) => {
   );
 };
 
-// --- COMMAND PALETTE COMPONENT ---
+// --- COMMAND PALETTE (Unchanged) ---
 const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -139,7 +138,7 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
   );
 };
 
-// --- NAV BAR ---
+// --- NAV BAR (Unchanged) ---
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -246,24 +245,101 @@ export const Navbar = () => {
   );
 };
 
-// --- HERO SECTION (NEW TERMINAL DESIGN) ---
+// --- HERO SECTION (UPGRADED: INTERACTIVE TERMINAL) ---
 export const Hero = () => {
-  const [text, setText] = useState('');
-  const fullText = "Backend Systems Engineer; Stack: Java / Spring Boot / PostgreSQL";
-  
+  const [history, setHistory] = useState([
+    { text: "Welcome to ShaikhMahad-OS v1.0.0", type: "system" },
+    { text: "Type 'help' to see available commands.", type: "system" },
+  ]);
+  const [inputVal, setInputVal] = useState('');
+  const [isTyping, setIsTyping] = useState(true); // Initial typewriter effect
+  const chatRef = useRef(null);
+  const inputRef = useRef(null);
+
+  // Auto-scroll to bottom of terminal
   useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }
+  }, [history]);
+
+  // Initial Typewriter Effect logic
+  useEffect(() => {
+    const introText = "> Backend Systems Engineer; Stack: Java / Spring Boot / PostgreSQL";
     let index = 0;
-    // Delay start slightly
-    const startDelay = setTimeout(() => {
-        const timer = setInterval(() => { 
-            setText(fullText.slice(0, index)); 
-            index++; 
-            if (index > fullText.length) clearInterval(timer); 
-        }, 30); // Faster typing speed
-        return () => clearInterval(timer);
-    }, 500);
-    return () => clearTimeout(startDelay);
-  }, [fullText]);
+    
+    // Simulate typing the "whoami" info initially
+    const timer = setInterval(() => {
+      // This is just a visual delay before "allowing" user input
+      index++;
+      if (index > introText.length) {
+        clearInterval(timer);
+        setIsTyping(false); // Enable user input
+        // Add the intro text to history effectively
+        setHistory(prev => [
+            ...prev, 
+            { text: "$ whoami", type: "command" },
+            { text: "Backend Systems Engineer\nStack: Java, Spring Boot, PostgreSQL, Docker", type: "output" }
+        ]);
+      }
+    }, 50);
+    return () => clearInterval(timer);
+  }, []);
+
+  const handleCommand = (e) => {
+    if (e.key === 'Enter') {
+      const cmd = inputVal.trim().toLowerCase();
+      const newHistory = [...history, { text: `$ ${inputVal}`, type: "command" }];
+      
+      let response = { text: "", type: "output" };
+
+      switch (cmd) {
+        case 'help':
+          response.text = "Available commands:\n  about     - Brief bio\n  projects  - View work\n  stack     - Tech stack\n  clear     - Clear terminal\n  contact   - Get email\n  sudo      - Admin privileges";
+          break;
+        case 'whoami':
+          response.text = "Shaikh Mahad. Backend Systems Engineer. I fix things you didn't know were broken.";
+          break;
+        case 'about':
+          document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+          response.text = "Navigating to About section...";
+          break;
+        case 'projects':
+          document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+          response.text = "Navigating to Projects section...";
+          break;
+        case 'stack':
+          document.getElementById('stack').scrollIntoView({ behavior: 'smooth' });
+          response.text = "Navigating to Tech Stack...";
+          break;
+        case 'contact':
+          document.getElementById('connect').scrollIntoView({ behavior: 'smooth' });
+          response.text = "Opening comms channel...";
+          break;
+        case 'clear':
+          setHistory([]);
+          setInputVal('');
+          return;
+        case 'sudo':
+          response.text = "Permission denied: You are not in the sudoers file. This incident will be reported.";
+          response.color = "text-red-500";
+          break;
+        case 'sudo rm -rf /':
+          response.text = "Nice try. I have backups.";
+          response.color = "text-red-500";
+          break;
+        case '':
+          break;
+        default:
+          response.text = `Command not found: ${cmd}. Type 'help' for options.`;
+          response.color = "text-yellow-500";
+      }
+
+      if (cmd) newHistory.push({ ...response, text: response.text }); // Add response
+      setHistory(newHistory);
+      setInputVal('');
+    }
+  };
 
   return (
     <header id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
@@ -293,26 +369,56 @@ export const Hero = () => {
           "I care about latency, memory, and why systems fail — not just features."
         </p>
 
-        {/* WOW FACTOR: Terminal Window */}
+        {/* WOW FACTOR: Fully Interactive Terminal */}
         <div className="max-w-2xl mx-auto mb-12 text-left">
-            <div className="glass-panel rounded-xl border border-white/10 overflow-hidden shadow-2xl backdrop-blur-xl">
+            <div 
+              className="glass-panel rounded-xl border border-white/10 overflow-hidden shadow-2xl backdrop-blur-xl flex flex-col h-[300px]"
+              onClick={() => inputRef.current?.focus()} // Clicking anywhere focuses input
+            >
                 {/* Terminal Header */}
-                <div className="bg-white/5 px-4 py-3 border-b border-white/5 flex gap-2 items-center">
+                <div className="bg-white/5 px-4 py-3 border-b border-white/5 flex gap-2 items-center flex-shrink-0">
                     <div className="w-3 h-3 rounded-full bg-red-500/80"></div>
                     <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                     <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
-                    <div className="ml-2 text-[10px] text-gray-500 font-mono">guest@shaikhmahad-portfolio: ~</div>
+                    <div className="ml-2 text-[10px] text-gray-500 font-mono">guest@shaikhmahad-portfolio: ~ (Interactive)</div>
                 </div>
+                
                 {/* Terminal Body */}
-                <div className="p-6 font-mono text-sm md:text-base bg-black/40">
-                    <div className="flex gap-2 text-gray-400 mb-2">
-                        <span className="text-[#6DB33F]">➜</span>
-                        <span className="text-blue-400">~</span>
-                        <span>whoami</span>
-                    </div>
-                    <div className="text-gray-200">
-                        {text}<span className="inline-block w-2.5 h-5 bg-[#6DB33F] ml-1 align-middle animate-pulse"></span>
-                    </div>
+                <div 
+                  ref={chatRef}
+                  className="p-6 font-mono text-sm md:text-base bg-black/40 flex-grow overflow-y-auto scrollbar-hide"
+                >
+                    {history.map((line, i) => (
+                      <div key={i} className={`mb-1 whitespace-pre-wrap ${line.type === 'command' ? 'text-gray-400' : line.color || 'text-gray-200'}`}>
+                        {line.text}
+                      </div>
+                    ))}
+                    
+                    {/* Input Line */}
+                    {!isTyping && (
+                      <div className="flex gap-2 text-gray-200 items-center">
+                          <span className="text-[#6DB33F]">➜</span>
+                          <span className="text-blue-400">~</span>
+                          <input 
+                            ref={inputRef}
+                            type="text" 
+                            value={inputVal}
+                            onChange={(e) => setInputVal(e.target.value)}
+                            onKeyDown={handleCommand}
+                            className="bg-transparent border-none outline-none flex-grow text-gray-200 placeholder-gray-600"
+                            autoFocus
+                          />
+                      </div>
+                    )}
+                    
+                    {/* Blinking Cursor for "Idle" state */}
+                    {isTyping && (
+                       <div className="flex gap-2 text-gray-400">
+                          <span className="text-[#6DB33F]">➜</span>
+                          <span className="text-blue-400">~</span>
+                          <span className="inline-block w-2.5 h-5 bg-[#6DB33F] animate-pulse"></span>
+                       </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -333,7 +439,7 @@ export const Hero = () => {
   );
 };
 
-// --- ABOUT SECTION ---
+// --- ABOUT SECTION (Unchanged) ---
 export const About = () => {
   return (
     <section id="about" className="py-24 relative">
@@ -358,7 +464,7 @@ export const About = () => {
   );
 };
 
-// --- PHILOSOPHY SECTION ---
+// --- PHILOSOPHY SECTION (Unchanged) ---
 export const Philosophy = () => {
   return (
     <section id="philosophy" className="py-24 relative border-t border-white/5 bg-black/20">
