@@ -145,6 +145,7 @@ export const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
   const [paletteOpen, setPaletteOpen] = useState(false); 
+  const [scrollProgress, setScrollProgress] = useState(0); // PRO FEATURE: Reading Progress
 
   useEffect(() => {
     let ticking = false;
@@ -152,6 +153,8 @@ export const Navbar = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setScrolled(window.scrollY > 50);
+          
+          // SCROLL SPY LOGIC
           const sections = ['about', 'projects', 'stack', 'writing', 'connect'];
           const scrollPosition = window.scrollY + 250;
           for (const section of sections) {
@@ -163,6 +166,13 @@ export const Navbar = () => {
             }
           }
           if (window.scrollY < 100) setActiveSection('');
+
+          // PROGRESS BAR LOGIC
+          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const scrolled = (winScroll / height) * 100;
+          setScrollProgress(scrolled);
+
           ticking = false;
         });
         ticking = true;
@@ -193,8 +203,9 @@ export const Navbar = () => {
   return (
     <>
       <CommandPalette isOpen={paletteOpen} onClose={() => setPaletteOpen(false)} onNavigate={scrollTo} />
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass-panel py-4 shadow-lg shadow-black/20' : 'bg-transparent py-6'}`}>
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass-panel shadow-lg shadow-black/20' : 'bg-transparent py-6'}`}>
+        
+        <div className={`max-w-7xl mx-auto px-6 flex justify-between items-center ${scrolled ? 'py-4' : ''}`}>
           <div className="text-xl font-bold mono tracking-tighter text-white z-50 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo(0,0)}>
             Shaikh Mahad<span className="text-[#6DB33F]">.</span>
           </div>
@@ -219,6 +230,12 @@ export const Navbar = () => {
             <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-white p-2">{mobileMenuOpen ? '✕' : '☰'}</button>
           </div>
         </div>
+
+        {/* PRO FEATURE: Reading Progress Bar */}
+        {scrolled && (
+            <div className="absolute bottom-0 left-0 h-[2px] bg-[#6DB33F] transition-all duration-100 ease-out" style={{ width: `${scrollProgress}%` }}></div>
+        )}
+
         {mobileMenuOpen && (
           <div className="fixed inset-0 bg-black/95 z-40 flex flex-col items-center justify-center space-y-8 md:hidden animate-fade-up">
             {['About', 'Projects', 'Stack', 'Writing', 'Connect'].map((item) => (
@@ -628,25 +645,95 @@ export const Experience = () => {
   );
 };
 
-// --- CONNECT SECTION (Simplified) ---
+// --- CONNECT SECTION (Upgraded to Interactive) ---
 export const Connect = () => {
+  const [formStatus, setFormStatus] = useState('idle'); // idle, loading, success
+  const [emailCopied, setEmailCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('codewithmahad@gmail.com');
+    setEmailCopied(true);
+    setTimeout(() => setEmailCopied(false), 2000);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setFormStatus('loading');
+    // Simulate network delay
+    setTimeout(() => {
+      setFormStatus('success');
+      // Reset form after a few seconds
+      setTimeout(() => setFormStatus('idle'), 3000);
+    }, 1500);
+  };
+
   return (
     <section id="connect" className="py-24 bg-gradient-to-t from-black to-gray-900/40">
       <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16"><h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Let's Engineer the Future.</h2><p className="text-xl text-gray-400 max-w-2xl mx-auto">Whether you have a question about backend scaling, want to collaborate on a project, or just want to say hi, I'll try my best to get back to you!</p></div>
+        <div className="text-center mb-16">
+           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Let's Engineer the Future.</h2>
+           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+             Whether you have a question about backend scaling, want to collaborate on a project, or just want to say hi, I'll try my best to get back to you!
+           </p>
+        </div>
+        
         <div className="grid md:grid-cols-2 gap-12 items-start">
           <div className="space-y-6">
               <h3 className="text-white font-bold text-xl mb-4">Connect Directly</h3>
-              <a href="mailto:codewithmahad@gmail.com" className="flex items-center gap-4 p-4 glass-panel rounded-lg hover:border-[#6DB33F] transition-all group hover:-translate-y-1"><div className="p-3 bg-white/5 rounded-full group-hover:bg-[#6DB33F]/20 transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400 group-hover:text-[#6DB33F]"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><p className="text-sm text-gray-500">Email</p><p className="text-white font-mono text-sm group-hover:text-[#6DB33F] transition-colors">codewithmahad@gmail.com</p></div></a>
-              <a href="https://www.linkedin.com/in/codewithmahad" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 glass-panel rounded-lg hover:border-[#6DB33F] transition-all group hover:-translate-y-1"><div className="p-3 bg-white/5 rounded-full group-hover:bg-[#6DB33F]/20 transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400 group-hover:text-[#6DB33F]"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div><div><p className="text-sm text-gray-500">LinkedIn</p><p className="text-white font-mono text-sm group-hover:text-[#6DB33F] transition-colors">/in/codewithmahad</p></div></a>
-              <div className="flex gap-4 pt-4"><a href="https://github.com/mahad2006" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">GitHub</a><a href="https://leetcode.com/u/mahad2006/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">LeetCode</a><a href="https://codolio.com/profile/codewithmahad" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">Codolio</a></div>
+              
+              {/* PRO FEATURE: Interactive Email Copy Card */}
+              <button 
+                onClick={handleCopyEmail}
+                className="w-full flex items-center gap-4 p-4 glass-panel rounded-lg hover:border-[#6DB33F] transition-all group hover:-translate-y-1 text-left relative overflow-hidden"
+              >
+                <div className={`p-3 rounded-full transition-colors ${emailCopied ? 'bg-green-500/20 text-green-500' : 'bg-white/5 group-hover:bg-[#6DB33F]/20 text-gray-400 group-hover:text-[#6DB33F]'}`}>
+                  {emailCopied ? (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  ) : (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  )}
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Email {emailCopied && <span className="text-green-500 text-xs ml-2 animate-fade-up">Copied!</span>}</p>
+                  <p className="text-white font-mono text-sm group-hover:text-[#6DB33F] transition-colors">codewithmahad@gmail.com</p>
+                </div>
+              </button>
+
+              <a href="https://www.linkedin.com/in/codewithmahad" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-4 glass-panel rounded-lg hover:border-[#6DB33F] transition-all group hover:-translate-y-1">
+                <div className="p-3 bg-white/5 rounded-full group-hover:bg-[#6DB33F]/20 transition-colors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400 group-hover:text-[#6DB33F]"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+                <div><p className="text-sm text-gray-500">LinkedIn</p><p className="text-white font-mono text-sm group-hover:text-[#6DB33F] transition-colors">/in/codewithmahad</p></div>
+              </a>
+              <div className="flex gap-4 pt-4">
+                  <a href="https://github.com/mahad2006" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">GitHub</a>
+                  <a href="https://leetcode.com/u/mahad2006/" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">LeetCode</a>
+                  <a href="https://codolio.com/profile/codewithmahad" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline">Codolio</a>
+              </div>
           </div>
-          <form className="glass-panel p-8 rounded-2xl space-y-4" onSubmit={(e) => e.preventDefault()}>
+
+          {/* PRO FEATURE: Reactive Form */}
+          <form className="glass-panel p-8 rounded-2xl space-y-4 relative" onSubmit={handleSubmit}>
             <h3 className="text-white font-bold text-xl mb-2">Send a Message</h3>
-            <div><input type="text" placeholder="Your Name" className="input-field" /></div>
-            <div><input type="email" placeholder="Your Email" className="input-field" /></div>
-            <div><textarea rows="4" placeholder="Your Message" className="input-field resize-none"></textarea></div>
-            <button className="w-full py-4 bg-[#6DB33F] text-black font-bold rounded-lg hover:bg-[#5aa035] transition-all flex justify-center items-center gap-2 transform active:scale-95">Send Message<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+            <div><input type="text" placeholder="Your Name" required disabled={formStatus !== 'idle'} className="input-field disabled:opacity-50 disabled:cursor-not-allowed" /></div>
+            <div><input type="email" placeholder="Your Email" required disabled={formStatus !== 'idle'} className="input-field disabled:opacity-50 disabled:cursor-not-allowed" /></div>
+            <div><textarea rows="4" placeholder="Your Message" required disabled={formStatus !== 'idle'} className="input-field resize-none disabled:opacity-50 disabled:cursor-not-allowed"></textarea></div>
+            
+            <button 
+              type="submit" 
+              disabled={formStatus !== 'idle'}
+              className={`w-full py-4 font-bold rounded-lg transition-all flex justify-center items-center gap-2 transform active:scale-95 disabled:active:scale-100 disabled:cursor-not-allowed
+                ${formStatus === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-[#6DB33F] text-black hover:bg-[#5aa035]'}
+              `}
+            >
+              {formStatus === 'idle' && (
+                <>Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></>
+              )}
+              {formStatus === 'loading' && (
+                <><span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></span> Sending...</>
+              )}
+              {formStatus === 'success' && (
+                <>Message Sent! <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg></>
+              )}
+            </button>
           </form>
         </div>
       </div>
