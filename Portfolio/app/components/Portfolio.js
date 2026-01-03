@@ -1,41 +1,156 @@
 'use client'; 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image'; // PERFORMANCE: Use Next.js Image component
+
+// --- COMMAND PALETTE COMPONENT ---
+const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
+  const [query, setQuery] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const options = [
+    { id: 'home', label: 'Home', type: 'section', action: () => onNavigate('hero') },
+    { id: 'about', label: 'About', type: 'section', action: () => onNavigate('about') },
+    { id: 'projects', label: 'Projects', type: 'section', action: () => onNavigate('projects') },
+    { id: 'stack', label: 'Tech Stack', type: 'section', action: () => onNavigate('stack') },
+    { id: 'writing', label: 'Writing', type: 'section', action: () => onNavigate('writing') },
+    { id: 'connect', label: 'Contact', type: 'section', action: () => onNavigate('connect') },
+    { id: 'resume', label: 'View Resume', type: 'link', action: () => window.open('/resume.pdf', '_blank') },
+    { id: 'github', label: 'GitHub Profile', type: 'link', action: () => window.open('https://github.com/mahad2006', '_blank') },
+  ];
+
+  const filteredOptions = options.filter(opt => 
+    opt.label.toLowerCase().includes(query.toLowerCase())
+  );
+
+  // Reset selection when query changes
+  useEffect(() => setSelectedIndex(0), [query]);
+
+  // Keyboard navigation within palette
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKey = (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelectedIndex(i => (i + 1) % filteredOptions.length);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelectedIndex(i => (i - 1 + filteredOptions.length) % filteredOptions.length);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (filteredOptions[selectedIndex]) {
+          filteredOptions[selectedIndex].action();
+          onClose();
+        }
+      } else if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+  }, [isOpen, filteredOptions, selectedIndex, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh] px-4" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+      <div 
+        className="relative w-full max-w-lg bg-[#0a0a0a] border border-white/10 rounded-xl shadow-2xl overflow-hidden animate-fade-up"
+        onClick={e => e.stopPropagation()}
+      >
+        <div className="flex items-center px-4 border-b border-white/5">
+          <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <input 
+            autoFocus
+            type="text"
+            placeholder="Search navigation..."
+            className="w-full bg-transparent border-none text-white px-4 py-4 focus:ring-0 placeholder-gray-600 outline-none"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+          />
+          <span className="text-xs text-gray-600 font-mono border border-white/10 px-1.5 py-0.5 rounded">ESC</span>
+        </div>
+        <div className="max-h-[60vh] overflow-y-auto py-2">
+          {filteredOptions.length === 0 ? (
+             <div className="px-4 py-8 text-center text-gray-500 text-sm">No results found.</div>
+          ) : (
+            filteredOptions.map((opt, i) => (
+              <button
+                key={opt.id}
+                onClick={() => { opt.action(); onClose(); }}
+                className={`w-full text-left px-4 py-3 flex items-center justify-between transition-colors ${i === selectedIndex ? 'bg-[#6DB33F]/10 text-[#6DB33F]' : 'text-gray-400 hover:bg-white/5'}`}
+              >
+                <div className="flex items-center gap-3">
+                  {opt.type === 'section' ? <span className="text-lg">#</span> : <span className="text-lg">↗</span>}
+                  <span>{opt.label}</span>
+                </div>
+                {i === selectedIndex && <span className="text-xs opacity-50">↵</span>}
+              </button>
+            ))
+          )}
+        </div>
+        <div className="px-4 py-2 bg-white/5 border-t border-white/5 flex justify-between items-center text-[10px] text-gray-500 uppercase tracking-wider font-mono">
+            <span>Navigation</span>
+            <span>Pro Tip: Cmd+K</span>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 // --- NAV BAR ---
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState(''); // UX: Track active section
+  const [activeSection, setActiveSection] = useState('');
+  const [paletteOpen, setPaletteOpen] = useState(false); // CMD+K State
 
   useEffect(() => {
+    // OPTIMIZATION: Use requestAnimationFrame for smooth 60FPS scroll detection
+    let ticking = false;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+          
+          const sections = ['about', 'projects', 'stack', 'writing', 'connect'];
+          const scrollPosition = window.scrollY + 250; // Adjusted offset for better triggering
 
-      // SCROLL SPY LOGIC
-      const sections = ['about', 'projects', 'stack', 'writing', 'connect'];
-      const scrollPosition = window.scrollY + 200; // Offset for better triggering
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element && element.offsetTop <= scrollPosition) {
-           // Check if the next section is also visible (to handle bottom of page)
-           const nextSectionIndex = sections.indexOf(section) + 1;
-           const nextSection = nextSectionIndex < sections.length ? document.getElementById(sections[nextSectionIndex]) : null;
-           
-           if (!nextSection || nextSection.offsetTop > scrollPosition) {
-             setActiveSection(section);
-           }
-        }
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element && element.offsetTop <= scrollPosition) {
+               const nextSectionIndex = sections.indexOf(section) + 1;
+               const nextSection = nextSectionIndex < sections.length ? document.getElementById(sections[nextSectionIndex]) : null;
+               
+               if (!nextSection || nextSection.offsetTop > scrollPosition) {
+                 setActiveSection(section);
+               }
+            }
+          }
+          
+          if (window.scrollY < 100) setActiveSection('');
+          ticking = false;
+        });
+        ticking = true;
       }
-      
-      // Clear active if at the very top
-      if (window.scrollY < 100) setActiveSection('');
+    };
+
+    // CMD+K Logic
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setPaletteOpen(open => !open);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
 
   const scrollTo = (id) => {
@@ -45,50 +160,66 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass-panel py-4 shadow-lg shadow-black/20' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="text-xl font-bold mono tracking-tighter text-white z-50 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo(0,0)}>
-          Shaikh Mahad<span className="text-[#6DB33F]">.</span>
-        </div>
-        
-        <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
-          {['About', 'Projects', 'Stack', 'Writing'].map((item) => {
-            const lowerItem = item.toLowerCase();
-            const isActive = activeSection === lowerItem;
+    <>
+      <CommandPalette isOpen={paletteOpen} onClose={() => setPaletteOpen(false)} onNavigate={scrollTo} />
+      
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass-panel py-4 shadow-lg shadow-black/20' : 'bg-transparent py-6'}`}>
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          <div className="text-xl font-bold mono tracking-tighter text-white z-50 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo(0,0)}>
+            Shaikh Mahad<span className="text-[#6DB33F]">.</span>
+          </div>
+          
+          <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
+            {['About', 'Projects', 'Stack', 'Writing'].map((item) => {
+              const lowerItem = item.toLowerCase();
+              const isActive = activeSection === lowerItem;
+              return (
+                <button 
+                  key={item} 
+                  onClick={() => scrollTo(lowerItem)} 
+                  className={`transition-colors relative group ${isActive ? 'text-[#6DB33F]' : 'hover:text-[#6DB33F]'}`}
+                >
+                  {item}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#6DB33F] transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                </button>
+              )
+            })}
             
-            return (
-              <button 
-                key={item} 
-                onClick={() => scrollTo(lowerItem)} 
-                className={`transition-colors relative group ${isActive ? 'text-[#6DB33F]' : 'hover:text-[#6DB33F]'}`}
-              >
-                {item}
-                <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#6DB33F] transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
-              </button>
-            )
-          })}
-          <button onClick={() => scrollTo('connect')} className="px-4 py-2 text-white bg-[#6DB33F]/10 border border-[#6DB33F]/50 rounded hover:bg-[#6DB33F] hover:border-[#6DB33F] transition-all transform hover:scale-105">
-            Let's Talk
-          </button>
-        </div>
-
-        <div className="md:hidden z-50">
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-white p-2">
-            {mobileMenuOpen ? '✕' : '☰'}
-          </button>
-        </div>
-      </div>
-
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 bg-black/95 z-40 flex flex-col items-center justify-center space-y-8 md:hidden animate-fade-up">
-          {['About', 'Projects', 'Stack', 'Writing', 'Connect'].map((item) => (
-            <button key={item} onClick={() => scrollTo(item.toLowerCase())} className={`text-2xl font-bold transition-colors ${activeSection === item.toLowerCase() ? 'text-[#6DB33F]' : 'text-white hover:text-[#6DB33F]'}`}>
-              {item}
+            {/* Search Icon Trigger for CMD+K */}
+            <button 
+              onClick={() => setPaletteOpen(true)}
+              className="p-2 text-gray-400 hover:text-white transition-colors"
+              title="Search (Cmd+K)"
+            >
+               <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </button>
-          ))}
+
+            <button onClick={() => scrollTo('connect')} className="px-4 py-2 text-white bg-[#6DB33F]/10 border border-[#6DB33F]/50 rounded hover:bg-[#6DB33F] hover:border-[#6DB33F] transition-all transform hover:scale-105">
+              Let's Talk
+            </button>
+          </div>
+
+          <div className="md:hidden z-50 flex items-center gap-4">
+             <button onClick={() => setPaletteOpen(true)} className="text-white p-2">
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+             </button>
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-white p-2">
+              {mobileMenuOpen ? '✕' : '☰'}
+            </button>
+          </div>
         </div>
-      )}
-    </nav>
+
+        {mobileMenuOpen && (
+          <div className="fixed inset-0 bg-black/95 z-40 flex flex-col items-center justify-center space-y-8 md:hidden animate-fade-up">
+            {['About', 'Projects', 'Stack', 'Writing', 'Connect'].map((item) => (
+              <button key={item} onClick={() => scrollTo(item.toLowerCase())} className={`text-2xl font-bold transition-colors ${activeSection === item.toLowerCase() ? 'text-[#6DB33F]' : 'text-white hover:text-[#6DB33F]'}`}>
+                {item}
+              </button>
+            ))}
+          </div>
+        )}
+      </nav>
+    </>
   );
 };
 
@@ -108,7 +239,7 @@ export const Hero = () => {
   }, [fullText]);
 
   return (
-    <header className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <header id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-0 -left-4 w-72 h-72 bg-[#6DB33F]/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
         <div className="absolute top-0 -right-4 w-72 h-72 bg-[#E76F00]/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
@@ -405,7 +536,7 @@ const TechCard = ({ icon, name, category, color, level }) => {
   };
 
   return (
-    <div className="group relative p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg overflow-hidden">
+    <div className="group relative w-full h-full p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-white/20 transition-all duration-300 hover:-translate-y-2 hover:shadow-lg overflow-hidden">
       <div className={`absolute top-0 left-0 w-full h-1 ${getColorClass(color)} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl shadow-[0_2px_10px_rgba(255,255,255,0.1)]`}></div>
       <div className="absolute top-2 right-2 text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 px-2 py-0.5 rounded text-gray-300">{level}</div>
       <div className="mb-4 text-gray-300 group-hover:text-white transition-colors transform group-hover:scale-110 duration-300 origin-left">{icon}</div>
@@ -415,23 +546,85 @@ const TechCard = ({ icon, name, category, color, level }) => {
   );
 };
 
+// --- MARQUEE COMPONENT ---
+const MarqueeStyles = () => (
+  <style>{`
+    @keyframes marquee-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes marquee-right {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .animate-marquee-left {
+      animation: marquee-left 40s linear infinite;
+    }
+    .animate-marquee-right {
+      animation: marquee-right 40s linear infinite;
+    }
+    .marquee-container:hover .animate-marquee-left,
+    .marquee-container:hover .animate-marquee-right {
+      animation-play-state: paused;
+    }
+  `}</style>
+);
+
 export const Stack = () => {
+  const row1 = [
+    { level: "Advanced", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>, name: "Java", category: "Core Language", color: "java" },
+    { level: "Proficient", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>, name: "Spring Boot", category: "Backend Framework", color: "spring" },
+    { level: "Intermediate", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>, name: "PostgreSQL", category: "Database", color: "blue-500" },
+    { level: "Concept", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>, name: "System Design", category: "Architecture", color: "white" },
+  ];
+
+  const row2 = [
+    { level: "Proficient", icon: <span className="text-2xl font-bold">K</span>, name: "Kotlin", category: "Android / Multiplatform", color: "purple-500" },
+    { level: "Intermediate", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>, name: "Jetpack Compose", category: "Modern UI", color: "green-400" },
+    { level: "Intermediate", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><path d="M2 12h20M2 12l5-5m-5 5l5 5"/></svg>, name: "Redis", category: "Caching", color: "red-500" },
+    { level: "Basic", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>, name: "Spring Security", category: "Security", color: "spring" },
+  ];
+
   return (
-    <section id="stack" className="py-32 bg-black/50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16">
+    <section id="stack" className="py-32 bg-black/50 overflow-hidden">
+      <MarqueeStyles />
+      <div className="max-w-[1920px] mx-auto">
+        <div className="text-center mb-16 px-6">
           <h2 className="text-3xl font-bold mb-4"><span className="text-[#6DB33F] mono text-2xl">04.</span> Engineering Stack</h2>
           <p className="text-gray-400">Tools and technologies I use to build scalable systems.</p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-          <TechCard level="Advanced" icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>} name="Java" category="Core Language" color="java" />
-          <TechCard level="Proficient" icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><path d="M12 6v6l4 2"/></svg>} name="Spring Boot" category="Backend Framework" color="spring" />
-          <TechCard level="Intermediate" icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>} name="PostgreSQL" category="Database" color="blue-500" />
-          <TechCard level="Concept" icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>} name="System Design" category="Architecture" color="white" />
-          <TechCard level="Proficient" icon={<span className="text-2xl font-bold">K</span>} name="Kotlin" category="Android / Multiplatform" color="purple-500" />
-          <TechCard level="Intermediate" icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>} name="Jetpack Compose" category="Modern UI" color="green-400" />
-          <TechCard level="Intermediate" icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><path d="M2 12h20M2 12l5-5m-5 5l5 5"/></svg>} name="Redis" category="Caching" color="red-500" />
-          <TechCard level="Basic" icon={<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>} name="Spring Security" category="Security" color="spring" />
+        
+        {/* Infinite Marquee Rows */}
+        <div className="flex flex-col gap-8 marquee-container">
+          
+          {/* Row 1: Moving Left */}
+          <div className="relative flex overflow-hidden">
+            <div className="flex gap-6 animate-marquee-left whitespace-nowrap py-4 px-4">
+              {[...row1, ...row1, ...row1, ...row1].map((item, idx) => (
+                <div key={`r1-${idx}`} className="w-[280px] flex-shrink-0">
+                  <TechCard {...item} />
+                </div>
+              ))}
+            </div>
+            {/* Fade Edges */}
+            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none"></div>
+          </div>
+
+          {/* Row 2: Moving Right */}
+          <div className="relative flex overflow-hidden">
+            <div className="flex gap-6 animate-marquee-right whitespace-nowrap py-4 px-4">
+              {[...row2, ...row2, ...row2, ...row2].map((item, idx) => (
+                <div key={`r2-${idx}`} className="w-[280px] flex-shrink-0">
+                  <TechCard {...item} />
+                </div>
+              ))}
+            </div>
+            {/* Fade Edges */}
+            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none"></div>
+          </div>
+
         </div>
       </div>
     </section>
