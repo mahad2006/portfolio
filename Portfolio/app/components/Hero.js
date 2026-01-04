@@ -55,7 +55,7 @@ export const Hero = () => {
 
       switch (cmd) {
         case 'help':
-          response.text = "Available commands:\n  about     - Brief bio\n  projects  - View work\n  stack     - Tech stack\n  clear     - Clear terminal\n  contact   - Get email\n  matrix    - Toggle system reality\n  sudo      - Admin privileges";
+          response.text = "Available commands:\n  about     - Brief bio\n  projects  - View work\n  stack     - Tech stack\n  stats     - Performance metrics\n  uses      - My dev setup\n  status    - System health\n  clear     - Clear terminal\n  contact   - Get email\n  matrix    - Toggle system reality\n  sudo      - Admin privileges";
           break;
         case 'matrix':
           toggleMatrix();
@@ -79,6 +79,18 @@ export const Hero = () => {
         case 'contact':
           document.getElementById('connect').scrollIntoView({ behavior: 'smooth' });
           response.text = "Opening comms channel...";
+          break;
+        case 'stats':
+          window.location.href = '/stats';
+          response.text = "Loading telemetry dashboard...";
+          break;
+        case 'uses':
+          window.location.href = '/uses';
+          response.text = "Loading system configuration...";
+          break;
+        case 'status':
+          window.location.href = '/status';
+          response.text = "Checking system health...";
           break;
         case 'clear':
           setHistory([]);

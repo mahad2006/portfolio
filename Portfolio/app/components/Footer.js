@@ -65,8 +65,40 @@ export const Footer = () => {
                 </div>
             </div>
         </div>
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-8">
             <p className="text-gray-600 text-[10px] font-mono uppercase tracking-widest">© 2026 Shaikh Mahad. All Rights Reserved.</p>
+
+            {/* Enhanced Navigation Buttons */}
+            <div className="flex flex-wrap gap-4 justify-center">
+                <a
+                    href="/stats"
+                    className="group relative px-6 py-2.5 bg-[#6DB33F]/10 border border-[#6DB33F]/30 rounded-md hover:bg-[#6DB33F] hover:border-[#6DB33F] transition-all text-[#6DB33F] hover:text-black font-bold text-xs uppercase tracking-widest overflow-hidden"
+                >
+                    <span className="relative z-10 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#6DB33F] group-hover:bg-black animate-pulse"></span>
+                        Stats
+                    </span>
+                </a>
+                <a
+                    href="/uses"
+                    className="group relative px-6 py-2.5 bg-white/5 border border-white/10 rounded-md hover:bg-white/10 hover:border-white/20 transition-all text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest"
+                >
+                    <span className="relative z-10 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-gray-500 group-hover:bg-white"></span>
+                        Setup
+                    </span>
+                </a>
+                <a
+                    href="/status"
+                    className="group relative px-6 py-2.5 bg-white/5 border border-white/10 rounded-md hover:bg-white/10 hover:border-white/20 transition-all text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest"
+                >
+                    <span className="relative z-10 flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                        Status
+                    </span>
+                </a>
+            </div>
+
             <div className="flex gap-6">
                 <span className="text-gray-700 text-[10px] font-mono">BUILT WITH NEXT.JS 16 & REACT 19</span>
             </div>
