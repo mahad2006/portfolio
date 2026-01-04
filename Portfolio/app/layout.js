@@ -1,8 +1,10 @@
+'use client';
 import './globals.css';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter, JetBrains_Mono } from 'next/font/google';
-import { BootScreen, SystemProvider, MatrixRain, RequestLogger } from './components';
+import { BootScreen, SystemProvider, MatrixRain, RequestLogger, CommandPalette, useSystem } from './components';
+import { useEffect } from 'react';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -16,7 +18,8 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains-mono',
 });
 
-export const metadata = {
+// Metadata is now defined in a separate component to allow client-side hooks
+const metadata = {
   metadataBase: new URL('https://shaikhmahad.vercel.app'),
   title: {
     default: 'Shaikh Mahad | Backend Systems Engineer',
@@ -71,23 +74,49 @@ export const metadata = {
   verification: {
     google: 'google-site-verification-id', // User should replace this
   }
-}
+};
 
-export default function RootLayout({ children }) {
+const AppLayout = ({ children }) => {
+  const { isCommandPaletteOpen, toggleCommandPalette } = useSystem();
+
+  const handleNavigate = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    // This is a simple way to apply metadata in a client component layout.
+    // For more complex scenarios, you might need next-seo or other libraries.
+    document.title = metadata.title.default;
+  }, []);
+
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-[#050505]">
-        <SystemProvider>
-          <MatrixRain />
-          <BootScreen />
-          <RequestLogger />
-          <main className="relative z-10">
-            {children}
-          </main>
-          <Analytics />
-          <SpeedInsights />
-        </SystemProvider>
+        <MatrixRain />
+        <BootScreen />
+        <RequestLogger />
+        <CommandPalette
+          isOpen={isCommandPaletteOpen}
+          onClose={toggleCommandPalette}
+          onNavigate={handleNavigate}
+        />
+        <main className="relative z-10">
+          {children}
+        </main>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
+  );
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <SystemProvider>
+      <AppLayout>{children}</AppLayout>
+    </SystemProvider>
   )
 }

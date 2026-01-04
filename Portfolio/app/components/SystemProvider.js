@@ -1,5 +1,5 @@
 'use client';
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const SystemContext = createContext();
 
@@ -8,6 +8,7 @@ export const SystemProvider = ({ children }) => {
   const [matrixActive, setMatrixActive] = useState(false);
   const [showDashboard, setShowDashboard] = useState(true);
   const [audioCtx, setAudioCtx] = useState(null);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
   useEffect(() => {
     if (!isMuted && !audioCtx && typeof window !== 'undefined') {
@@ -60,12 +61,32 @@ export const SystemProvider = ({ children }) => {
     playClick();
   };
 
+  const toggleCommandPalette = useCallback(() => {
+    setIsCommandPaletteOpen(prev => !prev);
+    playClick();
+  }, [playClick]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        toggleCommandPalette();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [toggleCommandPalette]);
+
   return (
     <SystemContext.Provider value={{ 
       isMuted, setIsMuted, 
       matrixActive, setMatrixActive, toggleMatrix,
       showDashboard, setShowDashboard, toggleDashboard,
-      playClick, playType, playSuccess 
+      isCommandPaletteOpen, toggleCommandPalette,
+      playClick, playType, playSuccess
     }}>
       {children}
     </SystemContext.Provider>
