@@ -20,3 +20,6 @@ export { SystemProvider, useSystem } from './SystemProvider';
 export { SystemDashboard } from './SystemDashboard';
 export { SystemLogs } from './SystemLogs';
 export { MatrixRain } from './MatrixRain';
+export { RequestLogger } from './RequestLogger';
+export { ArchitectureDiagram } from './ArchitectureDiagram';
+export { CodeBlock } from './CodeBlock';

@@ -1,5 +1,6 @@
 import React from 'react';
 import { projectsMap, projectsData } from '../../data/projects';
+import { ArchitectureDiagram } from '../../components/ArchitectureDiagram';
 
 /**
  * TECHNICAL DATA REGISTRY
@@ -96,18 +97,13 @@ export default async function ProjectPage({ params }) {
               architectural_implementation
             </h2>
             
-            {/* Visual Blueprint Placeholder */}
-            <div className="p-16 rounded-3xl bg-white/[0.02] border border-white/10 mb-10 flex flex-col items-center justify-center min-h-[300px] relative overflow-hidden group">
+            {/* Architecture Diagram */}
+            <div className="p-8 md:p-16 rounded-3xl bg-white/[0.02] border border-white/10 mb-10 relative overflow-hidden">
               <div className="absolute inset-0 bg-[radial-gradient(#6DB33F10_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
               <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] [background-size:40px_40px]"></div>
-              
-              <div className="relative z-10 text-center">
-                <svg className="w-12 h-12 text-[#6DB33F] mb-6 mx-auto opacity-40 group-hover:opacity-100 transition-opacity duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                </svg>
-                <p className="font-mono text-[10px] text-gray-500 group-hover:text-[#6DB33F] transition-colors tracking-[0.5em] uppercase">
-                  [ logical_architecture_diagram_v1 ]
-                </p>
+
+              <div className="relative z-10">
+                <ArchitectureDiagram projectSlug={slug} />
               </div>
             </div>
 

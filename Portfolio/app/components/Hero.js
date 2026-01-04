@@ -5,7 +5,7 @@ import { useSystem } from './SystemProvider';
 export const Hero = () => {
   const { playType, playClick, playSuccess, toggleMatrix } = useSystem();
   const [history, setHistory] = useState([
-    { text: "Welcome to ShaikhMahad-OS v1.0.0", type: "system" },
+    { text: "System initialized. Ready for commands.", type: "system" },
     { text: "Type 'help' to see available commands.", type: "system" },
   ]);
   const [inputVal, setInputVal] = useState('');
@@ -90,7 +90,7 @@ export const Hero = () => {
           break;
         case 'fetch':
         case 'neofetch':
-          response.text = "OS: ShaikhMahad-OS v1.0.0\nKernel: React 19.0.0\nUptime: 100%\nShell: next-sh\nResolution: 11/10\nUI: Tailwired-4.0";
+          response.text = "System: Portfolio v2.0\nKernel: React 19.0.0\nUptime: 100%\nShell: next-sh\nResolution: Production Ready\nUI: Tailwind 4.0";
           break;
         case 'ls':
           response.text = "total 42\ndrwxr-xr-x  about/\ndrwxr-xr-x  projects/\ndrwxr-xr-x  experience/\n-rw-r--r--  resume.pdf\n-rw-r--r--  secret_key.gpg";
