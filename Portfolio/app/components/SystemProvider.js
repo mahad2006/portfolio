@@ -3,12 +3,19 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 
 const SystemContext = createContext();
 
+const konamiCode = [
+  'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+  'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+  'b', 'a'
+];
+
 export const SystemProvider = ({ children }) => {
   const [isMuted, setIsMuted] = useState(true);
   const [matrixActive, setMatrixActive] = useState(false);
   const [showDashboard, setShowDashboard] = useState(true);
   const [audioCtx, setAudioCtx] = useState(null);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [konamiIndex, setKonamiIndex] = useState(0);
 
   useEffect(() => {
     if (!isMuted && !audioCtx && typeof window !== 'undefined') {
@@ -47,14 +54,13 @@ export const SystemProvider = ({ children }) => {
     setTimeout(() => playSound(600, 0.1, 'sine', 0.05), 100);
   };
 
-  const toggleMatrix = () => {
-    setMatrixActive(!matrixActive);
-    if (!matrixActive) {
-      playSuccess();
-    } else {
-      playClick();
-    }
-  };
+  const toggleMatrix = useCallback(() => {
+    setMatrixActive(prev => {
+      if (!prev) playSuccess();
+      else playClick();
+      return !prev;
+    });
+  }, [playSuccess, playClick]);
 
   const toggleDashboard = () => {
     setShowDashboard(!showDashboard);
@@ -71,6 +77,18 @@ export const SystemProvider = ({ children }) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         toggleCommandPalette();
+        return;
+      }
+
+      // Konami Code Logic
+      if (e.key.toLowerCase() === konamiCode[konamiIndex].toLowerCase()) {
+        setKonamiIndex(prevIndex => prevIndex + 1);
+        if (konamiIndex + 1 === konamiCode.length) {
+          toggleMatrix();
+          setKonamiIndex(0); // Reset for next time
+        }
+      } else {
+        setKonamiIndex(0); // Reset if wrong key is pressed
       }
     };
 
@@ -78,7 +96,7 @@ export const SystemProvider = ({ children }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [toggleCommandPalette]);
+  }, [toggleCommandPalette, konamiIndex, toggleMatrix]);
 
   return (
     <SystemContext.Provider value={{ 

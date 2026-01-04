@@ -81,7 +81,7 @@ export const Navbar = () => {
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#0a0a0a] border-b border-white/10 shadow-lg shadow-black/40' : 'bg-transparent py-6'}`}>
         
         <div className={`max-w-7xl mx-auto px-6 flex justify-between items-center ${scrolled ? 'py-4' : ''}`}>
-          <div className="text-xl font-bold mono tracking-tighter text-white z-50 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo(0,0)}>
+          <div className="text-xl font-bold mono tracking-tighter text-white z-50 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo(0,0)} onMouseEnter={playClick}>
             Shaikh Mahad<span className="text-[#6DB33F]">.</span>
           </div>
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
@@ -89,6 +89,7 @@ export const Navbar = () => {
             <div className="flex items-center border-r border-white/10 pr-6 mr-2 space-x-4">
                <button 
                 onClick={() => { setIsMuted(!isMuted); playClick(); }}
+                onMouseEnter={playClick}
                 className={`p-2 transition-colors ${!isMuted ? 'text-[#6DB33F]' : 'text-gray-600'}`}
                 title={isMuted ? "Enable Sound" : "Mute Sound"}
               >
@@ -100,6 +101,7 @@ export const Navbar = () => {
               </button>
               <button 
                 onClick={() => toggleMatrix()}
+                onMouseEnter={playClick}
                 className={`p-2 transition-colors ${matrixActive ? 'text-[#6DB33F]' : 'text-gray-600'}`}
                 title="Toggle Matrix Reality (Shift + M)"
               >
@@ -114,16 +116,17 @@ export const Navbar = () => {
               const lowerItem = item.toLowerCase();
               const isActive = activeSection === lowerItem;
               return (
-                <button key={item} onClick={() => scrollTo(lowerItem)} className={`transition-colors relative group ${isActive ? 'text-[#6DB33F]' : 'hover:text-[#6DB33F]'}`}>
+                <button key={item} onClick={() => scrollTo(lowerItem)} onMouseEnter={playClick} className={`transition-colors relative group ${isActive ? 'text-[#6DB33F]' : 'hover:text-[#6DB33F]'}`}>
                   {item}
                   <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#6DB33F] transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                 </button>
               )
             })}
-            <Link href="/community" className="transition-colors relative group hover:text-orange-400">Community</Link>
+            <Link href="/community" onMouseEnter={playClick} className="transition-colors relative group hover:text-orange-400">Community</Link>
             <button
               onClick={() => setPaletteOpen(true)} 
-              className="p-2 text-gray-400 hover:text-white transition-colors" 
+              onMouseEnter={playClick}
+              className="p-2 text-gray-400 hover:text-white transition-colors"
               title="Search (Cmd+K)"
               aria-label="Open Command Palette"
             >
@@ -131,6 +134,7 @@ export const Navbar = () => {
             </button>
             <button 
               onClick={() => scrollTo('connect')} 
+              onMouseEnter={playClick}
               className="px-4 py-2 text-white bg-[#6DB33F]/10 border border-[#6DB33F]/50 rounded hover:bg-[#6DB33F] hover:border-[#6DB33F] transition-all transform hover:scale-105"
               aria-label="Contact Me"
             >
@@ -140,6 +144,7 @@ export const Navbar = () => {
           <div className="md:hidden z-50 flex items-center gap-4">
              <button 
                onClick={() => setPaletteOpen(true)} 
+               onMouseEnter={playClick}
                className="text-white p-2"
                aria-label="Search"
              >
@@ -147,6 +152,7 @@ export const Navbar = () => {
              </button>
             <button 
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)} 
+              onMouseEnter={playClick}
               className="text-white p-2"
               aria-label={mobileMenuOpen ? "Close Menu" : "Open Menu"}
             >
@@ -169,7 +175,7 @@ export const Navbar = () => {
                 } else {
                   scrollTo(item.toLowerCase());
                 }
-              }} className={`text-2xl font-bold transition-colors ${activeSection === item.toLowerCase() ? 'text-[#6DB33F]' : 'text-white hover:text-[#6DB33F]'}`}>{item}</button>
+              }} onMouseEnter={playClick} className={`text-2xl font-bold transition-colors ${activeSection === item.toLowerCase() ? 'text-[#6DB33F]' : 'text-white hover:text-[#6DB33F]'}`}>{item}</button>
             ))}
           </div>
         )}
