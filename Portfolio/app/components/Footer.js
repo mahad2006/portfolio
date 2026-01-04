@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 export const Footer = () => {
   const [latency, setLatency] = useState(null);
-  const [region, setRegion] = useState('Unknown');
+  const [region, setRegion] = useState('TCP/IP');
 
   useEffect(() => {
     // 1. Console ASCII Art Easter Egg
@@ -30,16 +30,21 @@ export const Footer = () => {
     const start = performance.now();
     fetch('/robots.txt').then(() => {
         setLatency(Math.round(performance.now() - start));
+    }).catch(() => {
+        setLatency('--');
     });
 
     // 3. Simple Region Detection (Mock or via header if available)
-    // For now, we'll just use a mock or detect timezone
     try {
         const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        if (tz.includes('Karachi')) setRegion('KHI-PK');
-        else if (tz.includes('Europe')) setRegion('EU-WEST');
-        else setRegion('GLOBAL-EDGE');
-    } catch(e) {}
+        if (tz) {
+            if (tz.includes('Karachi')) setRegion('KHI-PK');
+            else if (tz.includes('Europe')) setRegion('EU-WEST');
+            else setRegion('GLOBAL');
+        }
+    } catch(e) {
+        setRegion('GLOBAL');
+    }
   }, []);
 
   return (

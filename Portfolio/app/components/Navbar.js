@@ -4,7 +4,7 @@ import CommandPalette from './CommandPalette';
 import { useSystem } from './SystemProvider';
 
 export const Navbar = () => {
-  const { isMuted, setIsMuted, matrixActive, toggleMatrix, playClick, showDashboard, toggleDashboard } = useSystem();
+  const { isMuted, setIsMuted, matrixActive, toggleMatrix, playClick } = useSystem();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -57,10 +57,6 @@ export const Navbar = () => {
       if (e.shiftKey && e.key === 'S') {
         setIsMuted(muted => !muted);
       }
-      // Dashboard (Shift + D)
-      if (e.shiftKey && e.key === 'D') {
-        toggleDashboard();
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -110,13 +106,6 @@ export const Navbar = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h18M3 9.5h18M3 14.5h18M3 19.5h18" opacity="0.2" />
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7 2v20M12 2v20M17 2v20" />
                 </svg>
-              </button>
-              <button 
-                onClick={() => toggleDashboard()}
-                className={`p-2 transition-colors ${showDashboard ? 'text-[#6DB33F]' : 'text-gray-600'}`}
-                title="Toggle System Dashboard (Shift + D)"
-              >
-                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
               </button>
             </div>
 
