@@ -13,7 +13,7 @@ import {
   ScrollToTop, // New Import
   JsonLd,      // New Import
   PrintStyles  // New Import
-} from './components/Portfolio';
+} from './components';
 
 export default function Home() {
   return (

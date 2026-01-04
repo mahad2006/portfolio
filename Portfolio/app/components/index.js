@@ -1,0 +1,17 @@
+export { Navbar } from './Navbar';
+export { Hero } from './Hero';
+export { About } from './About';
+export { Philosophy } from './Philosophy';
+export { Projects } from './Projects';
+export { Stack } from './Stack';
+export { Writing } from './Writing';
+export { Impact } from './Impact';
+export { Experience } from './Experience';
+export { Connect } from './Connect';
+export { Footer } from './Footer';
+export { ScrollToTop } from './ScrollToTop';
+export { JsonLd } from './JsonLd';
+export { PrintStyles } from './PrintStyles';
+export { default as SpotlightCard } from './SpotlightCard';
+export { default as CommandPalette } from './CommandPalette';
+export { BootScreen } from './BootScreen';

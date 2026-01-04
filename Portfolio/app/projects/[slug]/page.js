@@ -1,132 +1,16 @@
 import React from 'react';
+import { projectsMap, projectsData } from '../../data/projects';
 
 /**
  * TECHNICAL DATA REGISTRY
- * All projects are fully detailed with architectural insights, performance metrics,
- * and specific engineering challenges.
  */
-const projectsData = {
-  "scalable-ecommerce": {
-    title: "Scalable E-Commerce API",
-    tagline: "High-concurrency systems architecture with Spring Boot & PostgreSQL",
-    tags: ['Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'Redis', 'JUnit 5'],
-    stats: [
-      { label: "Latency Reduction", value: "45%" },
-      { label: "Throughput", value: "12k/rps" },
-      { label: "Test Coverage", value: "94%" }
-    ],
-    content: {
-      problem: "Traditional monolithic architectures struggle with 'Flash Sale' scenarios where sudden spikes in concurrent requests cause row-level locking contentions in the database, leading to cascading failures and high Latency.",
-      architecture: "Implemented a Vertical Slicing architecture to decouple domains. Utilized Spring Data JPA with a write-through caching strategy using Redis to offload 70% of read traffic from PostgreSQL. Deployment is orchestrated via Docker Compose for environment parity.",
-      challenges: [
-        { title: "Distributed Locking", desc: "Resolved inventory race conditions during checkout using Redis-based distributed locks and PESSIMISTIC_WRITE locks at the DB level to ensure atomicity." },
-        { title: "Query Optimization", desc: "Eliminated N+1 query overhead by implementing Entity Graphs and DTO Projections, reducing the memory footprint of JPA's persistence context." }
-      ]
-    }
-  },
-  "derivify-calculus": {
-    title: "Derivify: Calculus Toolkit",
-    tagline: "A low-latency Recursive Descent Parser for offline symbolic computation",
-    tags: ['Kotlin', 'Algorithms', 'Android', 'SymPy', 'Parsers'],
-    stats: [
-      { label: "Execution Time", value: "8ms" },
-      { label: "Binary Size", value: "12MB" },
-      { label: "User Rating", value: "4.8/5" }
-    ],
-    content: {
-      problem: "Mobile math tools often rely on heavy cloud-based APIs (WolframAlpha/SymPy), rendering them useless in low-connectivity areas or on low-end hardware common in developing regions.",
-      architecture: "Engineered a hand-written Recursive Descent Parser in Kotlin. The system tokenizes mathematical strings into an Abstract Syntax Tree (AST) before applying symbolic differentiation rules locally on the JVM thread.",
-      challenges: [
-        { title: "Operator Precedence", desc: "Implemented a custom Lexer to handle implicit multiplication (e.g., '3x' vs '3*x') and nested transcendental functions while maintaining O(n) parse time." },
-        { title: "UI Performance", desc: "Bypassed heavy WebView rendering by building a custom Canvas-based math engine to display LaTeX-style equations smoothly at 60fps." }
-      ]
-    }
-  },
-  "distributed-caching": {
-    title: "Distributed Caching Layer",
-    tagline: "Optimizing DB read throughput via intelligent eviction and consistency models",
-    tags: ['Redis', 'Java', 'System Design', 'Event-Driven', 'Pub/Sub'],
-    stats: [
-      { label: "Cache Hit Ratio", value: "89%" },
-      { label: "DB Load Relief", value: "65%" },
-      { label: "Sync Latency", value: "<2ms" }
-    ],
-    content: {
-      problem: "A high-traffic legacy system suffered from CPU saturation because it fetched identical reference data from the primary database thousands of times per second.",
-      architecture: "Introduced a Redis sidecar cache utilizing the 'Cache-Aside' pattern. Implemented an asynchronous invalidation layer using Redis Pub/Sub to maintain eventual consistency across microservices.",
-      challenges: [
-        { title: "Thundering Herd", desc: "Prevented 'Cache Stampede' by implementing probabilistic early expiration (X-Fetch) to refresh hot keys before they expired globally." },
-        { title: "Serialization Overhead", desc: "Migrated from standard JSON to Protobuf for cache storage, resulting in a 40% reduction in network payload size and faster deserialization." }
-      ]
-    }
-  },
-  "quizzler-app": {
-    title: "Quizzler App",
-    tagline: "Memory-optimized MVC architecture for native Android environments",
-    tags: ['Kotlin', 'Android SDK', 'Lifecycle', 'Memory Management'],
-    stats: [
-      { label: "Memory Leakage", value: "0%" },
-      { label: "State Recovery", value: "100%" },
-      { label: "Startup Time", value: "1.2s" }
-    ],
-    content: {
-      problem: "User progress was frequently lost on lower-end Android devices during backgrounding or configuration changes (screen rotations) due to poor activity lifecycle management.",
-      architecture: "Strict adherence to the Model-View-Controller (MVC) pattern. State is managed via a persistent Singleton repository that hooks into the Android SavedStateHandle for robust process-death recovery.",
-      challenges: [
-        { title: "Context Leaks", desc: "Audited the application for memory leaks using LeakCanary, resolving long-standing issues where anonymous inner classes held implicit references to destroyed Activities." },
-        { title: "Resource Scaling", desc: "Optimized image handling using the Glide library to ensure bitmapped assets were sampled according to the device's specific display density." }
-      ]
-    }
-  },
-  "realtime-chat": {
-    title: "Real-Time Chat Android",
-    tagline: "Offline-first sync engine with RoomDB and WebSockets",
-    tags: ['Kotlin', 'WebSockets', 'SQLite', 'Room', 'WorkManager'],
-    stats: [
-      { label: "Message Delivery", value: "99.9%" },
-      { label: "Sync Jitter", value: "<15ms" },
-      { label: "Offline Buffer", value: "Unlimited" }
-    ],
-    content: {
-      problem: "Mobile chat applications often feel unresponsive or 'stuck' in areas with high packet loss or intermittent 3G/4G connectivity.",
-      architecture: "Designed a 'Database-as-Truth' architecture. The UI only observes the local RoomDB. Outgoing messages are queued in SQLite and synchronized via a background service using exponential backoff.",
-      challenges: [
-        { title: "Vector Clocks", desc: "Solved the message ordering problem in distributed environments by implementing logical clocks to ensure causal consistency regardless of network arrival order." },
-        { title: "Socket Resilience", desc: "Engineered a heartbeat mechanism to detect 'zombie' connections and automatically re-establish the WSS tunnel before the user noticed a disconnect." }
-      ]
-    }
-  },
-  "dsa-roadmap": {
-    title: "DSA Roadmap & Guide",
-    tagline: "Technical documentation and pedagogical structure for engineers",
-    tags: ['Technical Writing', 'Markdown', 'Git', 'SEO', 'Community'],
-    stats: [
-      { label: "Monthly Users", value: "300+" },
-      { label: "Curated Patterns", value: "50+" },
-      { label: "Community PRs", value: "15+" }
-    ],
-    content: {
-      problem: "Junior developers often struggle with 'LeetCode Blindness'—the inability to map theoretical data structures taught in academia to practical algorithmic problems.",
-      architecture: "Developed a structured, hierarchical knowledge base using GitHub Pages and Jekyll. Content is categorized by pattern (e.g., Two Pointers, Sliding Window) rather than raw topic name.",
-      challenges: [
-        { title: "Maintainability", desc: "Established a strict contribution pipeline using GitHub Actions to automatically lint and validate Markdown links and code snippets submitted by the community." },
-        { title: "SEO Optimization", desc: "Structured the metadata to rank for specific University curriculum keywords, making the resource discoverable for Karachi-based engineering students." }
-      ]
-    }
-  }
-};
+// Removed hardcoded projectsData
 
-export default function App({ params }) {
-  /**
-   * DYNAMIC ROUTING LOGIC
-   * We normalize the slug to ensure the correct project is loaded.
-   * If viewed in a preview environment where params might be empty, 
-   * it defaults to the flagship project.
-   */
-  const slug = params?.slug || 'scalable-ecommerce';
-  const project = projectsData[slug];
 
-  // Return system error view if registry hit fails
+export default async function ProjectPage({ params }) {
+  const { slug } = await params;
+  const project = projectsMap[slug];
+
   if (!project) {
     return (
       <div className="min-h-screen bg-[#050505] text-white flex flex-col items-center justify-center font-mono p-4 text-center">
@@ -146,6 +30,9 @@ export default function App({ params }) {
     );
   }
 
+  // Ensure content exists to prevent runtime errors during pre-rendering
+  const content = project.caseStudy || {};
+
   return (
     <div className="min-h-screen bg-[#050505] text-gray-300 font-sans selection:bg-[#6DB33F] selection:text-black pb-24">
       {/* Navigation */}
@@ -154,7 +41,7 @@ export default function App({ params }) {
           <span className="group-hover:-translate-x-1 transition-transform">←</span> BACK_TO_SYS
         </a>
         <div className="font-mono text-[9px] text-[#6DB33F] border border-[#6DB33F]/30 px-2 py-1 rounded tracking-[0.3em] bg-[#6DB33F]/5 uppercase">
-          Case_Study_v2.0.1
+          Case_Study_v2.1.0
         </div>
       </nav>
 
@@ -197,7 +84,7 @@ export default function App({ params }) {
               the_problem_statement
             </h2>
             <p className="text-lg leading-relaxed text-gray-400 font-light">
-              {project.content.problem}
+              {content.problem}
             </p>
           </section>
 
@@ -225,7 +112,7 @@ export default function App({ params }) {
             </div>
 
             <p className="text-lg leading-relaxed text-gray-400 font-light">
-              {project.content.architecture}
+              {content.architecture}
             </p>
           </section>
 
@@ -237,7 +124,7 @@ export default function App({ params }) {
               engineering_challenges
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
-              {project.content.challenges.map((challenge, i) => (
+              {content.challenges?.map((challenge, i) => (
                 <div key={i} className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-[#6DB33F]/20 transition-all group">
                   <h3 className="text-xs font-bold text-[#6DB33F] mb-4 font-mono uppercase tracking-[0.2em] flex items-center gap-3">
                     <span className="w-1.5 h-1.5 bg-[#6DB33F] rounded-full shadow-[0_0_8px_#6DB33F]"></span>
@@ -259,7 +146,7 @@ export default function App({ params }) {
               <span className="group-hover:-translate-x-2 transition-transform">←</span> return_to_sys_archive
             </a>
             <a 
-              href="https://github.com/mahad2006" 
+              href={project.link}
               target="_blank" 
               rel="noopener noreferrer" 
               className="group px-10 py-5 bg-[#6DB33F] text-black font-bold rounded-xl hover:bg-white transition-all flex items-center gap-4 text-[10px] tracking-[0.3em] uppercase shadow-[0_20px_40px_-15px_rgba(109,179,63,0.3)]"
@@ -273,23 +160,15 @@ export default function App({ params }) {
   );
 }
 
-// Pre-render all known project pages at build time for best performance
 export async function generateStaticParams() {
-  const slugs = [
-    'scalable-ecommerce',
-    'derivify-calculus',
-    'distributed-caching',
-    'quizzler-app',
-    'realtime-chat',
-    'dsa-roadmap',
-  ];
-  return slugs.map((slug) => ({ slug }));
+  return projectsData.map((project) => ({
+    slug: project.slug,
+  }));
 }
 
-// Provide per-project metadata for SEO and proper link previews
 export async function generateMetadata({ params }) {
-  const slug = params?.slug;
-  const project = projectsData[slug];
+  const { slug } = await params;
+  const project = projectsMap[slug];
   if (!project) return { title: 'Project' };
   return {
     title: project.title,

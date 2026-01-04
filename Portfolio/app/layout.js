@@ -1,30 +1,61 @@
 import './globals.css';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Inter, JetBrains_Mono } from 'next/font/google';
+import { BootScreen } from './components';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
+});
 
 export const metadata = {
   metadataBase: new URL('https://shaikhmahad.vercel.app'),
-  title: 'Shaikh Mahad | Backend Systems Engineer',
-  description: 'Portfolio of Shaikh Mahad, a Backend Systems Engineer. I care about latency, memory, and why systems fail.',
+  title: {
+    default: 'Shaikh Mahad | Backend Systems Engineer',
+    template: '%s | Shaikh Mahad'
+  },
+  description: 'Backend Systems Engineer specializing in high-performance Java/Spring Boot architectures, distributed systems, and low-latency engineering.',
+  keywords: [
+    'Shaikh Mahad', 'Backend Engineer', 'Systems Engineer', 'Java Developer', 
+    'Spring Boot', 'Next.js Portfolio', 'Distributed Systems', 'Performance Engineering',
+    'Karachi Software Engineer', 'UBIT'
+  ],
+  authors: [{ name: 'Shaikh Mahad' }],
+  creator: 'Shaikh Mahad',
   
-  // OpenGraph: Fixes link previews on LinkedIn/Discord/Twitter
   openGraph: {
     title: 'Shaikh Mahad | Backend Systems Engineer',
-    description: 'Portfolio of Shaikh Mahad, a Backend Systems Engineer.',
+    description: 'Specializing in high-performance backend systems and distributed architectures.',
     url: 'https://shaikhmahad.vercel.app',
     siteName: 'Shaikh Mahad Portfolio',
     locale: 'en_US',
     type: 'website',
     images: [
       {
-        url: '/profile.png', // Uses your profile pic as the preview image
-        width: 800,
-        height: 600,
+        url: '/profile.png',
+        width: 1200,
+        height: 630,
+        alt: 'Shaikh Mahad - Backend Systems Engineer'
       },
     ],
   },
 
-  // Robots: Explicitly tells bots "Yes, you can scan this"
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Shaikh Mahad | Backend Systems Engineer',
+    description: 'Engineering high-performance backend systems and distributed architectures.',
+    images: ['/profile.png'],
+    creator: '@mahad2006'
+  },
+
   robots: {
     index: true,
     follow: true,
@@ -36,51 +67,17 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+
+  verification: {
+    google: 'google-site-verification-id', // User should replace this
+  }
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        {/* Fonts */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
-        
-        {/* Tailwind CDN */}
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            tailwind.config = {
-              theme: {
-                extend: {
-                  fontFamily: {
-                    sans: ['Inter', 'sans-serif'],
-                    mono: ['JetBrains Mono', 'monospace'],
-                  },
-                  animation: {
-                    blob: "blob 7s infinite",
-                    'fade-up': 'fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
-                  },
-                  keyframes: {
-                    blob: {
-                        "0%": { transform: "translate(0px, 0px) scale(1)" },
-                        "33%": { transform: "translate(30px, -50px) scale(1.1)" },
-                        "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
-                        "100%": { transform: "translate(0px, 0px) scale(1)" }
-                    },
-                    fadeUp: {
-                        "from": { opacity: "0", transform: "translateY(20px)" },
-                        "to": { opacity: "1", transform: "translateY(0)" }
-                    }
-                  }
-                }
-              }
-            }
-          `
-        }} />
-      </head>
-      <body>
+    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <body className="bg-[#050505]">
+        <BootScreen />
         {children}
         <Analytics />
         <SpeedInsights />
