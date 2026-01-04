@@ -500,10 +500,10 @@ const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) 
         
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-3 items-center justify-center backdrop-blur-[2px]">
             {slug && (
-              <Link href={`/projects/${slug}`} className="px-6 py-2 bg-white text-black font-bold rounded-full text-xs transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-gray-200 shadow-lg">
-                Read Case Study
-              </Link>
-            )}
+                  <a href={`/projects/${slug}`} target="_blank" rel="noopener noreferrer" className="px-6 py-2 bg-white text-black font-bold rounded-full text-xs transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-gray-200 shadow-lg">
+                    Read Case Study
+                  </a>
+                )}
             <a href={link} target="_blank" rel="noopener noreferrer" className="px-6 py-2 glass-panel text-white border border-white/20 font-bold rounded-full text-xs transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75 hover:bg-white/10">
               View Source
             </a>

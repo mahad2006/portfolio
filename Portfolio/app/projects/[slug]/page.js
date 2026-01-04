@@ -272,3 +272,38 @@ export default function App({ params }) {
     </div>
   );
 }
+
+// Pre-render all known project pages at build time for best performance
+export async function generateStaticParams() {
+  const slugs = [
+    'scalable-ecommerce',
+    'derivify-calculus',
+    'distributed-caching',
+    'quizzler-app',
+    'realtime-chat',
+    'dsa-roadmap',
+  ];
+  return slugs.map((slug) => ({ slug }));
+}
+
+// Provide per-project metadata for SEO and proper link previews
+export async function generateMetadata({ params }) {
+  const slug = params?.slug;
+  const project = projectsData[slug];
+  if (!project) return { title: 'Project' };
+  return {
+    title: project.title,
+    description: project.tagline,
+    openGraph: {
+      title: project.title,
+      description: project.tagline,
+      images: [
+        {
+          url: '/profile.png',
+          width: 800,
+          height: 600,
+        },
+      ],
+    },
+  };
+}
