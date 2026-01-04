@@ -108,7 +108,6 @@ export default function TelemetryPage() {
         {/* Header */}
         <div className="mb-20">
           <div className="flex items-start gap-4 mb-6">
-            <div className="text-[#6DB33F] text-4xl animate-pulse">⚡</div>
             <div>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-none tracking-tighter uppercase">
                 Career<span className="text-[#6DB33F]">_</span>Analytics
@@ -129,7 +128,7 @@ export default function TelemetryPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {/* WPM Card */}
-            <div className={`group relative p-8 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.03] border ${isElite ? 'border-cyan-400/50 shadow-[0_0_30px_rgba(34,211,238,0.15)]' : 'border-white/20'} hover:border-cyan-400/30 transition-all duration-500 overflow-hidden`}>
+            <div className={`group relative p-8 rounded-2xl bg-neutral-900 border ${isElite ? 'border-cyan-400/50 shadow-[0_0_30px_rgba(34,211,238,0.15)]' : 'border-neutral-800'} hover:border-cyan-400/30 transition-all duration-500 overflow-hidden`}>
               <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               {isElite && (
                 <div className="absolute top-4 right-4 px-3 py-1 bg-cyan-400 text-black text-[8px] font-bold tracking-widest rounded-full">
@@ -152,7 +151,7 @@ export default function TelemetryPage() {
             </div>
 
             {/* Accuracy Card */}
-            <div className="group relative p-8 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.03] border border-white/20 hover:border-blue-400/30 transition-all duration-500">
+            <div className="group relative p-8 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-blue-400/30 transition-all duration-500">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-4">
@@ -170,7 +169,7 @@ export default function TelemetryPage() {
             </div>
 
             {/* Uptime Card */}
-            <div className="group relative p-8 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.03] border border-white/20 hover:border-purple-400/30 transition-all duration-500">
+            <div className="group relative p-8 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-purple-400/30 transition-all duration-500">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-4">
@@ -216,7 +215,7 @@ export default function TelemetryPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             {/* SOLVER NODE (Competitive Programming) */}
-            <div className="group relative overflow-hidden rounded-3xl border border-orange-500/30 bg-gradient-to-br from-orange-500/10 via-red-500/5 to-transparent hover:border-orange-500/50 transition-all duration-500 hover:shadow-[0_0_50px_rgba(249,115,22,0.2)]">
+            <div className="group relative overflow-hidden rounded-3xl border border-orange-500/30 bg-neutral-900 hover:border-orange-500/50 transition-all duration-500 hover:shadow-[0_0_50px_rgba(249,115,22,0.2)]">
               {/* Animated Glow */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-500/30 to-transparent blur-3xl group-hover:w-72 group-hover:h-72 transition-all duration-500"></div>
 
@@ -268,7 +267,7 @@ export default function TelemetryPage() {
             </div>
 
             {/* BUILDER NODE (Development) */}
-            <div className="group relative overflow-hidden rounded-3xl border border-[#6DB33F]/30 bg-gradient-to-br from-[#6DB33F]/10 via-green-500/5 to-transparent hover:border-[#6DB33F]/50 transition-all duration-500 hover:shadow-[0_0_50px_rgba(109,179,63,0.2)]">
+            <div className="group relative overflow-hidden rounded-3xl border border-[#6DB33F]/30 bg-neutral-900 hover:border-[#6DB33F]/50 transition-all duration-500 hover:shadow-[0_0_50px_rgba(109,179,63,0.2)]">
               {/* Animated Glow */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#6DB33F]/30 to-transparent blur-3xl group-hover:w-72 group-hover:h-72 transition-all duration-500"></div>
 
@@ -343,7 +342,7 @@ export default function TelemetryPage() {
               const colors = colorMap[metric.color];
 
               return (
-                <div key={key} className={`group relative p-6 rounded-xl bg-gradient-to-br from-white/[0.02] to-transparent border border-white/10 hover:${colors.border} transition-all duration-300`}>
+                <div key={key} className={`group relative p-6 rounded-xl bg-neutral-900 border border-neutral-800 hover:${colors.border} transition-all duration-300`}>
                   <div className={`absolute inset-0 bg-gradient-to-br ${colors.glow} to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl`}></div>
                   <div className="relative z-10">
                     <div className="text-[10px] text-gray-400 uppercase tracking-wider mb-3">{metric.label}</div>
@@ -365,7 +364,7 @@ export default function TelemetryPage() {
             Loaded_Modules
           </h2>
 
-          <div className="p-8 rounded-2xl bg-gradient-to-br from-white/[0.02] to-transparent border border-white/10">
+          <div className="p-8 rounded-2xl bg-neutral-900 border border-neutral-800">
             <div className="flex flex-wrap gap-3">
               {loadedModules.map((module, idx) => (
                 <div
@@ -385,7 +384,7 @@ export default function TelemetryPage() {
         </div>
 
         {/* Footer Note */}
-        <div className="p-6 rounded-xl bg-[#6DB33F]/5 border border-[#6DB33F]/20">
+        <div className="p-6 rounded-xl bg-[#6DB33F]/10 border border-[#6DB33F]/30">
           <p className="text-xs text-gray-400 leading-relaxed">
             <span className="text-[#6DB33F] font-bold">SYSTEM_NOTE:</span> Career analytics powered by Codolio • MonkeyType API integration • Real-time GitHub synchronization
           </p>

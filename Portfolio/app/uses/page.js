@@ -114,7 +114,6 @@ export default function UsesPage() {
         {/* Header Section */}
         <div className="mb-20">
           <div className="flex items-center gap-4 mb-6">
-            <div className="text-[#6DB33F] text-5xl">⚙️</div>
             <div>
               <h1 className="text-6xl md:text-8xl font-bold text-white leading-none tracking-tighter uppercase mb-4">
                 Uses<span className="text-[#6DB33F]">.</span>
@@ -139,8 +138,8 @@ export default function UsesPage() {
                 key={idx}
                 className={`group relative overflow-hidden rounded-2xl border transition-all duration-500 ${
                   item.highlight
-                    ? 'border-[#6DB33F]/30 bg-gradient-to-br from-[#6DB33F]/5 via-transparent to-transparent hover:border-[#6DB33F]/50 hover:shadow-[0_0_40px_rgba(109,179,63,0.15)]'
-                    : 'border-white/10 bg-white/[0.02] hover:border-white/20'
+                    ? 'border-[#6DB33F]/30 bg-neutral-900 hover:border-[#6DB33F]/50 hover:shadow-[0_0_40px_rgba(109,179,63,0.15)]'
+                    : 'border-neutral-800 bg-neutral-900 hover:border-white/20'
                 }`}
               >
                 {/* Animated corner accent */}
@@ -197,7 +196,7 @@ export default function UsesPage() {
             {setup.development.map((item, idx) => (
               <div
                 key={idx}
-                className="group relative p-6 rounded-2xl bg-white/[0.02] border border-white/10 hover:border-[#6DB33F]/30 hover:bg-white/[0.04] transition-all duration-500"
+                className="group relative p-6 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-[#6DB33F]/30 hover:bg-neutral-800 transition-all duration-500"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#6DB33F]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
@@ -242,7 +241,7 @@ export default function UsesPage() {
             {setup.tools.map((tool, idx) => (
               <div
                 key={idx}
-                className="group p-6 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#6DB33F]/30 transition-all duration-300"
+                className="group p-6 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#6DB33F]/30 transition-all duration-300"
               >
                 <h3 className="text-base font-bold text-white mb-2 group-hover:text-[#6DB33F] transition-colors">
                   {tool.name}
@@ -273,7 +272,7 @@ export default function UsesPage() {
                     {techs.map((tech, i) => (
                       <span
                         key={i}
-                        className="px-4 py-2 text-sm rounded-lg bg-white/[0.03] border border-white/10 text-gray-300 hover:border-[#6DB33F]/30 hover:text-white hover:bg-white/[0.05] transition-all cursor-default"
+                        className="px-4 py-2 text-sm rounded-lg bg-neutral-900 border border-neutral-800 text-gray-300 hover:border-[#6DB33F]/30 hover:text-white hover:bg-neutral-800 transition-all cursor-default"
                       >
                         {tech}
                       </span>
@@ -286,7 +285,7 @@ export default function UsesPage() {
         </section>
 
         {/* Footer Note */}
-        <div className="p-8 rounded-2xl bg-[#6DB33F]/5 border border-[#6DB33F]/20">
+        <div className="p-8 rounded-2xl bg-[#6DB33F]/10 border border-[#6DB33F]/30">
           <p className="text-sm text-gray-400 leading-relaxed">
             <span className="text-[#6DB33F] font-bold">NOTE:</span> This setup evolves constantly as I experiment with new tools and optimize my workflow. The goal is always maximum productivity and minimum friction.
           </p>

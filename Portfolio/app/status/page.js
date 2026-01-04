@@ -52,15 +52,15 @@ export default function SystemStatus() {
 
         {/* Uptime Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
-          <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/10 text-center hover:border-[#6DB33F]/20 transition-all">
+          <div className="p-8 rounded-2xl bg-neutral-900 border border-neutral-800 text-center hover:border-[#6DB33F]/20 transition-all">
             <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3">System Uptime</div>
             <div className="text-3xl font-bold text-white font-mono">{uptime}</div>
           </div>
-          <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/10 text-center hover:border-[#6DB33F]/20 transition-all">
+          <div className="p-8 rounded-2xl bg-neutral-900 border border-neutral-800 text-center hover:border-[#6DB33F]/20 transition-all">
             <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3">Response Time</div>
             <div className="text-3xl font-bold text-[#6DB33F] font-mono">45ms</div>
           </div>
-          <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/10 text-center hover:border-[#6DB33F]/20 transition-all">
+          <div className="p-8 rounded-2xl bg-neutral-900 border border-neutral-800 text-center hover:border-[#6DB33F]/20 transition-all">
             <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3">Success Rate</div>
             <div className="text-3xl font-bold text-[#6DB33F] font-mono">99.9%</div>
           </div>
@@ -74,7 +74,7 @@ export default function SystemStatus() {
           </h2>
 
           {Object.entries(metrics).map(([key, value]) => (
-            <div key={key} className="p-6 rounded-xl bg-white/[0.02] border border-white/10 hover:border-[#6DB33F]/20 transition-all group">
+            <div key={key} className="p-6 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#6DB33F]/20 transition-all group">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="flex items-center gap-4">
                   <div className={`w-3 h-3 rounded-full ${value.color.replace('text-', 'bg-')} shadow-[0_0_10px_currentColor]`}></div>
@@ -88,7 +88,7 @@ export default function SystemStatus() {
                     <span className="text-gray-500 font-mono text-xs uppercase tracking-wider">Latency: </span>
                     <span className="text-white font-mono font-bold">{value.latency}</span>
                   </div>
-                  <div className="w-16 h-2 bg-white/5 rounded-full overflow-hidden">
+                  <div className="w-16 h-2 bg-neutral-800 rounded-full overflow-hidden">
                     <div className="h-full bg-[#6DB33F] w-full animate-pulse"></div>
                   </div>
                 </div>
@@ -98,7 +98,7 @@ export default function SystemStatus() {
         </div>
 
         {/* Incident History */}
-        <div className="mt-16 p-8 rounded-2xl bg-white/[0.02] border border-white/10">
+        <div className="mt-16 p-8 rounded-2xl bg-neutral-900 border border-neutral-800">
           <h2 className="text-sm font-bold text-white mb-6 flex items-center gap-4 font-mono tracking-[0.4em] uppercase">
             <span className="w-8 h-px bg-[#6DB33F]"></span>
             Recent Incidents
@@ -112,7 +112,7 @@ export default function SystemStatus() {
         </div>
 
         {/* Footer Note */}
-        <div className="mt-12 p-6 rounded-xl bg-[#6DB33F]/5 border border-[#6DB33F]/20">
+        <div className="mt-12 p-6 rounded-xl bg-[#6DB33F]/10 border border-[#6DB33F]/30">
           <p className="text-xs text-gray-400 font-mono">
             <span className="text-[#6DB33F] font-bold">NOTE:</span> This is a simulated status page for demonstration purposes.
             In production, this would connect to real monitoring APIs (e.g., Datadog, New Relic, or custom health check endpoints).
