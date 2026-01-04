@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import CommandPalette from './CommandPalette';
 import { useSystem } from './SystemProvider';
 
@@ -119,7 +120,8 @@ export const Navbar = () => {
                 </button>
               )
             })}
-            <button 
+            <Link href="/community" className="transition-colors relative group hover:text-orange-400">Community</Link>
+            <button
               onClick={() => setPaletteOpen(true)} 
               className="p-2 text-gray-400 hover:text-white transition-colors" 
               title="Search (Cmd+K)"
@@ -160,8 +162,14 @@ export const Navbar = () => {
 
         {mobileMenuOpen && (
           <div className="fixed inset-0 bg-black/95 z-40 flex flex-col items-center justify-center space-y-8 md:hidden animate-fade-up">
-            {['About', 'Projects', 'Stack', 'Writing', 'Connect'].map((item) => (
-              <button key={item} onClick={() => scrollTo(item.toLowerCase())} className={`text-2xl font-bold transition-colors ${activeSection === item.toLowerCase() ? 'text-[#6DB33F]' : 'text-white hover:text-[#6DB33F]'}`}>{item}</button>
+            {['About', 'Projects', 'Stack', 'Writing', 'Community', 'Connect'].map((item) => (
+              <button key={item} onClick={() => {
+                if (item === 'Community') {
+                  window.location.href = '/community';
+                } else {
+                  scrollTo(item.toLowerCase());
+                }
+              }} className={`text-2xl font-bold transition-colors ${activeSection === item.toLowerCase() ? 'text-[#6DB33F]' : 'text-white hover:text-[#6DB33F]'}`}>{item}</button>
             ))}
           </div>
         )}
