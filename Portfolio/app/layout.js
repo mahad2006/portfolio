@@ -2,7 +2,7 @@ import './globals.css';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter, JetBrains_Mono } from 'next/font/google';
-import { BootScreen } from './components';
+import { BootScreen, SystemProvider, SystemDashboard, SystemLogs, MatrixRain } from './components';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -77,10 +77,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-[#050505]">
-        <BootScreen />
-        {children}
-        <Analytics />
-        <SpeedInsights />
+        <SystemProvider>
+          <MatrixRain />
+          <BootScreen />
+          <SystemDashboard />
+          <SystemLogs />
+          <main className="relative z-10">
+            {children}
+          </main>
+          <Analytics />
+          <SpeedInsights />
+        </SystemProvider>
       </body>
     </html>
   )

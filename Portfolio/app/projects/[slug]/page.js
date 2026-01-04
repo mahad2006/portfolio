@@ -13,7 +13,7 @@ export default async function ProjectPage({ params }) {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-[#050505] text-white flex flex-col items-center justify-center font-mono p-4 text-center">
+      <div className="min-h-screen text-white flex flex-col items-center justify-center font-mono p-4 text-center">
         <div className="w-16 h-16 border-2 border-red-500/20 rounded-full flex items-center justify-center mb-6 animate-pulse">
           <span className="text-red-500 text-2xl">!</span>
         </div>
@@ -34,7 +34,7 @@ export default async function ProjectPage({ params }) {
   const content = project.caseStudy || {};
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-sans selection:bg-[#6DB33F] selection:text-black pb-24">
+    <div className="min-h-screen text-gray-300 font-sans selection:bg-[#6DB33F] selection:text-black pb-24">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
         <a href="/#projects" className="text-xs font-mono text-gray-400 hover:text-white transition-colors flex items-center gap-2 group tracking-widest">

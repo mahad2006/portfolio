@@ -15,3 +15,8 @@ export { PrintStyles } from './PrintStyles';
 export { default as SpotlightCard } from './SpotlightCard';
 export { default as CommandPalette } from './CommandPalette';
 export { BootScreen } from './BootScreen';
+
+export { SystemProvider, useSystem } from './SystemProvider';
+export { SystemDashboard } from './SystemDashboard';
+export { SystemLogs } from './SystemLogs';
+export { MatrixRain } from './MatrixRain';

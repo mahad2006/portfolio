@@ -1,7 +1,9 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
+import { useSystem } from './SystemProvider';
 
 export const Hero = () => {
+  const { playType, playClick, playSuccess, toggleMatrix } = useSystem();
   const [history, setHistory] = useState([
     { text: "Welcome to ShaikhMahad-OS v1.0.0", type: "system" },
     { text: "Type 'help' to see available commands.", type: "system" },
@@ -27,9 +29,11 @@ export const Hero = () => {
     const timer = setInterval(() => {
       // This is just a visual delay before "allowing" user input
       index++;
+      if (index % 3 === 0) playType(); // Play sound every few chars
       if (index > introText.length) {
         clearInterval(timer);
         setIsTyping(false); // Enable user input
+        playSuccess();
         // Add the intro text to history effectively
         setHistory(prev => [
             ...prev, 
@@ -43,6 +47,7 @@ export const Hero = () => {
 
   const handleCommand = (e) => {
     if (e.key === 'Enter') {
+      playClick();
       const cmd = inputVal.trim().toLowerCase();
       const newHistory = [...history, { text: `$ ${inputVal}`, type: "command" }];
       
@@ -50,7 +55,11 @@ export const Hero = () => {
 
       switch (cmd) {
         case 'help':
-          response.text = "Available commands:\n  about     - Brief bio\n  projects  - View work\n  stack     - Tech stack\n  clear     - Clear terminal\n  contact   - Get email\n  sudo      - Admin privileges";
+          response.text = "Available commands:\n  about     - Brief bio\n  projects  - View work\n  stack     - Tech stack\n  clear     - Clear terminal\n  contact   - Get email\n  matrix    - Toggle system reality\n  sudo      - Admin privileges";
+          break;
+        case 'matrix':
+          toggleMatrix();
+          response.text = "Rerouting neural pathways...";
           break;
         case 'whoami':
           response.text = "Shaikh Mahad. Backend Systems Engineer. I fix things you didn't know were broken.";
@@ -79,6 +88,13 @@ export const Hero = () => {
           response.text = "Permission denied: You are not in the sudoers file. This incident will be reported.";
           response.color = "text-red-500";
           break;
+        case 'fetch':
+        case 'neofetch':
+          response.text = "OS: ShaikhMahad-OS v1.0.0\nKernel: React 19.0.0\nUptime: 100%\nShell: next-sh\nResolution: 11/10\nUI: Tailwired-4.0";
+          break;
+        case 'ls':
+          response.text = "total 42\ndrwxr-xr-x  about/\ndrwxr-xr-x  projects/\ndrwxr-xr-x  experience/\n-rw-r--r--  resume.pdf\n-rw-r--r--  secret_key.gpg";
+          break;
         case 'sudo rm -rf /':
           response.text = "Nice try. I have backups.";
           response.color = "text-red-500";
@@ -100,9 +116,6 @@ export const Hero = () => {
     <header id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-0 -left-4 w-72 h-72 bg-[#6DB33F]/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute top-0 -right-4 w-72 h-72 bg-[#E76F00]/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-purple-500/20 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff05_1px,transparent_1px)] [background-size:24px_24px] opacity-20"></div>
       </div>
 
@@ -114,8 +127,8 @@ export const Hero = () => {
         </div>
 
         <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-6 text-white leading-tight">
-          Engineering <span className="text-gradient">Backend</span> <br />
-          Systems <span className="mono text-[#6DB33F]">At Scale.</span>
+          Engineering <span className="text-gradient glitch-text">Backend</span> <br />
+          Systems <span className="mono text-[#6DB33F] glitch-text">At Scale.</span>
         </h1>
 
         <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium">
@@ -141,7 +154,7 @@ export const Hero = () => {
           <div 
             ref={chatRef}
             className="p-6 h-64 overflow-y-auto font-mono text-sm text-left scroll-smooth"
-            style={{ backgroundColor: 'rgba(5, 5, 5, 0.8)' }}
+            style={{ backgroundColor: 'rgba(5, 5, 5, 0.95)' }}
           >
             {history.map((line, i) => (
               <div key={i} className="mb-2 last:mb-0">
@@ -175,7 +188,10 @@ export const Hero = () => {
               className="bg-transparent border-none outline-none text-white font-mono text-sm w-full focus:ring-0"
               placeholder="Type a command (help, about, projects)..."
               value={inputVal}
-              onChange={(e) => setInputVal(e.target.value)}
+              onChange={(e) => {
+                setInputVal(e.target.value);
+                if (e.target.value.length > inputVal.length) playType();
+              }}
               onKeyDown={handleCommand}
               disabled={isTyping}
               aria-label="Terminal command input"

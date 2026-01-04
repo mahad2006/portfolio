@@ -1,7 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { useSystem } from './SystemProvider';
 
 const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
+  const { toggleMatrix, isMuted, setIsMuted, playClick, showDashboard, toggleDashboard } = useSystem();
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -12,6 +14,9 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
     { id: 'stack', label: 'Tech Stack', type: 'section', action: () => onNavigate('stack') },
     { id: 'writing', label: 'Writing', type: 'section', action: () => onNavigate('writing') },
     { id: 'connect', label: 'Contact', type: 'section', action: () => onNavigate('connect') },
+    { id: 'matrix', label: 'Toggle Matrix Mode', type: 'action', action: () => toggleMatrix() },
+    { id: 'dashboard', label: showDashboard ? 'Hide System Dashboard' : 'Show System Dashboard', type: 'action', action: () => toggleDashboard() },
+    { id: 'sound', label: isMuted ? 'Enable Sound' : 'Mute Sound', type: 'action', action: () => setIsMuted(!isMuted) },
     { id: 'resume', label: 'View Resume', type: 'link', action: () => window.open('/resume.pdf', '_blank') },
     { id: 'github', label: 'GitHub Profile', type: 'link', action: () => window.open('https://github.com/mahad2006', '_blank') },
   ];
@@ -73,14 +78,20 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
             filteredOptions.map((opt, i) => (
               <button
                 key={opt.id}
-                onClick={() => { opt.action(); onClose(); }}
+                onClick={() => { opt.action(); playClick(); onClose(); }}
                 className={`w-full text-left px-4 py-3 flex items-center justify-between transition-colors ${i === selectedIndex ? 'bg-[#6DB33F]/10 text-[#6DB33F]' : 'text-gray-400 hover:bg-white/5'}`}
               >
                 <div className="flex items-center gap-3">
-                  {opt.type === 'section' ? <span className="text-lg">#</span> : <span className="text-lg">↗</span>}
+                  {opt.type === 'section' ? (
+                    <span className="text-lg opacity-50 font-mono">#</span>
+                  ) : opt.type === 'action' ? (
+                    <span className="text-lg opacity-50 font-mono">⚡</span>
+                  ) : (
+                    <span className="text-lg opacity-50 font-mono">↗</span>
+                  )}
                   <span>{opt.label}</span>
                 </div>
-                {i === selectedIndex && <span className="text-xs opacity-50">↵</span>}
+                {i === selectedIndex && <span className="text-xs opacity-50 font-mono">ENTER</span>}
               </button>
             ))
           )}

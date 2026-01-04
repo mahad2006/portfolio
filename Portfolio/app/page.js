@@ -17,7 +17,7 @@ import {
 
 export default function Home() {
   return (
-    <div className="antialiased selection:bg-[#6DB33F] selection:text-black min-h-screen bg-[#050505]">
+    <div className="antialiased selection:bg-[#6DB33F] selection:text-black min-h-screen">
       {/* Invisible & Utility Components */}
       <JsonLd />
       <PrintStyles />

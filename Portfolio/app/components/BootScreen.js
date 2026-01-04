@@ -1,7 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
+import { useSystem } from './SystemProvider';
 
 export const BootScreen = ({ onComplete }) => {
+    const { playType, playSuccess } = useSystem();
     const [logs, setLogs] = useState([]);
     const [progress, setProgress] = useState(0);
     const [isVisible, setIsVisible] = useState(true);
@@ -24,9 +26,11 @@ export const BootScreen = ({ onComplete }) => {
             setTimeout(() => {
                 setLogs(prev => [...prev, msg]);
                 setProgress(((i + 1) / messages.length) * 100);
+                playType();
                 
                 if (i === messages.length - 1) {
                     setTimeout(() => {
+                        playSuccess();
                         setIsVisible(false);
                         if (onComplete) onComplete();
                     }, 800);

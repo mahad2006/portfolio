@@ -55,7 +55,7 @@ export const Projects = () => {
   const filteredProjects = filter === 'All' ? projectsData : projectsData.filter(p => p.tags.some(t => t.includes(filter)));
   const filters = ['All', 'Java', 'Kotlin', 'Spring Boot', 'System Design', 'Redis'];
   return (
-    <section id="projects" className="py-32 relative bg-black/30">
+    <section id="projects" className="py-32 relative bg-[#080808]">
        <div className="max-w-7xl mx-auto px-6">
         <div className="mb-12">
           <h2 className="text-3xl font-bold mb-4">

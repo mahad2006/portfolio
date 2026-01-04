@@ -1,8 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import CommandPalette from './CommandPalette';
+import { useSystem } from './SystemProvider';
 
 export const Navbar = () => {
+  const { isMuted, setIsMuted, matrixActive, toggleMatrix, playClick, showDashboard, toggleDashboard } = useSystem();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -40,9 +42,24 @@ export const Navbar = () => {
     };
 
     const handleKeyDown = (e) => {
+      // Cmd+K or Ctrl+K for Palette
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         setPaletteOpen(open => !open);
+      }
+      // Esc to close palette is already handled in CommandPalette component
+      
+      // Matrix Mode (Shift + M)
+      if (e.shiftKey && e.key === 'M') {
+        toggleMatrix();
+      }
+      // Mute (Shift + S)
+      if (e.shiftKey && e.key === 'S') {
+        setIsMuted(muted => !muted);
+      }
+      // Dashboard (Shift + D)
+      if (e.shiftKey && e.key === 'D') {
+        toggleDashboard();
       }
     };
 
@@ -55,6 +72,7 @@ export const Navbar = () => {
   }, []);
 
   const scrollTo = (id) => {
+    playClick();
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) element.scrollIntoView({ behavior: 'smooth' });
@@ -63,13 +81,45 @@ export const Navbar = () => {
   return (
     <>
       <CommandPalette isOpen={paletteOpen} onClose={() => setPaletteOpen(false)} onNavigate={scrollTo} />
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'glass-panel shadow-lg shadow-black/20' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#0a0a0a] border-b border-white/10 shadow-lg shadow-black/40' : 'bg-transparent py-6'}`}>
         
         <div className={`max-w-7xl mx-auto px-6 flex justify-between items-center ${scrolled ? 'py-4' : ''}`}>
           <div className="text-xl font-bold mono tracking-tighter text-white z-50 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo(0,0)}>
             Shaikh Mahad<span className="text-[#6DB33F]">.</span>
           </div>
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
+            {/* System Controls */}
+            <div className="flex items-center border-r border-white/10 pr-6 mr-2 space-x-4">
+               <button 
+                onClick={() => { setIsMuted(!isMuted); playClick(); }}
+                className={`p-2 transition-colors ${!isMuted ? 'text-[#6DB33F]' : 'text-gray-600'}`}
+                title={isMuted ? "Enable Sound" : "Mute Sound"}
+              >
+                {isMuted ? (
+                  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" /></svg>
+                ) : (
+                  <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
+                )}
+              </button>
+              <button 
+                onClick={() => toggleMatrix()}
+                className={`p-2 transition-colors ${matrixActive ? 'text-[#6DB33F]' : 'text-gray-600'}`}
+                title="Toggle Matrix Reality (Shift + M)"
+              >
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h18M3 9.5h18M3 14.5h18M3 19.5h18" opacity="0.2" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 2v20M12 2v20M17 2v20" />
+                </svg>
+              </button>
+              <button 
+                onClick={() => toggleDashboard()}
+                className={`p-2 transition-colors ${showDashboard ? 'text-[#6DB33F]' : 'text-gray-600'}`}
+                title="Toggle System Dashboard (Shift + D)"
+              >
+                <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+              </button>
+            </div>
+
             {['About', 'Projects', 'Stack', 'Writing'].map((item) => {
               const lowerItem = item.toLowerCase();
               const isActive = activeSection === lowerItem;
