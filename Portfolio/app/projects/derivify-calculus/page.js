@@ -1,48 +1,18 @@
 import { projectsData } from '../../data/projects';
 import Link from 'next/link';
 import Image from 'next/image';
-import { notFound } from 'next/navigation';
 
-// This function tells Next.js which slugs to pre-render
-export async function generateStaticParams() {
-  // Ensure projectsData is an array before mapping
-  if (!Array.isArray(projectsData)) {
-    return [];
-  }
-  return projectsData.map((project) => ({
-    slug: project.slug,
-  }));
-}
+// Find the specific project data
+const project = projectsData.find(p => p.slug === 'derivify-calculus');
 
-// This function gets the project data for a given slug
-function getProject(slug) {
-  // Ensure projectsData is an array and slug is valid before finding
-  if (!Array.isArray(projectsData) || !slug) {
-    return null;
-  }
-  const project = projectsData.find(p => p.slug === slug);
-  return project;
-}
+export const metadata = {
+  title: `Case Study: ${project.title}`,
+  description: project.tagline,
+};
 
-export async function generateMetadata({ params }) {
-  const project = getProject(params.slug);
+const ProjectPage = () => {
   if (!project) {
-    return {
-      title: 'Project Not Found'
-    }
-  }
-  return {
-    title: `Case Study: ${project.title}`,
-    description: project.tagline,
-  };
-}
-
-const ProjectPage = ({ params }) => {
-  const project = getProject(params.slug);
-
-  if (!project) {
-    // If the project is not found, show the 404 page
-    notFound();
+    return <div>Project not found</div>; // Fallback
   }
 
   return (
