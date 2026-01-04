@@ -6,7 +6,7 @@ import { projectsData } from '../data/projects';
 
 const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) => {
   return (
-    <SpotlightCard className={`group rounded-2xl glass-panel border border-white/5 hover:border-[#6DB33F]/40 transition-all duration-500 hover:shadow-[0_0_30px_rgba(109,179,63,0.1)] flex flex-col h-full overflow-hidden hover:-translate-y-2 ${isFlagship ? 'md:col-span-2 md:flex-row' : ''}`}>
+    <SpotlightCard className={`group rounded-2xl glass-panel border border-white/5 hover:border-[#6DB33F] transition-all duration-300 hover:shadow-[0_0_40px_rgba(109,179,63,0.2)] flex flex-col h-full overflow-hidden hover:-translate-y-2 ${isFlagship ? 'md:col-span-2 md:flex-row' : ''}`}>
       
       <div className={`${isFlagship ? 'md:w-1/2 h-64 md:h-full' : 'h-52 w-full'} bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/5 relative overflow-hidden`}>
         {image ? (
@@ -35,14 +35,14 @@ const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) 
                 <h3 className={`${isFlagship ? 'text-3xl' : 'text-2xl'} font-bold text-white group-hover:text-[#6DB33F] transition-colors leading-tight`}>{title}</h3>
             </div>
         </div>
-        <div className="space-y-4 mb-8 text-sm text-gray-400 leading-relaxed border-l-2 border-white/5 pl-4 group-hover:border-[#6DB33F]/50 transition-colors">
+        <div className="space-y-4 mb-8 text-sm text-gray-400 leading-relaxed border-l-2 border-white/5 pl-4 group-hover:border-[#6DB33F] transition-colors">
             <div><span className="text-gray-200 font-semibold block mb-1 uppercase text-xs tracking-wider">Problem</span>{caseStudy.problem}</div>
             <div><span className="text-gray-200 font-semibold block mb-1 uppercase text-xs tracking-wider">Approach</span>{caseStudy.approach}</div>
             <div><span className="text-[#6DB33F] font-semibold block mb-1 uppercase text-xs tracking-wider">Outcome</span>{caseStudy.outcome}</div>
         </div>
         <div className="mt-auto pt-6 border-t border-white/5 flex flex-wrap gap-2">
           {tags.map((tag) => (
-            <span key={tag} className="px-3 py-1 text-[11px] uppercase tracking-wider font-mono rounded-full bg-white/5 text-gray-400 border border-white/5 group-hover:border-[#6DB33F]/30 group-hover:text-gray-200 transition-colors">{tag}</span>
+            <span key={tag} className="px-3 py-1 text-[11px] uppercase tracking-wider font-mono rounded-full bg-white/5 text-gray-400 border border-white/5 group-hover:border-[#6DB33F]/50 group-hover:text-gray-200 transition-colors">{tag}</span>
           ))}
         </div>
       </div>

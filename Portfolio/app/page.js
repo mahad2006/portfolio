@@ -6,6 +6,7 @@ import {
   Projects,
   Stack,
   Writing,
+  CommandPalette,
   Impact,
   Experience,
   Connect,
@@ -31,6 +32,7 @@ export default function Home() {
       <Projects />
       <Stack />
       <Writing />
+      <CommandPalette />
       <Impact />
       <Experience />
       <Connect />
