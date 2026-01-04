@@ -71,7 +71,7 @@ export const Footer = () => {
             </div>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-8">
-            <p className="text-gray-600 text-[10px] font-mono uppercase tracking-widest">© 2026 Shaikh Mahad. All Rights Reserved.</p>
+            <p className="text-gray-600 text-[10px] font-mono uppercase tracking-widest">© 2024 Shaikh Mahad. All Rights Reserved.</p>
 
             {/* Enhanced Navigation Buttons */}
             <div className="flex flex-wrap gap-4 justify-center">

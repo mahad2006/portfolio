@@ -30,8 +30,10 @@ export default function SystemStatus() {
     <div className="min-h-screen bg-[#050505] text-gray-300 font-sans selection:bg-[#6DB33F] selection:text-black">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="text-xs font-mono text-gray-400 hover:text-white transition-colors flex items-center gap-2 group tracking-widest">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> BACK_TO_HOME
+        <Link href="/" className="group text-xs font-mono text-gray-400 hover:text-[#6DB33F] transition-colors flex items-center gap-2 tracking-widest uppercase">
+          <span className="text-green-400">root@mahad:~/status</span>
+          <span className="text-gray-500">$</span>
+          <span className="group-hover:text-orange-400 transition-colors">cd ..</span>
         </Link>
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse"></div>

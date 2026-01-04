@@ -38,8 +38,10 @@ export default async function ProjectPage({ params }) {
     <div className="min-h-screen text-gray-300 font-sans selection:bg-[#6DB33F] selection:text-black pb-24">
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5 px-6 py-4 flex justify-between items-center">
-        <a href="/#projects" className="text-xs font-mono text-gray-400 hover:text-white transition-colors flex items-center gap-2 group tracking-widest">
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> BACK_TO_SYS
+        <a href="/#projects" className="group text-xs font-mono text-gray-400 hover:text-[#6DB33F] transition-colors flex items-center gap-2 tracking-widest uppercase">
+          <span className="text-green-400">root@mahad:~/projects/{slug}</span>
+          <span className="text-gray-500">$</span>
+          <span className="group-hover:text-orange-400 transition-colors">cd ..</span>
         </a>
         <div className="font-mono text-[9px] text-[#6DB33F] border border-[#6DB33F]/30 px-2 py-1 rounded tracking-[0.3em] bg-[#6DB33F]/5 uppercase">
           Case_Study_v2.1.0

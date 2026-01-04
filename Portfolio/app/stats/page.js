@@ -88,12 +88,10 @@ export default function TelemetryPage() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="text-xs text-gray-400 hover:text-[#6DB33F] transition-all flex items-center gap-2 group tracking-widest uppercase">
-            <span className="group-hover:-translate-x-1 transition-transform">←</span>
-            <span className="relative">
-              EXIT
-              <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#6DB33F] group-hover:w-full transition-all duration-300"></span>
-            </span>
+          <Link href="/" className="group text-xs text-gray-400 hover:text-[#6DB33F] transition-colors flex items-center gap-2 tracking-widest uppercase">
+            <span className="text-green-400">root@mahad:~/stats</span>
+            <span className="text-gray-500">$</span>
+            <span className="group-hover:text-orange-400 transition-colors">cd ..</span>
           </Link>
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse shadow-[0_0_10px_#6DB33F]"></div>
