@@ -2,7 +2,6 @@ import { projectsData } from '../../data/projects';
 import Link from 'next/link';
 import Image from 'next/image';
 
-// Find the specific project data
 const project = projectsData.find(p => p.slug === 'realtime-chat');
 
 export const metadata = {
@@ -12,7 +11,7 @@ export const metadata = {
 
 const ProjectPage = () => {
   if (!project) {
-    return <div>Project not found</div>; // Fallback
+    return <div>Project not found</div>;
   }
 
   return (
@@ -72,19 +71,26 @@ const ProjectPage = () => {
           </aside>
 
           <article className="md:col-span-2 space-y-12">
-            {project.caseStudy.problem && (
-              <div>
-                <h2 className="text-2xl font-bold text-white mb-4">The Problem</h2>
-                <p className="text-gray-400 leading-relaxed">{project.caseStudy.problem}</p>
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-4">The Problem</h2>
+              <p className="text-gray-400 leading-relaxed">{project.caseStudy.problem}</p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-4">Offline-First Architecture</h2>
+              <div className="p-6 bg-neutral-900 border border-neutral-800 rounded-xl">
+                <div className="w-full h-64 bg-neutral-800 rounded-md flex items-center justify-center">
+                  <p className="text-gray-500">[Diagram: UI -&gt; RoomDB (Single Source of Truth) -&gt; WebSocket]</p>
+                </div>
               </div>
-            )}
-            {project.caseStudy.approach && (
-              <div>
-                <h2 className="text-2xl font-bold text-white mb-4">My Approach & Architecture</h2>
-                <p className="text-gray-400 leading-relaxed">{project.caseStudy.approach}</p>
-                {project.caseStudy.architecture && <p className="text-gray-400 leading-relaxed mt-4">{project.caseStudy.architecture}</p>}
-              </div>
-            )}
+              <p className="text-gray-400 leading-relaxed mt-6">{project.caseStudy.architecture}</p>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-4">My Approach</h2>
+              <p className="text-gray-400 leading-relaxed">{project.caseStudy.approach}</p>
+            </div>
+
             {project.caseStudy.challenges && (
               <div>
                 <h2 className="text-2xl font-bold text-white mb-4">Technical Challenges</h2>
