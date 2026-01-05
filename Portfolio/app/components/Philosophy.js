@@ -38,9 +38,9 @@ export const Philosophy = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="mb-12 md:text-center max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold mb-4">
-            <span className="text-[#6DB33F] mono text-2xl">02.</span> Engineering Philosophy
+            <span className="text-[#6DB33F] mono text-2xl">02.</span> My Engineering Approach
           </h2>
-          <p className="text-gray-400">Senior engineering isn't about years of experience, but about the quality of decisions made.</p>
+          <p className="text-gray-400">I believe quality engineering prioritizes decisions over code.</p>
         </div>
         <div className="grid md:grid-cols-3 gap-6 animate-fade-up">
           {philosophies.map((item, idx) => (
