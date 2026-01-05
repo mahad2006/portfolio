@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { projectsData } from './data/projects';
+import { allPosts } from './writing/[slug]/page';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://shaikhmahad.vercel.app';
@@ -10,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         { url: `${baseUrl}/stats`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
         { url: `${baseUrl}/uses`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.6 },
         { url: `${baseUrl}/status`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.5 },
+        { url: `${baseUrl}/writing`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
     ];
 
     const projectPages: MetadataRoute.Sitemap = projectsData.map(project => ({
@@ -19,8 +21,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.9,
     }));
 
+    const writingPages: MetadataRoute.Sitemap = allPosts.map(post => ({
+        url: `${baseUrl}/writing/${post.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.8,
+    }));
+
     return [
         ...staticPages,
         ...projectPages,
+        ...writingPages,
     ];
 }
