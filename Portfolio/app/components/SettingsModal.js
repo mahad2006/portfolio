@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { useSystem } from './SystemProvider';
 
 // A wrapper for each setting for consistent styling and a smoother hover effect
@@ -83,8 +83,14 @@ export const SettingsModal = ({ isOpen, onClose }) => {
     setAccentColor,
     resetSettings
   } = useSystem();
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   if (!isOpen) return null;
+
+  const handleReset = () => {
+    resetSettings();
+    setShowResetConfirm(false);
+  };
 
   const colorOptions = [
     { value: 'green', label: 'Default Green', hex: '#00ff00' },
@@ -138,12 +144,26 @@ export const SettingsModal = ({ isOpen, onClose }) => {
             onSelect={setAccentColor}
           />
           <div className="pt-4">
-            <button
-              onClick={resetSettings}
-              className="w-full text-center p-3 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 hover:text-red-300 transition-colors duration-300"
-            >
-              Reset to Default Settings
-            </button>
+            {!showResetConfirm ? (
+              <button
+                onClick={() => setShowResetConfirm(true)}
+                className="w-full text-center p-3 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 hover:text-red-300 transition-colors duration-300"
+              >
+                Reset to Default Settings
+              </button>
+            ) : (
+              <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg text-center">
+                <p className="text-white mb-4">Are you sure you want to reset all settings?</p>
+                <div className="flex justify-center gap-4">
+                  <button onClick={() => setShowResetConfirm(false)} className="px-4 py-2 rounded-md bg-white/10 hover:bg-white/20 text-white transition-colors">
+                    Cancel
+                  </button>
+                  <button onClick={handleReset} className="px-4 py-2 rounded-md bg-red-500 hover:bg-red-600 text-white font-bold transition-colors">
+                    Confirm Reset
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
