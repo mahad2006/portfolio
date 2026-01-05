@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSystem } from './SystemProvider';
 
 // A wrapper for each setting for consistent styling and a smoother hover effect
@@ -84,6 +84,40 @@ export const SettingsModal = ({ isOpen, onClose }) => {
     resetSettings
   } = useSystem();
   const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const modalRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      const focusableElements = modalRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      const handleKeyDown = (e) => {
+        if (e.key !== 'Tab') return;
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      };
+
+      document.addEventListener('keydown', handleKeyDown);
+      firstElement?.focus();
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -104,13 +138,17 @@ export const SettingsModal = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={onClose}>
       <div className="absolute inset-0 bg-black/70 backdrop-blur-lg"></div>
       <div
+        ref={modalRef}
         className="relative w-full max-w-2xl bg-[#0d0d0d] border border-white/10 rounded-2xl shadow-2xl flex flex-col transform transition-all duration-300 ease-in-out animate-fade-up"
         onClick={e => e.stopPropagation()}
         style={{ maxHeight: '90vh' }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="settings-heading"
       >
         <div className="p-6 border-b border-white/10">
             <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-white tracking-wider">System Settings</h2>
+                <h2 id="settings-heading" className="text-2xl font-bold text-white tracking-wider">System Settings</h2>
                 <button onClick={onClose} className="p-2 text-gray-500 hover:text-white transition-colors text-3xl">&times;</button>
             </div>
         </div>
