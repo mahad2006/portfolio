@@ -57,7 +57,7 @@ export default async function Image() {
                     }}
                 >
                     <img
-                        src={`${process.env.NEXT_PUBLIC_BASE_URL}/og-profile.png`}
+                        src="https://shaikh-mahad.vercel.app/og-profile.png"
                         alt="Shaikh Mahad"
                         width={200}
                         height={200}
