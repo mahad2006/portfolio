@@ -1,8 +1,9 @@
 'use client';
 import React, { useState } from 'react';
+import { useForm, ValidationError } from '@formspree/react';
 
 export const Connect = () => {
-  const [formStatus, setFormStatus] = useState('idle'); // idle, loading, success
+  const [state, handleSubmit] = useForm("meeonyao");
   const [emailCopied, setEmailCopied] = useState(false);
 
   const handleCopyEmail = () => {
@@ -11,14 +12,16 @@ export const Connect = () => {
     setTimeout(() => setEmailCopied(false), 2000);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormStatus('loading');
-    setTimeout(() => {
-      setFormStatus('success');
-      setTimeout(() => setFormStatus('idle'), 3000);
-    }, 1500);
-  };
+  if (state.succeeded) {
+    return (
+      <section id="connect" className="py-24 bg-gradient-to-t from-black to-gray-900/40">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Message Sent!</h2>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">Thanks for your message! I'll get back to you soon.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="connect" className="py-24 bg-gradient-to-t from-black to-gray-900/40">
@@ -63,10 +66,21 @@ export const Connect = () => {
           </div>
           <form className="glass-panel p-8 rounded-2xl space-y-4 relative" onSubmit={handleSubmit}>
             <h3 className="text-white font-bold text-xl mb-2">Send a Message</h3>
-            <div><input type="text" placeholder="Your Name" required disabled={formStatus !== 'idle'} className="input-field disabled:opacity-50 disabled:cursor-not-allowed" /></div>
-            <div><input type="email" placeholder="Your Email" required disabled={formStatus !== 'idle'} className="input-field disabled:opacity-50 disabled:cursor-not-allowed" /></div>
-            <div><textarea rows="4" placeholder="Your Message" required disabled={formStatus !== 'idle'} className="input-field resize-none disabled:opacity-50 disabled:cursor-not-allowed"></textarea></div>
-            <button type="submit" disabled={formStatus !== 'idle'} className={`w-full py-4 font-bold rounded-lg transition-all flex justify-center items-center gap-2 transform active:scale-95 disabled:active:scale-100 disabled:cursor-not-allowed ${formStatus === 'success' ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-[#6DB33F] text-black hover:bg-[#5aa035]'}`}>{formStatus === 'idle' && (<>Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></>)}{formStatus === 'loading' && (<><span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></span> Sending...</>)}{formStatus === 'success' && (<>Message Sent! <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg></>)}</button>
+            <div>
+              <input id="name" type="text" name="name" placeholder="Your Name" required className="input-field" />
+              <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-500 text-xs mt-1" />
+            </div>
+            <div>
+              <input id="email" type="email" name="email" placeholder="Your Email" required className="input-field" />
+              <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-500 text-xs mt-1" />
+            </div>
+            <div>
+              <textarea id="message" name="message" rows="4" placeholder="Your Message" required className="input-field resize-none"></textarea>
+              <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-500 text-xs mt-1" />
+            </div>
+            <button type="submit" disabled={state.submitting} className="w-full py-4 font-bold rounded-lg transition-all flex justify-center items-center gap-2 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-[#6DB33F] text-black hover:bg-[#5aa035]">
+              {state.submitting ? <><span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></span> Sending...</> : 'Send Message'}
+            </button>
           </form>
         </div>
       </div>
