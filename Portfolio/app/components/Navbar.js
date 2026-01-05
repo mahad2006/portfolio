@@ -6,7 +6,7 @@ import { SettingsModal } from './SettingsModal';
 import { useSystem } from './SystemProvider';
 
 export const Navbar = () => {
-  const { playClick, toggleSettingsModal } = useSystem();
+  const { playClick } = useSystem();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -117,7 +117,13 @@ export const Navbar = () => {
           </div>
           {/* ... (mobile menu) */}
         </div>
-        {/* ... (progress bar and mobile menu div) */}
+
+        {/* Reading Progress Bar */}
+        {scrolled && (
+            <div className="absolute bottom-0 left-0 h-[2px] bg-[#6DB33F] shadow-[0_0_10px_#6DB33F]" style={{ width: `${scrollProgress}%` }}></div>
+        )}
+
+        {/* ... (mobile menu div) */}
       </nav>
     </>
   );
