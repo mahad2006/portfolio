@@ -32,7 +32,7 @@ export const Experience = () => {
           <div className="relative animate-fade-up" style={{animationDelay: '0.2s'}}>
             <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-gray-600 border-4 border-black"></div>
             <h3 className="text-2xl font-bold text-white">Software Engineering Undergraduate</h3>
-            <p className="text-gray-500 mono text-sm mb-4">UBIT, University of Karachi | 2025 - 2028</p>
+            <p className="text-gray-400 mono text-sm mb-4">UBIT, University of Karachi | 2025 - 2028</p>
             <p className="text-gray-400 max-w-2xl">Focusing on Data Structures, Algorithms, and Distributed Systems. Transitioned from building native Android apps to engineering robust backend architectures.</p>
           </div>
         </div>

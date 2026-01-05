@@ -128,7 +128,7 @@ export const Footer = () => {
             </div>
 
             <div className="flex gap-6">
-                <span className="text-gray-700 text-[10px] font-mono">BUILT WITH NEXT.JS 16 & REACT 19</span>
+                <span className="text-gray-500 text-[10px] font-mono">BUILT WITH NEXT.JS 16 & REACT 19</span>
             </div>
         </div>
       </div>
