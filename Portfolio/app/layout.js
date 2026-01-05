@@ -2,6 +2,7 @@ import './globals.css';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import { SystemProvider } from './components';
 import ClientLayout from './components/ClientLayout';
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -80,6 +81,7 @@ export default function RootLayout({ children }) {
         <SystemProvider>
           <ClientLayout>{children}</ClientLayout>
         </SystemProvider>
+        <Analytics />
       </body>
     </html>
   );
