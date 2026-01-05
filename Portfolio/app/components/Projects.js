@@ -67,7 +67,7 @@ export const Projects = () => {
           </p>
           <div className="flex flex-wrap gap-2">
             {filters.map(f => (
-                <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-full text-xs font-mono border transition-all ${filter === f ? 'bg-[#6DB33F] text-black border-[#6DB33F]' : 'bg-transparent text-gray-500 border-white/10 hover:border-white/30'}`}>{f}</button>
+                <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-full text-xs font-mono border transition-all ${filter === f ? 'bg-[#6DB33F] text-black border-[#6DB33F]' : 'bg-transparent text-gray-400 border-white/10 hover:border-white/30'}`}>{f}</button>
             ))}
           </div>
         </div>

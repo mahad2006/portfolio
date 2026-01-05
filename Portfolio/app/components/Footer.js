@@ -63,9 +63,9 @@ export const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
             <div className="flex flex-col items-center md:items-start">
                 <div className="text-xl font-bold mono mb-2 text-white">Shaikh Mahad<span className="text-[#6DB33F]">.</span></div>
-                <p className="text-gray-500 text-xs font-mono uppercase tracking-widest">Designed for high performance.</p>
+                <p className="text-gray-400 text-xs font-mono uppercase tracking-widest">Designed for high performance.</p>
             </div>
-            <div className="flex gap-8 text-gray-500 text-sm font-mono">
+            <div className="flex gap-8 text-gray-400 text-sm font-mono">
                 <div className="flex flex-col">
                     <span className="text-[#6DB33F] text-[10px] mb-1">LATENCY</span>
                     <span>{latency ? `${latency}ms` : '--'}</span>
@@ -81,7 +81,7 @@ export const Footer = () => {
             </div>
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 gap-8">
-            <p className="text-gray-600 text-[10px] font-mono uppercase tracking-widest">© 2024 Shaikh Mahad. All Rights Reserved.</p>
+            <p className="text-gray-500 text-[10px] font-mono uppercase tracking-widest">© 2024 Shaikh Mahad. All Rights Reserved.</p>
 
             <div className="flex flex-wrap gap-4 justify-center">
                 <Link
@@ -98,7 +98,7 @@ export const Footer = () => {
                     className="group relative px-6 py-2.5 bg-white/5 border border-white/10 rounded-md hover:bg-white/10 hover:border-white/20 transition-all text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest"
                 >
                     <span className="relative z-10 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-gray-500 group-hover:bg-white"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-gray-400 group-hover:bg-white"></span>
                         Setup
                     </span>
                 </Link>
