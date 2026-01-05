@@ -1,6 +1,6 @@
 'use client';
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { SettingsModal } from './SettingsModal';
+import { SettingsModal } from '@/app/components/SettingsModal';
 
 const SystemContext = createContext();
 

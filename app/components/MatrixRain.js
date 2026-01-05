@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
 
-import { useSystem } from './SystemProvider';
+import { useSystem } from '@/app/components/SystemProvider';
 
 export const MatrixRain = () => {
   const { matrixActive: active } = useSystem();
@@ -32,7 +32,7 @@ export const MatrixRain = () => {
       ctx.fillStyle = 'rgba(5, 5, 5, 0.05)';
       ctx.fillRect(0, 0, width, height);
 
-      ctx.fillStyle = '#6DB33F';
+      ctx.fillStyle = 'rgb(109, 179, 63)';
       ctx.font = `${fontSize}px monospace`;
 
       for (let i = 0; i < drops.length; i++) {

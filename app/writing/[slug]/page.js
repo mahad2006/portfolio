@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { allPosts } from '../../data/writing';
+import { allPosts } from '@/app/data/writing';
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({

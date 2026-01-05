@@ -40,7 +40,7 @@ export default async function Image() {
                 />
 
                 {/* Glowing Orbs */}
-                <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: '600px', height: '600px', background: '#6DB33F', filter: 'blur(150px)', opacity: 0.15 }}></div>
+                <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: '600px', height: '600px', background: 'rgb(109, 179, 63)', filter: 'blur(150px)', opacity: 0.15 }}></div>
                 <div style={{ position: 'absolute', bottom: '-20%', right: '-10%', width: '600px', height: '600px', background: '#E76F00', filter: 'blur(150px)', opacity: 0.15 }}></div>
 
                 {/* Main Content Container */}
@@ -63,7 +63,7 @@ export default async function Image() {
                         height={200}
                         style={{
                             borderRadius: '50%',
-                            border: '4px solid #6DB33F',
+                            border: '4px solid rgb(109, 179, 63)',
                             marginRight: '50px',
                         }}
                     />
@@ -84,7 +84,7 @@ export default async function Image() {
                                 borderRadius: '50px',
                                 border: '1px solid rgba(109, 179, 63, 0.3)',
                                 backgroundColor: 'rgba(109, 179, 63, 0.1)',
-                                color: '#6DB33F',
+                                color: 'rgb(109, 179, 63)',
                                 fontSize: 20,
                                 fontWeight: 600,
                                 marginBottom: 30,
@@ -92,13 +92,13 @@ export default async function Image() {
                                 letterSpacing: '2px',
                             }}
                         >
-                            <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#6DB33F' }}></div>
+                            <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: 'rgb(109, 179, 63)' }}></div>
                             Available for Hire
                         </div>
 
                         {/* Name */}
                         <div style={{ fontSize: 84, fontWeight: 900, color: 'white', letterSpacing: '-2px', marginBottom: 10, display: 'flex' }}>
-                            Shaikh Mahad<span style={{ color: '#6DB33F' }}>.</span>
+                            Shaikh Mahad<span style={{ color: 'rgb(109, 179, 63)' }}>.</span>
                         </div>
 
                         {/* Role */}

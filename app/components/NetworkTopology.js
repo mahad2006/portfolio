@@ -17,7 +17,7 @@ const NetworkTopology = () => {
         const nodes = [{ id: 'hub', name: 'UBIT Hub', val: 20, color: '#E76F00' }];
         const links = [];
         for (let i = 1; i <= 50; i++) {
-            nodes.push({ id: `node-${i}`, name: `Peer ${i}`, val: 2, color: '#6DB33F' });
+            nodes.push({ id: `node-${i}`, name: `Peer ${i}`, val: 2, color: 'rgb(109, 179, 63)' });
             links.push({ source: 'hub', target: `node-${i}` });
         }
         return { nodes, links };

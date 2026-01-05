@@ -100,7 +100,7 @@ export default function UsesPage() {
             <span className="group-hover:text-orange-400 transition-colors">cd ..</span>
           </Link>
           <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#6DB33F]"></div>
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
             <span className="text-[9px] text-primary tracking-[0.3em] uppercase">System_Configuration</span>
           </div>
         </div>
@@ -126,7 +126,7 @@ export default function UsesPage() {
         {/* Hardware Section */}
         <section className="mb-24">
           <div className="flex items-center gap-4 mb-10">
-            <span className="w-16 h-px bg-gradient-to-r from-[#6DB33F] to-transparent"></span>
+            <span className="w-16 h-px bg-gradient-to-r from-primary to-transparent"></span>
             <h2 className="text-sm font-bold text-white tracking-[0.4em] uppercase">Hardware_Specifications</h2>
           </div>
 
@@ -142,7 +142,7 @@ export default function UsesPage() {
               >
                 {/* Animated corner accent */}
                 {item.highlight && (
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#6DB33F]/20 to-transparent blur-3xl group-hover:w-40 group-hover:h-40 transition-all duration-500"></div>
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent blur-3xl group-hover:w-40 group-hover:h-40 transition-all duration-500"></div>
                 )}
 
                 <div className="relative p-8 flex items-start gap-8">
@@ -186,7 +186,7 @@ export default function UsesPage() {
         {/* Development Environment Section */}
         <section className="mb-24">
           <div className="flex items-center gap-4 mb-10">
-            <span className="w-16 h-px bg-gradient-to-r from-[#6DB33F] to-transparent"></span>
+            <span className="w-16 h-px bg-gradient-to-r from-primary to-transparent"></span>
             <h2 className="text-sm font-bold text-white tracking-[0.4em] uppercase">Development_Environment</h2>
           </div>
 
@@ -196,7 +196,7 @@ export default function UsesPage() {
                 key={idx}
                 className="group relative p-6 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-primary/30 hover:bg-neutral-800 transition-all duration-500"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-[#6DB33F]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
                 <div className="relative">
                   <div className="flex items-start justify-between mb-4">
@@ -231,7 +231,7 @@ export default function UsesPage() {
         {/* Tools Section */}
         <section className="mb-24">
           <div className="flex items-center gap-4 mb-10">
-            <span className="w-16 h-px bg-gradient-to-r from-[#6DB33F] to-transparent"></span>
+            <span className="w-16 h-px bg-gradient-to-r from-primary to-transparent"></span>
             <h2 className="text-sm font-bold text-white tracking-[0.4em] uppercase">Tools_&_Utilities</h2>
           </div>
 
@@ -253,14 +253,14 @@ export default function UsesPage() {
         {/* Tech Stack Section */}
         <section className="mb-20">
           <div className="flex items-center gap-4 mb-10">
-            <span className="w-16 h-px bg-gradient-to-r from-[#6DB33F] to-transparent"></span>
+            <span className="w-16 h-px bg-gradient-to-r from-primary to-transparent"></span>
             <h2 className="text-sm font-bold text-white tracking-[0.4em] uppercase">Primary_Technology_Stack</h2>
           </div>
 
           <div className="space-y-8">
             {Object.entries(setup.stack).map(([category, techs], idx) => (
               <div key={idx} className="relative">
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#6DB33F] to-transparent opacity-50"></div>
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-transparent opacity-50"></div>
                 <div className="pl-8">
                   <h3 className="text-xs text-primary uppercase tracking-wider mb-4 font-bold flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>

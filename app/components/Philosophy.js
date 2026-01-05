@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import SpotlightCard from './SpotlightCard';
+import SpotlightCard from '@/app/components/SpotlightCard';
 
 const philosophies = [
   {

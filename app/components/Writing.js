@@ -11,7 +11,7 @@ const featuredArticles = [
     date: 'Jan 2026',
     readTime: '6 min read',
     isPopular: true,
-    color: '#6DB33F',
+    color: 'var(--color-primary)',
   },
   {
     slug: 'optimistic-vs-pessimistic-locking',

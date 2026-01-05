@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useSystem } from './SystemProvider';
+import { useSystem } from '@/app/components/SystemProvider';
 
 export const BootScreen = ({ onComplete }) => {
     const { playType, playSuccess } = useSystem();
@@ -66,7 +66,7 @@ export const BootScreen = ({ onComplete }) => {
                     </div>
                     <div className="flex items-center justify-between text-[10px] text-gray-500 tracking-[0.3em] uppercase">
                         <span>Terminal_v4.2</span>
-                        <span className="text-primary shadow-[0_0_10px_#6DB33F]">Status: Booting</span>
+                        <span className="text-primary">Status: Booting</span>
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@ export const BootScreen = ({ onComplete }) => {
                 <div className="space-y-2">
                     <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                         <div 
-                            className="h-full bg-primary transition-all duration-300 ease-out shadow-[0_0_10px_#6DB33F]"
+                            className="h-full bg-primary transition-all duration-300 ease-out"
                             style={{ width: `${progress}%` }}
                         ></div>
                     </div>

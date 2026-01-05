@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { useSystem } from './SystemProvider';
+import { useSystem } from '@/app/components/SystemProvider';
 
 // A wrapper for each setting for consistent styling and a smoother hover effect
 const SettingItem = ({ children }) => (

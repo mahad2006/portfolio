@@ -2,7 +2,7 @@
 
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { BootScreen, MatrixRain, RequestLogger, CommandPalette, useSystem } from './';
+import { BootScreen, MatrixRain, RequestLogger, CommandPalette, useSystem } from '@/app/components';
 
 export default function ClientLayout({ children }) {
   const { isCommandPaletteOpen, toggleCommandPalette } = useSystem();

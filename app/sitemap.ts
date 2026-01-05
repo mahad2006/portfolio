@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
-import { projectsData } from './data/projects';
-import { allPosts } from './data/writing';
+import { projectsData } from '@/app/data/projects';
+import { allPosts } from '@/app/data/writing';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const baseUrl = 'https://shaikhmahad.vercel.app';

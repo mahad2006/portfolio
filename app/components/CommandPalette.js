@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { useSystem } from './SystemProvider';
+import { useSystem } from '@/app/components/SystemProvider';
 import {
   HomeIcon,
   UserIcon,

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import { useSystem } from '../components/SystemProvider';
+import { useSystem } from '@/app/components/SystemProvider';
 
 const Toggle = ({ label, description, isEnabled, onToggle }) => (
   <div className="flex justify-between items-center p-6 bg-neutral-900 border border-neutral-800 rounded-lg hover:border-white/20 transition-colors">

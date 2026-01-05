@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useSystem } from './SystemProvider';
+import { useSystem } from '@/app/components/SystemProvider';
 
 const TransitionLink = ({ href, messages, children, className }) => {
   const { handleNavigate } = useSystem();

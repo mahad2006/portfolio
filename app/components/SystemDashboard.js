@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { useSystem } from './SystemProvider';
+import { useSystem } from '@/app/components/SystemProvider';
 
 export const SystemDashboard = () => {
   const { showDashboard, toggleDashboard } = useSystem();
@@ -58,7 +58,7 @@ export const SystemDashboard = () => {
           <div className="flex justify-between items-center border-b border-white/5 pb-2">
             <span className="text-primary font-bold tracking-widest uppercase">System Status</span>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#6DB33F]"></span>
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
             </div>
           </div>
           

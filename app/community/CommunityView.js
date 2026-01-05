@@ -80,7 +80,7 @@ const UBITCommunityPage = () => {
             <span className="group-hover:text-primary transition-colors">cd ..</span>
           </Link>
           <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#6DB33F]"></div>
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
             <span className="text-[9px] text-primary tracking-[0.3em] uppercase">UBIT_HUB</span>
           </div>
         </div>
@@ -115,7 +115,7 @@ const UBITCommunityPage = () => {
         {/* Network Topology Section */}
         <section className="mb-24">
             <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-                <span className="w-12 h-px bg-gradient-to-r from-[#6DB33F] to-transparent"></span>
+                <span className="w-12 h-px bg-gradient-to-r from-primary to-transparent"></span>
                 Network_Topology
             </h2>
             {mounted && <NetworkTopology />}
@@ -124,7 +124,7 @@ const UBITCommunityPage = () => {
         {/* Why I Created UBIT Hub */}
         <section className="mb-24">
             <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-                <span className="w-12 h-px bg-gradient-to-r from-[#6DB33F] to-transparent"></span>
+                <span className="w-12 h-px bg-gradient-to-r from-primary to-transparent"></span>
                 Mission_Objective
             </h2>
             <div className="p-8 rounded-2xl bg-neutral-900 border border-neutral-800">
@@ -137,13 +137,13 @@ const UBITCommunityPage = () => {
         {/* Community Structure */}
         <section className="mb-24">
             <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-                <span className="w-12 h-px bg-gradient-to-r from-[#6DB33F] to-transparent"></span>
+                <span className="w-12 h-px bg-gradient-to-r from-primary to-transparent"></span>
                 Community_Structure
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {groups.map(group => (
                     <div key={group.name} className="group relative p-6 rounded-xl bg-neutral-900 border border-neutral-800 text-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#6DB33F]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div className="relative text-primary w-8 h-8 mx-auto mb-4 group-hover:text-green-300 transition-colors duration-300">
                             {group.icon}
                         </div>
@@ -156,13 +156,13 @@ const UBITCommunityPage = () => {
         {/* Features Section */}
         <section className="mb-24">
             <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-                <span className="w-12 h-px bg-gradient-to-r from-[#6DB33F] to-transparent"></span>
+                <span className="w-12 h-px bg-gradient-to-r from-primary to-transparent"></span>
                 Core_Protocols
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
                 {features.map(feature => (
                     <div key={feature.title} className="group relative p-8 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
-                        <div className="absolute inset-0 bg-gradient-to-br from-[#6DB33F]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div className="relative">
                             <div className="text-primary w-8 h-8 mb-4 group-hover:text-green-300 transition-colors duration-300">{feature.icon}</div>
                             <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
@@ -176,7 +176,7 @@ const UBITCommunityPage = () => {
         {/* My Role Section */}
         <section className="mb-24">
             <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-                <span className="w-12 h-px bg-gradient-to-r from-[#6DB33F] to-transparent"></span>
+                <span className="w-12 h-px bg-gradient-to-r from-primary to-transparent"></span>
                 My_Role
             </h2>
             <div className="p-8 rounded-2xl bg-neutral-900 border border-neutral-800">
