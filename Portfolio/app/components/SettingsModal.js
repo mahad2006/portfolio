@@ -81,6 +81,7 @@ export const SettingsModal = ({ isOpen, onClose }) => {
     setMatrixSpeed,
     accentColor,
     setAccentColor,
+    resetSettings
   } = useSystem();
 
   if (!isOpen) return null;
@@ -136,6 +137,14 @@ export const SettingsModal = ({ isOpen, onClose }) => {
             selected={accentColor}
             onSelect={setAccentColor}
           />
+          <div className="pt-4">
+            <button
+              onClick={resetSettings}
+              className="w-full text-center p-3 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 hover:text-red-300 transition-colors duration-300"
+            >
+              Reset to Default Settings
+            </button>
+          </div>
         </div>
       </div>
     </div>

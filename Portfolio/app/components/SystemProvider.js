@@ -10,11 +10,18 @@ const konamiCode = [
   'b', 'a'
 ];
 
+const DEFAULTS = {
+  isMuted: true,
+  matrixActive: false,
+  matrixSpeed: 5,
+  accentColor: 'green',
+};
+
 export const SystemProvider = ({ children }) => {
-  const [isMuted, setIsMuted] = useState(true);
-  const [matrixActive, setMatrixActive] = useState(false);
-  const [matrixSpeed, setMatrixSpeed] = useState(5);
-  const [accentColor, setAccentColor] = useState('green');
+  const [isMuted, setIsMuted] = useState(DEFAULTS.isMuted);
+  const [matrixActive, setMatrixActive] = useState(DEFAULTS.matrixActive);
+  const [matrixSpeed, setMatrixSpeed] = useState(DEFAULTS.matrixSpeed);
+  const [accentColor, setAccentColor] = useState(DEFAULTS.accentColor);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [konamiIndex, setKonamiIndex] = useState(0);
@@ -83,6 +90,17 @@ export const SystemProvider = ({ children }) => {
   const toggleCommandPalette = useCallback(() => setIsCommandPaletteOpen(prev => !prev), []);
   const toggleSettingsModal = useCallback(() => setIsSettingsModalOpen(prev => !prev), []);
 
+  const resetSettings = useCallback(() => {
+    setIsMuted(DEFAULTS.isMuted);
+    setMatrixActive(DEFAULTS.matrixActive);
+    setMatrixSpeed(DEFAULTS.matrixSpeed);
+    setAccentColor(DEFAULTS.accentColor);
+    localStorage.removeItem('sound_muted');
+    localStorage.removeItem('matrix_mode');
+    localStorage.removeItem('matrix_speed');
+    localStorage.removeItem('accent_color');
+  }, []);
+
   // Global keydown listener
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -120,7 +138,8 @@ export const SystemProvider = ({ children }) => {
       accentColor, setAccentColor,
       isCommandPaletteOpen, toggleCommandPalette,
       isSettingsModalOpen, toggleSettingsModal,
-      playClick, playType, playSuccess
+      playClick, playType, playSuccess,
+      resetSettings
     }}>
       {children}
       <SettingsModal isOpen={isSettingsModalOpen} onClose={toggleSettingsModal} />
