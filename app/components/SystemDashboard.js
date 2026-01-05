@@ -45,20 +45,20 @@ export const SystemDashboard = () => {
           aria-label={showDashboard ? "Hide Dashboard" : "Show Dashboard"}
         >
           <div className="flex flex-col gap-1 mb-2">
-            <span className="w-1 h-1 rounded-full bg-gray-600 group-hover/btn:bg-[#6DB33F]"></span>
-            <span className="w-1 h-1 rounded-full bg-gray-600 group-hover/btn:bg-[#6DB33F]"></span>
-            <span className="w-1 h-1 rounded-full bg-gray-600 group-hover/btn:bg-[#6DB33F]"></span>
+            <span className="w-1 h-1 rounded-full bg-gray-600 group-hover/btn:bg-primary"></span>
+            <span className="w-1 h-1 rounded-full bg-gray-600 group-hover/btn:bg-primary"></span>
+            <span className="w-1 h-1 rounded-full bg-gray-600 group-hover/btn:bg-primary"></span>
           </div>
-          <span className={`text-[7px] font-bold text-gray-500 group-hover/btn:text-[#6DB33F] transition-transform duration-500 ${showDashboard ? 'rotate-0' : 'rotate-180'}`}>
+          <span className={`text-[7px] font-bold text-gray-500 group-hover/btn:text-primary transition-transform duration-500 ${showDashboard ? 'rotate-0' : 'rotate-180'}`}>
             {showDashboard ? '▶' : '◀'}
           </span>
         </button>
 
         <div className="glass-panel p-4 rounded-xl border border-white/10 w-60 font-mono text-[10px] space-y-3 shadow-2xl overflow-hidden group">
           <div className="flex justify-between items-center border-b border-white/5 pb-2">
-            <span className="text-[#6DB33F] font-bold tracking-widest uppercase">System Status</span>
+            <span className="text-primary font-bold tracking-widest uppercase">System Status</span>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse shadow-[0_0_8px_#6DB33F]"></span>
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#6DB33F]"></span>
             </div>
           </div>
           
@@ -70,7 +70,7 @@ export const SystemDashboard = () => {
               </div>
               <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-[#6DB33F] transition-all duration-1000 ease-in-out" 
+                  className="h-full bg-primary transition-all duration-1000 ease-in-out" 
                   style={{ width: `${metrics.cpu * 5}%` }}
                 ></div>
               </div>

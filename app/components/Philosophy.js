@@ -38,7 +38,7 @@ export const Philosophy = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="mb-12 md:text-center max-w-2xl mx-auto">
           <h2 className="text-3xl font-bold mb-4">
-            <span className="text-[#6DB33F] mono text-2xl">02.</span> My Engineering Approach
+            <span className="text-primary mono text-2xl">02.</span> My Engineering Approach
           </h2>
           <p className="text-gray-400">I believe quality engineering prioritizes decisions over code.</p>
         </div>
@@ -46,9 +46,9 @@ export const Philosophy = () => {
           {philosophies.map((item, idx) => (
             <SpotlightCard
               key={idx}
-              className="group p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:-translate-y-1 hover:border-[#6DB33F]"
+              className="group p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:-translate-y-1 hover:border-primary"
             >
-              <div className="w-12 h-12 bg-[#6DB33F]/10 text-[#6DB33F] rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+              <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 {item.icon}
               </div>
               <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>

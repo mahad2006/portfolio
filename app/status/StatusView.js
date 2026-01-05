@@ -5,10 +5,10 @@ import Link from 'next/link';
 export default function SystemStatus() {
   const [uptime, setUptime] = useState('00:00:00');
   const [metrics, setMetrics] = useState({
-    database: { status: 'Connected', latency: '12ms', color: 'text-[#6DB33F]' },
-    redis: { status: 'Online', latency: '2ms', color: 'text-[#6DB33F]' },
-    api: { status: 'Operational', latency: '45ms', color: 'text-[#6DB33F]' },
-    cdn: { status: 'Active', latency: '8ms', color: 'text-[#6DB33F]' }
+    database: { status: 'Connected', latency: '12ms', color: 'text-primary' },
+    redis: { status: 'Online', latency: '2ms', color: 'text-primary' },
+    api: { status: 'Operational', latency: '45ms', color: 'text-primary' },
+    cdn: { status: 'Active', latency: '8ms', color: 'text-primary' }
   });
 
   useEffect(() => {
@@ -25,28 +25,28 @@ export default function SystemStatus() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-sans selection:bg-[#6DB33F] selection:text-black relative overflow-hidden">
+    <div className="min-h-screen bg-[#050505] text-gray-300 font-sans selection:bg-primary selection:text-black relative overflow-hidden">
 
       {/* Premium Background Grid & Lighting Effects */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-[#6DB33F] opacity-10 blur-[100px]"></div>
+        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary opacity-10 blur-[100px]"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent"></div>
       </div>
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/70 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="group text-xs font-mono text-gray-400 hover:text-[#6DB33F] transition-colors flex items-center gap-2 tracking-widest uppercase">
-          <span className="text-[#6DB33F] font-bold">root@mahad:~/status</span>
+        <Link href="/" className="group text-xs font-mono text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
+          <span className="text-primary font-bold">root@mahad:~/status</span>
           <span className="text-gray-500 animate-pulse">$</span>
           <span className="group-hover:text-white transition-colors duration-300">cd ..</span>
         </Link>
         <div className="flex items-center gap-3 bg-white/5 px-3 py-1 rounded-full border border-white/5">
           <div className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#6DB33F] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#6DB33F]"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
           </div>
-          <span className="font-mono text-[10px] text-[#6DB33F] tracking-wider uppercase font-bold">Systems Normal</span>
+          <span className="font-mono text-[10px] text-primary tracking-wider uppercase font-bold">Systems Normal</span>
         </div>
       </nav>
 
@@ -56,42 +56,42 @@ export default function SystemStatus() {
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none font-mono tracking-tighter uppercase">
             System Status
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl border-l-2 border-[#6DB33F] pl-6 font-light leading-relaxed">
+          <p className="text-xl text-gray-400 max-w-2xl border-l-2 border-primary pl-6 font-light leading-relaxed">
             Real-time telemetry and monitoring of portfolio infrastructure.
           </p>
         </div>
 
         {/* Uptime Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
-          <div className="p-8 rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/5 hover:border-[#6DB33F]/30 transition-all duration-300 group">
-            <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3 group-hover:text-[#6DB33F] transition-colors">Current Uptime</div>
+          <div className="p-8 rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/5 hover:border-primary/30 transition-all duration-300 group">
+            <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3 group-hover:text-primary transition-colors">Current Uptime</div>
             <div className="text-3xl font-bold text-white font-mono tracking-tight">{uptime}</div>
           </div>
-          <div className="p-8 rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/5 hover:border-[#6DB33F]/30 transition-all duration-300 group">
-            <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3 group-hover:text-[#6DB33F] transition-colors">Global Latency</div>
-            <div className="text-3xl font-bold text-[#6DB33F] font-mono tracking-tight drop-shadow-[0_0_10px_rgba(109,179,63,0.3)]">45ms</div>
+          <div className="p-8 rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/5 hover:border-primary/30 transition-all duration-300 group">
+            <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3 group-hover:text-primary transition-colors">Global Latency</div>
+            <div className="text-3xl font-bold text-primary font-mono tracking-tight drop-shadow-[0_0_10px_rgba(109,179,63,0.3)]">45ms</div>
           </div>
-          <div className="p-8 rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/5 hover:border-[#6DB33F]/30 transition-all duration-300 group">
-            <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3 group-hover:text-[#6DB33F] transition-colors">Availability</div>
-            <div className="text-3xl font-bold text-[#6DB33F] font-mono tracking-tight drop-shadow-[0_0_10px_rgba(109,179,63,0.3)]">99.99%</div>
+          <div className="p-8 rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/5 hover:border-primary/30 transition-all duration-300 group">
+            <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3 group-hover:text-primary transition-colors">Availability</div>
+            <div className="text-3xl font-bold text-primary font-mono tracking-tight drop-shadow-[0_0_10px_rgba(109,179,63,0.3)]">99.99%</div>
           </div>
         </div>
 
         {/* Services Status */}
         <div className="space-y-6">
           <h2 className="text-sm font-bold text-white mb-6 flex items-center gap-4 font-mono tracking-[0.4em] uppercase opacity-80">
-            <span className="w-8 h-px bg-[#6DB33F]"></span>
+            <span className="w-8 h-px bg-primary"></span>
             Active Components
           </h2>
 
           <div className="grid gap-4">
           {Object.entries(metrics).map(([key, value]) => (
-            <div key={key} className="p-5 rounded-xl bg-neutral-900/40 backdrop-blur-sm border border-white/5 hover:border-[#6DB33F]/40 hover:bg-neutral-900/60 transition-all duration-300 group">
+            <div key={key} className="p-5 rounded-xl bg-neutral-900/40 backdrop-blur-sm border border-white/5 hover:border-primary/40 hover:bg-neutral-900/60 transition-all duration-300 group">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="flex items-center gap-4">
                   <div className={`relative w-2.5 h-2.5 rounded-full ${value.color.replace('text-', 'bg-')} shadow-[0_0_12px_currentColor]`}></div>
                   <div>
-                    <h3 className="text-lg font-bold text-white capitalize font-mono tracking-tight group-hover:text-[#6DB33F] transition-colors">{key}</h3>
+                    <h3 className="text-lg font-bold text-white capitalize font-mono tracking-tight group-hover:text-primary transition-colors">{key}</h3>
                     <p className="text-[10px] text-gray-500 font-mono uppercase tracking-widest">{value.status}</p>
                   </div>
                 </div>
@@ -101,7 +101,7 @@ export default function SystemStatus() {
                     <div className="text-white font-mono font-bold text-sm">{value.latency}</div>
                   </div>
                   <div className="w-24 h-1 bg-neutral-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-[#6DB33F] w-full animate-[pulse_2s_ease-in-out_infinite]"></div>
+                    <div className="h-full bg-primary w-full animate-[pulse_2s_ease-in-out_infinite]"></div>
                   </div>
                 </div>
               </div>
@@ -114,8 +114,8 @@ export default function SystemStatus() {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Incident History */}
           <div className="p-8 rounded-2xl bg-neutral-900/30 border border-white/5 flex flex-col items-center justify-center min-h-[200px]">
-             <div className="w-12 h-12 rounded-full bg-[#6DB33F]/10 flex items-center justify-center mb-4">
-                <svg className="w-6 h-6 text-[#6DB33F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
              </div>
@@ -148,9 +148,9 @@ export default function SystemStatus() {
         </div>
 
         {/* Footer Note */}
-        <div className="mt-12 p-4 rounded-lg bg-[#6DB33F]/5 border border-[#6DB33F]/10 text-center">
+        <div className="mt-12 p-4 rounded-lg bg-primary/5 border border-primary/10 text-center">
           <p className="text-[10px] text-gray-500 font-mono">
-            <span className="text-[#6DB33F]">sys_admin@mahad:~$</span> echo "Simulated status environment. Production data requires API keys."
+            <span className="text-primary">sys_admin@mahad:~$</span> echo "Simulated status environment. Production data requires API keys."
           </p>
         </div>
       </main>

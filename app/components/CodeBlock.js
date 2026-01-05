@@ -35,10 +35,10 @@ export const CodeBlock = ({ code, language = 'javascript', title = '' }) => {
         >
           {copied ? (
             <>
-              <svg className="w-4 h-4 text-[#6DB33F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
-              <span className="text-[#6DB33F]">Copied!</span>
+              <span className="text-primary">Copied!</span>
             </>
           ) : (
             <>
@@ -54,7 +54,7 @@ export const CodeBlock = ({ code, language = 'javascript', title = '' }) => {
       {/* Toast Notification */}
       {copied && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[200] animate-fade-up">
-          <div className="px-6 py-3 bg-[#6DB33F] text-black font-bold rounded-lg shadow-2xl flex items-center gap-3 font-mono text-sm">
+          <div className="px-6 py-3 bg-primary text-black font-bold rounded-lg shadow-2xl flex items-center gap-3 font-mono text-sm">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
             </svg>

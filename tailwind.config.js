@@ -6,6 +6,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            colors: {
+                primary: 'var(--color-primary)',
+            },
             fontFamily: {
                 sans: ['var(--font-inter)', 'sans-serif'],
                 mono: ['var(--font-mono)', 'monospace'],

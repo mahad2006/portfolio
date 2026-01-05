@@ -38,7 +38,7 @@ export const SystemLogs = () => {
         {logs.map((log, i) => (
           <div key={i} className={`flex gap-3 animate-fade-up opacity-60 hover:opacity-100 transition-opacity`}>
             <span className="text-gray-600">[{log.timestamp}]</span>
-            <span className={log.type === 'system' ? 'text-[#6DB33F]' : log.type === 'success' ? 'text-blue-400' : 'text-gray-400'}>
+            <span className={log.type === 'system' ? 'text-primary' : log.type === 'success' ? 'text-blue-400' : 'text-gray-400'}>
               {log.msg}
             </span>
           </div>

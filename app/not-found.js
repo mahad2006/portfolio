@@ -6,7 +6,7 @@ export default function NotFound() {
             <h1 className="text-9xl font-bold text-[#222] animate-pulse select-none">404</h1>
 
             <div className="absolute space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold text-[#6DB33F] font-mono">System Malfunction</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-primary font-mono">System Malfunction</h2>
                 <p className="text-gray-400 max-w-md mx-auto">
                     The requested resource could not be found on this server. It might have been moved, deleted, or never existed.
                 </p>

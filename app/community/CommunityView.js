@@ -65,7 +65,7 @@ const UBITCommunityPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-[#6DB33F] selection:text-black">
+    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
       {/* Animated Grid Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-10">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(109,179,63,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(109,179,63,0.04)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
@@ -74,14 +74,14 @@ const UBITCommunityPage = () => {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group text-xs text-gray-400 hover:text-[#6DB33F] transition-colors flex items-center gap-2 tracking-widest uppercase">
+          <Link href="/" className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
             <span className="text-green-400">root@mahad:~/community</span>
             <span className="text-gray-500">$</span>
-            <span className="group-hover:text-[#6DB33F] transition-colors">cd ..</span>
+            <span className="group-hover:text-primary transition-colors">cd ..</span>
           </Link>
           <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse shadow-[0_0_10px_#6DB33F]"></div>
-            <span className="text-[9px] text-[#6DB33F] tracking-[0.3em] uppercase">UBIT_HUB</span>
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#6DB33F]"></div>
+            <span className="text-[9px] text-primary tracking-[0.3em] uppercase">UBIT_HUB</span>
           </div>
         </div>
       </nav>
@@ -91,20 +91,20 @@ const UBITCommunityPage = () => {
         {/* Hero Section */}
         <header className="mb-24 text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none tracking-tighter uppercase">
-            The<span className="text-[#6DB33F]">_</span>Digital<span className="text-[#6DB33F]">_</span>Campus
+            The<span className="text-primary">_</span>Digital<span className="text-primary">_</span>Campus
           </h1>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
             A structured peer-learning ecosystem I founded to help UBIT students learn, collaborate, and grow together.
           </p>
           <div className="mt-12 flex justify-center gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-[#6DB33F]">
+              <div className="text-4xl font-bold text-primary">
                 {mounted ? <AnimatedCounter target={stats.peers} suffix="+" /> : `${stats.peers}+`}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">Connected Peers</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-[#6DB33F]">
+              <div className="text-4xl font-bold text-primary">
                 {mounted ? <AnimatedCounter target={stats.resources} suffix="+" /> : `${stats.resources}+`}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">Resources Shared</div>
@@ -142,9 +142,9 @@ const UBITCommunityPage = () => {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 {groups.map(group => (
-                    <div key={group.name} className="group relative p-6 rounded-xl bg-neutral-900 border border-neutral-800 text-center hover:border-[#6DB33F] transition-all duration-300 transform hover:-translate-y-1">
+                    <div key={group.name} className="group relative p-6 rounded-xl bg-neutral-900 border border-neutral-800 text-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
                         <div className="absolute inset-0 bg-gradient-to-br from-[#6DB33F]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div className="relative text-[#6DB33F] w-8 h-8 mx-auto mb-4 group-hover:text-green-300 transition-colors duration-300">
+                        <div className="relative text-primary w-8 h-8 mx-auto mb-4 group-hover:text-green-300 transition-colors duration-300">
                             {group.icon}
                         </div>
                         <h3 className="text-sm font-bold text-white">{group.name}</h3>
@@ -161,10 +161,10 @@ const UBITCommunityPage = () => {
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
                 {features.map(feature => (
-                    <div key={feature.title} className="group relative p-8 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-[#6DB33F] transition-all duration-300 transform hover:-translate-y-1">
+                    <div key={feature.title} className="group relative p-8 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
                         <div className="absolute inset-0 bg-gradient-to-br from-[#6DB33F]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div className="relative">
-                            <div className="text-[#6DB33F] w-8 h-8 mb-4 group-hover:text-green-300 transition-colors duration-300">{feature.icon}</div>
+                            <div className="text-primary w-8 h-8 mb-4 group-hover:text-green-300 transition-colors duration-300">{feature.icon}</div>
                             <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
                             <p className="text-gray-400 leading-relaxed">{feature.description}</p>
                         </div>

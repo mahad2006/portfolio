@@ -1,9 +1,10 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import CommandPalette from './CommandPalette';
-import { SettingsModal } from './SettingsModal';
-import { useSystem } from './SystemProvider';
+import CommandPalette from '@/app/components/CommandPalette';
+import { SettingsModal } from '@/app/components/SettingsModal';
+import { useSystem } from '@/app/components/SystemProvider';
+import { NAV_LINKS } from '@/app/data/constants';
 
 export const Navbar = () => {
   const { playClick } = useSystem();
@@ -71,16 +72,15 @@ export const Navbar = () => {
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#0a0a0a] border-b border-white/10 shadow-lg shadow-black/40' : 'bg-transparent py-6'}`}>
         <div className={`max-w-7xl mx-auto px-6 flex justify-between items-center ${scrolled ? 'py-4' : ''}`}>
           <div className="text-xl font-bold mono tracking-tighter text-white z-50 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo(0,0)} onMouseEnter={playClick}>
-            Shaikh Mahad<span className="text-[#6DB33F]">.</span>
+            Shaikh Mahad<span className="text-primary">.</span>
           </div>
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
-            {['About', 'Projects', 'Stack', 'Writing'].map((item) => {
-              const lowerItem = item.toLowerCase();
-              const isActive = activeSection === lowerItem;
+            {NAV_LINKS.map((item) => {
+              const isActive = activeSection === item.id;
               return (
-                <button key={item} onClick={() => scrollTo(lowerItem)} onMouseEnter={playClick} className={`transition-colors relative group ${isActive ? 'text-[#6DB33F]' : 'hover:text-[#6DB33F]'}`}>
-                  {item}
-                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#6DB33F] transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
+                <button key={item.id} onClick={() => scrollTo(item.id)} onMouseEnter={playClick} className={`transition-colors relative group ${isActive ? 'text-primary' : 'hover:text-primary'}`}>
+                  {item.label}
+                  <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`}></span>
                 </button>
               )
             })}
@@ -108,7 +108,7 @@ export const Navbar = () => {
               <button
                 onClick={() => scrollTo('connect')}
                 onMouseEnter={playClick}
-                className="px-4 py-2 text-white bg-[#6DB33F]/10 border border-[#6DB33F]/50 rounded hover:bg-[#6DB33F] hover:border-[#6DB33F] transition-all transform hover:scale-105"
+                className="px-4 py-2 text-white bg-primary/10 border border-primary/50 rounded hover:bg-primary hover:border-primary transition-all transform hover:scale-105"
                 aria-label="Contact Me"
               >
                 Let's Talk
@@ -120,7 +120,7 @@ export const Navbar = () => {
 
         {/* Reading Progress Bar */}
         {scrolled && (
-            <div className="absolute bottom-0 left-0 h-[2px] bg-[#6DB33F] shadow-[0_0_10px_#6DB33F]" style={{ width: `${scrollProgress}%` }}></div>
+            <div className="absolute bottom-0 left-0 h-[2px] bg-primary" style={{ width: `${scrollProgress}%` }}></div>
         )}
 
         {/* ... (mobile menu div) */}

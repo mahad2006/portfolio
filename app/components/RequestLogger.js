@@ -48,8 +48,8 @@ export const RequestLogger = () => {
       <div className="glass-panel p-3 rounded-lg border border-white/10 w-72 font-mono text-[9px] shadow-2xl pointer-events-auto">
         <div className="flex items-center justify-between mb-2 pb-2 border-b border-white/5">
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#6DB33F] animate-pulse"></div>
-            <span className="text-[#6DB33F] font-bold tracking-wider uppercase">Request Log</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+            <span className="text-primary font-bold tracking-wider uppercase">Request Log</span>
           </div>
           <button
             onClick={handleDismiss}
@@ -65,7 +65,7 @@ export const RequestLogger = () => {
           {logs.map((log) => (
             <div key={log.id} className="flex gap-2 text-gray-400 animate-fade-up">
               <span className="text-gray-600">[{log.timestamp}]</span>
-              <span className="text-[#6DB33F]">{log.method}</span>
+              <span className="text-primary">{log.method}</span>
               <span className="text-blue-400 truncate">{log.path}</span>
               <span className="text-gray-500">{log.status}</span>
             </div>

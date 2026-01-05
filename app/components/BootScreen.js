@@ -52,7 +52,7 @@ export const BootScreen = ({ onComplete }) => {
             <div className="w-full max-w-lg space-y-8 relative z-20">
                 {/* Logo Section */}
                 <div className="text-center space-y-4">
-                    <div className="text-[#6DB33F] animate-pulse">
+                    <div className="text-primary animate-pulse">
                         <pre className="text-[6px] md:text-[8px] leading-[1.1] inline-block text-left font-bold">
 {`
    _____ _    _          _____ _  ___ _    __  __          _    _          _____  
@@ -66,7 +66,7 @@ export const BootScreen = ({ onComplete }) => {
                     </div>
                     <div className="flex items-center justify-between text-[10px] text-gray-500 tracking-[0.3em] uppercase">
                         <span>Terminal_v4.2</span>
-                        <span className="text-[#6DB33F] shadow-[0_0_10px_#6DB33F]">Status: Booting</span>
+                        <span className="text-primary shadow-[0_0_10px_#6DB33F]">Status: Booting</span>
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@ export const BootScreen = ({ onComplete }) => {
                 <div className="space-y-2">
                     <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                         <div 
-                            className="h-full bg-[#6DB33F] transition-all duration-300 ease-out shadow-[0_0_10px_#6DB33F]"
+                            className="h-full bg-primary transition-all duration-300 ease-out shadow-[0_0_10px_#6DB33F]"
                             style={{ width: `${progress}%` }}
                         ></div>
                     </div>
@@ -88,11 +88,11 @@ export const BootScreen = ({ onComplete }) => {
                 <div className="h-32 overflow-hidden space-y-1 border-l border-white/10 pl-4">
                     {logs.map((log, i) => (
                         <div key={i} className={`text-[10px] md:text-xs flex gap-3 ${log.type === 'head' ? 'text-white font-bold' : 'text-gray-500'}`}>
-                            <span className="text-[#6DB33F] opacity-50 select-none">[{i}]</span>
+                            <span className="text-primary opacity-50 select-none">[{i}]</span>
                             <span className="tracking-wider">{log.text}</span>
                         </div>
                     ))}
-                    <div className="w-1.5 h-4 bg-[#6DB33F] animate-pulse inline-block align-middle ml-1"></div>
+                    <div className="w-1.5 h-4 bg-primary animate-pulse inline-block align-middle ml-1"></div>
                 </div>
             </div>
 

@@ -19,7 +19,7 @@ export const metadata = {
 
 export default function Home() {
   return (
-    <div className="antialiased selection:bg-[#6DB33F] selection:text-black min-h-screen">
+    <div className="antialiased selection:bg-primary selection:text-black min-h-screen">
       {/* Invisible & Utility Components */}
       <JsonLd />
       <PrintStyles />

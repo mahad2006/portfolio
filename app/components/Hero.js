@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { useSystem } from './SystemProvider';
+import { useSystem } from '@/app/components/SystemProvider';
+import { HERO_COMMANDS } from '@/app/data/constants';
 
 export const Hero = () => {
   const { playType, playClick, playSuccess, toggleMatrix } = useSystem();
@@ -53,69 +54,30 @@ export const Hero = () => {
       
       let response = { text: "", type: "output" };
 
-      switch (cmd) {
-        case 'help':
-          response.text = "Available commands:\n  about     - Brief bio\n  projects  - View work\n  stack     - Tech stack\n  stats     - Performance metrics\n  uses      - My dev setup\n  status    - System health\n  clear     - Clear terminal\n  contact   - Get email\n  matrix    - Toggle system reality\n  sudo      - Admin privileges";
-          break;
-        case 'matrix':
-          toggleMatrix();
-          response.text = "Rerouting neural pathways...";
-          break;
-        case 'whoami':
-          response.text = "Shaikh Mahad. Backend Systems Engineer. I fix things you didn't know were broken.";
-          break;
-        case 'about':
-          document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
-          response.text = "Navigating to About section...";
-          break;
-        case 'projects':
-          document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-          response.text = "Navigating to Projects section...";
-          break;
-        case 'stack':
-          document.getElementById('stack').scrollIntoView({ behavior: 'smooth' });
-          response.text = "Navigating to Tech Stack...";
-          break;
-        case 'contact':
-          document.getElementById('connect').scrollIntoView({ behavior: 'smooth' });
-          response.text = "Opening comms channel...";
-          break;
-        case 'stats':
-          window.location.href = '/stats';
-          response.text = "Loading telemetry dashboard...";
-          break;
-        case 'uses':
-          window.location.href = '/uses';
-          response.text = "Loading system configuration...";
-          break;
-        case 'status':
-          window.location.href = '/status';
-          response.text = "Checking system health...";
-          break;
-        case 'clear':
+      const command = HERO_COMMANDS[cmd];
+      if (command) {
+        if (command.isClear) {
           setHistory([]);
           setInputVal('');
           return;
-        case 'sudo':
-          response.text = "Permission denied: You are not in the sudoers file. This incident will be reported.";
-          response.color = "text-red-500";
-          break;
-        case 'fetch':
-        case 'neofetch':
-          response.text = "System: Portfolio v2.0\nKernel: React 19.0.0\nUptime: 100%\nShell: next-sh\nResolution: Production Ready\nUI: Tailwind 4.0";
-          break;
-        case 'ls':
-          response.text = "total 42\ndrwxr-xr-x  about/\ndrwxr-xr-x  projects/\ndrwxr-xr-x  experience/\n-rw-r--r--  resume.pdf\n-rw-r--r--  secret_key.gpg";
-          break;
-        case 'sudo rm -rf /':
-          response.text = "Nice try. I have backups.";
-          response.color = "text-red-500";
-          break;
-        case '':
-          break;
-        default:
-          response.text = `Command not found: ${cmd}. Type 'help' for options.`;
-          response.color = "text-yellow-500";
+        }
+        response.text = command.text;
+        if (command.color) response.color = command.color;
+        if (command.action) {
+          if (cmd === 'matrix') {
+            toggleMatrix();
+          } else {
+            command.action();
+          }
+        }
+      } else {
+        switch (cmd) {
+          case '':
+            break;
+          default:
+            response.text = `Command not found: ${cmd}. Type 'help' for options.`;
+            response.color = "text-yellow-500";
+        }
       }
 
       if (cmd) newHistory.push({ ...response, text: response.text }); // Add response
@@ -133,14 +95,14 @@ export const Hero = () => {
 
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto animate-fade-up">
         {/* Status Badge */}
-        <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-[#6DB33F]/30 bg-[#6DB33F]/5 text-[#6DB33F] text-xs font-bold tracking-widest uppercase hover:bg-[#6DB33F]/10 transition-colors cursor-default hover:scale-105 transform duration-300">
-          <span className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse"></span>
+        <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-bold tracking-widest uppercase hover:bg-primary/10 transition-colors cursor-default hover:scale-105 transform duration-300">
+          <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
           System Online: Available for Hire
         </div>
 
         <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-6 text-white leading-tight">
           Engineering <span className="text-gradient glitch-text">Backend</span> <br />
-          Systems <span className="mono text-[#6DB33F] glitch-text">At Scale.</span>
+          Systems <span className="mono text-primary glitch-text">At Scale.</span>
         </h1>
 
         <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium">
@@ -149,13 +111,13 @@ export const Hero = () => {
         </p>
 
         {/* Terminal Simulation */}
-        <div className="glass-panel rounded-lg overflow-hidden w-full max-w-2xl mx-auto border border-white/10 shadow-2xl shadow-black/50 group hover:border-[#6DB33F]/30 transition-all duration-500">
+        <div className="glass-panel rounded-lg overflow-hidden w-full max-w-2xl mx-auto border border-white/10 shadow-2xl shadow-black/50 group hover:border-primary/30 transition-all duration-500">
           {/* Terminal Title Bar */}
           <div className="px-4 py-2 bg-white/5 border-b border-white/5 flex items-center justify-between">
             <div className="flex gap-1.5">
               <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+              <div className="w-3 h-3 rounded-full bg-primary/50"></div>
             </div>
             <div className="text-[10px] text-gray-500 font-mono flex items-center gap-2">
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
@@ -172,7 +134,7 @@ export const Hero = () => {
               <div key={i} className="mb-2 last:mb-0">
                 {line.type === 'command' ? (
                   <div className="flex gap-2">
-                    <span className="text-[#6DB33F]">➜</span>
+                    <span className="text-primary">➜</span>
                     <span className="text-blue-400">~</span>
                     <span className="text-white">{line.text}</span>
                   </div>
@@ -185,15 +147,15 @@ export const Hero = () => {
             ))}
             {isTyping && (
               <div className="flex gap-2 animate-pulse">
-                <span className="text-[#6DB33F]">➜</span>
+                <span className="text-primary">➜</span>
                 <span className="text-blue-400">~</span>
-                <span className="w-2 h-5 bg-[#6DB33F]"></span>
+                <span className="w-2 h-5 bg-primary"></span>
               </div>
             )}
           </div>
           {/* Terminal Input */}
           <div className="px-4 py-3 bg-white/5 border-t border-white/5 flex items-center gap-2">
-            <span className="text-[#6DB33F] font-mono text-sm">➜</span>
+            <span className="text-primary font-mono text-sm">➜</span>
             <input 
               ref={inputRef}
               type="text" 
@@ -215,7 +177,7 @@ export const Hero = () => {
         <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
           <button 
             onClick={() => document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-3 bg-[#6DB33F] text-black font-bold rounded-md hover:bg-[#7bc846] transition-all transform hover:-translate-y-1 w-full sm:w-auto"
+            className="px-8 py-3 bg-primary text-black font-bold rounded-md hover:opacity-90 transition-all transform hover:-translate-y-1 w-full sm:w-auto"
           >
             View Projects
           </button>

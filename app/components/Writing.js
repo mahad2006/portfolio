@@ -31,7 +31,7 @@ export const Writing = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-3xl font-bold flex items-center gap-3">
-            <span className="text-[#6DB33F] mono text-2xl">05.</span> Technical Writing
+            <span className="text-primary mono text-2xl">05.</span> Technical Writing
           </h2>
           <Link href="/writing" className="group text-sm font-bold text-gray-400 hover:text-white transition-colors flex items-center gap-2">
             View All Articles
@@ -50,7 +50,7 @@ export const Writing = () => {
               <div className="absolute inset-0 border border-transparent group-hover:border-[var(--hover-color)] rounded-2xl transition-colors duration-300"></div>
 
               {post.isPopular && (
-                <div className="absolute top-0 right-0 bg-[#6DB33F]/20 text-[#6DB33F] text-[10px] font-bold px-3 py-1 rounded-bl-lg">POPULAR</div>
+                <div className="absolute top-0 right-0 bg-primary/20 text-primary text-[10px] font-bold px-3 py-1 rounded-bl-lg">POPULAR</div>
               )}
               <div className="flex justify-between items-start mb-4">
                 <span className="text-xs font-mono" style={{color: post.color}}>{post.category}</span>

@@ -1,12 +1,12 @@
 'use client';
 import React, { useState } from 'react';
-import SpotlightCard from './SpotlightCard';
+import SpotlightCard from '@/app/components/SpotlightCard';
 
 const TechCard = ({ icon, name, category, color, level, evidence }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const getColorClass = (c) => {
-    if (c === 'spring') return 'bg-[#6DB33F]';
+    if (c === 'spring') return 'bg-primary';
     if (c === 'java') return 'bg-[#E76F00]';
     if (c === 'purple-500') return 'bg-purple-500';
     if (c === 'green-400') return 'bg-green-400';
@@ -21,7 +21,7 @@ const TechCard = ({ icon, name, category, color, level, evidence }) => {
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
-      <SpotlightCard className="group relative w-full h-full p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-[#6DB33F] transition-all duration-300 hover:-translate-y-2 hover:shadow-lg overflow-hidden">
+      <SpotlightCard className="group relative w-full h-full p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-primary transition-all duration-300 hover:-translate-y-2 hover:shadow-lg overflow-hidden">
         <div className={`absolute top-0 left-0 w-full h-1 ${getColorClass(color)} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl shadow-[0_2px_10px_rgba(255,255,255,0.1)]`}></div>
         <div className="absolute top-2 right-2 text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 px-2 py-0.5 rounded text-gray-300">{level}</div>
         <div className="mb-4 text-gray-300 group-hover:text-white transition-colors transform group-hover:scale-110 duration-300 origin-left">{icon}</div>
@@ -32,8 +32,8 @@ const TechCard = ({ icon, name, category, color, level, evidence }) => {
       {/* Tooltip with Evidence */}
       {evidence && showTooltip && (
         <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-4 w-72 z-50 pointer-events-none animate-fade-up">
-          <div className="glass-panel p-4 rounded-lg border border-[#6DB33F]/30 shadow-2xl">
-            <div className="text-[10px] text-[#6DB33F] font-mono uppercase tracking-wider mb-2">Evidence:</div>
+          <div className="glass-panel p-4 rounded-lg border border-primary/30 shadow-2xl">
+            <div className="text-[10px] text-primary font-mono uppercase tracking-wider mb-2">Evidence:</div>
             <p className="text-xs text-gray-300 leading-relaxed">{evidence}</p>
             <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white/10"></div>
           </div>
@@ -71,7 +71,7 @@ export const Stack = () => {
       <MarqueeStyles />
       <div className="max-w-[1920px] mx-auto">
         <div className="text-center mb-16 px-6">
-          <h2 className="text-3xl font-bold mb-4"><span className="text-[#6DB33F] mono text-2xl">04.</span> Engineering Stack</h2>
+          <h2 className="text-3xl font-bold mb-4"><span className="text-primary mono text-2xl">04.</span> Engineering Stack</h2>
           <p className="text-gray-400">Tools and technologies I use to build scalable systems.</p>
         </div>
         <div className="flex flex-col gap-8 marquee-container">

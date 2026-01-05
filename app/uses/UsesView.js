@@ -81,7 +81,7 @@ export default function UsesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-[#6DB33F] selection:text-black overflow-hidden">
+    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black overflow-hidden">
 
       {/* Matrix Rain Background Effect */}
       <div className="fixed inset-0 pointer-events-none opacity-5">
@@ -94,14 +94,14 @@ export default function UsesPage() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group text-xs text-gray-400 hover:text-[#6DB33F] transition-colors flex items-center gap-2 tracking-widest uppercase">
+          <Link href="/" className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
             <span className="text-green-400">root@mahad:~/uses</span>
             <span className="text-gray-500">$</span>
             <span className="group-hover:text-orange-400 transition-colors">cd ..</span>
           </Link>
           <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse shadow-[0_0_10px_#6DB33F]"></div>
-            <span className="text-[9px] text-[#6DB33F] tracking-[0.3em] uppercase">System_Configuration</span>
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#6DB33F]"></div>
+            <span className="text-[9px] text-primary tracking-[0.3em] uppercase">System_Configuration</span>
           </div>
         </div>
       </nav>
@@ -114,9 +114,9 @@ export default function UsesPage() {
           <div className="flex items-center gap-4 mb-6">
             <div>
               <h1 className="text-6xl md:text-8xl font-bold text-white leading-none tracking-tighter uppercase mb-4">
-                Uses<span className="text-[#6DB33F]">.</span>
+                Uses<span className="text-primary">.</span>
               </h1>
-              <p className="text-xl text-gray-400 max-w-2xl border-l-2 border-[#6DB33F] pl-6 leading-relaxed">
+              <p className="text-xl text-gray-400 max-w-2xl border-l-2 border-primary pl-6 leading-relaxed">
                 Hardware, software, and tools that power my development workflow
               </p>
             </div>
@@ -136,7 +136,7 @@ export default function UsesPage() {
                 key={idx}
                 className={`group relative overflow-hidden rounded-2xl border transition-all duration-500 ${
                   item.highlight
-                    ? 'border-[#6DB33F]/30 bg-neutral-900 hover:border-[#6DB33F]/50 hover:shadow-[0_0_40px_rgba(109,179,63,0.15)]'
+                    ? 'border-primary/30 bg-neutral-900 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(109,179,63,0.15)]'
                     : 'border-neutral-800 bg-neutral-900 hover:border-white/20'
                 }`}
               >
@@ -150,7 +150,7 @@ export default function UsesPage() {
                   <div className="flex-shrink-0">
                     <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-4xl transition-all duration-500 ${
                       item.highlight
-                        ? 'bg-[#6DB33F]/10 group-hover:bg-[#6DB33F]/20 group-hover:scale-110'
+                        ? 'bg-primary/10 group-hover:bg-primary/20 group-hover:scale-110'
                         : 'bg-white/5 group-hover:bg-white/10'
                     }`}>
                       {item.icon}
@@ -161,8 +161,8 @@ export default function UsesPage() {
                   <div className="flex-1">
                     <div className="flex items-start justify-between mb-4">
                       <div>
-                        <div className="text-[10px] text-[#6DB33F] uppercase tracking-wider mb-2 font-bold">{item.category}</div>
-                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-[#6DB33F] transition-colors">
+                        <div className="text-[10px] text-primary uppercase tracking-wider mb-2 font-bold">{item.category}</div>
+                        <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">
                           {item.name}
                         </h3>
                       </div>
@@ -171,7 +171,7 @@ export default function UsesPage() {
                     {/* Specs */}
                     <div className="flex flex-wrap gap-3">
                       {item.specs.map((spec, i) => (
-                        <div key={i} className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-400 hover:border-[#6DB33F]/30 hover:bg-white/10 transition-all">
+                        <div key={i} className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-gray-400 hover:border-primary/30 hover:bg-white/10 transition-all">
                           {spec}
                         </div>
                       ))}
@@ -194,28 +194,28 @@ export default function UsesPage() {
             {setup.development.map((item, idx) => (
               <div
                 key={idx}
-                className="group relative p-6 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-[#6DB33F]/30 hover:bg-neutral-800 transition-all duration-500"
+                className="group relative p-6 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-primary/30 hover:bg-neutral-800 transition-all duration-500"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#6DB33F]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
                 <div className="relative">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="text-[10px] text-[#6DB33F] uppercase tracking-wider font-bold">{item.category}</div>
+                    <div className="text-[10px] text-primary uppercase tracking-wider font-bold">{item.category}</div>
                     {item.link && (
                       <a
                         href={item.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg bg-white/5 hover:bg-[#6DB33F]/20 border border-white/10 hover:border-[#6DB33F]/50 transition-all"
+                        className="p-2 rounded-lg bg-white/5 hover:bg-primary/20 border border-white/10 hover:border-primary/50 transition-all"
                       >
-                        <svg className="w-4 h-4 text-gray-400 group-hover:text-[#6DB33F] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 text-gray-400 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                       </a>
                     )}
                   </div>
 
-                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-[#6DB33F] transition-colors">
+                  <h3 className="text-lg font-bold text-white mb-3 group-hover:text-primary transition-colors">
                     {item.name}
                   </h3>
 
@@ -239,9 +239,9 @@ export default function UsesPage() {
             {setup.tools.map((tool, idx) => (
               <div
                 key={idx}
-                className="group p-6 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-[#6DB33F]/30 transition-all duration-300"
+                className="group p-6 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-primary/30 transition-all duration-300"
               >
-                <h3 className="text-base font-bold text-white mb-2 group-hover:text-[#6DB33F] transition-colors">
+                <h3 className="text-base font-bold text-white mb-2 group-hover:text-primary transition-colors">
                   {tool.name}
                 </h3>
                 <p className="text-xs text-gray-500">{tool.desc}</p>
@@ -262,15 +262,15 @@ export default function UsesPage() {
               <div key={idx} className="relative">
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#6DB33F] to-transparent opacity-50"></div>
                 <div className="pl-8">
-                  <h3 className="text-xs text-[#6DB33F] uppercase tracking-wider mb-4 font-bold flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse"></span>
+                  <h3 className="text-xs text-primary uppercase tracking-wider mb-4 font-bold flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                     {category}
                   </h3>
                   <div className="flex flex-wrap gap-3">
                     {techs.map((tech, i) => (
                       <span
                         key={i}
-                        className="px-4 py-2 text-sm rounded-lg bg-neutral-900 border border-neutral-800 text-gray-300 hover:border-[#6DB33F]/30 hover:text-white hover:bg-neutral-800 transition-all cursor-default"
+                        className="px-4 py-2 text-sm rounded-lg bg-neutral-900 border border-neutral-800 text-gray-300 hover:border-primary/30 hover:text-white hover:bg-neutral-800 transition-all cursor-default"
                       >
                         {tech}
                       </span>
@@ -283,9 +283,9 @@ export default function UsesPage() {
         </section>
 
         {/* Footer Note */}
-        <div className="p-8 rounded-2xl bg-[#6DB33F]/10 border border-[#6DB33F]/30">
+        <div className="p-8 rounded-2xl bg-primary/10 border border-primary/30">
           <p className="text-sm text-gray-400 leading-relaxed">
-            <span className="text-[#6DB33F] font-bold">NOTE:</span> This setup evolves constantly as I experiment with new tools and optimize my workflow. The goal is always maximum productivity and minimum friction.
+            <span className="text-primary font-bold">NOTE:</span> This setup evolves constantly as I experiment with new tools and optimize my workflow. The goal is always maximum productivity and minimum friction.
           </p>
         </div>
 

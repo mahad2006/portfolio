@@ -16,10 +16,10 @@ const ProjectPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-[#6DB33F] selection:text-black">
+    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group text-xs text-gray-400 hover:text-[#6DB33F] transition-colors flex items-center gap-2 tracking-widest uppercase">
+          <Link href="/" className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
             <span className="text-green-400">root@mahad:~/projects/{project.slug}</span>
             <span className="text-gray-500">$</span>
             <span className="group-hover:text-orange-400 transition-colors">cd ..</span>
@@ -32,11 +32,11 @@ const ProjectPage = () => {
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-none tracking-tighter">
             {project.title}
           </h1>
-          <p className="text-xl text-gray-400 border-l-2 border-[#6DB33F] pl-6">
+          <p className="text-xl text-gray-400 border-l-2 border-primary pl-6">
             {project.tagline}
           </p>
           <div className="mt-8 flex gap-4">
-            <a href={project.link} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-[#6DB33F] text-black font-bold rounded-lg hover:bg-[#5aa035] transition-colors">View Repository</a>
+            <a href={project.link} target="_blank" rel="noopener noreferrer" className="px-6 py-3 bg-primary text-black font-bold rounded-lg hover:bg-[#5aa035] transition-colors">View Repository</a>
           </div>
         </header>
 
@@ -99,7 +99,7 @@ const ProjectPage = () => {
                 <div className="space-y-6">
                   {project.caseStudy.challenges.map(challenge => (
                     <div key={challenge.title} className="p-6 bg-neutral-900 border border-neutral-800 rounded-xl">
-                      <h4 className="font-bold text-[#6DB33F] mb-2">{challenge.title}</h4>
+                      <h4 className="font-bold text-primary mb-2">{challenge.title}</h4>
                       <p className="text-gray-400 text-sm leading-relaxed">{challenge.desc}</p>
                     </div>
                   ))}

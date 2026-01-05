@@ -11,7 +11,7 @@ const Toggle = ({ label, description, isEnabled, onToggle }) => (
     </div>
     <button
       onClick={onToggle}
-      className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${isEnabled ? 'bg-[#6DB33F]' : 'bg-white/10'}`}
+      className={`relative w-12 h-6 rounded-full transition-colors duration-300 ${isEnabled ? 'bg-primary' : 'bg-white/10'}`}
       aria-label={`Toggle ${label}`}
     >
       <span
@@ -25,10 +25,10 @@ const SettingsPage = () => {
   const { isMuted, setIsMuted, matrixActive, toggleMatrix } = useSystem();
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-[#6DB33F] selection:text-black">
+    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group text-xs text-gray-400 hover:text-[#6DB33F] transition-colors flex items-center gap-2 tracking-widest uppercase">
+          <Link href="/" className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
             <span className="text-green-400">root@mahad:~/settings</span>
             <span className="text-gray-500">$</span>
             <span className="group-hover:text-orange-400 transition-colors">cd ..</span>
@@ -41,7 +41,7 @@ const SettingsPage = () => {
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 leading-none tracking-tighter">
             System_Settings
           </h1>
-          <p className="text-lg text-gray-400 border-l-2 border-[#6DB33F] pl-4">
+          <p className="text-lg text-gray-400 border-l-2 border-primary pl-4">
             Customize your browsing experience.
           </p>
         </header>

@@ -79,7 +79,7 @@ export default function TelemetryPage() {
   const isElite = wpmNum >= 120;
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-200 font-mono selection:bg-[#6DB33F] selection:text-black">
+    <div className="min-h-screen bg-[#050505] text-gray-200 font-mono selection:bg-primary selection:text-black">
       {/* Animated Grid Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-10">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(109,179,63,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(109,179,63,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
@@ -88,14 +88,14 @@ export default function TelemetryPage() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group text-xs text-gray-400 hover:text-[#6DB33F] transition-colors flex items-center gap-2 tracking-widest uppercase">
+          <Link href="/" className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
             <span className="text-green-400">root@mahad:~/stats</span>
             <span className="text-gray-500">$</span>
             <span className="group-hover:text-orange-400 transition-colors">cd ..</span>
           </Link>
           <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse shadow-[0_0_10px_#6DB33F]"></div>
-            <span className="text-[9px] text-[#6DB33F] tracking-[0.3em] uppercase">Live_Metrics</span>
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#6DB33F]"></div>
+            <span className="text-[9px] text-primary tracking-[0.3em] uppercase">Live_Metrics</span>
           </div>
         </div>
       </nav>
@@ -108,7 +108,7 @@ export default function TelemetryPage() {
           <div className="flex items-start gap-4 mb-6">
             <div>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-none tracking-tighter uppercase">
-                Career<span className="text-[#6DB33F]">_</span>Analytics
+                Career<span className="text-primary">_</span>Analytics
               </h1>
               <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
                 Real-time performance diagnostics • Competitive programming • Development activity
@@ -265,7 +265,7 @@ export default function TelemetryPage() {
             </div>
 
             {/* BUILDER NODE (Development) */}
-            <div className="group relative overflow-hidden rounded-3xl border border-[#6DB33F]/30 bg-neutral-900 hover:border-[#6DB33F]/50 transition-all duration-500 hover:shadow-[0_0_50px_rgba(109,179,63,0.2)]">
+            <div className="group relative overflow-hidden rounded-3xl border border-primary/30 bg-neutral-900 hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_50px_rgba(109,179,63,0.2)]">
               {/* Animated Glow */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#6DB33F]/30 to-transparent blur-3xl group-hover:w-72 group-hover:h-72 transition-all duration-500"></div>
 
@@ -274,27 +274,27 @@ export default function TelemetryPage() {
                 <div className="flex items-start justify-between mb-8">
                   <div>
                     <div className="flex items-center gap-3 mb-3">
-                      <div className="w-2 h-2 rounded-full bg-[#6DB33F] animate-pulse shadow-[0_0_10px_rgba(109,179,63,1)]"></div>
-                      <h3 className="text-xs text-[#6DB33F] uppercase tracking-[0.3em] font-bold">Builder_Node</h3>
+                      <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(109,179,63,1)]"></div>
+                      <h3 className="text-xs text-primary uppercase tracking-[0.3em] font-bold">Builder_Node</h3>
                     </div>
                     <h4 className="text-sm text-gray-400 uppercase tracking-wider">Code_Commits</h4>
                   </div>
-                  <div className="px-4 py-1.5 bg-[#6DB33F]/20 border border-[#6DB33F]/50 rounded-full">
-                    <span className="text-[9px] text-[#6DB33F] font-bold tracking-widest uppercase">ACTIVE</span>
+                  <div className="px-4 py-1.5 bg-primary/20 border border-primary/50 rounded-full">
+                    <span className="text-[9px] text-primary font-bold tracking-widest uppercase">ACTIVE</span>
                   </div>
                 </div>
 
                 {/* Main Counter */}
                 <div className="mb-6">
                   <div className="flex items-baseline gap-4 mb-3">
-                    <span className="text-7xl md:text-8xl font-bold text-[#6DB33F] group-hover:scale-105 transition-transform">
+                    <span className="text-7xl md:text-8xl font-bold text-primary group-hover:scale-105 transition-transform">
                       {mounted ? <AnimatedCounter target={careerStats.contributions} /> : careerStats.contributions}
                     </span>
                     <span className="text-2xl text-gray-500 font-bold">Commits</span>
                   </div>
                   <div className="flex items-center gap-3 text-sm text-gray-400">
                     <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4 text-[#6DB33F]" fill="currentColor" viewBox="0 0 20 20">
+                      <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                       </svg>
                       <span>{careerStats.devActiveDays} Days Active Uptime</span>
@@ -303,15 +303,15 @@ export default function TelemetryPage() {
                 </div>
 
                 {/* GitHub Link */}
-                <div className="pt-6 border-t border-[#6DB33F]/20">
-                  <a href="https://github.com/mahad2006" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-[#6DB33F]/30 transition-all group/link">
+                <div className="pt-6 border-t border-primary/20">
+                  <a href="https://github.com/mahad2006" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/30 transition-all group/link">
                     <div className="flex items-center gap-3">
-                      <svg className="w-5 h-5 text-gray-400 group-hover/link:text-[#6DB33F] transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-5 h-5 text-gray-400 group-hover/link:text-primary transition-colors" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                       </svg>
                       <span className="text-xs text-gray-400 group-hover/link:text-white transition-colors">@mahad2006</span>
                     </div>
-                    <svg className="w-4 h-4 text-gray-400 group-hover/link:text-[#6DB33F] group-hover/link:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-gray-400 group-hover/link:text-primary group-hover/link:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
                     </svg>
                   </a>
@@ -332,7 +332,7 @@ export default function TelemetryPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {Object.entries(performanceMetrics).map(([key, metric]) => {
               const colorMap = {
-                green: { border: 'border-[#6DB33F]/30', text: 'text-[#6DB33F]', glow: 'from-[#6DB33F]/5' },
+                green: { border: 'border-primary/30', text: 'text-primary', glow: 'from-[#6DB33F]/5' },
                 orange: { border: 'border-orange-500/30', text: 'text-orange-500', glow: 'from-orange-500/5' },
                 blue: { border: 'border-blue-400/30', text: 'text-blue-400', glow: 'from-blue-400/5' },
                 red: { border: 'border-red-500/30', text: 'text-red-500', glow: 'from-red-500/5' }
@@ -367,11 +367,11 @@ export default function TelemetryPage() {
               {loadedModules.map((module, idx) => (
                 <div
                   key={idx}
-                  className="group relative px-5 py-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-[#6DB33F]/30 transition-all cursor-default"
+                  className="group relative px-5 py-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-primary/30 transition-all cursor-default"
                 >
                   <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#6DB33F] animate-pulse"></div>
-                    <span className="text-sm text-gray-300 group-hover:text-[#6DB33F] transition-colors font-bold">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
+                    <span className="text-sm text-gray-300 group-hover:text-primary transition-colors font-bold">
                       {module}
                     </span>
                   </div>
@@ -382,9 +382,9 @@ export default function TelemetryPage() {
         </div>
 
         {/* Footer Note */}
-        <div className="p-6 rounded-xl bg-[#6DB33F]/10 border border-[#6DB33F]/30">
+        <div className="p-6 rounded-xl bg-primary/10 border border-primary/30">
           <p className="text-xs text-gray-400 leading-relaxed">
-            <span className="text-[#6DB33F] font-bold">SYSTEM_NOTE:</span> Career analytics powered by Codolio • MonkeyType API integration • Real-time GitHub synchronization
+            <span className="text-primary font-bold">SYSTEM_NOTE:</span> Career analytics powered by Codolio • MonkeyType API integration • Real-time GitHub synchronization
           </p>
         </div>
 

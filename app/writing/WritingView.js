@@ -27,16 +27,16 @@ const allPosts = [
 const PostCard = ({ post }) => (
   <Link
     href={`/writing/${post.slug}`}
-    className="block p-8 rounded-2xl glass-panel border border-white/5 hover:border-[#6DB33F] hover:bg-white/[0.02] transition-all group relative overflow-hidden animate-fade-up"
+    className="block p-8 rounded-2xl glass-panel border border-white/5 hover:border-primary hover:bg-white/[0.02] transition-all group relative overflow-hidden animate-fade-up"
   >
     <div className="flex justify-between items-start mb-4">
-      <span className="text-xs font-mono text-[#6DB33F]">{post.category}</span>
+      <span className="text-xs font-mono text-primary">{post.category}</span>
       <div className="flex gap-4 text-xs text-gray-500">
         <span>{post.readTime}</span>
         <span>{post.date}</span>
       </div>
     </div>
-    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-[#6DB33F] transition-colors">{post.title}</h3>
+    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors">{post.title}</h3>
     <p className="text-gray-400 leading-relaxed mb-6">{post.description}</p>
     <div className="flex items-center text-sm font-bold text-white group-hover:translate-x-2 transition-transform">Read Article <span className="ml-2">→</span></div>
   </Link>
@@ -53,13 +53,13 @@ const WritingView = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-[#6DB33F] selection:text-black">
+    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group text-xs text-gray-400 hover:text-[#6DB33F] transition-colors flex items-center gap-2 tracking-widest uppercase">
-            <span className="text-[#6DB33F]">root@mahad:~/writing</span>
+          <Link href="/" className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
+            <span className="text-primary">root@mahad:~/writing</span>
             <span className="text-gray-500">$</span>
-            <span className="group-hover:text-[#6DB33F] transition-colors">cd ..</span>
+            <span className="group-hover:text-primary transition-colors">cd ..</span>
           </Link>
         </div>
       </nav>
@@ -69,7 +69,7 @@ const WritingView = () => {
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-none tracking-tighter">
             Technical Writing
           </h1>
-          <p className="text-xl text-gray-400 border-l-2 border-[#6DB33F] pl-6">
+          <p className="text-xl text-gray-400 border-l-2 border-primary pl-6">
             A collection of articles on backend engineering, system design, and performance.
           </p>
         </header>
@@ -81,8 +81,8 @@ const WritingView = () => {
               onClick={() => setFilter(category)}
               className={`px-5 py-2 rounded-full text-sm font-mono border transition-all duration-300 ${
                 filter === category
-                  ? 'bg-[#6DB33F] text-black border-[#6DB33F]'
-                  : 'bg-transparent text-gray-400 border-white/10 hover:border-[#6DB33F]/50 hover:text-white'
+                  ? 'bg-primary text-black border-primary'
+                  : 'bg-transparent text-gray-400 border-white/10 hover:border-primary/50 hover:text-white'
               }`}
             >
               {category}
