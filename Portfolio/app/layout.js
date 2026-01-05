@@ -68,7 +68,7 @@ export const metadata = {
   },
 
   verification: {
-    google: 'google-site-verification-id', // User should replace this
+    google: '4T7twjut8E6DcM83Kfu7zgssCH1-Nxz-ktwLEB_nHBo',
   },
   manifest: '/manifest.json',
 };
