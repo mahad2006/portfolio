@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import { BootScreen, SystemProvider, MatrixRain, RequestLogger, CommandPalette, useSystem } from './components';
 import { useEffect } from 'react';
+import Head from 'next/head';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -94,6 +95,9 @@ const AppLayout = ({ children }) => {
 
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <Head>
+        <link rel="manifest" href="/manifest.json" />
+      </Head>
       <body className="bg-[#050505]">
         <MatrixRain />
         <BootScreen />

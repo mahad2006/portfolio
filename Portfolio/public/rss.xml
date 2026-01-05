@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+  <title>Shaikh Mahad's Technical Writing</title>
+  <link>https://shaikhmahad.vercel.app/writing</link>
+  <description>A collection of articles on backend engineering, system design, and performance.</description>
+  <item>
+    <title>Why I chose Recursive Descent for my Math Parser</title>
+    <link>https://shaikhmahad.vercel.app/writing/recursive-descent-parser</link>
+    <description>Exploring the trade-offs between Shunting-Yard algorithm and hand-written recursive descent parsers for mobile-constrained environments.</description>
+    <pubDate>Tue, 21 Jan 2025 00:00:00 GMT</pubDate>
+  </item>
+  <item>
+    <title>Optimistic vs Pessimistic Locking in Spring Boot</title>
+    <link>https://shaikhmahad.vercel.app/writing/optimistic-vs-pessimistic-locking</link>
+    <description>A deep dive into handling concurrency in inventory management systems and when to use `@Version` annotations.</description>
+    <pubDate>Tue, 21 Jan 2025 00:00:00 GMT</pubDate>
+  </item>
+</channel>
+</rss>

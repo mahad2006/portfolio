@@ -1,4 +1,7 @@
+# See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+
 User-agent: *
 Allow: /
+Crawl-delay: 2
 
-Sitemap: https://www.google.com/search?q=https://shaikhmahad.vercel.app/sitemap.xml
+Sitemap: https://shaikhmahad.vercel.app/sitemap.xml
