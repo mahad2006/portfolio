@@ -1,5 +1,6 @@
 'use client';
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { SettingsModal } from './SettingsModal';
 
 const SystemContext = createContext();
 
@@ -12,10 +13,39 @@ const konamiCode = [
 export const SystemProvider = ({ children }) => {
   const [isMuted, setIsMuted] = useState(true);
   const [matrixActive, setMatrixActive] = useState(false);
-  const [showDashboard, setShowDashboard] = useState(true);
-  const [audioCtx, setAudioCtx] = useState(null);
+  const [matrixSpeed, setMatrixSpeed] = useState(5);
+  const [accentColor, setAccentColor] = useState('green');
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [konamiIndex, setKonamiIndex] = useState(0);
+  const [audioCtx, setAudioCtx] = useState(null);
+
+  // Load settings from localStorage
+  useEffect(() => {
+    const savedMuted = localStorage.getItem('sound_muted');
+    if (savedMuted !== null) setIsMuted(JSON.parse(savedMuted));
+
+    const savedMatrix = localStorage.getItem('matrix_mode');
+    if (savedMatrix !== null) setMatrixActive(JSON.parse(savedMatrix));
+
+    const savedMatrixSpeed = localStorage.getItem('matrix_speed');
+    if (savedMatrixSpeed !== null) setMatrixSpeed(Number(savedMatrixSpeed));
+
+    const savedAccentColor = localStorage.getItem('accent_color');
+    if (savedAccentColor !== null) setAccentColor(savedAccentColor);
+  }, []);
+
+  // Save settings to localStorage
+  useEffect(() => { localStorage.setItem('sound_muted', JSON.stringify(isMuted)); }, [isMuted]);
+  useEffect(() => { localStorage.setItem('matrix_mode', JSON.stringify(matrixActive)); }, [matrixActive]);
+  useEffect(() => { localStorage.setItem('matrix_speed', String(matrixSpeed)); }, [matrixSpeed]);
+  useEffect(() => { localStorage.setItem('accent_color', accentColor); }, [accentColor]);
+
+  // Apply accent color to the body element
+  useEffect(() => {
+    document.body.setAttribute('data-accent', accentColor);
+  }, [accentColor]);
+
 
   useEffect(() => {
     if (!isMuted && !audioCtx && typeof window !== 'undefined') {
@@ -26,20 +56,15 @@ export const SystemProvider = ({ children }) => {
 
   const playSound = (freq = 400, duration = 0.05, type = 'sine', volume = 0.1) => {
     if (isMuted || !audioCtx) return;
-
     try {
       const oscillator = audioCtx.createOscillator();
       const gainNode = audioCtx.createGain();
-
       oscillator.type = type;
       oscillator.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      
       gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
       gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-
       oscillator.connect(gainNode);
       gainNode.connect(audioCtx.destination);
-
       oscillator.start();
       oscillator.stop(audioCtx.currentTime + duration);
     } catch (e) {
@@ -54,24 +79,11 @@ export const SystemProvider = ({ children }) => {
     setTimeout(() => playSound(600, 0.1, 'sine', 0.05), 100);
   };
 
-  const toggleMatrix = useCallback(() => {
-    setMatrixActive(prev => {
-      if (!prev) playSuccess();
-      else playClick();
-      return !prev;
-    });
-  }, [playSuccess, playClick]);
+  const toggleMatrix = useCallback(() => setMatrixActive(prev => !prev), []);
+  const toggleCommandPalette = useCallback(() => setIsCommandPaletteOpen(prev => !prev), []);
+  const toggleSettingsModal = useCallback(() => setIsSettingsModalOpen(prev => !prev), []);
 
-  const toggleDashboard = () => {
-    setShowDashboard(!showDashboard);
-    playClick();
-  };
-
-  const toggleCommandPalette = useCallback(() => {
-    setIsCommandPaletteOpen(prev => !prev);
-    playClick();
-  }, [playClick]);
-
+  // Global keydown listener
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
@@ -79,34 +91,39 @@ export const SystemProvider = ({ children }) => {
         toggleCommandPalette();
         return;
       }
-
+      if (e.shiftKey && e.key.toLowerCase() === 's') { // Changed to 's'
+        e.preventDefault();
+        toggleSettingsModal();
+        return;
+      }
       // Konami Code Logic
       if (e.key.toLowerCase() === konamiCode[konamiIndex].toLowerCase()) {
-        setKonamiIndex(prevIndex => prevIndex + 1);
-        if (konamiIndex + 1 === konamiCode.length) {
+        const newIndex = konamiIndex + 1;
+        setKonamiIndex(newIndex);
+        if (newIndex === konamiCode.length) {
           toggleMatrix();
-          setKonamiIndex(0); // Reset for next time
+          setKonamiIndex(0);
         }
       } else {
-        setKonamiIndex(0); // Reset if wrong key is pressed
+        setKonamiIndex(0);
       }
     };
-
     window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [toggleCommandPalette, konamiIndex, toggleMatrix]);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [toggleCommandPalette, toggleSettingsModal, konamiIndex, toggleMatrix]);
 
   return (
-    <SystemContext.Provider value={{ 
-      isMuted, setIsMuted, 
+    <SystemContext.Provider value={{
+      isMuted, setIsMuted,
       matrixActive, setMatrixActive, toggleMatrix,
-      showDashboard, setShowDashboard, toggleDashboard,
+      matrixSpeed, setMatrixSpeed,
+      accentColor, setAccentColor,
       isCommandPaletteOpen, toggleCommandPalette,
+      isSettingsModalOpen, toggleSettingsModal,
       playClick, playType, playSuccess
     }}>
       {children}
+      <SettingsModal isOpen={isSettingsModalOpen} onClose={toggleSettingsModal} />
     </SystemContext.Provider>
   );
 };
