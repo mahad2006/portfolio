@@ -47,7 +47,6 @@ export default async function Image() {
                 <div
                     style={{
                         display: 'flex',
-                        flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
                         border: '1px solid rgba(255,255,255,0.1)',
@@ -57,45 +56,64 @@ export default async function Image() {
                         boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
                     }}
                 >
-                    {/* Status Badge */}
+                    <img
+                        src={`${process.env.NEXT_PUBLIC_BASE_URL}/og-profile.png`}
+                        alt="Shaikh Mahad"
+                        width={200}
+                        height={200}
+                        style={{
+                            borderRadius: '50%',
+                            border: '4px solid #6DB33F',
+                            marginRight: '50px',
+                        }}
+                    />
                     <div
                         style={{
                             display: 'flex',
-                            alignItems: 'center',
-                            gap: '12px',
-                            padding: '10px 24px',
-                            borderRadius: '50px',
-                            border: '1px solid rgba(109, 179, 63, 0.3)',
-                            backgroundColor: 'rgba(109, 179, 63, 0.1)',
-                            color: '#6DB33F',
-                            fontSize: 20,
-                            fontWeight: 600,
-                            marginBottom: 30,
-                            textTransform: 'uppercase',
-                            letterSpacing: '2px',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
                         }}
                     >
-                        <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#6DB33F' }}></div>
-                        Available for Hire
-                    </div>
+                        {/* Status Badge */}
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                padding: '10px 24px',
+                                borderRadius: '50px',
+                                border: '1px solid rgba(109, 179, 63, 0.3)',
+                                backgroundColor: 'rgba(109, 179, 63, 0.1)',
+                                color: '#6DB33F',
+                                fontSize: 20,
+                                fontWeight: 600,
+                                marginBottom: 30,
+                                textTransform: 'uppercase',
+                                letterSpacing: '2px',
+                            }}
+                        >
+                            <div style={{ width: 12, height: 12, borderRadius: '50%', backgroundColor: '#6DB33F' }}></div>
+                            Available for Hire
+                        </div>
 
-                    {/* Name */}
-                    <div style={{ fontSize: 84, fontWeight: 900, color: 'white', letterSpacing: '-2px', marginBottom: 10, display: 'flex' }}>
-                        Shaikh Mahad<span style={{ color: '#6DB33F' }}>.</span>
-                    </div>
+                        {/* Name */}
+                        <div style={{ fontSize: 84, fontWeight: 900, color: 'white', letterSpacing: '-2px', marginBottom: 10, display: 'flex' }}>
+                            Shaikh Mahad<span style={{ color: '#6DB33F' }}>.</span>
+                        </div>
 
-                    {/* Role */}
-                    <div style={{ fontSize: 32, color: '#999', marginBottom: 40 }}>
-                        Backend Systems Engineer
-                    </div>
+                        {/* Role */}
+                        <div style={{ fontSize: 32, color: '#999', marginBottom: 40 }}>
+                            Backend Systems Engineer
+                        </div>
 
-                    {/* Tech Stack Row */}
-                    <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                        {['Java', 'Spring Boot', 'PostgreSQL', 'Distributed Systems'].map((tech, i) => (
-                            <div key={i} style={{ padding: '12px 24px', backgroundColor: '#1a1a1a', color: '#ccc', borderRadius: '12px', fontSize: 20, border: '1px solid #333' }}>
-                                {tech}
-                            </div>
-                        ))}
+                        {/* Tech Stack Row */}
+                        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                            {['Java', 'Spring Boot', 'PostgreSQL', 'Distributed Systems'].map((tech, i) => (
+                                <div key={i} style={{ padding: '12px 24px', backgroundColor: '#1a1a1a', color: '#ccc', borderRadius: '12px', fontSize: 20, border: '1px solid #333' }}>
+                                    {tech}
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
