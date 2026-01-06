@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -209,10 +208,18 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={onClick}
+      onClick={(e) => {
+        // If clicking on an interactive element inside, don't navigate
+        if (e.target.closest('a, button')) return;
+        if (isActive) {
+          router.push(`/projects/${project.slug}`);
+        } else {
+          onClick();
+        }
+      }}
       className="select-none"
     >
-      <Link href={`/projects/${project.slug}`} className="block h-full">
+      <div className="block h-full">
         <motion.div
           className={`relative h-137.5 card-base rounded-2xl overflow-hidden transition-all duration-300 ${
             isActive && isHovered
@@ -312,7 +319,7 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
             </div>
           </div>
         </motion.div>
-      </Link>
+      </div>
     </motion.div>
   );
 };
