@@ -57,7 +57,7 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
+    <div className="min-h-screen text-gray-300 font-mono selection:bg-primary selection:text-black" style={{ backgroundColor: 'var(--bg-page)' }}>
       <div className="max-w-4xl mx-auto px-6 pt-24 pb-24">
         {/* Terminal Back Button */}
         <div className="mb-8">
@@ -72,7 +72,7 @@ export default function SettingsPage() {
         </header>
 
         {/* Settings Container */}
-        <div className="glass-panel border border-white/10 rounded-xl overflow-hidden">
+        <div className="card-base rounded-xl overflow-hidden">
           {/* Theme Section */}
           <div className="p-6">
             <h2 className="text-lg font-semibold text-white mb-6 pb-2 border-b border-white/10">

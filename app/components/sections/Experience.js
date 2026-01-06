@@ -10,13 +10,13 @@ export const Experience = () => {
         <h2 className="text-3xl font-bold mb-12 flex items-center gap-3">
           <span className="text-primary mono text-2xl">06.</span> Impact & Leadership
         </h2>
-        <div className="relative border-l border-white/10 pl-8 ml-4 space-y-16">
+            <div className="relative border-l border-[var(--border-subtle)] pl-8 ml-4 space-y-16">
           <div className="relative animate-fade-up">
             <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-primary border-4 border-black box-content"></div>
             <h3 className="text-2xl font-bold text-white">Founder & Mentor</h3>
             <p className="text-primary mono text-sm mb-4">The UBIT Hub | Present</p>
             <Link href="/community" passHref>
-              <SpotlightCard as="a" className="glass-panel p-8 rounded-xl block hover:bg-white/[0.02] transition-colors group">
+              <SpotlightCard as="a" className="card-base p-8 rounded-xl block transition-colors group">
                 <p className="text-gray-400 mb-4">Established a student community to bridge the gap between academic theory and engineering reality.</p>
                 <ul className="space-y-2 text-sm text-gray-400 mb-6">
                   <li className="flex gap-2 items-start"><span className="text-primary mt-1">▹</span><span>Mentoring peers in engineering discipline and technical growth.</span></li>

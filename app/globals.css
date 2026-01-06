@@ -36,10 +36,22 @@
   --color-primary-rgb: var(--accent-green-rgb);
 
   --color-primary: rgb(var(--color-primary-rgb));
-  --color-secondary: #E76F00;
-  --color-bg: #050505;
-  --color-card-bg: rgba(18, 18, 18, 0.95);
+  --color-secondary-rgb: 231, 111, 0;
+  --color-secondary: rgb(var(--color-secondary-rgb));
   --color-text-main: #e5e5e5;
+
+  /* Design System - Semantic Variables */
+  --bg-page: #050505;
+  --bg-surface: #141414;
+  --bg-surface-hover: #1A1A1A;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-highlight: var(--color-primary);
+  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.6);
+
+  /* Legacy support (will be deprecated) */
+  --color-bg: var(--bg-page);
+  --color-card-bg: var(--bg-surface);
 
   --animate-scanline: scanline 8s linear infinite;
   --animate-glitch: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
@@ -85,7 +97,7 @@ body[data-accent="purple"] { --color-primary-rgb: var(--accent-purple-rgb); }
 }
 
 body {
-  background-color: var(--color-bg);
+  background-color: var(--bg-page);
   color: var(--color-text-main);
   font-family: 'Inter', sans-serif;
   overflow-x: hidden;
@@ -113,12 +125,53 @@ h1, h2, h3, .mono {
   display: none;
 }
 
+/* Design System - Utility Classes */
+.card-base {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.card-base:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--border-highlight);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* Typography Utilities */
+.text-heading-1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: white;
+  line-height: 1.2;
+}
+
+.text-heading-2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: white;
+  line-height: 1.3;
+}
+
+.text-heading-3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: white;
+  line-height: 1.4;
+}
+
+/* Legacy support (deprecated - use card-base instead) */
 .glass-panel {
-  background: var(--color-card-bg);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
 }
 
 .tech-card-gradient {

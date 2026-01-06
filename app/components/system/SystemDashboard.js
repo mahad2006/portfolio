@@ -41,7 +41,8 @@ export const SystemDashboard = () => {
         {/* Toggle Handle - Now more professional */}
         <button 
           onClick={toggleDashboard}
-          className={`absolute -left-6 top-1/2 -translate-y-1/2 w-6 h-16 bg-[#1a1a1a] border border-white/10 border-r-0 rounded-l-md flex flex-col items-center justify-center hover:bg-[#222] transition-colors group/btn shadow-xl ${!showDashboard ? 'rounded-md border-r' : ''}`}
+          className={`absolute -left-6 top-1/2 -translate-y-1/2 w-6 h-16 border border-[var(--border-subtle)] border-r-0 rounded-l-md flex flex-col items-center justify-center transition-colors group/btn shadow-xl ${!showDashboard ? 'rounded-md border-r' : ''}`}
+          style={{ backgroundColor: 'var(--bg-surface-hover)' }}
           aria-label={showDashboard ? "Hide Dashboard" : "Show Dashboard"}
         >
           <div className="flex flex-col gap-1 mb-2">
@@ -54,8 +55,8 @@ export const SystemDashboard = () => {
           </span>
         </button>
 
-        <div className="glass-panel p-4 rounded-xl border border-white/10 w-60 font-mono text-[10px] space-y-3 shadow-2xl overflow-hidden group">
-          <div className="flex justify-between items-center border-b border-white/5 pb-2">
+        <div className="card-base p-4 rounded-xl w-60 font-mono text-[10px] space-y-3 overflow-hidden group">
+          <div className="flex justify-between items-center border-b border-[var(--border-subtle)] pb-2">
             <span className="text-primary font-bold tracking-widest uppercase">System Status</span>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
@@ -83,13 +84,14 @@ export const SystemDashboard = () => {
               </div>
               <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-[#E76F00] transition-all duration-1000 ease-in-out" 
+                  className="h-full transition-all duration-1000 ease-in-out"
+                  style={{ backgroundColor: 'var(--color-secondary)' }} 
                   style={{ width: `${metrics.mem}%` }}
                 ></div>
               </div>
             </div>
 
-            <div className="flex justify-between text-gray-400 uppercase tracking-tighter border-t border-white/5 pt-2">
+            <div className="flex justify-between text-gray-400 uppercase tracking-tighter border-t border-[var(--border-subtle)] pt-2">
               <span>Network</span>
               <span>{metrics.net} Mb/s</span>
             </div>

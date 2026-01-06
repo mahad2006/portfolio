@@ -111,7 +111,7 @@ export const Hero = () => {
         </p>
 
         {/* Terminal Simulation */}
-        <div className="glass-panel rounded-lg overflow-hidden w-full max-w-2xl mx-auto border border-white/10 shadow-2xl shadow-black/50 group hover:border-primary/30 transition-all duration-500">
+        <div className="card-base rounded-lg overflow-hidden w-full max-w-2xl mx-auto group transition-all duration-500">
           {/* Terminal Title Bar */}
           <div className="px-4 py-2 bg-white/5 border-b border-white/5 flex items-center justify-between">
             <div className="flex gap-1.5">

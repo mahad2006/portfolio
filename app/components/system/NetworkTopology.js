@@ -24,7 +24,7 @@ const NetworkTopology = () => {
     };
 
     return (
-        <div className="h-[500px] rounded-2xl bg-neutral-900 border border-neutral-800 relative">
+        <div className="h-[500px] rounded-2xl card-base relative">
             <ForceGraph2D
                 ref={graphRef}
                 graphData={generateGraphData()}

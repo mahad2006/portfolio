@@ -77,7 +77,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-[#050505]">
+      <body style={{ backgroundColor: 'var(--bg-page)' }}>
         <SystemProvider>
           <ClientLayout>{children}</ClientLayout>
         </SystemProvider>

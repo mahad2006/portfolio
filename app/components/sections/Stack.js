@@ -21,7 +21,7 @@ const TechCard = ({ icon, name, category, color, level, evidence }) => {
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
-      <SpotlightCard className="group relative w-full h-full p-6 rounded-xl tech-card-gradient border border-white/5 hover:border-primary transition-all duration-300 hover:-translate-y-2 hover:shadow-lg overflow-hidden">
+      <SpotlightCard className="group relative w-full h-full p-6 rounded-xl card-base hover:border-[var(--border-highlight)] transition-all duration-300 hover:-translate-y-2 overflow-hidden">
         <div className={`absolute top-0 left-0 w-full h-1 ${getColorClass(color)} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl shadow-[0_2px_10px_rgba(255,255,255,0.1)]`}></div>
         <div className="absolute top-2 right-2 text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 px-2 py-0.5 rounded text-gray-300">{level}</div>
         <div className="mb-4 text-gray-300 group-hover:text-white transition-colors transform group-hover:scale-110 duration-300 origin-left">{icon}</div>
@@ -32,7 +32,7 @@ const TechCard = ({ icon, name, category, color, level, evidence }) => {
       {/* Tooltip with Evidence */}
       {evidence && showTooltip && (
         <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-4 w-72 z-50 pointer-events-none animate-fade-up">
-          <div className="glass-panel p-4 rounded-lg border border-primary/30 shadow-2xl">
+          <div className="card-base p-4 rounded-lg border border-primary/30">
             <div className="text-[10px] text-primary font-mono uppercase tracking-wider mb-2">Evidence:</div>
             <p className="text-xs text-gray-300 leading-relaxed">{evidence}</p>
             <div className="absolute left-1/2 -translate-x-1/2 top-full w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-white/10"></div>
@@ -67,7 +67,7 @@ export const Stack = () => {
     { level: "Basic", icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-8 h-8"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>, name: "Spring Security", category: "Security", color: "spring", evidence: "Secured REST APIs with OAuth2, JWT tokens, and role-based access control (RBAC) for multi-tenant applications." },
   ];
   return (
-    <section id="stack" className="py-32 bg-black/50 overflow-hidden">
+    <section id="stack" className="py-32 overflow-hidden" style={{ backgroundColor: 'var(--bg-page)' }}>
       <MarqueeStyles />
       <div className="max-w-[1920px] mx-auto">
         <div className="text-center mb-16 px-6">
@@ -81,8 +81,8 @@ export const Stack = () => {
                 <div key={`r1-${idx}`} className="w-[280px] flex-shrink-0"><TechCard {...item} /></div>
               ))}
             </div>
-            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[var(--bg-page)] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[var(--bg-page)] to-transparent z-10 pointer-events-none"></div>
           </div>
           <div className="relative flex overflow-hidden">
             <div className="flex gap-6 animate-marquee-right whitespace-nowrap py-4 px-4">
@@ -90,8 +90,8 @@ export const Stack = () => {
                 <div key={`r2-${idx}`} className="w-[280px] flex-shrink-0"><TechCard {...item} /></div>
               ))}
             </div>
-            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[var(--bg-page)] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[var(--bg-page)] to-transparent z-10 pointer-events-none"></div>
           </div>
         </div>
       </div>

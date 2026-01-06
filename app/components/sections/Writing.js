@@ -27,7 +27,7 @@ const featuredArticles = [
 
 export const Writing = () => {
   return (
-    <section id="writing" className="py-24 relative border-t border-white/5">
+    <section id="writing" className="py-24 relative border-t border-[var(--border-subtle)]">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-3xl font-bold flex items-center gap-3">
@@ -43,7 +43,7 @@ export const Writing = () => {
             <Link
               href={`/writing/${post.slug}`}
               key={post.slug}
-              className="block p-8 rounded-2xl glass-panel border border-transparent transition-all group relative overflow-hidden"
+              className="block p-8 rounded-2xl card-base border border-transparent transition-all group relative overflow-hidden"
               style={{'--hover-color': post.color}}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--hover-color)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

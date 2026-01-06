@@ -29,7 +29,7 @@ export const Projects = () => {
         <div className="flex justify-center mt-12">
           <Link
             href="/projects"
-            className="group glass-panel border border-white/10 rounded-2xl p-8 w-full max-w-2xl hover:border-primary/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/20"
+            className="group card-base rounded-2xl p-8 w-full max-w-2xl transition-all duration-300 hover:scale-[1.02]"
           >
             <div className="flex items-center justify-between">
               <div>

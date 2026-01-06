@@ -76,18 +76,12 @@ export const TerminalBackButton = ({ defaultCommand = 'cd ..', className = '' })
     <motion.div
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`inline-flex items-center border rounded-xl px-4 py-2.5 transition-all duration-300 ${
+      className={`inline-flex items-center card-base rounded-xl px-4 py-2.5 transition-all duration-300 ${
         isFocused || isHovered
-          ? 'border-primary'
-          : 'border-white/10'
+          ? 'border-[var(--border-highlight)]'
+          : ''
       } ${className}`}
       style={{
-        backgroundColor: 'rgba(10, 10, 10, 0.95)',
-        backdropFilter: 'blur(8px)',
-        boxShadow:
-          isHovered || isFocused
-            ? '0 10px 15px -3px rgba(0, 0, 0, 0.5)'
-            : '0 4px 30px rgba(0, 0, 0, 0.2)',
         transform: isHovered ? 'translateY(-2px)' : 'translateY(0)',
       }}
       whileHover={{ y: -2 }}

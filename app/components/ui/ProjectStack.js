@@ -151,17 +151,16 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
     >
       <Link href={`/projects/${project.slug}`} className="block h-full">
         <motion.div
-          className={`relative h-[600px] glass-panel border rounded-2xl overflow-hidden bg-black/40 backdrop-blur-xl transition-all duration-300 ${
+          className={`relative h-[600px] card-base rounded-2xl overflow-hidden transition-all duration-300 ${
             isActive && isHovered
-              ? 'border-primary'
-              : 'border-white/10'
+              ? 'border-[var(--border-highlight)]'
+              : ''
           }`}
           style={{
             boxShadow:
               isActive && isHovered
-                ? `0 0 15px -3px var(--color-primary)`
-                : '0 4px 30px rgba(0, 0, 0, 0.2)',
-            filter: isActive && isHovered ? 'drop-shadow(0 0 15px rgba(var(--color-primary-rgb), 0.5))' : 'none',
+                ? `0 0 20px -3px var(--color-primary), var(--shadow-card-hover)`
+                : 'var(--shadow-card)',
           }}
         >
           {/* Image/Thumbnail */}
@@ -190,7 +189,7 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: isHovered ? 1 : 0 }}
-                className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center gap-4"
+                className="absolute inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center gap-4"
               >
                 <button
                   onClick={(e) => {
@@ -206,7 +205,7 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  className="px-6 py-3 glass-panel text-white border border-white/30 font-bold rounded-lg text-sm hover:bg-white/10 transition-colors"
+                  className="px-6 py-3 card-base text-white border border-white/30 font-bold rounded-lg text-sm hover:bg-white/10 transition-colors"
                 >
                   Source Code
                 </a>

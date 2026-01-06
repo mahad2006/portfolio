@@ -15,7 +15,7 @@ export const Connect = () => {
 
   if (state.succeeded) {
     return (
-      <section id="connect" className="py-24 bg-gradient-to-t from-black to-gray-900/40">
+      <section id="connect" className="py-24 bg-gradient-to-t" style={{ background: 'linear-gradient(to top, var(--bg-page), rgba(17, 17, 17, 0.4))' }}>
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Message Sent!</h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">Thanks for your message! I'll get back to you soon.</p>
@@ -25,7 +25,7 @@ export const Connect = () => {
   }
 
   return (
-    <section id="connect" className="py-24 bg-gradient-to-t from-black to-gray-900/40">
+    <section id="connect" className="py-24 bg-gradient-to-t" style={{ background: 'linear-gradient(to top, var(--bg-page), rgba(17, 17, 17, 0.4))' }}>
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-16"><h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Let's Engineer the Future.</h2><p className="text-xl text-gray-400 max-w-2xl mx-auto">Whether you have a question about backend scaling, want to collaborate on a project, or just want to say hi, I'll try my best to get back to you!</p></div>
         <div className="grid md:grid-cols-2 gap-12 items-start">
@@ -33,7 +33,7 @@ export const Connect = () => {
               <h3 className="text-white font-bold text-xl mb-4">Connect Directly</h3>
               <button
                 onClick={handleCopyEmail}
-                className="w-full flex items-center gap-4 p-4 glass-panel rounded-lg hover:border-primary transition-all group hover:-translate-y-1 text-left relative overflow-hidden"
+                className="w-full flex items-center gap-4 p-4 card-base rounded-lg hover:border-[var(--border-highlight)] transition-all group hover:-translate-y-1 text-left relative overflow-hidden"
                 aria-label="Copy email address to clipboard"
               >
                 <div className={`p-3 rounded-full transition-colors ${emailCopied ? 'bg-primary/20 text-primary' : 'bg-white/5 group-hover:bg-primary/20 text-gray-400 group-hover:text-primary'}`}>
@@ -48,7 +48,7 @@ export const Connect = () => {
                 href={SOCIAL_LINKS.linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 glass-panel rounded-lg hover:border-primary transition-all group hover:-translate-y-1"
+                className="flex items-center gap-4 p-4 card-base rounded-lg hover:border-[var(--border-highlight)] transition-all group hover:-translate-y-1"
                 aria-label={`View ${SOCIAL_LINKS.linkedin.label} profile`}
               >
                 <div className="p-3 bg-white/5 rounded-full group-hover:bg-primary/20 transition-colors">
@@ -65,7 +65,7 @@ export const Connect = () => {
                 <a href={SOCIAL_LINKS.codolio.url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.codolio.label} profile`}>{SOCIAL_LINKS.codolio.label}</a>
               </div>
           </div>
-          <form className="glass-panel p-8 rounded-2xl space-y-4 relative" onSubmit={handleSubmit}>
+          <form className="card-base p-8 rounded-2xl space-y-4 relative" onSubmit={handleSubmit}>
             <h3 className="text-white font-bold text-xl mb-2">Send a Message</h3>
             <div>
               <input id="name" type="text" name="name" placeholder="Your Name" required className="input-field" />

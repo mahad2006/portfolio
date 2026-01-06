@@ -8,7 +8,7 @@ export const ArchitectureDiagram = ({ projectSlug }) => {
         <div className="flex items-center gap-8 flex-wrap justify-center">
           {/* Client */}
           <div className="flex flex-col items-center">
-            <div className="px-8 py-6 bg-white/5 border-2 border-white/20 rounded-lg font-mono text-sm font-bold hover:border-primary/50 transition-all">
+            <div className="px-8 py-6 border-2 rounded-lg font-mono text-sm font-bold hover:border-primary/50 transition-all card-base">
               Client
             </div>
           </div>
@@ -20,7 +20,7 @@ export const ArchitectureDiagram = ({ projectSlug }) => {
 
           {/* Redis Cache */}
           <div className="flex flex-col items-center">
-            <div className="px-8 py-6 bg-[#E76F00]/10 border-2 border-[#E76F00]/40 rounded-lg font-mono text-sm font-bold text-[#E76F00] hover:border-[#E76F00] transition-all">
+            <div className="px-8 py-6 border-2 rounded-lg font-mono text-sm font-bold transition-all" style={{ backgroundColor: 'rgba(var(--color-secondary-rgb), 0.1)', borderColor: 'rgba(var(--color-secondary-rgb), 0.4)', color: 'var(--color-secondary)' }}>
               Redis Cache
             </div>
             <span className="text-xs text-gray-500 mt-2 font-mono">Write-Through</span>
@@ -42,15 +42,15 @@ export const ArchitectureDiagram = ({ projectSlug }) => {
 
         {/* Additional Details */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl mt-4">
-          <div className="p-4 bg-white/[0.02] border border-white/5 rounded-lg">
+          <div className="p-4 card-base rounded-lg">
             <div className="text-[10px] text-primary font-mono uppercase tracking-wider mb-1">Cache Hit Ratio</div>
             <div className="text-2xl font-bold">70%</div>
           </div>
-          <div className="p-4 bg-white/[0.02] border border-white/5 rounded-lg">
+          <div className="p-4 card-base rounded-lg">
             <div className="text-[10px] text-[#E76F00] font-mono uppercase tracking-wider mb-1">Latency Reduction</div>
             <div className="text-2xl font-bold">45%</div>
           </div>
-          <div className="p-4 bg-white/[0.02] border border-white/5 rounded-lg">
+          <div className="p-4 card-base rounded-lg">
             <div className="text-[10px] text-gray-400 font-mono uppercase tracking-wider mb-1">Throughput</div>
             <div className="text-2xl font-bold">12k rps</div>
           </div>
@@ -141,7 +141,7 @@ export const ArchitectureDiagram = ({ projectSlug }) => {
               <svg className="w-8 h-12 text-gray-400 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
-              <div className="px-6 py-4 bg-[#E76F00]/10 border border-[#E76F00]/40 rounded font-mono text-xs text-[#E76F00]">
+              <div className="px-6 py-4 border rounded font-mono text-xs" style={{ backgroundColor: 'rgba(var(--color-secondary-rgb), 0.1)', borderColor: 'rgba(var(--color-secondary-rgb), 0.4)', color: 'var(--color-secondary)' }}>
                 Update Cache
               </div>
             </div>

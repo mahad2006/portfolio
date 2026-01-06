@@ -184,7 +184,7 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
       {/* Command Palette Container */}
       <div
         ref={paletteRef}
-        className="relative w-full max-w-2xl glass-panel border border-white/10 rounded-3xl shadow-2xl overflow-hidden animate-fade-up"
+        className="relative w-full max-w-2xl card-base rounded-3xl overflow-hidden animate-fade-up"
         onClick={e => e.stopPropagation()}
         role="dialog"
         aria-modal="true"

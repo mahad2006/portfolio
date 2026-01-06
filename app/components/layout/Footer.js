@@ -58,7 +58,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="py-12 border-t border-white/5 bg-black">
+    <footer className="py-12 border-t border-[var(--border-subtle)]" style={{ backgroundColor: 'var(--bg-page)' }}>
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
             <div className="flex flex-col items-center md:items-start">
@@ -95,7 +95,7 @@ export const Footer = () => {
                 </Link>
                 <Link
                     href="/uses"
-                    className="group relative px-6 py-2.5 bg-white/5 border border-white/10 rounded-md hover:bg-white/10 hover:border-white/20 transition-all text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest"
+                    className="group relative px-6 py-2.5 card-base rounded-md transition-all text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest"
                 >
                     <span className="relative z-10 flex items-center gap-2">
                         <span className="w-1.s h-1.5 rounded-full bg-gray-400 group-hover:bg-white"></span>
@@ -104,7 +104,7 @@ export const Footer = () => {
                 </Link>
                 <Link
                     href="/status"
-                    className="group relative px-6 py-2.5 bg-white/5 border border-white/10 rounded-md hover:bg-white/10 hover:border-white/20 transition-all text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest"
+                    className="group relative px-6 py-2.5 card-base rounded-md transition-all text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest"
                 >
                     <span className="relative z-10 flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>

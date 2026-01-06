@@ -14,7 +14,7 @@ export const ConfirmModal = ({ isOpen, onClose, onConfirm, title, message, confi
       
       {/* Modal */}
       <div
-        className="relative glass-panel border border-white/10 rounded-2xl p-8 max-w-md w-full shadow-2xl animate-fade-up"
+        className="relative card-base rounded-2xl p-8 max-w-md w-full animate-fade-up"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"

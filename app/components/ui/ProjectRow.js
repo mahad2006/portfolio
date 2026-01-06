@@ -73,7 +73,7 @@ const ProjectCard = ({ project }) => {
       transition={{ duration: 0.3, ease: 'easeOut' }}
       className="relative group"
     >
-      <div className="glass-panel border border-white/10 rounded-xl overflow-hidden h-full hover:border-primary/50 transition-all duration-300">
+      <div className="card-base rounded-xl overflow-hidden h-full transition-all duration-300">
         {/* Image/Thumbnail */}
         <div className="relative h-56 bg-gradient-to-br from-[#1a1a1a] to-black overflow-hidden">
           {project.image ? (
@@ -106,11 +106,11 @@ const ProjectCard = ({ project }) => {
                 View Details
               </Link>
             )}
-            <a
+              <a
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 glass-panel text-white border border-white/30 font-bold rounded-lg text-sm hover:bg-white/10 transition-colors"
+              className="px-6 py-3 card-base text-white border border-white/30 font-bold rounded-lg text-sm hover:bg-white/10 transition-colors"
             >
               Source Code
             </a>
