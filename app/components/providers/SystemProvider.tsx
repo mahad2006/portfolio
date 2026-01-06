@@ -1,15 +1,66 @@
 'use client';
-import React, { createContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useEffect, useCallback, ReactNode } from 'react';
 
-export const SystemContext = createContext();
+// Type definitions
+export type CursorStyle = 'block' | 'underline' | 'bar';
+export type FontMode = 'sans' | 'mono';
+export type BorderRadius = 'rounded' | 'square';
+export type OscillatorType = 'sine' | 'square' | 'sawtooth' | 'triangle';
 
-const konamiCode = [
+export interface SystemContextType {
+  isMuted: boolean;
+  setIsMuted: React.Dispatch<React.SetStateAction<boolean>>;
+  soundEnabled: boolean;
+  matrixActive: boolean;
+  setMatrixActive: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleMatrix: () => void;
+  matrixSpeed: number;
+  setMatrixSpeed: React.Dispatch<React.SetStateAction<number>>;
+  accentColor: string;
+  setAccentColor: React.Dispatch<React.SetStateAction<string>>;
+  reduceMotion: boolean;
+  setReduceMotion: React.Dispatch<React.SetStateAction<boolean>>;
+  cursorStyle: CursorStyle;
+  setCursorStyle: React.Dispatch<React.SetStateAction<CursorStyle>>;
+  fontMode: FontMode;
+  setFontMode: React.Dispatch<React.SetStateAction<FontMode>>;
+  borderRadius: BorderRadius;
+  setBorderRadius: React.Dispatch<React.SetStateAction<BorderRadius>>;
+  showDashboard: boolean;
+  setShowDashboard: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleDashboard: () => void;
+  isCommandPaletteOpen: boolean;
+  toggleCommandPalette: () => void;
+  playClick: () => void;
+  playType: () => void;
+  playSuccess: () => void;
+  resetSettings: () => void;
+}
+
+interface SystemProviderProps {
+  children: ReactNode;
+}
+
+interface SystemDefaults {
+  isMuted: boolean;
+  matrixActive: boolean;
+  matrixSpeed: number;
+  accentColor: string;
+  reduceMotion: boolean;
+  cursorStyle: CursorStyle;
+  fontMode: FontMode;
+  borderRadius: BorderRadius;
+}
+
+export const SystemContext = createContext<SystemContextType | null>(null);
+
+const konamiCode: string[] = [
   'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
   'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
   'b', 'a'
 ];
 
-const DEFAULTS = {
+const DEFAULTS: SystemDefaults = {
   isMuted: true,
   matrixActive: false,
   matrixSpeed: 5,
@@ -20,19 +71,19 @@ const DEFAULTS = {
   borderRadius: 'rounded',
 };
 
-export const SystemProvider = ({ children }) => {
-  const [isMuted, setIsMuted] = useState(DEFAULTS.isMuted);
-  const [matrixActive, setMatrixActive] = useState(DEFAULTS.matrixActive);
-  const [matrixSpeed, setMatrixSpeed] = useState(DEFAULTS.matrixSpeed);
-  const [accentColor, setAccentColor] = useState(DEFAULTS.accentColor);
-  const [reduceMotion, setReduceMotion] = useState(DEFAULTS.reduceMotion);
-  const [cursorStyle, setCursorStyle] = useState(DEFAULTS.cursorStyle);
-  const [fontMode, setFontMode] = useState(DEFAULTS.fontMode);
-  const [borderRadius, setBorderRadius] = useState(DEFAULTS.borderRadius);
-  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const [showDashboard, setShowDashboard] = useState(false);
-  const [konamiIndex, setKonamiIndex] = useState(0);
-  const [audioCtx, setAudioCtx] = useState(null);
+export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
+  const [isMuted, setIsMuted] = useState<boolean>(DEFAULTS.isMuted);
+  const [matrixActive, setMatrixActive] = useState<boolean>(DEFAULTS.matrixActive);
+  const [matrixSpeed, setMatrixSpeed] = useState<number>(DEFAULTS.matrixSpeed);
+  const [accentColor, setAccentColor] = useState<string>(DEFAULTS.accentColor);
+  const [reduceMotion, setReduceMotion] = useState<boolean>(DEFAULTS.reduceMotion);
+  const [cursorStyle, setCursorStyle] = useState<CursorStyle>(DEFAULTS.cursorStyle);
+  const [fontMode, setFontMode] = useState<FontMode>(DEFAULTS.fontMode);
+  const [borderRadius, setBorderRadius] = useState<BorderRadius>(DEFAULTS.borderRadius);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
+  const [showDashboard, setShowDashboard] = useState<boolean>(false);
+  const [konamiIndex, setKonamiIndex] = useState<number>(0);
+  const [audioCtx, setAudioCtx] = useState<AudioContext | null>(null);
 
   // Load settings from localStorage
   useEffect(() => {
@@ -52,13 +103,13 @@ export const SystemProvider = ({ children }) => {
     if (savedReduceMotion !== null) setReduceMotion(JSON.parse(savedReduceMotion));
 
     const savedCursorStyle = localStorage.getItem('cursor_style');
-    if (savedCursorStyle !== null) setCursorStyle(savedCursorStyle);
+    if (savedCursorStyle !== null) setCursorStyle(savedCursorStyle as CursorStyle);
 
     const savedFontMode = localStorage.getItem('font_mode');
-    if (savedFontMode !== null) setFontMode(savedFontMode);
+    if (savedFontMode !== null) setFontMode(savedFontMode as FontMode);
 
     const savedBorderRadius = localStorage.getItem('border_radius');
-    if (savedBorderRadius !== null) setBorderRadius(savedBorderRadius);
+    if (savedBorderRadius !== null) setBorderRadius(savedBorderRadius as BorderRadius);
   }, []);
 
   // Save settings to localStorage
@@ -121,15 +172,14 @@ export const SystemProvider = ({ children }) => {
     }
   }, [borderRadius]);
 
-
   useEffect(() => {
     if (!isMuted && !audioCtx && typeof window !== 'undefined') {
-      const Ctx = window.AudioContext || window.webkitAudioContext;
+      const Ctx = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
       if (Ctx) setAudioCtx(new Ctx());
     }
   }, [isMuted, audioCtx]);
 
-  const playSound = (freq = 400, duration = 0.05, type = 'sine', volume = 0.1) => {
+  const playSound = (freq: number = 400, duration: number = 0.05, type: OscillatorType = 'sine', volume: number = 0.1): void => {
     if (isMuted || !audioCtx) return;
     try {
       const oscillator = audioCtx.createOscillator();
@@ -147,18 +197,18 @@ export const SystemProvider = ({ children }) => {
     }
   };
 
-  const playClick = () => playSound(600, 0.03, 'square', 0.05);
-  const playType = () => playSound(Math.random() * 100 + 300, 0.02, 'sine', 0.03);
-  const playSuccess = () => {
+  const playClick = (): void => playSound(600, 0.03, 'square', 0.05);
+  const playType = (): void => playSound(Math.random() * 100 + 300, 0.02, 'sine', 0.03);
+  const playSuccess = (): void => {
     playSound(400, 0.1, 'sine', 0.05);
     setTimeout(() => playSound(600, 0.1, 'sine', 0.05), 100);
   };
 
-  const toggleMatrix = useCallback(() => setMatrixActive(prev => !prev), []);
-  const toggleCommandPalette = useCallback(() => setIsCommandPaletteOpen(prev => !prev), []);
-  const toggleDashboard = useCallback(() => setShowDashboard(prev => !prev), []);
+  const toggleMatrix = useCallback((): void => setMatrixActive(prev => !prev), []);
+  const toggleCommandPalette = useCallback((): void => setIsCommandPaletteOpen(prev => !prev), []);
+  const toggleDashboard = useCallback((): void => setShowDashboard(prev => !prev), []);
 
-  const resetSettings = useCallback(() => {
+  const resetSettings = useCallback((): void => {
     setIsMuted(DEFAULTS.isMuted);
     setMatrixActive(DEFAULTS.matrixActive);
     setMatrixSpeed(DEFAULTS.matrixSpeed);
@@ -179,7 +229,7 @@ export const SystemProvider = ({ children }) => {
 
   // Global keydown listener
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent): void => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         toggleCommandPalette();
@@ -209,7 +259,7 @@ export const SystemProvider = ({ children }) => {
   return (
     <SystemContext.Provider value={{
       isMuted, setIsMuted,
-      soundEnabled: !isMuted, // Alias for clarity
+      soundEnabled: !isMuted,
       matrixActive, setMatrixActive, toggleMatrix,
       matrixSpeed, setMatrixSpeed,
       accentColor, setAccentColor,
@@ -226,5 +276,3 @@ export const SystemProvider = ({ children }) => {
     </SystemContext.Provider>
   );
 };
-
-// Hook is exported from app/hooks/useSystem.js
