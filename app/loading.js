@@ -1,4 +1,4 @@
-import { BootScreen } from '@/app/components';
+import { BootScreen } from '@/components';
 
 export default function Loading() {
     return <BootScreen />;

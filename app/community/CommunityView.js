@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
-const NetworkTopology = dynamic(() => import('../components/NetworkTopology'), { ssr: false });
+const NetworkTopology = dynamic(() => import('@/components/system/NetworkTopology'), { ssr: false });
 
 // Animated Counter Component
 function AnimatedCounter({ target, duration = 2000, suffix = '' }) {

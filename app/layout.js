@@ -1,7 +1,7 @@
 import './globals.css';
 import { Inter, JetBrains_Mono } from 'next/font/google';
-import { SystemProvider } from '@/app/components';
-import ClientLayout from '@/app/components/ClientLayout';
+import { SystemProvider } from '@/components';
+import ClientLayout from '@/components/layout/ClientLayout';
 import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({
