@@ -163,28 +163,6 @@ export const ProjectStack = ({ projects }) => {
           />
         ))}
       </div>
-
-      {/* Navigation Dots */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
-        {projects.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            className={`min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full transition-all duration-300 ${
-              index === currentIndex
-                ? 'bg-primary/20'
-                : 'bg-transparent hover:bg-white/10'
-            }`}
-            aria-label={`Go to project ${index + 1}`}
-          >
-            <span className={`block rounded-full transition-all duration-300 ${
-              index === currentIndex
-                ? 'bg-primary w-8 h-3'
-                : 'bg-white/30 w-3 h-3 hover:bg-white/50'
-            }`} />
-          </button>
-        ))}
-      </div>
     </div>
   );
 };
