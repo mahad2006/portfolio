@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSystem } from '@/hooks/useSystem';
 import {
   HomeIcon,
@@ -21,6 +22,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
+  const router = useRouter();
   const {
     toggleMatrix,
     isMuted,
@@ -29,7 +31,6 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
     playClick,
     showDashboard,
     toggleDashboard,
-    toggleSettingsModal,
     reduceMotion,
     setReduceMotion,
     accentColor,
@@ -72,7 +73,7 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
     {
       title: 'Actions',
       commands: [
-        { id: 'settings', label: 'Open Settings', shortcut: 'Shift+S', action: toggleSettingsModal, icon: CogIcon },
+        { id: 'settings', label: 'Open Settings', shortcut: 'Shift+S', action: () => { router.push('/settings'); onClose(); }, icon: CogIcon },
         { id: 'sound', label: soundEnabled ? 'Mute Sound' : 'Enable Sound', action: () => setIsMuted(!isMuted), icon: soundEnabled ? SpeakerWaveIcon : SpeakerXMarkIcon, shortcut: '↵' },
         { id: 'matrix', label: 'Toggle Matrix Mode', action: toggleMatrix, icon: SparklesIcon, shortcut: '↵' },
         { id: 'motion', label: reduceMotion ? 'Enable Animations' : 'Reduce Motion', action: () => setReduceMotion(!reduceMotion), icon: EyeSlashIcon, shortcut: '↵' },
@@ -94,7 +95,7 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
         { id: 'github', label: 'Open GitHub Profile', action: () => window.open('https://github.com/mahad2006', '_blank'), icon: ArrowTopRightOnSquareIcon, shortcut: '↵' },
       ]
     }
-  ], [isMuted, soundEnabled, showDashboard, reduceMotion, accentColor, onNavigate, toggleDashboard, toggleMatrix, toggleSettingsModal, setIsMuted, setReduceMotion, setAccentColor]);
+  ], [isMuted, soundEnabled, showDashboard, reduceMotion, accentColor, onNavigate, toggleDashboard, toggleMatrix, setIsMuted, setReduceMotion, setAccentColor, router, onClose]);
 
   const { groupedResults, selectableOptions } = useMemo(() => {
     const results = {

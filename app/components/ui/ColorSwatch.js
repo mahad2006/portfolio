@@ -22,6 +22,8 @@ export const ColorSwatch = ({ color, isActive, onClick, label, className = '' })
           />
           {/* Inner border for definition */}
           <div className="absolute -inset-1 rounded-full border-2 border-white/90" />
+          {/* Ring offset for premium look */}
+          <div className="absolute -inset-4 rounded-full ring-2 ring-primary ring-offset-4" />
         </>
       )}
       {/* Checkmark when active */}

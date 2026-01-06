@@ -43,6 +43,8 @@ export default function SettingsPage() {
     setFontMode,
     borderRadius,
     setBorderRadius,
+    reduceMotion,
+    setReduceMotion,
     resetSettings,
   } = useSystem();
 
@@ -55,89 +57,50 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
-      {/* Navigation Bar */}
-      <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link
-            href="/"
-            className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase"
-          >
-            <span className="text-primary">root@mahad:~/settings</span>
-            <span className="text-gray-500">$</span>
-            <span className="group-hover:text-primary transition-colors">cd ..</span>
-          </Link>
-        </div>
-      </nav>
+      <div className="max-w-4xl mx-auto px-6 pt-24 pb-24">
+        {/* Back Button */}
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-primary transition-colors mb-8"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Home
+        </Link>
 
-      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-24">
         {/* Header */}
-        <header className="mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 leading-none tracking-tighter">
-            Config Dashboard
+        <header className="mb-12">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-2 leading-none tracking-tighter">
+            Settings
           </h1>
-          <p className="text-sm text-gray-500">
-            Customize your experience with precision controls
-          </p>
         </header>
 
         {/* Settings Container */}
         <div className="glass-panel border border-white/10 rounded-xl overflow-hidden">
-          {/* Appearance Section */}
+          {/* Theme Section */}
           <div className="p-6">
             <h2 className="text-lg font-semibold text-white mb-6 pb-2 border-b border-white/10">
-              Appearance
+              Theme
             </h2>
             
-            <div className="space-y-0">
-              <SettingRow
-                label="Accent Color"
-                description="Primary color used throughout the interface"
-              >
-                <div className="flex items-center gap-3">
-                  {ACCENT_COLORS.map((color) => (
-                    <ColorSwatch
-                      key={color.value}
-                      color={color.value}
-                      isActive={accentColor === color.value}
-                      onClick={() => setAccentColor(color.value)}
-                      label={color.label}
-                    />
-                  ))}
-                </div>
-              </SettingRow>
-
-              <SettingRow
-                label="Font Mode"
-                description="Choose between sans-serif and monospace fonts"
-              >
-                <PillButton
-                  label="Sans"
-                  isActive={fontMode === 'sans'}
-                  onClick={() => setFontMode('sans')}
-                />
-                <PillButton
-                  label="Mono"
-                  isActive={fontMode === 'mono'}
-                  onClick={() => setFontMode('mono')}
-                />
-              </SettingRow>
-
-              <SettingRow
-                label="Border Radius"
-                description="Control the roundness of UI elements"
-              >
-                <PillButton
-                  label="Rounded"
-                  isActive={borderRadius === 'rounded'}
-                  onClick={() => setBorderRadius('rounded')}
-                />
-                <PillButton
-                  label="Square"
-                  isActive={borderRadius === 'square'}
-                  onClick={() => setBorderRadius('square')}
-                />
-              </SettingRow>
-            </div>
+            <SettingRow
+              label="Accent Color"
+              description="Primary color used throughout the interface"
+            >
+              <div className="flex items-center gap-3">
+                {ACCENT_COLORS.map((color) => (
+                  <ColorSwatch
+                    key={color.value}
+                    color={color.value}
+                    isActive={accentColor === color.value}
+                    onClick={() => setAccentColor(color.value)}
+                    label={color.label}
+                    className={accentColor === color.value ? 'ring-2 ring-offset-4 ring-primary' : ''}
+                  />
+                ))}
+              </div>
+            </SettingRow>
           </div>
 
           {/* Interface Section */}
@@ -152,14 +115,30 @@ export default function SettingsPage() {
                 description="Enable or disable UI sound effects"
               >
                 <PillButton
-                  label="On"
+                  label="ON"
                   isActive={soundEnabled}
                   onClick={() => setIsMuted(false)}
                 />
                 <PillButton
-                  label="Off"
+                  label="OFF"
                   isActive={!soundEnabled}
                   onClick={() => setIsMuted(true)}
+                />
+              </SettingRow>
+
+              <SettingRow
+                label="Reduce Motion"
+                description="Reduce animations and motion effects"
+              >
+                <PillButton
+                  label="ON"
+                  isActive={reduceMotion}
+                  onClick={() => setReduceMotion(true)}
+                />
+                <PillButton
+                  label="OFF"
+                  isActive={!reduceMotion}
+                  onClick={() => setReduceMotion(false)}
                 />
               </SettingRow>
 
@@ -168,19 +147,30 @@ export default function SettingsPage() {
                 description="Visual style of the text cursor"
               >
                 <PillButton
-                  label="Block █"
+                  label="Block"
                   isActive={cursorStyle === 'block'}
                   onClick={() => setCursorStyle('block')}
                 />
                 <PillButton
-                  label="Line |"
+                  label="Line"
                   isActive={cursorStyle === 'line'}
                   onClick={() => setCursorStyle('line')}
                 />
+              </SettingRow>
+
+              <SettingRow
+                label="Font"
+                description="Choose between sans-serif and monospace fonts"
+              >
                 <PillButton
-                  label="Underline _"
-                  isActive={cursorStyle === 'underline'}
-                  onClick={() => setCursorStyle('underline')}
+                  label="Sans"
+                  isActive={fontMode === 'sans'}
+                  onClick={() => setFontMode('sans')}
+                />
+                <PillButton
+                  label="Mono"
+                  isActive={fontMode === 'mono'}
+                  onClick={() => setFontMode('mono')}
                 />
               </SettingRow>
             </div>
@@ -207,7 +197,7 @@ export default function SettingsPage() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
 
       {/* Reset Confirmation Modal */}
       <ConfirmModal

@@ -20,7 +20,6 @@ export { default as SpotlightCard } from './ui/SpotlightCard';
 export { default as ScrollProgressBar } from './ui/ScrollProgressBar';
 export { CodeBlock } from './ui/CodeBlock';
 export { MatrixRain } from './ui/MatrixRain';
-export { SettingsModal } from './ui/SettingsModal';
 export { default as CommandPalette } from './ui/CommandPalette';
 export { Switch } from './ui/Switch';
 export { ColorSwatch } from './ui/ColorSwatch';

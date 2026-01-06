@@ -1,6 +1,5 @@
 'use client';
 import React, { createContext, useState, useEffect, useCallback } from 'react';
-import { SettingsModal } from '@/components/ui/SettingsModal';
 
 export const SystemContext = createContext();
 
@@ -31,7 +30,6 @@ export const SystemProvider = ({ children }) => {
   const [fontMode, setFontMode] = useState(DEFAULTS.fontMode);
   const [borderRadius, setBorderRadius] = useState(DEFAULTS.borderRadius);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
   const [konamiIndex, setKonamiIndex] = useState(0);
   const [audioCtx, setAudioCtx] = useState(null);
@@ -158,7 +156,6 @@ export const SystemProvider = ({ children }) => {
 
   const toggleMatrix = useCallback(() => setMatrixActive(prev => !prev), []);
   const toggleCommandPalette = useCallback(() => setIsCommandPaletteOpen(prev => !prev), []);
-  const toggleSettingsModal = useCallback(() => setIsSettingsModalOpen(prev => !prev), []);
   const toggleDashboard = useCallback(() => setShowDashboard(prev => !prev), []);
 
   const resetSettings = useCallback(() => {
@@ -188,9 +185,9 @@ export const SystemProvider = ({ children }) => {
         toggleCommandPalette();
         return;
       }
-      if (e.shiftKey && e.key.toLowerCase() === 's') { // Changed to 's'
+      if (e.shiftKey && e.key.toLowerCase() === 's') {
         e.preventDefault();
-        toggleSettingsModal();
+        window.location.href = '/settings';
         return;
       }
       // Konami Code Logic
@@ -207,7 +204,7 @@ export const SystemProvider = ({ children }) => {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [toggleCommandPalette, toggleSettingsModal, konamiIndex, toggleMatrix]);
+  }, [toggleCommandPalette, konamiIndex, toggleMatrix]);
 
   return (
     <SystemContext.Provider value={{
@@ -222,12 +219,10 @@ export const SystemProvider = ({ children }) => {
       borderRadius, setBorderRadius,
       showDashboard, setShowDashboard, toggleDashboard,
       isCommandPaletteOpen, toggleCommandPalette,
-      isSettingsModalOpen, toggleSettingsModal,
       playClick, playType, playSuccess,
       resetSettings
     }}>
       {children}
-      <SettingsModal isOpen={isSettingsModalOpen} onClose={toggleSettingsModal} />
     </SystemContext.Provider>
   );
 };
