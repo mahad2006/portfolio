@@ -1,9 +1,7 @@
 import StatusView from './StatusView';
+import { generatePageMetadata } from '@/components/layout/pageMetadata';
 
-export const metadata = {
-  title: 'Shaikh Mahad - System Status',
-  description: 'Real-time telemetry and monitoring of portfolio infrastructure.',
-};
+export const metadata = generatePageMetadata('status');
 
 export default function StatusPage() {
   return <StatusView />;

@@ -1,9 +1,7 @@
 import UsesView from './UsesView';
+import { generatePageMetadata } from '@/components/layout/pageMetadata';
 
-export const metadata = {
-  title: 'Shaikh Mahad - Uses',
-  description: 'A list of the hardware, software, and tools that power my development workflow.',
-};
+export const metadata = generatePageMetadata('uses');
 
 export default function UsesPage() {
   return <UsesView />;

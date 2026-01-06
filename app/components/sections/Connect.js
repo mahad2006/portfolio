@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
-import { CONTACT_INFO, SOCIAL_LINKS } from '@/lib/constants';
+import { CONTACT_INFO, SOCIAL_LINKS } from '@/config/site';
 
 export const Connect = () => {
   const [state, handleSubmit] = useForm(CONTACT_INFO.formspreeId);
@@ -15,7 +15,7 @@ export const Connect = () => {
 
   if (state.succeeded) {
     return (
-      <section id="connect" className="py-24 bg-gradient-to-t" style={{ background: 'linear-gradient(to top, var(--bg-page), rgba(17, 17, 17, 0.4))' }}>
+      <section id="connect" className="py-24 bg-section-gradient">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Message Sent!</h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">Thanks for your message! I'll get back to you soon.</p>
@@ -25,7 +25,7 @@ export const Connect = () => {
   }
 
   return (
-    <section id="connect" className="py-24 bg-gradient-to-t" style={{ background: 'linear-gradient(to top, var(--bg-page), rgba(17, 17, 17, 0.4))' }}>
+    <section id="connect" className="py-24 bg-section-gradient">
       <div className="max-w-4xl mx-auto px-6">
         <div className="text-center mb-16"><h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Let's Engineer the Future.</h2><p className="text-xl text-gray-400 max-w-2xl mx-auto">Whether you have a question about backend scaling, want to collaborate on a project, or just want to say hi, I'll try my best to get back to you!</p></div>
         <div className="grid md:grid-cols-2 gap-12 items-start">

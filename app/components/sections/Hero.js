@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { useSystem } from '@/hooks/useSystem';
-import { HERO_COMMANDS } from '@/lib/constants';
+import { HERO_COMMANDS } from '@/config/commands';
 
 export const Hero = () => {
   const { playType, playClick, playSuccess, toggleMatrix } = useSystem();
@@ -127,8 +127,7 @@ export const Hero = () => {
           {/* Terminal Content */}
           <div 
             ref={chatRef}
-            className="p-6 h-64 overflow-y-auto font-mono text-sm text-left scroll-smooth"
-            style={{ backgroundColor: 'rgba(5, 5, 5, 0.95)' }}
+            className="p-6 h-64 overflow-y-auto font-mono text-sm text-left scroll-smooth bg-terminal"
           >
             {history.map((line, i) => (
               <div key={i} className="mb-2 last:mb-0">

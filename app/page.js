@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Navbar, Hero, JsonLd, PrintStyles, ScrollToTop } from '@/components';
+import { generatePageMetadata } from '@/components/layout/pageMetadata';
 
 const About = dynamic(() => import('@/components/sections/About').then(mod => mod.About));
 const Philosophy = dynamic(() => import('@/components/sections/Philosophy').then(mod => mod.Philosophy));
@@ -12,32 +13,34 @@ const Experience = dynamic(() => import('@/components/sections/Experience').then
 const Connect = dynamic(() => import('@/components/sections/Connect').then(mod => mod.Connect));
 const Footer = dynamic(() => import('@/components/layout/Footer').then(mod => mod.Footer));
 
-export const metadata = {
-  title: 'Shaikh Mahad - Backend Engineer',
-  description: 'The portfolio of Shaikh Mahad, a backend engineer specializing in scalable systems and performance optimization.',
-};
+export const metadata = generatePageMetadata('home');
 
 export default function Home() {
   return (
-    <div className="antialiased selection:bg-primary selection:text-black min-h-screen">
-      {/* Invisible & Utility Components */}
-      <JsonLd />
-      <PrintStyles />
-      <ScrollToTop />
-
-      {/* Visible Content */}
+    <>
+      {/* Fixed elements - MUST be outside any transformed container */}
       <Navbar />
-      <Hero />
-      <About />
-      <Philosophy />
-      <Projects />
-      <Stack />
-      <Writing />
-      <CommandPalette />
-      <Impact />
-      <Experience />
-      <Connect />
-      <Footer />
-    </div>
+      <ScrollToTop />
+      
+      {/* Scrollable content */}
+      <div className="antialiased selection:bg-primary selection:text-black min-h-screen">
+        {/* Invisible & Utility Components */}
+        <JsonLd />
+        <PrintStyles />
+
+        {/* Visible Content */}
+        <Hero />
+        <About />
+        <Philosophy />
+        <Projects />
+        <Stack />
+        <Writing />
+        <CommandPalette />
+        <Impact />
+        <Experience />
+        <Connect />
+        <Footer />
+      </div>
+    </>
   );
 }

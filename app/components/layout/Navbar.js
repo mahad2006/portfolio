@@ -1,11 +1,15 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import CommandPalette from '@/components/ui/CommandPalette';
 import { useSystem } from '@/hooks/useSystem';
-import { NAV_LINKS } from '@/lib/constants';
+import { ROUTES, NAV_LINKS, SECTIONS } from '@/config/routes';
+import { AUTHOR_NAME } from '@/config/site';
 
 export const Navbar = () => {
+  const pathname = usePathname();
+  const isHome = pathname === ROUTES.HOME;
   const { playClick, isMuted, setIsMuted, soundEnabled } = useSystem();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -14,12 +18,15 @@ export const Navbar = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    // Skip scroll handling on sub-pages
+    if (!isHome) return;
+    
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setScrolled(window.scrollY > 50);
-          const sections = ['about', 'projects', 'stack', 'writing', 'connect'];
+          const sections = [SECTIONS.ABOUT, SECTIONS.PROJECTS, SECTIONS.STACK, SECTIONS.WRITING, SECTIONS.CONNECT];
           const scrollPosition = window.scrollY + 250;
           for (const section of sections) {
             const element = document.getElementById(section);
@@ -53,7 +60,7 @@ export const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [isHome]);
 
   const scrollTo = (id) => {
     playClick();
@@ -62,17 +69,25 @@ export const Navbar = () => {
     if (element) element.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Hide Navbar on all sub-pages - they use PageShell instead
+  if (!isHome) return null;
+
   return (
     <>
       <CommandPalette isOpen={paletteOpen} onClose={() => setPaletteOpen(false)} onNavigate={scrollTo} />
 
-      <nav className={`fixed top-0 w-full z-[100] transition-all duration-300 ${scrolled ? 'bg-[var(--bg-page)] border-b border-[var(--border-subtle)] shadow-[var(--shadow-card)]' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed top-0 w-full z-[9998] transition-all duration-300 ${scrolled ? 'bg-[var(--bg-page)]/80 backdrop-blur-xl border-b border-[var(--border-subtle)] shadow-[var(--shadow-card)]' : 'bg-transparent py-6'}`}>
         <div className={`max-w-7xl mx-auto px-6 flex justify-between items-center ${scrolled ? 'py-4' : ''}`}>
-          <div className="text-xl font-bold mono tracking-tighter text-white z-50 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo(0,0)} onMouseEnter={playClick}>
-            Shaikh Mahad<span className="text-primary">.</span>
-          </div>
+          {/* Left Side: Logo on home, Back Button on sub-pages */}
+          {isHome ? (
+            <div className="text-xl font-bold mono tracking-tighter text-white z-50 cursor-pointer hover:opacity-80 transition-opacity" onClick={() => window.scrollTo(0,0)} onMouseEnter={playClick}>
+              {AUTHOR_NAME}<span className="text-primary">.</span>
+            </div>
+          ) : (
+            <TerminalBackButton />
+          )}
           <div className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-400">
-            {NAV_LINKS.map((item) => {
+            {isHome && NAV_LINKS.map((item) => {
               const isActive = activeSection === item.id;
               return (
                 <button key={item.id} onClick={() => scrollTo(item.id)} onMouseEnter={playClick} className={`transition-colors relative group ${isActive ? 'text-primary' : 'hover:text-primary'}`}>
@@ -81,9 +96,21 @@ export const Navbar = () => {
                 </button>
               )
             })}
-            <Link href="/community" onMouseEnter={playClick} className="transition-colors relative group hover:text-orange-400">Community</Link>
+            {isHome && (
+              <Link href={ROUTES.COMMUNITY} onMouseEnter={playClick} className="transition-colors relative group hover:text-orange-400">Community</Link>
+            )}
 
             <div className="flex items-center border-l border-white/10 pl-6 ml-2 space-x-4">
+              {/* Logo on right side when not on home page */}
+              {!isHome && (
+                <Link 
+                  href={ROUTES.HOME} 
+                  className="text-lg font-bold mono tracking-tighter text-white hover:opacity-80 transition-opacity mr-4"
+                  onMouseEnter={playClick}
+                >
+                  {AUTHOR_NAME}<span className="text-primary">.</span>
+                </Link>
+              )}
               <button
                 onClick={() => setPaletteOpen(true)}
                 onMouseEnter={playClick}
@@ -111,7 +138,7 @@ export const Navbar = () => {
                 )}
               </button>
               <Link
-                href="/settings"
+                href={ROUTES.SETTINGS}
                 onMouseEnter={playClick}
                 className="p-2 text-gray-400 hover:text-white transition-colors group"
                 title="Settings"
@@ -119,14 +146,16 @@ export const Navbar = () => {
               >
                 <svg className="group-hover:rotate-90 transition-transform duration-500" width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
               </Link>
-              <button
-                onClick={() => scrollTo('connect')}
-                onMouseEnter={playClick}
-                className="px-4 py-2 text-white bg-primary/10 border border-primary/50 rounded hover:bg-primary hover:border-primary transition-all transform hover:scale-105"
-                aria-label="Contact Me"
-              >
-                Let's Talk
-              </button>
+              {isHome && (
+                <button
+                  onClick={() => scrollTo(SECTIONS.CONNECT)}
+                  onMouseEnter={playClick}
+                  className="px-4 py-2 text-white bg-primary/10 border border-primary/50 rounded hover:bg-primary hover:border-primary transition-all transform hover:scale-105"
+                  aria-label="Contact Me"
+                >
+                  Let's Talk
+                </button>
+              )}
             </div>
           </div>
           {/* ... (mobile menu) */}

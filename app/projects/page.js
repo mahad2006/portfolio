@@ -10,6 +10,10 @@ import Image from 'next/image';
 // Category mapping based on tags
 const getCategory = (project) => {
   const tags = project.tags.map(t => t.toLowerCase());
+  // Check for console/terminal projects first (C++ DSA projects)
+  if (tags.some(t => t.includes('c++') || t.includes('console') || t.includes('terminal') || t.includes('cli'))) {
+    return 'Console & DSA';
+  }
   if (tags.some(t => t.includes('android') || t.includes('kotlin') || t.includes('mobile'))) {
     return 'Mobile Apps';
   }
@@ -26,7 +30,7 @@ const getCategory = (project) => {
 };
 
 // Filter options
-const FILTERS = ['All', 'Mobile Apps', 'Backend Systems', 'System Architecture', 'Documentation & Guides'];
+const FILTERS = ['All', 'Mobile Apps', 'Backend Systems', 'System Architecture', 'Console & DSA', 'Documentation & Guides'];
 
 export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -73,7 +77,7 @@ export default function ProjectsPage() {
   const showRows = !showGrid;
 
   return (
-    <PageShell title={null} backButton={true}>
+    <PageShell title={null} headerTag="PROJECT_ARCHIVE">
       {/* Hero Header */}
       <div className="relative pt-8 pb-16 -mt-12">
         {/* Spotlight Background Effect */}

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import { PageShell } from '@/components/layout/PageShell';
+import { PageTemplate } from '@/components/layout/PageTemplate';
 
 export default function UsesPage() {
   const setup = {
@@ -82,31 +82,19 @@ export default function UsesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black overflow-hidden">
-
+    <PageTemplate
+      title="Uses."
+      description="Hardware, software, and tools that power my development workflow"
+      headerTag="SYSTEM_CONFIGURATION"
+      maxWidth="content"
+    >
       {/* Matrix Rain Background Effect */}
-      <div className="fixed inset-0 pointer-events-none opacity-5">
+      <div className="fixed inset-0 pointer-events-none opacity-5 -z-10">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 20% 50%, rgba(109,179,63,0.1) 0%, transparent 50%),
                            radial-gradient(circle at 80% 80%, rgba(109,179,63,0.1) 0%, transparent 50%)`
         }}></div>
       </div>
-
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-xl border-b border-[var(--border-subtle)] px-6 py-4" style={{ backgroundColor: 'rgba(var(--bg-page-rgb), 0.9)' }}>
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-            <span className="text-[9px] text-primary tracking-[0.3em] uppercase">System_Configuration</span>
-          </div>
-        </div>
-      </nav>
-
-      <PageShell
-        title="Uses."
-        description="Hardware, software, and tools that power my development workflow"
-        backButton={true}
-      >
 
         {/* Hardware Section */}
         <section className="mb-24">
@@ -274,7 +262,6 @@ export default function UsesPage() {
           </p>
         </div>
 
-      </PageShell>
-    </div>
+      </PageTemplate>
   );
 }

@@ -2,6 +2,9 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSystem } from '@/hooks/useSystem';
+import { ACCENT_COLORS } from '@/config/theme';
+import { ROUTES, SECTIONS, STATIC_ROUTES } from '@/config/routes';
+import { SOCIAL_LINKS } from '@/config/site';
 import {
   HomeIcon,
   UserIcon,
@@ -49,31 +52,22 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
     }
   }, [isOpen, soundEnabled, playClick]);
 
-  const ACCENT_COLORS = [
-    { value: '#6DB33F', label: 'Green' },
-    { value: '#FF8C00', label: 'Orange' },
-    { value: '#00BFFF', label: 'Blue' },
-    { value: '#FF0000', label: 'Red' },
-    { value: '#9400D3', label: 'Purple' },
-    { value: '#FFD700', label: 'Gold' },
-  ];
-
   const commandGroups = useMemo(() => [
     {
       title: 'Navigation',
       commands: [
-        { id: 'home', label: 'Go to Home', action: () => onNavigate('hero'), icon: HomeIcon, shortcut: '↵' },
-        { id: 'about', label: 'Go to About', action: () => onNavigate('about'), icon: UserIcon, shortcut: '↵' },
-        { id: 'projects', label: 'Go to Projects', action: () => onNavigate('projects'), icon: CodeBracketIcon, shortcut: '↵' },
-        { id: 'stack', label: 'Go to Tech Stack', action: () => onNavigate('stack'), icon: CommandLineIcon, shortcut: '↵' },
-        { id: 'writing', label: 'Go to Writing', action: () => onNavigate('writing'), icon: PencilSquareIcon, shortcut: '↵' },
-        { id: 'connect', label: 'Go to Contact', action: () => onNavigate('connect'), icon: EnvelopeIcon, shortcut: '↵' },
+        { id: 'home', label: 'Go to Home', action: () => onNavigate(SECTIONS.HERO), icon: HomeIcon, shortcut: '↵' },
+        { id: 'about', label: 'Go to About', action: () => onNavigate(SECTIONS.ABOUT), icon: UserIcon, shortcut: '↵' },
+        { id: 'projects', label: 'Go to Projects', action: () => onNavigate(SECTIONS.PROJECTS), icon: CodeBracketIcon, shortcut: '↵' },
+        { id: 'stack', label: 'Go to Tech Stack', action: () => onNavigate(SECTIONS.STACK), icon: CommandLineIcon, shortcut: '↵' },
+        { id: 'writing', label: 'Go to Writing', action: () => onNavigate(SECTIONS.WRITING), icon: PencilSquareIcon, shortcut: '↵' },
+        { id: 'connect', label: 'Go to Contact', action: () => onNavigate(SECTIONS.CONNECT), icon: EnvelopeIcon, shortcut: '↵' },
       ]
     },
     {
       title: 'Actions',
       commands: [
-        { id: 'settings', label: 'Open Settings', shortcut: 'Shift+S', action: () => { router.push('/settings'); onClose(); }, icon: CogIcon },
+        { id: 'settings', label: 'Open Settings', shortcut: 'Shift+S', action: () => { router.push(ROUTES.SETTINGS); onClose(); }, icon: CogIcon },
         { id: 'sound', label: soundEnabled ? 'Mute Sound' : 'Enable Sound', action: () => setIsMuted(!isMuted), icon: soundEnabled ? SpeakerWaveIcon : SpeakerXMarkIcon, shortcut: '↵' },
         { id: 'matrix', label: 'Toggle Matrix Mode', action: toggleMatrix, icon: SparklesIcon, shortcut: '↵' },
         { id: 'motion', label: reduceMotion ? 'Enable Animations' : 'Reduce Motion', action: () => setReduceMotion(!reduceMotion), icon: EyeSlashIcon, shortcut: '↵' },
@@ -91,8 +85,8 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
     {
       title: 'External Links',
       commands: [
-        { id: 'resume', label: 'View Resume', action: () => window.open('/resume.pdf', '_blank'), icon: DocumentTextIcon, shortcut: '↵' },
-        { id: 'github', label: 'Open GitHub Profile', action: () => window.open('https://github.com/mahad2006', '_blank'), icon: ArrowTopRightOnSquareIcon, shortcut: '↵' },
+        { id: 'resume', label: 'View Resume', action: () => window.open(STATIC_ROUTES.RESUME, '_blank'), icon: DocumentTextIcon, shortcut: '↵' },
+        { id: 'github', label: 'Open GitHub Profile', action: () => window.open(SOCIAL_LINKS.github.url, '_blank'), icon: ArrowTopRightOnSquareIcon, shortcut: '↵' },
       ]
     }
   ], [isMuted, soundEnabled, showDashboard, reduceMotion, accentColor, onNavigate, toggleDashboard, toggleMatrix, setIsMuted, setReduceMotion, setAccentColor, router, onClose]);

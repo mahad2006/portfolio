@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import SpotlightCard from '@/components/ui/SpotlightCard';
+import { ROUTES } from '@/config/routes';
 
 export const Experience = () => {
   return (
@@ -15,7 +16,7 @@ export const Experience = () => {
             <div className="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-primary border-4 border-black box-content"></div>
             <h3 className="text-2xl font-bold text-white">Founder & Mentor</h3>
             <p className="text-primary mono text-sm mb-4">The UBIT Hub | Present</p>
-            <Link href="/community" passHref>
+            <Link href={ROUTES.COMMUNITY} passHref>
               <SpotlightCard as="a" className="card-base p-8 rounded-xl block transition-colors group">
                 <p className="text-gray-400 mb-4">Established a student community to bridge the gap between academic theory and engineering reality.</p>
                 <ul className="space-y-2 text-sm text-gray-400 mb-6">

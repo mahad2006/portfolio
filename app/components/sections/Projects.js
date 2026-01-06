@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { projectsData } from '@/data/projects';
 import { ProjectStack } from '@/components/ui/ProjectStack';
+import { ROUTES } from '@/config/routes';
 
 export const Projects = () => {
   // Use all projects for the infinite loop
@@ -28,7 +29,7 @@ export const Projects = () => {
         {/* View All CTA */}
         <div className="flex justify-center mt-12">
           <Link
-            href="/projects"
+            href={ROUTES.PROJECTS}
             className="group card-base rounded-2xl p-8 w-full max-w-2xl transition-all duration-300 hover:scale-[1.02]"
           >
             <div className="flex items-center justify-between">

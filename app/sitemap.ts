@@ -1,28 +1,30 @@
 import { MetadataRoute } from 'next';
 import { projectsData } from '@/data/projects';
 import { allPosts } from '@/data/writing';
+import { SITE_URL } from '@/config/site';
+import { getSitemapPages } from '@/config/seo';
 
+/**
+ * Sitemap Generator
+ * 
+ * Uses centralized SEO config for static pages and dynamically 
+ * generates entries for projects and writing posts.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://shaikhmahad.vercel.app';
+    // Static pages from SEO config (excludes noIndex pages)
+    const staticPages = getSitemapPages();
 
-    const staticPages: MetadataRoute.Sitemap = [
-        { url: baseUrl, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
-        { url: `${baseUrl}/community`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-        { url: `${baseUrl}/stats`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-        { url: `${baseUrl}/uses`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.6 },
-        { url: `${baseUrl}/status`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.5 },
-        { url: `${baseUrl}/writing`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-    ];
-
+    // Dynamic project pages
     const projectPages: MetadataRoute.Sitemap = projectsData.map(project => ({
-        url: `${baseUrl}/projects/${project.slug}`,
+        url: `${SITE_URL}/projects/${project.slug}`,
         lastModified: new Date(),
         changeFrequency: 'yearly',
         priority: 0.9,
     }));
 
+    // Dynamic writing/blog pages
     const writingPages: MetadataRoute.Sitemap = allPosts.map(post => ({
-        url: `${baseUrl}/writing/${post.slug}`,
+        url: `${SITE_URL}/writing/${post.slug}`,
         lastModified: new Date(),
         changeFrequency: 'weekly',
         priority: 0.8,

@@ -55,8 +55,9 @@ const WritingView = () => {
 
   return (
     <PageShell
-      title="Technical Writing"
+      title={<>Technical<span className="text-primary">_</span>Writing</>}
       description="A collection of articles on backend engineering, system design, and performance."
+      headerTag="TECHNICAL_DOCS"
     >
 
         <div className="mb-12 flex flex-wrap gap-3">

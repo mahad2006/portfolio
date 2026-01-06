@@ -1,9 +1,7 @@
 import StatsView from './StatsView';
+import { generatePageMetadata } from '@/components/layout/pageMetadata';
 
-export const metadata = {
-  title: 'Shaikh Mahad - Career Analytics',
-  description: 'Real-time performance diagnostics, competitive programming stats, and development activity.',
-};
+export const metadata = generatePageMetadata('stats');
 
 export default function StatsPage() {
   return <StatsView />;

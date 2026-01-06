@@ -2,6 +2,7 @@ export const projectsData = [
   {
     title: "Scalable E-Commerce API",
     slug: "scalable-ecommerce",
+    type: "backend", // backend | mobile-app | documentation | system-design
     isFlagship: true,
     tagline: "High-concurrency systems architecture with Spring Boot & PostgreSQL",
     stats: [
@@ -19,12 +20,20 @@ export const projectsData = [
         { title: "Query Optimization", desc: "Eliminated N+1 query overhead by implementing Entity Graphs and DTO Projections." }
       ]
     },
+    // Architecture diagram config for backend projects
+    diagrams: {
+      architecture: {
+        title: "System Architecture",
+        components: ["Client", "API Gateway", "Auth Service", "Product Service", "Order Service", "Redis Cache", "PostgreSQL"]
+      }
+    },
     tags: ['Java', 'Spring Boot', 'PostgreSQL', 'Docker', 'Redis'],
     link: "https://github.com/mahad2006/scalable-ecommerce"
   },
   {
     title: "Derivify: Calculus Toolkit",
     slug: "derivify-calculus",
+    type: "mobile-app",
     isFlagship: false,
     image: "/derivify.png",
     tagline: "A low-latency Recursive Descent Parser for offline symbolic computation",
@@ -43,12 +52,20 @@ export const projectsData = [
         { title: "UI Performance", desc: "Bypassed heavy WebView rendering by building a custom Canvas-based math engine to display LaTeX-style equations smoothy." }
       ]
     },
+    // Mobile app specific config
+    screens: [
+      { name: "Home", desc: "Enter mathematical expressions" },
+      { name: "Solution", desc: "Step-by-step differentiation" },
+      { name: "Graph", desc: "Interactive function plotting" }
+    ],
+    appFeatures: ["Offline Mode", "Step-by-Step Solutions", "Graph Visualization", "History"],
     tags: ['Kotlin', 'Recursive Parsing', 'Android XML', 'Algorithms'],
     link: "https://github.com/mahad2006/Derivify-Calculus-Toolkit"
   },
   {
     title: "Distributed Caching Layer",
     slug: "distributed-caching",
+    type: "system-design",
     isFlagship: false,
     tagline: "Optimizing DB read throughput via intelligent eviction and consistency models",
     stats: [
@@ -66,12 +83,19 @@ export const projectsData = [
         { title: "Serialization Overhead", desc: "Migrated from standard JSON to Protobuf for cache storage, resulting in a 40% reduction in network payload size." }
       ]
     },
+    diagrams: {
+      architecture: {
+        title: "Cache-Aside Pattern",
+        components: ["Application", "Redis Cache", "PostgreSQL", "Pub/Sub"]
+      }
+    },
     tags: ['System Design', 'Redis', 'Java', 'LRU Cache'],
     link: "https://github.com/mahad2006/distributed-cache"
   },
   {
     title: "Quizzler App",
     slug: "quizzler-app",
+    type: "mobile-app",
     isFlagship: false,
     image: "/quizzler.png",
     tagline: "Memory-optimized MVC architecture for native Android environments",
@@ -90,12 +114,19 @@ export const projectsData = [
         { title: "Resource Scaling", desc: "Optimized image handling using the Glide library to ensure bitmapped assets were sampled according to the device density." }
       ]
     },
+    screens: [
+      { name: "Quiz", desc: "Answer true/false questions" },
+      { name: "Score", desc: "View results and stats" },
+      { name: "Progress", desc: "Track your performance" }
+    ],
+    appFeatures: ["Quiz Mode", "Score Tracking", "State Recovery", "Offline Support"],
     tags: ['Kotlin', 'MVC Pattern', 'Singleton', 'Memory Opt.'],
     link: "https://github.com/mahad2006/Quizzler-App"
   },
   {
     title: "Real-Time Chat Android",
     slug: "realtime-chat",
+    type: "mobile-app",
     isFlagship: false,
     tagline: "Offline-first sync engine with RoomDB and WebSockets",
     stats: [
@@ -113,12 +144,19 @@ export const projectsData = [
         { title: "Socket Resilience", desc: "Engineered a heartbeat mechanism to detect 'zombie' connections and automatically re-establish the WSS tunnel." }
       ]
     },
+    screens: [
+      { name: "Chat List", desc: "All conversations" },
+      { name: "Messages", desc: "Real-time chat view" },
+      { name: "Profile", desc: "User settings" }
+    ],
+    appFeatures: ["Real-Time Sync", "Offline Mode", "Push Notifications", "Message Queue"],
     tags: ['Kotlin', 'WebSockets', 'RoomDB', 'Offline-First'],
     link: "https://github.com/mahad2006/realtime-chat-android"
   },
   {
     title: "DSA Roadmap & Guide",
     slug: "dsa-roadmap",
+    type: "documentation",
     isFlagship: false,
     image: "/roadmap.png",
     tagline: "Technical documentation and pedagogical structure for engineers",
@@ -137,7 +175,138 @@ export const projectsData = [
         { title: "SEO Optimization", desc: "Structured the metadata to rank for specific University curriculum keywords." }
       ]
     },
+    // Documentation specific sections
+    sections: [
+      { title: "Arrays & Strings", count: 12 },
+      { title: "Linked Lists", count: 8 },
+      { title: "Trees & Graphs", count: 15 },
+      { title: "Dynamic Programming", count: 10 },
+      { title: "System Design", count: 5 }
+    ],
     tags: ['Documentation', 'Community', 'Education', 'DSA'],
+    link: "https://github.com/mahad2006"
+  },
+  // =====================
+  // Console & DSA Projects (C++ Terminal-based)
+  // =====================
+  {
+    title: "Snake Game",
+    slug: "snake-game-cpp",
+    type: "console",
+    isFlagship: false,
+    tagline: "Classic snake game implemented in C++ with real-time keyboard input handling",
+    stats: [
+      { label: "Language", value: "C++" },
+      { label: "Lines of Code", value: "400+" },
+      { label: "Semester", value: "1st" }
+    ],
+    caseStudy: {
+      problem: "Needed to understand game loops, real-time input, and 2D array manipulation.",
+      approach: "Built using Windows console APIs for cursor positioning and non-blocking keyboard input. Implemented collision detection and dynamic snake growth.",
+      outcome: "Fully playable console game with score tracking and increasing difficulty.",
+      architecture: "Game loop pattern with separate update and render phases. Used linked list for snake body segments.",
+      challenges: [
+        { title: "Real-time Input", desc: "Implemented non-blocking keyboard input using _kbhit() and _getch() for smooth gameplay without pausing." },
+        { title: "Screen Flickering", desc: "Solved flickering by using SetConsoleCursorPosition() for selective rendering instead of full screen clears." }
+      ]
+    },
+    tags: ['C++', 'Console', 'Game Dev', 'Data Structures'],
+    link: "https://github.com/mahad2006"
+  },
+  {
+    title: "Word Guess Game",
+    slug: "word-guess-cpp",
+    type: "console",
+    isFlagship: false,
+    tagline: "Interactive hangman-style word guessing game with category selection",
+    stats: [
+      { label: "Language", value: "C++" },
+      { label: "Word Bank", value: "100+" },
+      { label: "Semester", value: "1st" }
+    ],
+    caseStudy: {
+      problem: "Create an engaging CLI game while learning string manipulation and file I/O.",
+      approach: "Designed modular code with separate functions for game logic, display, and word management. Used file streams for persistent word banks.",
+      outcome: "Fun educational game demonstrating string algorithms and user input validation.",
+      architecture: "Modular design with clear separation between game state, rendering, and input handling.",
+      challenges: [
+        { title: "Input Validation", desc: "Implemented robust input sanitization to handle edge cases like repeated guesses and invalid characters." },
+        { title: "ASCII Art", desc: "Created dynamic ASCII hangman rendering based on remaining attempts." }
+      ]
+    },
+    tags: ['C++', 'Console', 'Strings', 'File I/O'],
+    link: "https://github.com/mahad2006"
+  },
+  {
+    title: "Book Management System",
+    slug: "book-management-cpp",
+    type: "console",
+    isFlagship: false,
+    tagline: "CRUD-based library management system with file persistence",
+    stats: [
+      { label: "Language", value: "C++" },
+      { label: "Features", value: "8+" },
+      { label: "Semester", value: "2nd" }
+    ],
+    caseStudy: {
+      problem: "Build a practical system demonstrating OOP concepts and data persistence.",
+      approach: "Implemented full CRUD operations with classes for Book and Library. Used binary file I/O for data persistence.",
+      outcome: "Functional library system with search, borrow/return tracking, and data persistence.",
+      architecture: "Object-oriented design with Book and Member classes. File-based database using binary serialization.",
+      challenges: [
+        { title: "Data Persistence", desc: "Implemented binary file read/write for efficient storage and retrieval of book records." },
+        { title: "Search Algorithm", desc: "Built efficient search by title, author, and ISBN using linear and binary search." }
+      ]
+    },
+    tags: ['C++', 'Console', 'OOP', 'File I/O', 'CRUD'],
+    link: "https://github.com/mahad2006"
+  },
+  {
+    title: "Sorting Visualizer CLI",
+    slug: "sorting-visualizer-cpp",
+    type: "console",
+    isFlagship: false,
+    tagline: "Terminal-based visualization of sorting algorithms with step-by-step animation",
+    stats: [
+      { label: "Algorithms", value: "6" },
+      { label: "Language", value: "C++" },
+      { label: "Semester", value: "2nd" }
+    ],
+    caseStudy: {
+      problem: "Understanding sorting algorithms is difficult without visual representation.",
+      approach: "Created ASCII bar charts that animate in real-time as algorithms sort arrays. Implemented Bubble, Selection, Insertion, Merge, Quick, and Heap sort.",
+      outcome: "Educational tool that clearly shows how different sorting algorithms work and their time complexity differences.",
+      architecture: "Strategy pattern for interchangeable sorting algorithms with common visualization interface.",
+      challenges: [
+        { title: "Animation Timing", desc: "Used Sleep() with configurable delays to create smooth, watchable animations without being too slow." },
+        { title: "Console Rendering", desc: "Optimized rendering to only update changed bars rather than redrawing the entire visualization." }
+      ]
+    },
+    tags: ['C++', 'Console', 'Algorithms', 'DSA', 'Visualization'],
+    link: "https://github.com/mahad2006"
+  },
+  {
+    title: "Student Grade Manager",
+    slug: "grade-manager-cpp",
+    type: "console",
+    isFlagship: false,
+    tagline: "Academic grade tracking system with GPA calculation and statistics",
+    stats: [
+      { label: "Language", value: "C++" },
+      { label: "Metrics", value: "5+" },
+      { label: "Semester", value: "1st" }
+    ],
+    caseStudy: {
+      problem: "Manual grade calculation is tedious and error-prone.",
+      approach: "Built a menu-driven system to add courses, record grades, and automatically calculate GPA using weighted averages.",
+      outcome: "Practical utility that demonstrates arrays, structs, and basic statistics.",
+      architecture: "Struct-based design with arrays for course storage and modular functions for calculations.",
+      challenges: [
+        { title: "GPA Algorithms", desc: "Implemented both simple and weighted GPA calculations with credit hour considerations." },
+        { title: "Data Validation", desc: "Added comprehensive input validation for grade ranges and credit hours." }
+      ]
+    },
+    tags: ['C++', 'Console', 'Arrays', 'Structs'],
     link: "https://github.com/mahad2006"
   }
 ];

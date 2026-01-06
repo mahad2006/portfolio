@@ -262,3 +262,76 @@ h1, h2, h3, .mono {
 [data-radius="rounded"] {
   --radius: 0.5rem;
 }
+
+/* ============================================================================
+   Layout & Background Utilities
+   ============================================================================ */
+
+/* Page Background - Standard bg-page color */
+.bg-page {
+  background-color: var(--bg-page);
+}
+
+/* Surface Backgrounds */
+.bg-surface {
+  background-color: var(--bg-surface);
+}
+
+.bg-surface-hover {
+  background-color: var(--bg-surface-hover);
+}
+
+/* Terminal/Code Background - Very dark with high opacity */
+.bg-terminal {
+  background-color: rgba(var(--bg-page-rgb), 0.95);
+}
+
+/* Quote/Callout Background - Subtle white tint */
+.bg-quote {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Section Gradient - Fades from transparent to page background */
+.bg-section-gradient {
+  background: linear-gradient(to top, var(--bg-page), rgba(17, 17, 17, 0.4));
+}
+
+/* Hero Dot Grid Pattern */
+.bg-dot-grid {
+  background-image: radial-gradient(#ffffff05 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Primary Color Gradient (for cards, accents) */
+.bg-primary-gradient {
+  background: linear-gradient(to right, rgb(var(--color-primary-rgb)), var(--color-secondary));
+}
+
+/* Border Utilities */
+.border-subtle {
+  border-color: var(--border-subtle);
+}
+
+.border-highlight {
+  border-color: var(--border-highlight);
+}
+
+/* Secondary Color Background */
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+/* Secondary Color Background with Alpha */
+.bg-secondary-soft {
+  background-color: rgba(var(--color-secondary-rgb), 0.1);
+}
+
+/* Secondary Color Border */
+.border-secondary-soft {
+  border-color: rgba(var(--color-secondary-rgb), 0.4);
+}
+
+/* Secondary Color Text */
+.text-secondary {
+  color: var(--color-secondary);
+}

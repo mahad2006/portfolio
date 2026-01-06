@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { allPosts } from '@/data/writing';
 import { WritingDetailClient } from './WritingDetailClient';
+import { generateWritingMetadata } from '@/components/layout/pageMetadata';
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -9,20 +10,14 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const post = allPosts.find(p => p.slug === params.slug);
-  if (!post) {
-    return {
-      title: 'Article Not Found'
-    }
-  }
-  return {
-    title: post.title,
-    description: post.description,
-  };
+  const { slug } = await params;
+  const post = allPosts.find(p => p.slug === slug);
+  return generateWritingMetadata(post);
 }
 
-const PostPage = ({ params }) => {
-  const post = allPosts.find(p => p.slug === params.slug);
+const PostPage = async ({ params }) => {
+  const { slug } = await params;
+  const post = allPosts.find(p => p.slug === slug);
 
   if (!post) {
     notFound();

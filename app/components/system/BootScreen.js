@@ -42,7 +42,7 @@ export const BootScreen = ({ onComplete }) => {
     if (!isVisible) return null;
 
     return (
-        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center p-6 font-mono overflow-hidden" style={{ backgroundColor: 'var(--bg-page)' }}>
+        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center p-6 font-mono overflow-hidden bg-page">
             {/* CRT Scanline Effect */}
             <div className="absolute inset-0 bg-scanline pointer-events-none opacity-30 z-10"></div>
             

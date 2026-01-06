@@ -1,9 +1,7 @@
 import WritingView from './WritingView';
+import { generatePageMetadata } from '@/components/layout/pageMetadata';
 
-export const metadata = {
-  title: 'Writing & Articles | Shaikh Mahad',
-  description: 'A collection of articles on backend engineering, system design, and performance.',
-};
+export const metadata = generatePageMetadata('writing');
 
 export default function WritingPage() {
   return <WritingView />;

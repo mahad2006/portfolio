@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import { ROUTES, writingRoute } from '@/config/routes';
 
 const featuredArticles = [
   {
@@ -33,7 +34,7 @@ export const Writing = () => {
           <h2 className="text-3xl font-bold flex items-center gap-3">
             <span className="text-primary mono text-2xl">05.</span> Technical Writing
           </h2>
-          <Link href="/writing" className="group text-sm font-bold text-gray-400 hover:text-white transition-colors flex items-center gap-2">
+          <Link href={ROUTES.WRITING} className="group text-sm font-bold text-gray-400 hover:text-white transition-colors flex items-center gap-2">
             View All Articles
             <span className="group-hover:translate-x-1 transition-transform">→</span>
           </Link>
@@ -41,7 +42,7 @@ export const Writing = () => {
         <div className="grid md:grid-cols-2 gap-8">
           {featuredArticles.map((post) => (
             <Link
-              href={`/writing/${post.slug}`}
+              href={writingRoute(post.slug)}
               key={post.slug}
               className="block p-8 rounded-2xl card-base border border-transparent transition-all group relative overflow-hidden"
               style={{'--hover-color': post.color}}

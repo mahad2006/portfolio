@@ -1,41 +1,60 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-const CARD_WIDTH = 380;
-const AUTO_PLAY_INTERVAL = 4000; // 4 seconds per card
+const CARD_WIDTH = 340;
+const AUTO_PLAY_INTERVAL = 6000; // 6 seconds per card (slower)
 
-// Position configuration for Stacked Deck (Cover Flow)
-// Strict 3-Layer System: Center (Layer 0), Immediate Left/Right (Layer 1), Far Left/Right (Layer 2)
+// Position configuration - responsive spread using percentage-based offsets
 const POSITIONS = {
-  farRight: { index: 2, zIndex: 30, scale: 0.8, opacity: 0.7, x: 340 },
-  right: { index: 1, zIndex: 40, scale: 0.9, opacity: 1, x: 160 },
-  center: { index: 0, zIndex: 50, scale: 1, opacity: 1, x: 0 },
-  left: { index: -1, zIndex: 40, scale: 0.9, opacity: 1, x: -160 },
-  farLeft: { index: -2, zIndex: 30, scale: 0.8, opacity: 0.7, x: -340 },
-  hidden: { index: 3, zIndex: 0, scale: 0, opacity: 0, x: 0 }, // Layer 3+ hidden
+  farLeft:  { index: -2, zIndex: 10, scale: 0.75, opacity: 0.5, xPercent: -85 },
+  left:     { index: -1, zIndex: 20, scale: 0.85, opacity: 0.8, xPercent: -45 },
+  center:   { index: 0,  zIndex: 30, scale: 1,    opacity: 1,   xPercent: 0 },
+  right:    { index: 1,  zIndex: 20, scale: 0.85, opacity: 0.8, xPercent: 45 },
+  farRight: { index: 2,  zIndex: 10, scale: 0.75, opacity: 0.5, xPercent: 85 },
 };
 
 export const ProjectStack = ({ projects }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(1200);
+  const containerRef = useRef(null);
   const router = useRouter();
+  
+  // Touch/drag state
+  const [dragStart, setDragStart] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
 
-  // Auto-play animation
+  // Measure container width for responsive spread
   useEffect(() => {
-    if (isPaused) return;
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
 
+  // Auto-play animation - continuous loop
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % projects.length);
     }, AUTO_PLAY_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [isPaused, projects.length]);
+  }, [projects.length]);
 
-  // Get visible cards (5 cards: farLeft, left, center, right, farRight) - Strict 3-Layer System
+  // Calculate x position based on container width
+  const getXPosition = (xPercent) => {
+    const maxSpread = Math.min(containerWidth * 0.4, 400); // Max 400px or 40% of container
+    return (xPercent / 100) * maxSpread;
+  };
+
+  // Get visible cards
   const getVisibleCards = () => {
     const cards = [];
     const positions = ['farLeft', 'left', 'center', 'right', 'farRight'];
@@ -46,8 +65,11 @@ export const ProjectStack = ({ projects }) => {
       cards.push({
         project: projects[projectIndex],
         position: pos,
-        config,
-        key: `card-${projectIndex}-${currentIndex}-${pos}`,
+        config: {
+          ...config,
+          x: getXPosition(config.xPercent),
+        },
+        projectIndex,
       });
     });
 
@@ -56,44 +78,95 @@ export const ProjectStack = ({ projects }) => {
 
   const visibleCards = getVisibleCards();
 
+  // Navigation functions
+  const goNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % projects.length);
+  };
+
+  const goPrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
+  };
+
   const handleCardClick = (position) => {
-    if (position !== 'center') {
-      // Calculate how many steps to move
-      const positionMap = {
-        farLeft: -2,
-        left: -1,
-        center: 0,
-        right: 1,
-        farRight: 2,
-      };
-      const steps = -positionMap[position];
-      setCurrentIndex((prev) => (prev + steps + projects.length) % projects.length);
+    if (position === 'left' || position === 'farLeft') {
+      goPrev();
+    } else if (position === 'right' || position === 'farRight') {
+      goNext();
     }
+  };
+
+  // Touch/Drag handlers
+  const handleDragStart = (e) => {
+    const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+    setDragStart(clientX);
+    setIsDragging(true);
+  };
+
+  const handleDragEnd = (e) => {
+    if (!isDragging || dragStart === null) return;
+    
+    const clientX = e.type === 'touchend' 
+      ? e.changedTouches[0].clientX 
+      : e.clientX;
+    
+    const diff = clientX - dragStart;
+    const threshold = 50; // Minimum swipe distance
+    
+    if (diff > threshold) {
+      goPrev(); // Swiped right, show previous
+    } else if (diff < -threshold) {
+      goNext(); // Swiped left, show next
+    }
+    
+    setDragStart(null);
+    setIsDragging(false);
   };
 
   return (
     <div
-      className="relative h-[650px] overflow-visible mb-8"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      ref={containerRef}
+      className="relative h-[600px] overflow-hidden mb-8 cursor-grab active:cursor-grabbing"
+      onMouseDown={handleDragStart}
+      onMouseUp={handleDragEnd}
+      onMouseLeave={handleDragEnd}
+      onTouchStart={handleDragStart}
+      onTouchEnd={handleDragEnd}
     >
+      {/* Navigation Arrows */}
+      <button
+        onClick={goPrev}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-40 p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/10 transition-all hover:scale-110"
+        aria-label="Previous project"
+      >
+        <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+      <button
+        onClick={goNext}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-40 p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/10 transition-all hover:scale-110"
+        aria-label="Next project"
+      >
+        <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+
       <div className="relative h-full flex items-center justify-center">
-        <AnimatePresence mode="popLayout">
-          {visibleCards.map(({ project, position, config, key }) => (
-            <ProjectCard
-              key={key}
-              project={project}
-              position={position}
-              config={config}
-              isActive={position === 'center'}
-              onClick={() => handleCardClick(position)}
-            />
-          ))}
-        </AnimatePresence>
+        {visibleCards.map(({ project, position, config, projectIndex }) => (
+          <ProjectCard
+            key={projectIndex}
+            project={project}
+            position={position}
+            config={config}
+            isActive={position === 'center'}
+            onClick={() => handleCardClick(position)}
+          />
+        ))}
       </div>
 
-      {/* Navigation Dots - Moved up to avoid overlap */}
-      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+      {/* Navigation Dots */}
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
         {projects.map((_, index) => (
           <button
             key={index}
@@ -117,32 +190,22 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
 
   return (
     <motion.div
-      layout
-      initial={{
-        x: config.x,
-        scale: config.scale,
-        opacity: config.opacity,
-        zIndex: config.zIndex,
-      }}
+      initial={false}
       animate={{
         x: config.x,
-        scale: isHovered && isActive ? 1.05 : config.scale,
+        scale: isHovered && isActive ? 1.02 : config.scale,
         opacity: config.opacity,
         zIndex: config.zIndex,
       }}
-      exit={{
-        scale: 0.5,
-        opacity: 0,
-      }}
       transition={{
-        type: 'tween',
-        ease: 'easeInOut',
-        duration: 1.2,
+        x: { type: 'spring', stiffness: 200, damping: 30 },
+        scale: { type: 'spring', stiffness: 300, damping: 25 },
+        opacity: { duration: 0.4, ease: 'easeOut' },
       }}
       style={{
         position: 'absolute',
         width: CARD_WIDTH,
-        cursor: 'pointer',
+        cursor: isActive ? 'pointer' : 'grab',
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -151,7 +214,7 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
     >
       <Link href={`/projects/${project.slug}`} className="block h-full">
         <motion.div
-          className={`relative h-[600px] card-base rounded-2xl overflow-hidden transition-all duration-300 ${
+          className={`relative h-[550px] card-base rounded-2xl overflow-hidden transition-all duration-300 ${
             isActive && isHovered
               ? 'border-[var(--border-highlight)]'
               : ''
@@ -159,18 +222,18 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
           style={{
             boxShadow:
               isActive && isHovered
-                ? `0 0 20px -3px var(--color-primary), var(--shadow-card-hover)`
+                ? `0 0 8px -2px var(--color-primary), var(--shadow-card-hover)`
                 : 'var(--shadow-card)',
           }}
         >
           {/* Image/Thumbnail */}
-          <div className="relative h-64 bg-gradient-to-br from-[#1a1a1a] to-black overflow-hidden">
+          <div className="relative h-56 bg-gradient-to-br from-[#1a1a1a] to-black overflow-hidden">
             {project.image ? (
               <Image
                 src={project.image}
                 alt={project.title}
                 fill
-                sizes="380px"
+                sizes="340px"
                 className="object-cover opacity-80 transition-opacity duration-500"
                 style={{
                   opacity: isHovered && isActive ? 1 : 0.8,
@@ -214,7 +277,7 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
           </div>
 
           {/* Content */}
-          <div className="p-6 flex flex-col h-[calc(100%-16rem)]">
+          <div className="p-6 flex flex-col h-[calc(100%-14rem)]">
             {project.isFlagship && (
               <span className="text-primary text-xs font-bold tracking-widest uppercase mb-2 block">
                 ⭐ Flagship

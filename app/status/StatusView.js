@@ -26,31 +26,17 @@ export default function SystemStatus() {
   }, []);
 
   return (
-    <div className="min-h-screen text-gray-300 font-sans selection:bg-primary selection:text-black relative overflow-hidden" style={{ backgroundColor: 'var(--bg-page)' }}>
-
+    <PageShell
+      title={<>System<span className="text-primary">_</span>Status</>}
+      description="Real-time telemetry and monitoring of portfolio infrastructure."
+      headerTag="SYSTEMS_NORMAL"
+    >
       {/* Premium Background Grid & Lighting Effects */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
+      <div className="fixed inset-0 pointer-events-none -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary opacity-10 blur-[100px]"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-page)] via-transparent to-transparent"></div>
       </div>
-
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 backdrop-blur-xl border-b border-[var(--border-subtle)] px-6 py-4 flex justify-between items-center" style={{ backgroundColor: 'rgba(var(--bg-page-rgb), 0.7)' }}>
-        <div className="flex items-center gap-3 bg-white/5 px-3 py-1 rounded-full border border-[var(--border-subtle)]">
-          <div className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-          </div>
-          <span className="font-mono text-[10px] text-primary tracking-wider uppercase font-bold">Systems Normal</span>
-        </div>
-      </nav>
-
-      <PageShell
-        title="System Status"
-        description="Real-time telemetry and monitoring of portfolio infrastructure."
-        backButton={true}
-      >
 
         {/* Uptime Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
@@ -145,6 +131,5 @@ export default function SystemStatus() {
           </p>
         </div>
       </PageShell>
-    </div>
   );
 }

@@ -1,40 +1,44 @@
 'use client';
 import React from 'react';
+import { 
+  AUTHOR_NAME, 
+  AUTHOR_TITLE, 
+  SITE_URL, 
+  PROFILE_IMAGE_URL,
+  SAME_AS_URLS,
+  ORGANIZATION 
+} from '@/config/site';
 
 export const JsonLd = () => {
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Shaikh Mahad",
-    "url": "https://shaikhmahad.vercel.app",
-    "jobTitle": "Backend Systems Engineer",
+    "name": AUTHOR_NAME,
+    "url": SITE_URL,
+    "jobTitle": AUTHOR_TITLE,
     "worksFor": {
       "@type": "Organization",
-      "name": "UBIT"
+      "name": ORGANIZATION.name
     },
     "alumniOf": {
       "@type": "CollegeOrUniversity",
-      "name": "University of Karachi",
-      "sameAs": "https://uok.edu.pk/"
+      "name": ORGANIZATION.fullName,
+      "sameAs": ORGANIZATION.url
     },
-    "sameAs": [
-      "https://github.com/mahad2006",
-      "https://www.linkedin.com/in/codewithmahad",
-      "https://twitter.com/mahad2006"
-    ],
+    "sameAs": SAME_AS_URLS,
     "knowsAbout": ["Java", "Spring Boot", "PostgreSQL", "Distributed Systems", "System Design", "Kotlin", "Android", "Backend Engineering"],
-    "image": "https://shaikhmahad.vercel.app/profile.png"
+    "image": PROFILE_IMAGE_URL
   };
 
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "url": "https://shaikhmahad.vercel.app",
+    "url": SITE_URL,
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": "https://shaikhmahad.vercel.app/search?q={search_term_string}"
+        "urlTemplate": `${SITE_URL}/search?q={search_term_string}`
       },
       "query-input": "required name=search_term_string"
     }
