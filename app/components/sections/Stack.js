@@ -50,6 +50,10 @@ const MarqueeStyles = () => (
     .animate-marquee-left { animation: marquee-left 40s linear infinite; }
     .animate-marquee-right { animation: marquee-right 40s linear infinite; }
     .marquee-container:hover .animate-marquee-left, .marquee-container:hover .animate-marquee-right { animation-play-state: paused; }
+    .marquee-container:focus-within .animate-marquee-left, .marquee-container:focus-within .animate-marquee-right { animation-play-state: paused; }
+    @media (prefers-reduced-motion: reduce) {
+      .animate-marquee-left, .animate-marquee-right { animation: none; }
+    }
   `}</style>
 );
 

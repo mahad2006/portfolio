@@ -115,13 +115,24 @@ export const generatePageMetadata = (configOrKey) => {
  * @param {string} project.tagline - Project description
  * @param {string} project.slug - Project slug
  * @param {string} project.image - Project image URL
+ * @param {Object} project.caseStudy - Case study details (optional)
  * @returns {Object} Next.js metadata object
  */
 export const generateProjectMetadata = (project) => {
   if (!project) return { title: 'Project Not Found' };
   
   const title = `Case Study: ${project.title}`;
-  const description = project.tagline;
+  
+  // Build a richer description from tagline + case study problem
+  let description = project.tagline;
+  if (project.caseStudy?.problem) {
+    description = `${project.tagline}. ${project.caseStudy.problem}`;
+  }
+  // Keep description under 160 chars for SEO
+  if (description.length > 160) {
+    description = description.substring(0, 157) + '...';
+  }
+  
   const canonicalUrl = getCanonicalUrl(`/projects/${project.slug}`);
   
   return {

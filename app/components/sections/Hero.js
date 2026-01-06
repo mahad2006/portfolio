@@ -168,7 +168,11 @@ export const Hero = () => {
               onKeyDown={handleCommand}
               disabled={isTyping}
               aria-label="Terminal command input"
+              aria-describedby="terminal-help"
             />
+            <span id="terminal-help" className="sr-only">
+              Interactive terminal. Type help and press Enter for available commands including about, projects, and contact.
+            </span>
           </div>
         </div>
 

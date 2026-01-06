@@ -30,6 +30,45 @@ export const JsonLd = () => {
     "image": PROFILE_IMAGE_URL
   };
 
+  const professionalServiceSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": `${AUTHOR_NAME} - Backend Engineering Services`,
+    "description": "Backend systems engineering services specializing in Java, Spring Boot, distributed systems, and scalable architectures.",
+    "url": SITE_URL,
+    "provider": {
+      "@type": "Person",
+      "name": AUTHOR_NAME
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Worldwide (Remote)"
+    },
+    "serviceType": ["Backend Development", "API Design", "System Architecture", "Database Optimization"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Backend Engineering Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "API Development",
+            "description": "RESTful API design and implementation with Spring Boot"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "System Design",
+            "description": "Scalable distributed system architecture design"
+          }
+        }
+      ]
+    }
+  };
+
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -49,6 +88,10 @@ export const JsonLd = () => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}
       />
       <script
         type="application/ld+json"
