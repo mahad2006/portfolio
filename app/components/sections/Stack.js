@@ -82,20 +82,7 @@ const CourseCard = ({ icon, name, semester, status, onHover }) => {
     </div>
   );
 };
-
-const MarqueeStyles = () => (
-  <style>{`
-    @keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    @keyframes marquee-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
-    .animate-marquee-left { animation: marquee-left 40s linear infinite; }
-    .animate-marquee-right { animation: marquee-right 40s linear infinite; }
-    .animate-marquee-slow { animation: marquee-left 50s linear infinite; }
-    .marquee-paused { animation-play-state: paused !important; }
-    @media (prefers-reduced-motion: reduce) {
-      .animate-marquee-left, .animate-marquee-right, .animate-marquee-slow { animation: none; }
-    }
-  `}</style>
-);
+// Marquee styles moved to globals.css for better performance
 
 export const Stack = () => {
   const [isPaused, setIsPaused] = useState(false);
@@ -133,7 +120,6 @@ export const Stack = () => {
 
   return (
     <section id="stack" className="py-32 overflow-hidden bg-page">
-      <MarqueeStyles />
       <div className="max-w-[1920px] mx-auto">
         <FadeUp>
           <div className="text-center mb-16 px-6">

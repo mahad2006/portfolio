@@ -65,6 +65,28 @@ body[data-accent="red"] { --color-primary-rgb: var(--accent-red-rgb); }
 body[data-accent="purple"] { --color-primary-rgb: var(--accent-purple-rgb); }
 
 
+/* Marquee Animations */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.animate-marquee-left { animation: marquee-left 40s linear infinite; }
+.animate-marquee-right { animation: marquee-right 40s linear infinite; }
+.animate-marquee-slow { animation: marquee-left 50s linear infinite; }
+.marquee-paused { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left,
+  .animate-marquee-right,
+  .animate-marquee-slow {
+    animation: none;
+  }
+}
+
 @keyframes glitch {
   0% { transform: translate3d(0, 0, 0); }
   20% { transform: translate3d(-2px, 2px, 0); }
