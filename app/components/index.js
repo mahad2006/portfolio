@@ -26,6 +26,7 @@ export { ColorSwatch } from './ui/ColorSwatch';
 export { ConfirmModal } from './ui/ConfirmModal';
 export { PillButton } from './ui/PillButton';
 export { ProjectRow } from './ui/ProjectRow';
+export { ProjectStack } from './ui/ProjectStack';
 
 // Provider Components
 export { SystemProvider } from './providers/SystemProvider';
