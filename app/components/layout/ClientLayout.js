@@ -1,10 +1,17 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { BootScreen, MatrixRain, RequestLogger, CommandPalette, useSystem } from '@/components';
+import { useSystem } from '@/hooks/useSystem';
 import { ROUTES } from '@/config/routes';
+
+// Dynamic imports for non-critical overlays to reduce initial bundle
+const MatrixRain = dynamic(() => import('@/components/ui/MatrixRain').then(mod => mod.MatrixRain), { ssr: false });
+const BootScreen = dynamic(() => import('@/components/system/BootScreen').then(mod => mod.BootScreen), { ssr: false });
+const RequestLogger = dynamic(() => import('@/components/system/RequestLogger').then(mod => mod.RequestLogger), { ssr: false });
+const CommandPalette = dynamic(() => import('@/components/ui/CommandPalette'), { ssr: false });
 
 /**
  * ClientLayout - Global client-side layout wrapper

@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
 export const RequestLogger = () => {
@@ -7,6 +7,7 @@ export const RequestLogger = () => {
   const [logs, setLogs] = useState([]);
   const [isVisible, setIsVisible] = useState(true);
   const [isDismissed, setIsDismissed] = useState(false);
+  const logIdRef = useRef(0);
 
   useEffect(() => {
     // Check if user has dismissed it before
@@ -24,8 +25,11 @@ export const RequestLogger = () => {
     const status = '200 OK';
     const timestamp = new Date().toLocaleTimeString('en-US', { hour12: false });
 
+    // Use incrementing counter for unique IDs instead of Date.now()
+    logIdRef.current += 1;
+    
     const newLog = {
-      id: Date.now(),
+      id: `log-${logIdRef.current}-${Date.now()}`,
       timestamp,
       method,
       path: pathname,
