@@ -3,40 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PageTemplate } from '@/components/layout/PageTemplate';
 import { SOCIAL_LINKS } from '@/config/site';
-
-// Animated Counter Component
-function AnimatedCounter({ target, duration = 2000, suffix = '' }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const targetNum = typeof target === 'string' ? parseInt(target.replace(/[^0-9]/g, '')) : target;
-    if (isNaN(targetNum)) {
-      setCount(target);
-      return;
-    }
-
-    let startTime;
-    const animate = (currentTime) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.floor(easeOutQuart * targetNum);
-
-      setCount(currentCount);
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(targetNum);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [target, duration]);
-
-  return <span>{count}{suffix}</span>;
-}
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
+import { TYPING_STATS, CAREER_STATS, PERFORMANCE_METRICS, LOADED_MODULES } from '@/data/profile';
 
 export default function TelemetryPage() {
   const [mounted, setMounted] = useState(false);
@@ -45,37 +13,11 @@ export default function TelemetryPage() {
     setMounted(true);
   }, []);
 
-  // MonkeyType Stats
-  const typingStats = {
-    bestWpm: '192',
-    accuracy: '98.2',
-    timeTyping: '120',
-    rank: 'Top 0.1%'
-  };
-
-  // Codolio Career Analytics Data
-  const careerStats = {
-    problemsSolved: 231,
-    contributions: 1526,
-    cpStreak: 59,
-    devActiveDays: 187,
-    cpStatus: 'SPECIALIST'
-  };
-
-  // Updated Dev Metrics with Real Data
-  const performanceMetrics = {
-    contributions: { value: 1526, label: 'Code Commits', color: 'green', desc: 'Total contributions' },
-    problems: { value: 231, label: 'Problems Solved', color: 'orange', desc: 'Algorithmic challenges' },
-    devDays: { value: 187, label: 'Dev Active', color: 'blue', desc: 'Days building' },
-    cpStreak: { value: 59, label: 'CP Streak', color: 'red', desc: 'Days solving' }
-  };
-
-  // Loaded Modules (Tech Stack)
-  const loadedModules = [
-    '#JAVA', '#KOTLIN', '#DSA', '#SYSTEM_DESIGN',
-    '#SPRING_BOOT', '#ANDROID', '#C++', '#POSTGRESQL',
-    '#REACT', '#NEXTJS', '#DOCKER'
-  ];
+  // Use centralized data
+  const typingStats = TYPING_STATS;
+  const careerStats = CAREER_STATS;
+  const performanceMetrics = PERFORMANCE_METRICS;
+  const loadedModules = LOADED_MODULES;
 
   const wpmNum = parseInt(typingStats.bestWpm);
   const isElite = wpmNum >= 120;

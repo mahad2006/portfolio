@@ -5,47 +5,17 @@ import dynamic from 'next/dynamic';
 import { PageShell } from '@/components/layout/PageShell';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
+import { COMMUNITY_STATS } from '@/data/profile';
 
 const NetworkTopology = dynamic(() => import('@/components/system/NetworkTopology'), { ssr: false });
-
-// Animated Counter Component
-function AnimatedCounter({ target, duration = 2000, suffix = '' }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const targetNum = typeof target === 'string' ? parseInt(target.replace(/[^0-9]/g, '')) : target;
-    if (isNaN(targetNum)) {
-      setCount(target);
-      return;
-    }
-
-    let startTime;
-    const animate = (currentTime) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.floor(easeOutQuart * targetNum);
-      setCount(currentCount);
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(targetNum);
-      }
-    };
-    requestAnimationFrame(animate);
-  }, [target, duration]);
-
-  return <span>{count}{suffix}</span>;
-}
 
 const UBITCommunityPage = () => {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
-  const stats = {
-    peers: 450,
-    resources: 100,
-  };
+  // Use centralized data
+  const stats = COMMUNITY_STATS;
 
   const groups = [
     { name: 'Beginner Programming', icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v15H6.5A2.5 2.5 0 0 1 4 14.5v-10A2.5 2.5 0 0 1 6.5 2z"></path></svg> },

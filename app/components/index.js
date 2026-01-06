@@ -29,6 +29,7 @@ export { PillButton } from './ui/PillButton';
 export { ProjectRow } from './ui/ProjectRow';
 export { ProjectStack } from './ui/ProjectStack';
 export { TerminalBackButton } from './ui/TerminalBackButton';
+export { AnimatedCounter } from './ui/AnimatedCounter';
 
 // Provider Components
 export { SystemProvider } from './providers/SystemProvider';
