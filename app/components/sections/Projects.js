@@ -1,12 +1,15 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import SpotlightCard from '@/components/ui/SpotlightCard';
 import { projectsData } from '@/data/projects';
 
 const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) => {
-  return (
+  const router = useRouter();
+  
+  const cardContent = (
     <SpotlightCard className={`group rounded-2xl glass-panel border border-white/5 hover:border-primary transition-all duration-300 flex flex-col h-full overflow-hidden hover:-translate-y-2 ${isFlagship ? 'md:col-span-2 md:flex-row' : ''}`}>
       
       <div className={`${isFlagship ? 'md:w-1/2 h-64 md:h-full' : 'h-52 w-full'} bg-[#0a0a0a] border-b md:border-b-0 md:border-r border-white/5 relative overflow-hidden`}>
@@ -19,11 +22,23 @@ const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) 
         
         <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col gap-3 items-center justify-center backdrop-blur-[2px]">
             {slug && (
-                  <Link href={`/projects/${slug}`} aria-label={`Read Case Study for ${title}`} className="px-6 py-2 bg-white text-black font-bold rounded-full text-xs transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-gray-200 shadow-lg">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/projects/${slug}`);
+                    }}
+                    className="px-6 py-2 bg-white text-black font-bold rounded-full text-xs transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-gray-200 shadow-lg cursor-pointer"
+                  >
                     Read Case Study
-                  </Link>
+                  </button>
                 )}
-            <a href={link} target="_blank" rel="noopener noreferrer" className="px-6 py-2 glass-panel text-white border border-white/20 font-bold rounded-full text-xs transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75 hover:bg-white/10">
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="px-6 py-2 glass-panel text-white border border-white/20 font-bold rounded-full text-xs transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75 hover:bg-white/10"
+            >
               View Source
             </a>
         </div>
@@ -49,12 +64,23 @@ const ProjectCard = ({ title, tags, link, image, caseStudy, isFlagship, slug }) 
       </div>
     </SpotlightCard>
   );
+
+  // Make entire card clickable if slug exists
+  if (slug) {
+    return (
+      <Link href={`/projects/${slug}`} className="block h-full cursor-pointer">
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 };
 
 export const Projects = () => {
-  const [filter, setFilter] = useState('All');
-  const filteredProjects = filter === 'All' ? projectsData : projectsData.filter(p => p.tags.some(t => t.includes(filter)));
-  const filters = ['All', 'Java', 'Kotlin', 'Spring Boot', 'System Design', 'Redis'];
+  // Show only first 3 projects as featured preview
+  const featuredProjects = projectsData.slice(0, 3);
+
   return (
     <section id="projects" className="py-32 relative bg-[#080808]">
        <div className="max-w-7xl mx-auto px-6">
@@ -65,16 +91,45 @@ export const Projects = () => {
           <p className="text-gray-400 max-w-2xl text-lg mb-8">
             A selection of native mobile applications and backend systems. I focus on <span className="text-white">solving real problems</span> with constraints, trade-offs, and scalability in mind.
           </p>
-          <div className="flex flex-wrap gap-2">
-            {filters.map(f => (
-                <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-full text-xs font-mono border transition-all ${filter === f ? 'bg-primary text-black border-primary' : 'bg-transparent text-gray-400 border-white/10 hover:border-white/30'}`}>{f}</button>
-            ))}
-          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project, index) => (
-              <ProjectCard key={index} {...project} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {featuredProjects.map((project, index) => (
+              <ProjectCard key={project.slug || index} {...project} />
           ))}
+        </div>
+        
+        {/* View All CTA */}
+        <div className="flex justify-center mt-12">
+          <Link
+            href="/projects"
+            className="group glass-panel border border-white/10 rounded-2xl p-8 w-full max-w-2xl hover:border-primary/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-primary/20"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                  Explore Full Archive
+                </h3>
+                <p className="text-gray-400 text-sm">
+                  Browse all projects with advanced filtering and search
+                </p>
+              </div>
+              <div className="flex-shrink-0 ml-6">
+                <svg
+                  className="w-8 h-8 text-gray-400 group-hover:text-primary group-hover:translate-x-2 transition-all duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </div>
+            </div>
+          </Link>
         </div>
        </div>
     </section>
