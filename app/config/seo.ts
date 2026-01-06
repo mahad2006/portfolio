@@ -168,15 +168,6 @@ export const PAGE_SEO: Record<string, PageSEOConfig> = {
     changeFrequency: 'yearly',
   },
   
-  // Status page
-  status: {
-    title: 'System Status',
-    description: 'Real-time telemetry and monitoring of portfolio infrastructure.',
-    path: '/status',
-    priority: 0.5,
-    changeFrequency: 'daily',
-  },
-  
   // Writing archive
   writing: {
     title: 'Writing & Articles',

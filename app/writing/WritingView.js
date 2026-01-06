@@ -2,28 +2,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { PageShell } from '@/components/layout/PageShell';
-
-const allPosts = [
-  {
-    slug: 'recursive-descent-parser',
-    title: 'Why I chose Recursive Descent for my Math Parser',
-    description: 'Exploring the trade-offs between Shunting-Yard algorithm and hand-written recursive descent parsers for mobile-constrained environments.',
-    category: 'Performance',
-    date: 'Jan 2026',
-    readTime: '6 min read',
-    isFeatured: true,
-  },
-  {
-    slug: 'optimistic-vs-pessimistic-locking',
-    title: 'Optimistic vs Pessimistic Locking in Spring Boot',
-    description: 'A deep dive into handling concurrency in inventory management systems and when to use `@Version` annotations.',
-    category: 'Databases',
-    date: 'Jan 2026',
-    readTime: '4 min read',
-    isFeatured: true,
-  },
-  // Add more posts here
-];
+import { allPosts } from '@/data/writing';
 
 const PostCard = ({ post }) => (
   <Link

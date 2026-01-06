@@ -30,48 +30,98 @@ export const ABOUT_CONTENT = {
 };
 
 // ============================================================================
-// Stats Page Data (Career Analytics)
+// Stats Page Data (Career Analytics) - Real verifiable data
 // ============================================================================
 
+// MonkeyType Stats (verified: monkeytype.com/profile/CodeWithMahad1)
 export const TYPING_STATS = {
-  bestWpm: '192',
-  accuracy: '98.2',
-  timeTyping: '120',
-  rank: 'Top 0.1%',
+  testsStarted: 60252,
+  testsCompleted: 25955,
+  timeTypingHours: 75,
+  currentStreak: 7,
+  personalBests: {
+    15: { wpm: 138, accuracy: 100 },
+    30: { wpm: 124, accuracy: 94 },
+    60: { wpm: 116, accuracy: 95 },
+    120: { wpm: 108, accuracy: 93 },
+  },
+  leaderboard: {
+    '15sec': { rank: 55991, topPercent: 11.89 },
+    '60sec': { rank: 44879, topPercent: 9.7 },
+  },
+  profileUrl: 'https://monkeytype.com/profile/CodeWithMahad1',
 };
 
-export const CAREER_STATS = {
-  problemsSolved: 231,
+// Competitive Programming Stats (verified via Codolio)
+export const CP_STATS = {
+  totalProblems: 231,
+  activeDays: 59,
+  rating: {
+    leetcode: 1521,
+    codeforces: 1516,
+  },
+  breakdown: {
+    easy: 103,
+    medium: 78,
+    hard: 6,
+  },
+  competitiveProgramming: 34,
+  fundamentals: 10,
+  totalContests: 6,
+  rank: 'Specialist', // Codeforces rank
+  profileUrls: {
+    leetcode: 'https://leetcode.com/u/mahad2006/',
+    codeforces: 'https://codeforces.com/profile/codewithmahad',
+    geeksforgeeks: 'https://www.geeksforgeeks.org/profile/codewithmahad',
+    codolio: 'https://codolio.com/profile/codewithmahad',
+  },
+};
+
+// GitHub Stats (verified: github.com/mahad2006)
+export const GITHUB_STATS = {
   contributions: 1526,
-  cpStreak: 59,
-  devActiveDays: 187,
-  cpStatus: 'SPECIALIST',
+  activeDays: 187,
+  profileUrl: 'https://github.com/mahad2006',
+  username: 'mahad2006',
+};
+
+// Combined career stats for backward compatibility
+export const CAREER_STATS = {
+  problemsSolved: CP_STATS.totalProblems,
+  contributions: GITHUB_STATS.contributions,
+  cpStreak: CP_STATS.activeDays,
+  devActiveDays: GITHUB_STATS.activeDays,
+  cpStatus: CP_STATS.rank.toUpperCase(),
 };
 
 export const PERFORMANCE_METRICS = {
   contributions: { 
-    value: 1526, 
-    label: 'Code Commits', 
+    value: GITHUB_STATS.contributions, 
+    label: 'GitHub Commits', 
     color: 'green', 
-    desc: 'Total contributions' 
+    desc: 'Total contributions',
+    verified: true,
   },
   problems: { 
-    value: 231, 
+    value: CP_STATS.totalProblems, 
     label: 'Problems Solved', 
     color: 'orange', 
-    desc: 'Algorithmic challenges' 
+    desc: 'DSA + Competitive',
+    verified: true,
   },
   devDays: { 
-    value: 187, 
-    label: 'Dev Active', 
+    value: GITHUB_STATS.activeDays, 
+    label: 'Active Days', 
     color: 'blue', 
-    desc: 'Days building' 
+    desc: 'Days building',
+    verified: true,
   },
-  cpStreak: { 
-    value: 59, 
-    label: 'CP Streak', 
-    color: 'red', 
-    desc: 'Days solving' 
+  typingTests: { 
+    value: TYPING_STATS.testsCompleted, 
+    label: 'Typing Tests', 
+    color: 'cyan', 
+    desc: 'Tests completed',
+    verified: true,
   },
 };
 

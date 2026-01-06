@@ -1,309 +1,330 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { PageTemplate } from '@/components/layout/PageTemplate';
-import { SOCIAL_LINKS } from '@/config/site';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
-import { TYPING_STATS, CAREER_STATS, PERFORMANCE_METRICS, LOADED_MODULES } from '@/data/profile';
+import SpotlightCard from '@/components/ui/SpotlightCard';
+import { TYPING_STATS, CP_STATS, GITHUB_STATS } from '@/data/profile';
+import {
+  BoltIcon,
+  TrophyIcon,
+  ClockIcon,
+  ChartBarIcon,
+  CheckBadgeIcon,
+  ArrowTopRightOnSquareIcon,
+  FireIcon,
+  StarIcon,
+  DocumentCheckIcon,
+} from '@heroicons/react/24/solid';
+import {
+  ArrowRightIcon,
+} from '@heroicons/react/24/outline';
+import { SiLeetcode, SiCodeforces, SiGeeksforgeeks, SiMonkeytype, SiGithub } from 'react-icons/si';
 
-export default function TelemetryPage() {
+// Crown icon for Personal Bests
+const CrownIcon = ({ className }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+  </svg>
+);
+
+// Verified link with accent border
+const VerifyLink = ({ url, label }) => (
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-primary/50 hover:border-primary hover:bg-primary/10 text-xs text-gray-400 hover:text-primary transition-all"
+  >
+    <CheckBadgeIcon className="w-4 h-4" />
+    <span>{label}</span>
+    <ArrowTopRightOnSquareIcon className="w-3 h-3" />
+  </a>
+);
+
+// Simple stat card - NO spotlight effect (basic card)
+const StatCard = ({ icon: Icon, label, value, suffix = '', subtext }) => (
+  <div className="p-6 rounded-xl bg-surface border border-white/10 hover:border-white/20 transition-colors">
+    <div className="flex items-center gap-3 mb-3">
+      <Icon className="w-5 h-5 text-gray-500" />
+      <span className="text-xs text-gray-500 uppercase tracking-wider">{label}</span>
+    </div>
+    <div className="text-3xl font-bold text-white">
+      {value}{suffix && <span className="text-lg text-gray-500 ml-1">{suffix}</span>}
+    </div>
+    {subtext && <div className="text-xs text-gray-600 mt-2">{subtext}</div>}
+  </div>
+);
+
+// Platform link - NO spotlight (basic card), arrow gray -> accent on hover
+const PlatformLink = ({ name, url, detail, icon: Icon }) => (
+  <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group flex items-center justify-between p-4 rounded-xl bg-surface border border-white/10 hover:border-white/20 transition-all"
+  >
+    <div className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center">
+        <Icon className="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors" />
+      </div>
+      <div>
+        <div className="text-sm font-semibold text-white group-hover:text-primary transition-colors">{name}</div>
+        <div className="text-xs text-gray-500">{detail}</div>
+      </div>
+    </div>
+    <ArrowRightIcon className="w-4 h-4 text-gray-500 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+  </a>
+);
+
+export default function StatsPage() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Use centralized data
-  const typingStats = TYPING_STATS;
-  const careerStats = CAREER_STATS;
-  const performanceMetrics = PERFORMANCE_METRICS;
-  const loadedModules = LOADED_MODULES;
-
-  const wpmNum = parseInt(typingStats.bestWpm);
-  const isElite = wpmNum >= 120;
-
   return (
     <PageTemplate 
-      title={<>Career<span className="text-primary">_</span>Analytics</>}
-      description="Real-time performance diagnostics • Competitive programming • Development activity"
-      headerTag="LIVE_METRICS"
+      title={<>Performance<span className="text-primary">_</span>Metrics</>}
+      description="Verified stats from MonkeyType, LeetCode, Codeforces & GitHub"
+      headerTag="STATS"
       maxWidth="page"
     >
-      {/* Animated Grid Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-10 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(var(--color-primary-rgb),0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--color-primary-rgb),0.03)_1px,transparent_1px)] bg-size-[50px_50px]"></div>
-      </div>
-
-        {/* ===== INPUT VELOCITY MATRIX ===== */}
-        <div className="mb-20">
-          <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-            <span className="w-12 h-px bg-linear-to-r from-cyan-400 to-transparent"></span>
-            Input_Velocity_Matrix
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            {/* WPM Card */}
-            <div className={`group relative p-8 rounded-2xl bg-surface border ${isElite ? 'border-cyan-400/50 shadow-[0_0_30px_rgba(34,211,238,0.15)]' : 'border-white/10'} hover:border-cyan-400/30 transition-all duration-500 overflow-hidden`}>
-              <div className="absolute inset-0 bg-linear-to-br from-cyan-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              {isElite && (
-                <div className="absolute top-4 right-4 px-3 py-1 bg-cyan-400 text-black text-[8px] font-bold tracking-widest rounded-full">
-                  {typingStats.rank}
-                </div>
-              )}
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></div>
-                  <h3 className="text-[10px] text-gray-400 uppercase tracking-[0.25em]">Velocity</h3>
-                </div>
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="text-6xl font-bold text-cyan-400 group-hover:scale-105 transition-transform">
-                    {mounted ? <AnimatedCounter target={typingStats.bestWpm} /> : typingStats.bestWpm}
-                  </span>
-                  <span className="text-xl text-gray-500 font-bold">WPM</span>
-                </div>
-                <p className="text-[10px] text-gray-500 uppercase tracking-wider">60s Benchmark</p>
-              </div>
+      {/* ═══════════════════════════════════════════════════════════════════
+          TYPING SPEED SECTION
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section className="mb-20">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-surface border border-white/10 flex items-center justify-center">
+              <BoltIcon className="w-5 h-5 text-primary" />
             </div>
-
-            {/* Accuracy Card */}
-            <div className="group relative p-8 rounded-2xl bg-surface border border-white/10 hover:border-blue-400/30 transition-all duration-500">
-              <div className="absolute inset-0 bg-linear-to-br from-blue-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
-                  <h3 className="text-[10px] text-gray-400 uppercase tracking-[0.25em]">Precision</h3>
-                </div>
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="text-6xl font-bold text-white group-hover:text-blue-400 transition-colors">
-                    {typingStats.accuracy}
-                  </span>
-                  <span className="text-xl text-gray-500 font-bold">%</span>
-                </div>
-                <p className="text-[10px] text-gray-500 uppercase tracking-wider">Accuracy Rate</p>
-              </div>
-            </div>
-
-            {/* Uptime Card */}
-            <div className="group relative p-8 rounded-2xl bg-surface border border-white/10 hover:border-purple-400/30 transition-all duration-500">
-              <div className="absolute inset-0 bg-linear-to-br from-purple-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="w-1.5 h-1.5 rounded-full bg-purple-400"></div>
-                  <h3 className="text-[10px] text-gray-400 uppercase tracking-[0.25em]">Uptime</h3>
-                </div>
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="text-6xl font-bold text-white group-hover:text-purple-400 transition-colors">
-                    {typingStats.timeTyping}
-                  </span>
-                  <span className="text-xl text-gray-500 font-bold">hrs</span>
-                </div>
-                <p className="text-[10px] text-gray-500 uppercase tracking-wider">Time Typing</p>
-              </div>
+            <div>
+              <h2 className="text-lg font-bold text-white">Typing Speed</h2>
+              <p className="text-xs text-gray-500">Personal Bests on MonkeyType</p>
             </div>
           </div>
+          <VerifyLink url={TYPING_STATS.profileUrl} label="Verify" />
+        </div>
 
-          {/* Race Button */}
-          <a href={SOCIAL_LINKS.monkeytype.url} target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden rounded-2xl">
-            <div className="absolute -inset-1 bg-linear-to-r from-cyan-400 via-blue-500 to-cyan-400 rounded-2xl opacity-60 group-hover:opacity-100 blur-lg group-hover:blur-xl transition-all duration-500"></div>
-            <div className="relative flex items-center justify-between p-8 bg-bg border border-cyan-400/50 rounded-2xl">
+        {/* Personal Bests - MAIN CARDS with spotlight effect */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {Object.entries(TYPING_STATS.personalBests).map(([duration, data]) => (
+            <SpotlightCard
+              key={duration} 
+              className="rounded-xl bg-surface border border-white/10 hover:border-primary/30 transition-colors"
+            >
+              <div className="relative p-6">
+                {/* Crown badge */}
+                <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 rounded-full bg-amber-500/10 border border-amber-500/30">
+                  <CrownIcon className="w-3.5 h-3.5 text-amber-500" />
+                  <span className="text-[10px] font-bold text-amber-500">PB</span>
+                </div>
+                
+                <div className="text-xs text-gray-500 uppercase tracking-wider mb-3">{duration}s</div>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-4xl font-bold text-white">
+                    {mounted ? <AnimatedCounter target={data.wpm} /> : data.wpm}
+                  </span>
+                  <span className="text-sm text-gray-500">WPM</span>
+                </div>
+                <div className="text-xs text-gray-600">{data.accuracy}% accuracy</div>
+              </div>
+            </SpotlightCard>
+          ))}
+        </div>
+
+        {/* Typing Stats Row - basic cards, no spotlight */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <StatCard 
+            icon={DocumentCheckIcon} 
+            label="Tests Completed" 
+            value={mounted ? <AnimatedCounter target={TYPING_STATS.testsCompleted} /> : TYPING_STATS.testsCompleted} 
+          />
+          <StatCard 
+            icon={ClockIcon} 
+            label="Time Typing" 
+            value={TYPING_STATS.timeTypingHours} 
+            suffix="hrs"
+          />
+          <StatCard 
+            icon={TrophyIcon} 
+            label="Leaderboard" 
+            value={`Top ${TYPING_STATS.leaderboard['60sec'].topPercent}%`}
+            subtext="60 second mode"
+          />
+        </div>
+
+        {/* MonkeyType Link - MAIN CARD with spotlight */}
+        <SpotlightCard className="rounded-xl bg-surface border border-white/10 hover:border-primary/50 transition-all">
+          <a 
+            href={TYPING_STATS.profileUrl} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="group flex items-center justify-between p-6"
+          >
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                <SiMonkeytype className="w-6 h-6 text-primary" />
+              </div>
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors flex items-center gap-3">
-                  <span className="text-3xl">🏁</span>
-                  Initiate_Race_Protocol
-                </h3>
-                <p className="text-sm text-gray-400">Challenge accepted • MonkeyType battles • Top 0.1% tier</p>
+                <div className="text-base font-semibold text-white group-hover:text-primary transition-colors">MonkeyType Profile</div>
+                <div className="text-sm text-gray-500">@CodeWithMahad1 · {TYPING_STATS.testsStarted.toLocaleString()} tests started</div>
               </div>
-              <svg className="w-8 h-8 text-cyan-400 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
             </div>
+            <ArrowRightIcon className="w-5 h-5 text-gray-500 group-hover:text-primary group-hover:translate-x-1 transition-all" />
           </a>
+        </SpotlightCard>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          COMPETITIVE PROGRAMMING SECTION
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section className="mb-20">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-surface border border-white/10 flex items-center justify-center">
+              <FireIcon className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-white">Competitive Programming</h2>
+              <p className="text-xs text-gray-500">LeetCode, Codeforces & More</p>
+            </div>
+          </div>
+          <VerifyLink url={CP_STATS.profileUrls.codolio} label="Verify" />
         </div>
 
-        {/* ===== CAREER ANALYTICS (SOLVER & BUILDER NODES) ===== */}
-        <div className="mb-20">
-          <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-            <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
-            System_Nodes_Analytics
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-            {/* SOLVER NODE (Competitive Programming) */}
-            <div className="group relative overflow-hidden rounded-3xl border border-orange-500/30 bg-surface hover:border-orange-500/50 transition-all duration-500 hover:shadow-[0_0_50px_rgba(249,115,22,0.2)]">
-              {/* Animated Glow */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-orange-500/30 to-transparent blur-3xl group-hover:w-72 group-hover:h-72 transition-all duration-500"></div>
-
-              <div className="relative p-10">
-                {/* Header */}
-                <div className="flex items-start justify-between mb-8">
-                  <div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></div>
-                      <h3 className="text-xs text-orange-500 uppercase tracking-[0.3em] font-bold">Solver_Node</h3>
-                    </div>
-                    <h4 className="text-sm text-gray-400 uppercase tracking-wider">Algorithmic_Throughput</h4>
-                  </div>
-                  <div className="px-4 py-1.5 bg-orange-500/20 border border-orange-500/50 rounded-full">
-                    <span className="text-[9px] text-orange-400 font-bold tracking-widest uppercase">{careerStats.cpStatus}</span>
-                  </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          {/* Problems Solved Card - MAIN CARD with spotlight */}
+          <SpotlightCard className="lg:col-span-2 rounded-xl bg-surface border border-white/10">
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <FireIcon className="w-5 h-5 text-primary" />
+                  <span className="text-sm text-gray-400 uppercase tracking-wider">Problems Solved</span>
                 </div>
+                <span className="px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-xs font-semibold text-primary">
+                  {CP_STATS.rank}
+                </span>
+              </div>
+              
+              <div className="flex items-baseline gap-4 mb-8">
+                <span className="text-7xl font-bold text-white">
+                  {mounted ? <AnimatedCounter target={CP_STATS.totalProblems} /> : CP_STATS.totalProblems}
+                </span>
+                <span className="text-xl text-gray-500">Total</span>
+              </div>
 
-                {/* Main Counter */}
-                <div className="mb-6">
-                  <div className="flex items-baseline gap-4 mb-3">
-                    <span className="text-7xl md:text-8xl font-bold text-orange-500 group-hover:scale-105 transition-transform">
-                      {mounted ? <AnimatedCounter target={careerStats.problemsSolved} /> : careerStats.problemsSolved}
-                    </span>
-                    <span className="text-2xl text-gray-500 font-bold">Problems</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm text-gray-400">
-                    <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4 text-orange-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
-                      </svg>
-                      <span>{careerStats.cpStreak} Days Active Streak</span>
-                    </div>
-                  </div>
+              {/* Difficulty Breakdown */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="p-4 rounded-lg bg-white/5 border border-white/10 text-center">
+                  <div className="text-2xl font-bold text-emerald-400">{CP_STATS.breakdown.easy}</div>
+                  <div className="text-xs text-gray-500 mt-1">Easy</div>
                 </div>
-
-                {/* Platform Icons */}
-                <div className="pt-6 border-t border-orange-500/20">
-                  <div className="text-[9px] text-gray-500 uppercase tracking-wider mb-3">Connected Platforms</div>
-                  <div className="flex gap-3">
-                    {['LeetCode', 'HackerRank', 'CodeChef', 'GFG'].map(platform => (
-                      <div key={platform} className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 hover:border-orange-500/30 transition-all">
-                        <span className="text-xs text-gray-400">{platform}</span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="p-4 rounded-lg bg-white/5 border border-white/10 text-center">
+                  <div className="text-2xl font-bold text-amber-400">{CP_STATS.breakdown.medium}</div>
+                  <div className="text-xs text-gray-500 mt-1">Medium</div>
+                </div>
+                <div className="p-4 rounded-lg bg-white/5 border border-white/10 text-center">
+                  <div className="text-2xl font-bold text-red-400">{CP_STATS.breakdown.hard}</div>
+                  <div className="text-xs text-gray-500 mt-1">Hard</div>
                 </div>
               </div>
             </div>
+          </SpotlightCard>
 
-            {/* BUILDER NODE (Development) */}
-            <div className="group relative overflow-hidden rounded-3xl border border-primary/30 bg-surface hover:border-primary/50 transition-all duration-500">
-              {/* Animated Glow */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-primary/30 to-transparent blur-3xl group-hover:w-72 group-hover:h-72 transition-all duration-500"></div>
-
-              <div className="relative p-10">
-                {/* Header */}
-                <div className="flex items-start justify-between mb-8">
-                  <div>
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-                      <h3 className="text-xs text-primary uppercase tracking-[0.3em] font-bold">Builder_Node</h3>
-                    </div>
-                    <h4 className="text-sm text-gray-400 uppercase tracking-wider">Code_Commits</h4>
-                  </div>
-                  <div className="px-4 py-1.5 bg-primary/20 border border-primary/50 rounded-full">
-                    <span className="text-[9px] text-primary font-bold tracking-widest uppercase">ACTIVE</span>
-                  </div>
-                </div>
-
-                {/* Main Counter */}
-                <div className="mb-6">
-                  <div className="flex items-baseline gap-4 mb-3">
-                    <span className="text-7xl md:text-8xl font-bold text-primary group-hover:scale-105 transition-transform">
-                      {mounted ? <AnimatedCounter target={careerStats.contributions} /> : careerStats.contributions}
-                    </span>
-                    <span className="text-2xl text-gray-500 font-bold">Commits</span>
-                  </div>
-                  <div className="flex items-center gap-3 text-sm text-gray-400">
-                    <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-                      </svg>
-                      <span>{careerStats.devActiveDays} Days Active Uptime</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* GitHub Link */}
-                <div className="pt-6 border-t border-primary/20">
-                  <a href={SOCIAL_LINKS.github.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/30 transition-all group/link">
-                    <div className="flex items-center gap-3">
-                      <svg className="w-5 h-5 text-gray-400 group-hover/link:text-primary transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                      </svg>
-                      <span className="text-xs text-gray-400 group-hover/link:text-white transition-colors">{SOCIAL_LINKS.github.display}</span>
-                    </div>
-                    <svg className="w-4 h-4 text-gray-400 group-hover/link:text-primary group-hover/link:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </a>
+          {/* Ratings - basic cards, no spotlight */}
+          <div className="space-y-4">
+            <div className="p-6 rounded-xl bg-surface border border-white/10">
+              <div className="flex items-center gap-3 mb-4">
+                <TrophyIcon className="w-5 h-5 text-amber-500" />
+                <div>
+                  <div className="text-sm font-semibold text-white">LeetCode</div>
+                  <div className="text-xs text-gray-500">Contest Rating</div>
                 </div>
               </div>
+              <div className="text-3xl font-bold text-white">{CP_STATS.rating.leetcode}</div>
             </div>
 
-          </div>
-        </div>
-
-        {/* ===== PERFORMANCE METRICS ===== */}
-        <div className="mb-20">
-          <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-            <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
-            Performance_Metrics
-          </h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {Object.entries(performanceMetrics).map(([key, metric]) => {
-              const colorMap = {
-                green: { border: 'border-primary/30', text: 'text-primary', glow: 'from-primary/5' },
-                orange: { border: 'border-orange-500/30', text: 'text-orange-500', glow: 'from-orange-500/5' },
-                blue: { border: 'border-blue-400/30', text: 'text-blue-400', glow: 'from-blue-400/5' },
-                red: { border: 'border-red-500/30', text: 'text-red-500', glow: 'from-red-500/5' }
-              };
-              const colors = colorMap[metric.color];
-
-              return (
-                <div key={key} className={`group relative p-6 rounded-xl bg-surface border border-white/10 hover:${colors.border} transition-all duration-300`}>
-                  <div className={`absolute inset-0 bg-linear-to-br ${colors.glow} to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl`}></div>
-                  <div className="relative z-10">
-                    <div className="text-[10px] text-gray-400 uppercase tracking-wider mb-3">{metric.label}</div>
-                    <div className={`text-4xl font-bold text-white group-hover:${colors.text} transition-colors mb-2`}>
-                      {mounted ? <AnimatedCounter target={metric.value} /> : metric.value}
-                    </div>
-                    <div className="text-[9px] text-gray-500">{metric.desc}</div>
-                  </div>
+            <div className="p-6 rounded-xl bg-surface border border-white/10">
+              <div className="flex items-center gap-3 mb-4">
+                <StarIcon className="w-5 h-5 text-cyan-500" />
+                <div>
+                  <div className="text-sm font-semibold text-white">Codeforces</div>
+                  <div className="text-xs text-gray-500">{CP_STATS.rank}</div>
                 </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* ===== LOADED MODULES ===== */}
-        <div className="mb-20">
-          <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-            <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
-            Loaded_Modules
-          </h2>
-
-          <div className="p-8 rounded-2xl bg-surface border border-white/10">
-            <div className="flex flex-wrap gap-3">
-              {loadedModules.map((module, idx) => (
-                <div
-                  key={idx}
-                  className="group relative px-5 py-3 rounded-lg bg-white/3 border border-white/10 hover:border-primary/30 transition-all cursor-default"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
-                    <span className="text-sm text-gray-300 group-hover:text-primary transition-colors font-bold">
-                      {module}
-                    </span>
-                  </div>
-                </div>
-              ))}
+              </div>
+              <div className="text-3xl font-bold text-white">{CP_STATS.rating.codeforces}</div>
             </div>
           </div>
         </div>
 
-        {/* Footer Note */}
-        <div className="p-6 rounded-xl bg-primary/10 border border-primary/30">
-          <p className="text-xs text-gray-400 leading-relaxed">
-            <span className="text-primary font-bold">SYSTEM_NOTE:</span> Career analytics powered by Codolio • MonkeyType API integration • Real-time GitHub synchronization
-          </p>
+        {/* Platform Links - basic cards, no spotlight */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <PlatformLink name="LeetCode" url={CP_STATS.profileUrls.leetcode} detail={`Rating ${CP_STATS.rating.leetcode}`} icon={SiLeetcode} />
+          <PlatformLink name="Codeforces" url={CP_STATS.profileUrls.codeforces} detail={CP_STATS.rank} icon={SiCodeforces} />
+          <PlatformLink name="GeeksforGeeks" url={CP_STATS.profileUrls.geeksforgeeks} detail="View Profile" icon={SiGeeksforgeeks} />
+          <PlatformLink name="Codolio" url={CP_STATS.profileUrls.codolio} detail="All Stats" icon={ChartBarIcon} />
         </div>
-      </PageTemplate>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          GITHUB SECTION
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section className="mb-16">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-surface border border-white/10 flex items-center justify-center">
+              <SiGithub className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-white">GitHub Activity</h2>
+              <p className="text-xs text-gray-500">Open Source Contributions</p>
+            </div>
+          </div>
+          <VerifyLink url={GITHUB_STATS.profileUrl} label="Verify" />
+        </div>
+
+        {/* GitHub Card - MAIN CARD with spotlight */}
+        <SpotlightCard className="rounded-xl bg-surface border border-white/10">
+          <div className="p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              <div>
+                <div className="text-sm text-gray-500 uppercase tracking-wider mb-4">Total Contributions</div>
+                <div className="flex items-baseline gap-4 mb-4">
+                  <span className="text-6xl font-bold text-white">
+                    {mounted ? <AnimatedCounter target={GITHUB_STATS.contributions} /> : GITHUB_STATS.contributions}
+                  </span>
+                </div>
+                <div className="text-sm text-gray-500">{GITHUB_STATS.activeDays} active days</div>
+              </div>
+
+              <a 
+                href={GITHUB_STATS.profileUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="group flex items-center justify-between p-5 rounded-xl bg-white/5 border border-white/10 hover:border-primary/50 transition-all"
+              >
+                <div className="flex items-center gap-4">
+                  <SiGithub className="w-10 h-10 text-gray-400 group-hover:text-primary transition-colors" />
+                  <div>
+                    <div className="text-base font-semibold text-white group-hover:text-primary transition-colors">@{GITHUB_STATS.username}</div>
+                    <div className="text-sm text-gray-500">View Profile</div>
+                  </div>
+                </div>
+                <ArrowRightIcon className="w-5 h-5 text-gray-500 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              </a>
+            </div>
+          </div>
+        </SpotlightCard>
+      </section>
+
+      {/* Data Notice */}
+      <div className="p-5 rounded-xl bg-surface border border-white/10">
+        <p className="text-xs text-gray-500">
+          <span className="text-gray-400 font-medium">Note:</span> Stats are manually verified and updated periodically. Click &quot;Verify&quot; to view original sources. Last updated: Jan 2026
+        </p>
+      </div>
+    </PageTemplate>
   );
 }

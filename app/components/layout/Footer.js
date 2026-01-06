@@ -107,15 +107,6 @@ export const Footer = () => {
                         Setup
                     </span>
                 </Link>
-                <Link
-                    href={ROUTES.STATUS}
-                    className="group relative px-6 py-2.5 card-base rounded-md transition-all text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest"
-                >
-                    <span className="relative z-10 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                        Status
-                    </span>
-                </Link>
                 <button
                   onClick={handleMuteToggle}
                   className="group relative px-6 py-2.5 bg-white/5 border border-white/10 rounded-md hover:bg-white/10 hover:border-white/20 transition-all text-gray-400 hover:text-white font-bold text-xs uppercase tracking-widest"

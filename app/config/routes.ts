@@ -29,9 +29,6 @@ export const ROUTES = {
   /** Analytics/stats dashboard */
   STATS: '/stats',
   
-  /** System status page */
-  STATUS: '/status',
-  
   /** Uses/setup page */
   USES: '/uses',
   
@@ -107,7 +104,6 @@ export const NAV_LINKS = [
 export const FOOTER_LINKS = [
   { label: 'Stats', href: ROUTES.STATS },
   { label: 'Uses', href: ROUTES.USES },
-  { label: 'Status', href: ROUTES.STATUS },
 ] as const;
 
 // ============================================================================

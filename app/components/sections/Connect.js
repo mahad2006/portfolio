@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useForm, ValidationError } from '@formspree/react';
 import { CONTACT_INFO, SOCIAL_LINKS } from '@/config/site';
+import { FadeUp, SlideInLeft, SlideInRight } from '@/components/ui/AnimatedSection';
 
 export const Connect = () => {
   const [state, handleSubmit] = useForm(CONTACT_INFO.formspreeId);
@@ -27,9 +28,12 @@ export const Connect = () => {
   return (
     <section id="connect" className="py-24 bg-section-gradient">
       <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16"><h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Let's Engineer the Future.</h2><p className="text-xl text-gray-400 max-w-2xl mx-auto">Whether you have a question about backend scaling, want to collaborate on a project, or just want to say hi, I'll try my best to get back to you!</p></div>
+        <FadeUp>
+          <div className="text-center mb-16"><h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Let's Engineer the Future.</h2><p className="text-xl text-gray-400 max-w-2xl mx-auto">Whether you have a question about backend scaling, want to collaborate on a project, or just want to say hi, I'll try my best to get back to you!</p></div>
+        </FadeUp>
         <div className="grid md:grid-cols-2 gap-12 items-start">
-          <div className="space-y-6">
+          <SlideInLeft delay={0.2}>
+            <div className="space-y-6">
               <h3 className="text-white font-bold text-xl mb-4">Connect Directly</h3>
               <button
                 onClick={handleCopyEmail}
@@ -64,8 +68,10 @@ export const Connect = () => {
                 <a href={SOCIAL_LINKS.leetcode.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.leetcode.label} profile`}>{SOCIAL_LINKS.leetcode.label}</a>
                 <a href={SOCIAL_LINKS.codolio.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.codolio.label} profile`}>{SOCIAL_LINKS.codolio.label}</a>
               </div>
-          </div>
-          <form className="card-base p-8 rounded-2xl space-y-4 relative" onSubmit={handleSubmit}>
+            </div>
+          </SlideInLeft>
+          <SlideInRight delay={0.3}>
+            <form className="card-base p-8 rounded-2xl space-y-4 relative" onSubmit={handleSubmit}>
             <h3 className="text-white font-bold text-xl mb-2">Send a Message</h3>
             <div>
               <input id="name" type="text" name="name" placeholder="Your Name" required className="input-field" />
@@ -83,6 +89,7 @@ export const Connect = () => {
               {state.submitting ? <><span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin"></span> Sending...</> : 'Send Message'}
             </button>
           </form>
+          </SlideInRight>
         </div>
       </div>
     </section>

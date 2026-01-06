@@ -60,10 +60,6 @@ export const HERO_COMMANDS = {
     text: "Loading system configuration...",
     action: () => { window.location.href = ROUTES.USES; },
   },
-  status: {
-    text: "Checking system health...",
-    action: () => { window.location.href = ROUTES.STATUS; },
-  },
   matrix: {
     text: "Rerouting neural pathways...",
     action: (toggleMatrix) => toggleMatrix(),

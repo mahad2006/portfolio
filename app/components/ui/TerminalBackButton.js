@@ -15,7 +15,6 @@ const COMMAND_MAP = {
   'cd writing': ROUTES.WRITING,
   'cd stats': ROUTES.STATS,
   'cd uses': ROUTES.USES,
-  'cd status': ROUTES.STATUS,
   'cd community': ROUTES.COMMUNITY,
 };
 

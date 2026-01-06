@@ -97,7 +97,7 @@ export const Hero = () => {
         {/* Status Badge */}
         <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-bold tracking-widest uppercase hover:bg-primary/10 transition-colors cursor-default hover:scale-105 transform duration-300">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-          System Online: Available for Hire
+          BSSE @ UBIT · 3rd Semester
         </div>
 
         <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-6 text-white leading-tight">

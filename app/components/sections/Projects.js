@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { projectsData } from '@/data/projects';
 import { ProjectStack } from '@/components/ui/ProjectStack';
 import { ROUTES } from '@/config/routes';
+import { FadeUp, ScaleUp } from '@/components/ui/AnimatedSection';
 
 export const Projects = () => {
   // Use all projects for the infinite loop
@@ -12,23 +13,28 @@ export const Projects = () => {
   return (
     <section id="projects" className="py-32 relative bg-[#080808]">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-4">
-            <span className="text-primary mono text-2xl">03.</span> Featured Projects
-          </h2>
-          <p className="text-gray-400 max-w-2xl text-lg mb-8">
-            A selection of native mobile applications and backend systems. I focus on <span className="text-white">solving real problems</span> with constraints, trade-offs, and scalability in mind.
-          </p>
-        </div>
+        <FadeUp>
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold mb-4">
+              <span className="text-primary mono text-2xl">03.</span> Featured Projects
+            </h2>
+            <p className="text-gray-400 max-w-2xl text-lg mb-8">
+              A selection of native mobile applications and backend systems. I focus on <span className="text-white">solving real problems</span> with constraints, trade-offs, and scalability in mind.
+            </p>
+          </div>
+        </FadeUp>
 
         {/* Infinite 3D Loop Animation */}
-        <div className="mb-12">
-          <ProjectStack projects={allProjects} />
-        </div>
+        <ScaleUp delay={0.2}>
+          <div className="mb-12">
+            <ProjectStack projects={allProjects} />
+          </div>
+        </ScaleUp>
         
         {/* View All CTA */}
-        <div className="flex justify-center mt-12">
-          <Link
+        <FadeUp delay={0.4}>
+          <div className="flex justify-center mt-12">
+            <Link
             href={ROUTES.PROJECTS}
             className="group card-base rounded-2xl p-8 w-full max-w-2xl transition-all duration-300 hover:scale-[1.02]"
           >
@@ -59,6 +65,7 @@ export const Projects = () => {
             </div>
           </Link>
         </div>
+        </FadeUp>
       </div>
     </section>
   );
