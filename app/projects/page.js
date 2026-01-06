@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projectsData } from '@/data/projects';
 import { ProjectRow } from '@/components/ui/ProjectRow';
+import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
 import Image from 'next/image';
 
 // Category mapping based on tags
@@ -73,21 +74,13 @@ export default function ProjectsPage() {
 
   return (
     <div className="min-h-screen bg-[#050505] text-gray-300">
-      {/* Back Button */}
+      {/* Terminal Back Button */}
       <div className="max-w-7xl mx-auto px-6 pt-8">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 glass-panel border border-white/10 rounded-xl px-4 py-2 text-sm text-gray-400 hover:text-primary hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Home
-        </Link>
+        <TerminalBackButton />
       </div>
 
       {/* Hero Header */}
-      <div className="relative pt-16 pb-16 px-6">
+      <div className="relative pt-8 pb-16 px-6">
         {/* Spotlight Background Effect */}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
         

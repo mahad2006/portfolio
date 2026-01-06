@@ -5,18 +5,24 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-const CARD_WIDTH = 400;
-const CARD_GAP = 24;
-const ANIMATION_DURATION = 0.6;
+const CARD_WIDTH = 380;
 const AUTO_PLAY_INTERVAL = 4000; // 4 seconds per card
+
+// Position configuration for Stacked Deck (Cover Flow)
+// Strict 3-Layer System: Center (Layer 0), Immediate Left/Right (Layer 1), Far Left/Right (Layer 2)
+const POSITIONS = {
+  farRight: { index: 2, zIndex: 30, scale: 0.8, opacity: 0.7, x: 340 },
+  right: { index: 1, zIndex: 40, scale: 0.9, opacity: 1, x: 160 },
+  center: { index: 0, zIndex: 50, scale: 1, opacity: 1, x: 0 },
+  left: { index: -1, zIndex: 40, scale: 0.9, opacity: 1, x: -160 },
+  farLeft: { index: -2, zIndex: 30, scale: 0.8, opacity: 0.7, x: -340 },
+  hidden: { index: 3, zIndex: 0, scale: 0, opacity: 0, x: 0 }, // Layer 3+ hidden
+};
 
 export const ProjectStack = ({ projects }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const router = useRouter();
-
-  // Create infinite loop by duplicating projects
-  const infiniteProjects = [...projects, ...projects, ...projects];
 
   // Auto-play animation
   useEffect(() => {
@@ -29,52 +35,73 @@ export const ProjectStack = ({ projects }) => {
     return () => clearInterval(interval);
   }, [isPaused, projects.length]);
 
-  // Get visible cards (3 cards: previous, current, next)
+  // Get visible cards (5 cards: farLeft, left, center, right, farRight) - Strict 3-Layer System
   const getVisibleCards = () => {
     const cards = [];
-    // Show previous, current, and next cards
-    for (let i = -1; i <= 1; i++) {
-      const index = (currentIndex + i + projects.length) % projects.length;
+    const positions = ['farLeft', 'left', 'center', 'right', 'farRight'];
+
+    positions.forEach((pos) => {
+      const config = POSITIONS[pos];
+      const projectIndex = (currentIndex + config.index + projects.length) % projects.length;
       cards.push({
-        project: projects[index],
-        position: i,
-        key: `card-${index}-${currentIndex}-${i}`, // Unique key for animation
+        project: projects[projectIndex],
+        position: pos,
+        config,
+        key: `card-${projectIndex}-${currentIndex}-${pos}`,
       });
-    }
+    });
+
     return cards;
   };
 
   const visibleCards = getVisibleCards();
 
+  const handleCardClick = (position) => {
+    if (position !== 'center') {
+      // Calculate how many steps to move
+      const positionMap = {
+        farLeft: -2,
+        left: -1,
+        center: 0,
+        right: 1,
+        farRight: 2,
+      };
+      const steps = -positionMap[position];
+      setCurrentIndex((prev) => (prev + steps + projects.length) % projects.length);
+    }
+  };
+
   return (
     <div
-      className="relative h-[600px] overflow-hidden"
+      className="relative h-[650px] overflow-visible mb-8"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="relative h-full flex items-center justify-center">
         <AnimatePresence mode="popLayout">
-          {visibleCards.map(({ project, position, key }) => (
+          {visibleCards.map(({ project, position, config, key }) => (
             <ProjectCard
               key={key}
               project={project}
               position={position}
-              isActive={position === 0}
+              config={config}
+              isActive={position === 'center'}
+              onClick={() => handleCardClick(position)}
             />
           ))}
         </AnimatePresence>
       </div>
 
-      {/* Navigation Dots */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+      {/* Navigation Dots - Moved up to avoid overlap */}
+      <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
         {projects.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            className={`h-2 rounded-full transition-all duration-300 ${
               index === currentIndex
                 ? 'bg-primary w-8'
-                : 'bg-white/20 hover:bg-white/40'
+                : 'bg-white/20 w-2 hover:bg-white/40'
             }`}
             aria-label={`Go to project ${index + 1}`}
           />
@@ -84,79 +111,57 @@ export const ProjectStack = ({ projects }) => {
   );
 };
 
-const ProjectCard = ({ project, position, isActive }) => {
+const ProjectCard = ({ project, position, config, isActive, onClick }) => {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
 
-  // Calculate position and animation variants
-  const getVariants = () => {
-    const baseX = position * (CARD_WIDTH + CARD_GAP);
-    const baseZ = Math.abs(position) * -50;
-    const baseScale = 1 - Math.abs(position) * 0.15;
-    const baseOpacity = position === 0 ? 1 : 0.4;
-
-    return {
-      initial: {
-        // Cards jump in from the right
-        x: CARD_WIDTH * 3,
-        y: 0,
-        z: 0,
-        scale: 0.8,
-        opacity: 0,
-      },
-      animate: {
-        x: baseX,
-        y: 0,
-        z: baseZ,
-        scale: isHovered && isActive ? 1.05 : baseScale,
-        opacity: baseOpacity,
-      },
-      exit: {
-        // Cards pop out to the left
-        x: -CARD_WIDTH * 3,
-        y: 0,
-        z: 0,
-        scale: 0.8,
-        opacity: 0,
-      },
-    };
-  };
-
-  const variants = getVariants();
-
   return (
     <motion.div
-      variants={variants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
+      layout
+      initial={{
+        x: config.x,
+        scale: config.scale,
+        opacity: config.opacity,
+        zIndex: config.zIndex,
+      }}
+      animate={{
+        x: config.x,
+        scale: isHovered && isActive ? 1.05 : config.scale,
+        opacity: config.opacity,
+        zIndex: config.zIndex,
+      }}
+      exit={{
+        scale: 0.5,
+        opacity: 0,
+      }}
       transition={{
-        type: 'spring',
-        stiffness: 300,
-        damping: 30,
-        mass: 0.8,
+        type: 'tween',
+        ease: 'easeInOut',
+        duration: 1.2,
       }}
       style={{
         position: 'absolute',
         width: CARD_WIDTH,
-        perspective: 1000,
+        cursor: 'pointer',
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="cursor-pointer"
+      onClick={onClick}
+      className="select-none"
     >
       <Link href={`/projects/${project.slug}`} className="block h-full">
         <motion.div
-          className={`relative h-[550px] glass-panel border rounded-2xl overflow-hidden bg-black/40 backdrop-blur-xl ${
+          className={`relative h-[600px] glass-panel border rounded-2xl overflow-hidden bg-black/40 backdrop-blur-xl transition-all duration-300 ${
             isActive && isHovered
-              ? 'border-primary shadow-2xl'
+              ? 'border-primary'
               : 'border-white/10'
           }`}
           style={{
             boxShadow:
               isActive && isHovered
-                ? `0 20px 60px -10px var(--color-primary)`
+                ? `0 0 15px -3px var(--color-primary)`
                 : '0 4px 30px rgba(0, 0, 0, 0.2)',
+            filter: isActive && isHovered ? 'drop-shadow(0 0 15px rgba(var(--color-primary-rgb), 0.5))' : 'none',
           }}
         >
           {/* Image/Thumbnail */}
@@ -166,7 +171,7 @@ const ProjectCard = ({ project, position, isActive }) => {
                 src={project.image}
                 alt={project.title}
                 fill
-                sizes="400px"
+                sizes="380px"
                 className="object-cover opacity-80 transition-opacity duration-500"
                 style={{
                   opacity: isHovered && isActive ? 1 : 0.8,
@@ -249,4 +254,3 @@ const ProjectCard = ({ project, position, isActive }) => {
     </motion.div>
   );
 };
-

@@ -2,6 +2,7 @@ import { projectsData } from '@/data/projects';
 import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
+import { ProjectDetailClient } from './ProjectDetailClient';
 
 // This function tells Next.js which slugs to pre-render
 export async function generateStaticParams() {
@@ -47,18 +48,9 @@ const ProjectPage = ({ params }) => {
 
   return (
     <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
-      <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
-            <span className="text-green-400">root@mahad:~/projects/{project.slug}</span>
-            <span className="text-gray-500">$</span>
-            <span className="group-hover:text-orange-400 transition-colors">cd ..</span>
-          </Link>
-        </div>
-      </nav>
-
-      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-24">
-        <header className="mb-16">
+      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-24">
+        <ProjectDetailClient>
+          <header className="mb-16">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-none tracking-tighter">
             {project.title}
           </h1>
@@ -134,6 +126,7 @@ const ProjectPage = ({ params }) => {
             </div>
           </article>
         </div>
+        </ProjectDetailClient>
       </main>
     </div>
   );

@@ -1,6 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
 
 const allPosts = [
   {
@@ -54,17 +55,11 @@ const WritingView = () => {
 
   return (
     <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
-      <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
-            <span className="text-primary">root@mahad:~/writing</span>
-            <span className="text-gray-500">$</span>
-            <span className="group-hover:text-primary transition-colors">cd ..</span>
-          </Link>
+      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-24">
+        {/* Terminal Back Button */}
+        <div className="mb-8">
+          <TerminalBackButton />
         </div>
-      </nav>
-
-      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-24">
         <header className="mb-12">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-none tracking-tighter">
             Technical Writing

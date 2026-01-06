@@ -27,6 +27,7 @@ export { ConfirmModal } from './ui/ConfirmModal';
 export { PillButton } from './ui/PillButton';
 export { ProjectRow } from './ui/ProjectRow';
 export { ProjectStack } from './ui/ProjectStack';
+export { TerminalBackButton } from './ui/TerminalBackButton';
 
 // Provider Components
 export { SystemProvider } from './providers/SystemProvider';

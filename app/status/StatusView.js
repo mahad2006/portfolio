@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
 
 export default function SystemStatus() {
   const [uptime, setUptime] = useState('00:00:00');
@@ -36,11 +37,6 @@ export default function SystemStatus() {
 
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/70 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex justify-between items-center">
-        <Link href="/" className="group text-xs font-mono text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
-          <span className="text-primary font-bold">root@mahad:~/status</span>
-          <span className="text-gray-500 animate-pulse">$</span>
-          <span className="group-hover:text-white transition-colors duration-300">cd ..</span>
-        </Link>
         <div className="flex items-center gap-3 bg-white/5 px-3 py-1 rounded-full border border-white/5">
           <div className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -50,7 +46,12 @@ export default function SystemStatus() {
         </div>
       </nav>
 
-      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-24">
+      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-24">
+        {/* Terminal Back Button */}
+        <div className="mb-8">
+          <TerminalBackButton />
+        </div>
+
         {/* Header */}
         <div className="mb-16">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none font-mono tracking-tighter uppercase">

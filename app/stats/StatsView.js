@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
 
 // Animated Counter Component
 function AnimatedCounter({ target, duration = 2000, suffix = '' }) {
@@ -88,11 +89,6 @@ export default function TelemetryPage() {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
-            <span className="text-green-400">root@mahad:~/stats</span>
-            <span className="text-gray-500">$</span>
-            <span className="group-hover:text-orange-400 transition-colors">cd ..</span>
-          </Link>
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
             <span className="text-[9px] text-primary tracking-[0.3em] uppercase">Live_Metrics</span>
@@ -101,7 +97,11 @@ export default function TelemetryPage() {
       </nav>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-24">
+      <main className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-24">
+        {/* Terminal Back Button */}
+        <div className="mb-8">
+          <TerminalBackButton />
+        </div>
 
         {/* Header */}
         <div className="mb-20">

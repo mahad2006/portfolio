@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
@@ -74,11 +75,6 @@ const UBITCommunityPage = () => {
       {/* Navigation */}
       <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="group text-xs text-gray-400 hover:text-primary transition-colors flex items-center gap-2 tracking-widest uppercase">
-            <span className="text-green-400">root@mahad:~/community</span>
-            <span className="text-gray-500">$</span>
-            <span className="group-hover:text-primary transition-colors">cd ..</span>
-          </Link>
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
             <span className="text-[9px] text-primary tracking-[0.3em] uppercase">UBIT_HUB</span>
@@ -87,7 +83,12 @@ const UBITCommunityPage = () => {
       </nav>
 
       {/* Main Content */}
-      <main className="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-24">
+      <main className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-24">
+        {/* Terminal Back Button */}
+        <div className="mb-8">
+          <TerminalBackButton />
+        </div>
+
         {/* Hero Section */}
         <header className="mb-24 text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none tracking-tighter uppercase">

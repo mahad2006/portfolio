@@ -5,6 +5,7 @@ import { useSystem } from '@/hooks/useSystem';
 import { PillButton } from '@/components/ui/PillButton';
 import { ColorSwatch } from '@/components/ui/ColorSwatch';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
+import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
 
 const ACCENT_COLORS = [
   { value: '#6DB33F', label: 'Green' },
@@ -58,16 +59,10 @@ export default function SettingsPage() {
   return (
     <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
       <div className="max-w-4xl mx-auto px-6 pt-24 pb-24">
-        {/* Back Button */}
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-primary transition-colors mb-8"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          Back to Home
-        </Link>
+        {/* Terminal Back Button */}
+        <div className="mb-8">
+          <TerminalBackButton />
+        </div>
 
         {/* Header */}
         <header className="mb-12">
