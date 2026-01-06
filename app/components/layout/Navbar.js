@@ -76,7 +76,7 @@ export const Navbar = () => {
     <>
       <CommandPalette isOpen={paletteOpen} onClose={() => setPaletteOpen(false)} onNavigate={scrollTo} />
 
-      <nav className={`fixed top-0 w-full z-[9998] transition-all duration-300 ${scrolled ? 'bg-[var(--bg-page)]/80 backdrop-blur-xl border-b border-[var(--border-subtle)] shadow-[var(--shadow-card)]' : 'bg-transparent py-6'}`}>
+      <nav className={`fixed top-0 w-full z-9998 transition-all duration-300 ${scrolled ? 'bg-(--bg-page)/80 backdrop-blur-xl border-b border-(--border-subtle) shadow-(--shadow-card)' : 'bg-transparent py-6'}`}>
         <div className={`max-w-7xl mx-auto px-6 flex justify-between items-center ${scrolled ? 'py-4' : ''}`}>
           {/* Left Side: Logo on home, Back Button on sub-pages */}
           {isHome ? (
@@ -163,7 +163,7 @@ export const Navbar = () => {
 
         {/* Reading Progress Bar */}
         {scrolled && (
-            <div className="absolute bottom-0 left-0 h-[2px] bg-primary" style={{ width: `${scrollProgress}%` }}></div>
+            <div className="absolute bottom-0 left-0 h-0.5 bg-primary" style={{ width: `${scrollProgress}%` }}></div>
         )}
 
         {/* ... (mobile menu div) */}

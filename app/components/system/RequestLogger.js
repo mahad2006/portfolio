@@ -44,9 +44,9 @@ export const RequestLogger = () => {
   if (isDismissed) return null;
 
   return (
-    <div className={`fixed bottom-6 left-6 z-[100] hidden lg:block transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+    <div className={`fixed bottom-6 left-6 z-100 hidden lg:block transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
       <div className="card-base p-3 rounded-lg w-72 font-mono text-[9px] pointer-events-auto">
-        <div className="flex items-center justify-between mb-2 pb-2 border-b border-[var(--border-subtle)]">
+        <div className="flex items-center justify-between mb-2 pb-2 border-b border-(--border-subtle)">
           <div className="flex items-center gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>
             <span className="text-primary font-bold tracking-wider uppercase">Request Log</span>

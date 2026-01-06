@@ -8,10 +8,10 @@ export const About = () => {
     <section id="about" className="py-24 relative">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
         <div className="relative group perspective-1000">
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary to-[#E76F00] rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
-          <div className="relative rounded-2xl overflow-hidden border border-[var(--border-subtle)] aspect-[4/5] md:aspect-square transform transition-transform duration-500 group-hover:scale-[1.01] shadow-[var(--shadow-card)] bg-surface">
+          <div className="absolute -inset-1 bg-linear-to-r from-primary to-secondary rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+          <div className="relative rounded-2xl overflow-hidden border border-(--border-subtle) aspect-4/5 md:aspect-square transform transition-transform duration-500 group-hover:scale-[1.01] shadow-(--shadow-card) bg-surface">
             <Image src="/profile.png" alt={AUTHOR_NAME} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" priority={true} />
-            <div className="hidden w-full h-full absolute inset-0 bg-gradient-to-br from-gray-900 to-black flex-col items-center justify-center text-center p-8"><span className="text-6xl mb-4">👨‍💻</span><p className="text-gray-500 text-xs mono">Profile.png</p></div>
+            <div className="hidden w-full h-full absolute inset-0 bg-linear-to-br from-gray-900 to-black flex-col items-center justify-center text-center p-8"><span className="text-6xl mb-4">👨‍💻</span><p className="text-gray-500 text-xs mono">Profile.png</p></div>
           </div>
         </div>
         <div className="space-y-8 animate-fade-up">

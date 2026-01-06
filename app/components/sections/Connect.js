@@ -33,7 +33,7 @@ export const Connect = () => {
               <h3 className="text-white font-bold text-xl mb-4">Connect Directly</h3>
               <button
                 onClick={handleCopyEmail}
-                className="w-full flex items-center gap-4 p-4 card-base rounded-lg hover:border-[var(--border-highlight)] transition-all group hover:-translate-y-1 text-left relative overflow-hidden"
+                className="w-full flex items-center gap-4 p-4 card-base rounded-lg hover:border-(--border-highlight) transition-all group hover:-translate-y-1 text-left relative overflow-hidden"
                 aria-label="Copy email address to clipboard"
               >
                 <div className={`p-3 rounded-full transition-colors ${emailCopied ? 'bg-primary/20 text-primary' : 'bg-white/5 group-hover:bg-primary/20 text-gray-400 group-hover:text-primary'}`}>
@@ -48,7 +48,7 @@ export const Connect = () => {
                 href={SOCIAL_LINKS.linkedin.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 p-4 card-base rounded-lg hover:border-[var(--border-highlight)] transition-all group hover:-translate-y-1"
+                className="flex items-center gap-4 p-4 card-base rounded-lg hover:border-(--border-highlight) transition-all group hover:-translate-y-1"
                 aria-label={`View ${SOCIAL_LINKS.linkedin.label} profile`}
               >
                 <div className="p-3 bg-white/5 rounded-full group-hover:bg-primary/20 transition-colors">

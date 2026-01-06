@@ -28,7 +28,7 @@ const allPosts = [
 const PostCard = ({ post }) => (
   <Link
     href={`/writing/${post.slug}`}
-    className="block p-8 rounded-2xl card-base hover:border-[var(--border-highlight)] transition-all group relative overflow-hidden animate-fade-up"
+    className="block p-8 rounded-2xl card-base hover:border-(--border-highlight) transition-all group relative overflow-hidden animate-fade-up"
   >
     <div className="flex justify-between items-start mb-4">
       <span className="text-xs font-mono text-primary">{post.category}</span>

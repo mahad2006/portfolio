@@ -136,7 +136,7 @@ const ProjectPage = async ({ params }) => {
       
       {/* Mobile App: Phone Mockups */}
       {isMobileApp && project.screens && (
-        <section className="mb-12 md:mb-16 py-8 px-4 -mx-4 md:-mx-6 bg-gradient-to-b from-white/[0.02] to-transparent rounded-3xl border border-white/[0.04]">
+        <section className="mb-12 md:mb-16 py-8 px-4 -mx-4 md:-mx-6 bg-linear-to-b from-white/2 to-transparent rounded-3xl border border-white/4">
           <PhoneMockupGallery screens={project.screens} />
         </section>
       )}
@@ -193,7 +193,7 @@ const ProjectPage = async ({ params }) => {
         {/* Sidebar */}
         <aside className="lg:col-span-1 space-y-6">
           {/* Tech Stack */}
-          <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+          <div className="p-5 rounded-2xl bg-white/2 border border-white/6">
             <h3 className="text-sm font-bold text-white tracking-[0.2em] uppercase mb-4 flex items-center gap-2">
               <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -214,7 +214,7 @@ const ProjectPage = async ({ params }) => {
           
           {/* Key Stats */}
           {project.stats && project.stats.length > 0 && (
-            <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+            <div className="p-5 rounded-2xl bg-white/2 border border-white/6">
               <h3 className="text-sm font-bold text-white tracking-[0.2em] uppercase mb-4 flex items-center gap-2">
                 <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -225,7 +225,7 @@ const ProjectPage = async ({ params }) => {
                 {project.stats.map(stat => (
                   <li 
                     key={stat.label} 
-                    className="flex justify-between items-center p-3 bg-black/30 rounded-xl border border-white/[0.04]"
+                    className="flex justify-between items-center p-3 bg-black/30 rounded-xl border border-white/4"
                   >
                     <span className="text-gray-400 text-sm">{stat.label}</span>
                     <span className="text-white font-bold">{stat.value}</span>
@@ -295,7 +295,7 @@ const ProjectPage = async ({ params }) => {
               <p className="text-gray-400 leading-relaxed">{project.caseStudy.approach}</p>
               
               {project.caseStudy.architecture && (
-                <div className="mt-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]">
+                <div className="mt-4 p-4 rounded-xl bg-white/2 border border-white/6">
                   <h4 className="text-sm font-medium text-white mb-2 flex items-center gap-2">
                     <svg className="w-3.5 h-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -323,7 +323,7 @@ const ProjectPage = async ({ params }) => {
                 {project.caseStudy.challenges.map((challenge, index) => (
                   <div 
                     key={challenge.title} 
-                    className="group p-5 bg-white/[0.02] border border-white/[0.06] rounded-xl hover:border-primary/30 transition-colors"
+                    className="group p-5 bg-white/2 border border-white/6 rounded-xl hover:border-primary/30 transition-colors"
                   >
                     <div className="flex items-start gap-4">
                       <span className="shrink-0 w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm font-bold">
@@ -343,7 +343,7 @@ const ProjectPage = async ({ params }) => {
           )}
           
           {/* Lessons Learned */}
-          <section className="pt-6 border-t border-white/[0.06]">
+          <section className="pt-6 border-t border-white/6">
             <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-3">
               <span className="w-8 h-8 rounded-lg bg-green-500/10 text-green-400 flex items-center justify-center">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -352,7 +352,7 @@ const ProjectPage = async ({ params }) => {
               </span>
               Lessons Learned
             </h2>
-            <div className="p-5 rounded-xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/[0.06]">
+            <div className="p-5 rounded-xl bg-linear-to-br from-white/3 to-transparent border border-white/6">
               <p className="text-gray-400 leading-relaxed italic">
                 {project.caseStudy.lessons || 
                   "Every project teaches something new. This one reinforced the importance of thorough planning, iterative development, and keeping the end-user experience in mind."

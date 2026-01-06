@@ -170,9 +170,9 @@ export const Z_INDEX_CLASSES = {
   base: 'z-0',
   dropdown: 'z-10',
   sticky: 'z-50',
-  modal: 'z-[100]',
-  tooltip: 'z-[200]',
-  critical: 'z-[9999]',
+  modal: 'z-100',
+  tooltip: 'z-200',
+  critical: 'z-9999',
 } as const;
 
 // ============================================================================

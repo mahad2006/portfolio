@@ -118,7 +118,7 @@ export const TerminalBackButton = ({ defaultCommand = 'cd ..', className = '' })
       onMouseLeave={() => setIsHovered(false)}
       className={`inline-flex items-center h-10 card-base rounded-xl px-3 py-1.5 transition-all duration-300 z-50 pointer-events-auto shrink-0 ${
         isFocused || isHovered
-          ? 'border-[var(--border-highlight)]'
+          ? 'border-(--border-highlight)'
           : ''
       } ${className}`}
       whileHover={{ y: -1 }}

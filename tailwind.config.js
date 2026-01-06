@@ -8,6 +8,10 @@ module.exports = {
         extend: {
             colors: {
                 primary: 'var(--color-primary)',
+                secondary: '#E76F00',
+                bg: 'var(--bg-page)',
+                surface: 'var(--bg-surface)',
+                'surface-hover': 'var(--bg-surface-hover)',
             },
             fontFamily: {
                 sans: ['var(--font-inter)', 'sans-serif'],

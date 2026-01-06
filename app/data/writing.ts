@@ -12,7 +12,7 @@ export const allPosts = [
       <p>For now, this is just a placeholder to demonstrate the structure.</p>
       <h3 class="text-2xl font-bold text-white mt-8 mb-4">A Deeper Dive</h3>
       <p>You can structure your articles with headings, lists, code blocks, and more.</p>
-      <pre class="bg-neutral-900 p-4 rounded-lg border border-neutral-800 text-sm text-gray-300 overflow-x-auto"><code>// Example code block
+      <pre class="bg-surface p-4 rounded-lg border border-white/10 text-sm text-gray-300 overflow-x-auto"><code>// Example code block
 public class HelloWorld {
     public static void main(String[] args) {
         System.out.println("Hello, World!");

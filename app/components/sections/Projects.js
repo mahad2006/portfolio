@@ -41,7 +41,7 @@ export const Projects = () => {
                   Browse all projects with advanced filtering and search
                 </p>
               </div>
-              <div className="flex-shrink-0 ml-6">
+              <div className="shrink-0 ml-6">
                 <svg
                   className="w-8 h-8 text-gray-400 group-hover:text-primary group-hover:translate-x-2 transition-all duration-300"
                   fill="none"

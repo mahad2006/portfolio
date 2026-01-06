@@ -27,13 +27,13 @@ const SectionHeader = ({ icon, title, description, accentColor }) => (
 );
 
 const SettingCard = ({ children, className = '' }) => (
-  <div className={`bg-white/[0.02] rounded-2xl border border-white/[0.06] p-6 backdrop-blur-sm ${className}`}>
+  <div className={`bg-white/2 rounded-2xl border border-white/6 p-6 backdrop-blur-sm ${className}`}>
     {children}
   </div>
 );
 
 const SettingRow = ({ label, description, children, preview }) => (
-  <div className="group py-5 border-b border-white/[0.04] last:border-0 last:pb-0 first:pt-0">
+  <div className="group py-5 border-b border-white/4 last:border-0 last:pb-0 first:pt-0">
     <div className="flex items-center justify-between gap-6">
       <div className="flex-1 min-w-0">
         <h3 className="text-white font-medium text-[15px] mb-1 group-hover:text-primary transition-colors">{label}</h3>
@@ -44,7 +44,7 @@ const SettingRow = ({ label, description, children, preview }) => (
       </div>
     </div>
     {preview && (
-      <div className="mt-4 p-4 rounded-xl bg-black/30 border border-white/[0.04]">
+      <div className="mt-4 p-4 rounded-xl bg-black/30 border border-white/4">
         {preview}
       </div>
     )}
@@ -79,7 +79,7 @@ const SegmentedControl = ({ options, value, onChange, size = 'md' }) => {
   };
 
   return (
-    <div className="flex bg-white/[0.04] rounded-xl p-1 border border-white/[0.06]">
+    <div className="flex bg-white/4 rounded-xl p-1 border border-white/6">
       {options.map((option) => (
         <button
           key={option.value}
@@ -190,7 +190,7 @@ const ThemePreset = ({ name, description, colors, isActive, onClick, icon }) => 
     className={`relative w-full p-4 rounded-2xl border text-left transition-all ${
       isActive 
         ? 'border-primary bg-primary/10' 
-        : 'border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]'
+        : 'border-white/6 bg-white/2 hover:border-white/12 hover:bg-white/4'
     }`}
     whileHover={{ scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
@@ -225,7 +225,7 @@ const ThemePreset = ({ name, description, colors, isActive, onClick, icon }) => 
 
 // Stats Badge
 const StatsBadge = ({ label, value, icon }) => (
-  <div className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.04]">
+  <div className="flex items-center gap-3 p-3 rounded-xl bg-white/2 border border-white/4">
     <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
       {icon}
     </div>
@@ -441,7 +441,7 @@ export default function SettingsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative overflow-hidden rounded-3xl border border-white/[0.06] bg-gradient-to-br from-white/[0.04] to-transparent p-8 md:p-12"
+          className="relative overflow-hidden rounded-3xl border border-white/6 bg-linear-to-br from-white/4 to-transparent p-8 md:p-12"
         >
           {/* Background gradient */}
           <div 
@@ -698,7 +698,7 @@ export default function SettingsPage() {
           </SettingCard>
 
           {/* Danger Zone */}
-          <SettingCard className="border-red-500/20 bg-red-500/[0.02]">
+          <SettingCard className="border-red-500/20 bg-red-500/2">
             <h3 className="text-lg font-semibold text-red-400 mb-4 flex items-center gap-2">
               {Icons.warning} Danger Zone
             </h3>

@@ -24,7 +24,7 @@ const PostPage = async ({ params }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
+    <div className="min-h-screen bg-bg text-gray-300 font-mono selection:bg-primary selection:text-black">
       <main className="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-24">
         <WritingDetailClient>
           <header className="mb-12">
@@ -38,7 +38,7 @@ const PostPage = async ({ params }) => {
         </header>
 
         <article
-          className="prose prose-invert prose-lg max-w-none prose-p:text-gray-400 prose-headings:text-white prose-strong:text-white prose-a:text-primary hover:prose-a:underline prose-pre:bg-neutral-900 prose-pre:border prose-pre:border-neutral-800"
+          className="prose prose-invert prose-lg max-w-none prose-p:text-gray-400 prose-headings:text-white prose-strong:text-white prose-a:text-primary hover:prose-a:underline prose-pre:bg-surface prose-pre:border prose-pre:border-white/10"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
         </WritingDetailClient>

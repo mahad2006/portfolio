@@ -60,7 +60,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="py-12 border-t border-[var(--border-subtle)] bg-page">
+    <footer className="py-12 border-t border-(--border-subtle) bg-page">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
             <div className="flex flex-col items-center md:items-start">

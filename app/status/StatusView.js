@@ -33,22 +33,22 @@ export default function SystemStatus() {
     >
       {/* Premium Background Grid & Lighting Effects */}
       <div className="fixed inset-0 pointer-events-none -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary opacity-10 blur-[100px]"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-page)] via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-size-[24px_24px]"></div>
+        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-77.5 w-77.5 rounded-full bg-primary opacity-10 blur-[100px]"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-(--bg-page) via-transparent to-transparent"></div>
       </div>
 
         {/* Uptime Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
-          <div className="p-8 rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/5 hover:border-primary/30 transition-all duration-300 group">
+          <div className="p-8 rounded-2xl bg-surface/50 backdrop-blur-sm border border-white/5 hover:border-primary/30 transition-all duration-300 group">
             <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3 group-hover:text-primary transition-colors">Current Uptime</div>
             <div className="text-3xl font-bold text-white font-mono tracking-tight">{uptime}</div>
           </div>
-          <div className="p-8 rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/5 hover:border-primary/30 transition-all duration-300 group">
+          <div className="p-8 rounded-2xl bg-surface/50 backdrop-blur-sm border border-white/5 hover:border-primary/30 transition-all duration-300 group">
             <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3 group-hover:text-primary transition-colors">Global Latency</div>
             <div className="text-3xl font-bold text-primary font-mono tracking-tight drop-shadow-[0_0_10px_rgba(109,179,63,0.3)]">45ms</div>
           </div>
-          <div className="p-8 rounded-2xl bg-neutral-900/50 backdrop-blur-sm border border-white/5 hover:border-primary/30 transition-all duration-300 group">
+          <div className="p-8 rounded-2xl bg-surface/50 backdrop-blur-sm border border-white/5 hover:border-primary/30 transition-all duration-300 group">
             <div className="text-xs text-gray-500 font-mono uppercase tracking-wider mb-3 group-hover:text-primary transition-colors">Availability</div>
             <div className="text-3xl font-bold text-primary font-mono tracking-tight drop-shadow-[0_0_10px_rgba(109,179,63,0.3)]">99.99%</div>
           </div>
@@ -63,7 +63,7 @@ export default function SystemStatus() {
 
           <div className="grid gap-4">
           {Object.entries(metrics).map(([key, value]) => (
-            <div key={key} className="p-5 rounded-xl bg-neutral-900/40 backdrop-blur-sm border border-white/5 hover:border-primary/40 hover:bg-neutral-900/60 transition-all duration-300 group">
+            <div key={key} className="p-5 rounded-xl bg-surface/40 backdrop-blur-sm border border-white/5 hover:border-primary/40 hover:bg-surface/60 transition-all duration-300 group">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div className="flex items-center gap-4">
                   <div className={`relative w-2.5 h-2.5 rounded-full ${value.color.replace('text-', 'bg-')} shadow-[0_0_12px_currentColor]`}></div>
@@ -90,7 +90,7 @@ export default function SystemStatus() {
         {/* Community / Incident Section */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Incident History */}
-          <div className="p-8 rounded-2xl bg-neutral-900/30 border border-white/5 flex flex-col items-center justify-center min-h-[200px]">
+          <div className="p-8 rounded-2xl bg-surface/30 border border-white/5 flex flex-col items-center justify-center min-h-50">
              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                 <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -101,7 +101,7 @@ export default function SystemStatus() {
           </div>
 
           {/* Discord CTA - FIXED with WA-ICON */}
-          <div className="p-8 rounded-2xl bg-neutral-900/30 border border-white/5 flex flex-col items-center justify-center text-center">
+          <div className="p-8 rounded-2xl bg-surface/30 border border-white/5 flex flex-col items-center justify-center text-center">
              <h3 className="text-white font-mono font-bold mb-4 uppercase tracking-widest text-sm">Community Status</h3>
 
              <a

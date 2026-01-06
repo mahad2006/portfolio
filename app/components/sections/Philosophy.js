@@ -46,7 +46,7 @@ export const Philosophy = () => {
           {philosophies.map((item, idx) => (
             <SpotlightCard
               key={idx}
-              className="group p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.05] transition-all hover:-translate-y-1 hover:border-primary"
+              className="group p-8 rounded-2xl border border-white/5 bg-white/2 hover:bg-white/5 transition-all hover:-translate-y-1 hover:border-primary"
             >
               <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 {item.icon}

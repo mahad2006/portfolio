@@ -43,7 +43,7 @@ export const PageTemplate = ({
     <div className="min-h-screen text-gray-300 font-mono selection:bg-primary selection:text-black bg-page">
       {/* Fixed Sub-page Header */}
       {showHeader && (
-        <nav className={`fixed top-0 left-0 w-full ${Z_INDEX_CLASSES.sticky} bg-[var(--bg-page)]/80 backdrop-blur-md border-b border-[var(--border-subtle)]`}>
+        <nav className={`fixed top-0 left-0 w-full ${Z_INDEX_CLASSES.sticky} bg-(--bg-page)/80 backdrop-blur-md border-b border-(--border-subtle)`}>
           <div className={`flex items-center justify-between ${CONTAINER_PADDING_CLASSES.x} ${HEADER_HEIGHT_CLASSES.subpage} ${MAX_WIDTH_CLASSES.page} mx-auto`}>
             {/* Left: Back Button */}
             <div className="shrink-0">
@@ -78,7 +78,7 @@ export const PageTemplate = ({
                 )}
               </div>
               {action && (
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   {action}
                 </div>
               )}

@@ -125,7 +125,7 @@ export const ProjectStack = ({ projects }) => {
   return (
     <div
       ref={containerRef}
-      className="relative h-[600px] overflow-hidden mb-8 cursor-grab active:cursor-grabbing"
+      className="relative h-150 overflow-hidden mb-8 cursor-grab active:cursor-grabbing"
       onMouseDown={handleDragStart}
       onMouseUp={handleDragEnd}
       onMouseLeave={handleDragEnd}
@@ -214,9 +214,9 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
     >
       <Link href={`/projects/${project.slug}`} className="block h-full">
         <motion.div
-          className={`relative h-[550px] card-base rounded-2xl overflow-hidden transition-all duration-300 ${
+          className={`relative h-137.5 card-base rounded-2xl overflow-hidden transition-all duration-300 ${
             isActive && isHovered
-              ? 'border-[var(--border-highlight)]'
+              ? 'border-(--border-highlight)'
               : ''
           }`}
           style={{
@@ -227,7 +227,7 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
           }}
         >
           {/* Image/Thumbnail */}
-          <div className="relative h-56 bg-gradient-to-br from-[#1a1a1a] to-black overflow-hidden">
+          <div className="relative h-56 bg-linear-to-br from-surface to-black overflow-hidden">
             {project.image ? (
               <Image
                 src={project.image}
@@ -290,7 +290,7 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
             >
               {project.title}
             </h3>
-            <p className="text-sm text-gray-400 mb-4 line-clamp-3 flex-grow">
+            <p className="text-sm text-gray-400 mb-4 line-clamp-3 grow">
               {project.tagline || project.caseStudy?.problem}
             </p>
 

@@ -17,16 +17,16 @@
 export const PhoneMockup = ({ screenName, description, accentColor = 'var(--color-primary)', children }) => (
   <div className="relative mx-auto" style={{ width: '180px' }}>
     {/* Phone Frame */}
-    <div className="relative bg-neutral-900 rounded-[2rem] p-2 shadow-2xl shadow-black/50 border border-white/10">
+    <div className="relative bg-surface rounded-4xl p-2 shadow-2xl shadow-black/50 border border-white/10">
       {/* Notch */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-6 bg-neutral-900 rounded-b-2xl z-10 flex items-center justify-center">
-        <div className="w-12 h-3 bg-black rounded-full" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-6 bg-surface rounded-b-2xl z-10 flex items-center justify-center">
+        <div className="w-12 h-3 bg-bg rounded-full" />
       </div>
       
       {/* Screen */}
-      <div className="relative bg-black rounded-[1.5rem] overflow-hidden" style={{ aspectRatio: '9/19.5' }}>
+      <div className="relative bg-bg rounded-3xl overflow-hidden" style={{ aspectRatio: '9/19.5' }}>
         {/* Status Bar */}
-        <div className="absolute top-0 left-0 right-0 h-8 bg-black/50 backdrop-blur-sm z-10 flex items-center justify-between px-6 pt-2">
+        <div className="absolute top-0 left-0 right-0 h-8 bg-bg/50 backdrop-blur-sm z-10 flex items-center justify-between px-6 pt-2">
           <span className="text-[8px] text-white/60">9:41</span>
           <div className="flex gap-1">
             <div className="w-3 h-1.5 bg-white/60 rounded-sm" />
@@ -277,7 +277,7 @@ export const ArchitectureDiagram = ({ title, components = [], projectType = 'bac
   const displayComponents = components.slice(0, layout.positions.length);
   
   return (
-    <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+    <div className="p-6 rounded-2xl bg-white/2 border border-white/6">
       <h3 className="text-sm font-bold text-white tracking-[0.2em] uppercase mb-6 flex items-center gap-2">
         <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -285,7 +285,7 @@ export const ArchitectureDiagram = ({ title, components = [], projectType = 'bac
         {title || 'System Architecture'}
       </h3>
       
-      <div className="relative h-64 bg-black/30 rounded-xl overflow-hidden">
+      <div className="relative h-64 bg-bg/30 rounded-xl overflow-hidden">
         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
           {/* Connection Lines */}
           {layout.connections.map(([from, to], i) => {
@@ -358,7 +358,7 @@ export const ArchitectureDiagram = ({ title, components = [], projectType = 'bac
 // ============================================================================
 
 export const DocumentationVisual = ({ sections = [], title }) => (
-  <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+  <div className="p-6 rounded-2xl bg-white/2 border border-white/6">
     <h3 className="text-sm font-bold text-white tracking-[0.2em] uppercase mb-6 flex items-center gap-2">
       <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -366,7 +366,7 @@ export const DocumentationVisual = ({ sections = [], title }) => (
       {title || 'Content Overview'}
     </h3>
     
-    <div className="relative h-48 bg-black/30 rounded-xl overflow-hidden p-4">
+    <div className="relative h-48 bg-bg/30 rounded-xl overflow-hidden p-4">
       {/* Tree Structure */}
       <div className="flex h-full">
         {/* Sidebar */}
@@ -431,7 +431,7 @@ export const PlaceholderVisual = ({ title, type = 'backend' }) => {
   };
   
   return (
-    <div className="h-48 rounded-2xl bg-gradient-to-br from-white/[0.02] to-transparent border border-white/[0.06] flex flex-col items-center justify-center">
+    <div className="h-48 rounded-2xl bg-linear-to-br from-white/2 to-transparent border border-white/6 flex flex-col items-center justify-center">
       {icons[type] || icons['backend']}
       <p className="mt-4 text-xs text-gray-500 font-mono">{title || 'Project Visualization'}</p>
     </div>
@@ -445,7 +445,7 @@ export const PlaceholderVisual = ({ title, type = 'backend' }) => {
 export const AppFeaturesGrid = ({ features = [] }) => (
   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
     {features.map((feature, i) => (
-      <div key={i} className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] text-center hover:border-primary/30 transition-colors">
+      <div key={i} className="p-4 rounded-xl bg-white/2 border border-white/6 text-center hover:border-primary/30 transition-colors">
         <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-2">
           <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
@@ -585,7 +585,7 @@ export const TerminalMockup = ({ slug, title, lines = [] }) => {
         </div>
         
         {/* Terminal Body */}
-        <div className="bg-neutral-950 p-6 font-mono text-sm min-h-[200px]">
+        <div className="bg-bg p-6 font-mono text-sm min-h-50">
           {displayLines.map((line, i) => (
             <div key={i} className="mb-1">
               {line.type === 'command' ? (

@@ -99,7 +99,7 @@ export default function UsesPage() {
         {/* Hardware Section */}
         <section className="mb-24">
           <div className="flex items-center gap-4 mb-10">
-            <span className="w-16 h-px bg-gradient-to-r from-primary to-transparent"></span>
+            <span className="w-16 h-px bg-linear-to-r from-primary to-transparent"></span>
             <h2 className="text-sm font-bold text-white tracking-[0.4em] uppercase">Hardware_Specifications</h2>
           </div>
 
@@ -109,18 +109,18 @@ export default function UsesPage() {
                 key={idx}
                 className={`group relative overflow-hidden rounded-2xl border transition-all duration-500 ${
                   item.highlight
-                    ? 'border-primary/30 bg-neutral-900 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(109,179,63,0.15)]'
-                    : 'border-neutral-800 bg-neutral-900 hover:border-white/20'
+                    ? 'border-primary/30 bg-surface hover:border-primary/50 hover:shadow-[0_0_40px_rgba(109,179,63,0.15)]'
+                    : 'border-white/10 bg-surface hover:border-white/20'
                 }`}
               >
                 {/* Animated corner accent */}
                 {item.highlight && (
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent blur-3xl group-hover:w-40 group-hover:h-40 transition-all duration-500"></div>
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-primary/20 to-transparent blur-3xl group-hover:w-40 group-hover:h-40 transition-all duration-500"></div>
                 )}
 
                 <div className="relative p-8 flex items-start gap-8">
                   {/* Icon */}
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <div className={`w-20 h-20 rounded-2xl flex items-center justify-center text-4xl transition-all duration-500 ${
                       item.highlight
                         ? 'bg-primary/10 group-hover:bg-primary/20 group-hover:scale-110'
@@ -159,7 +159,7 @@ export default function UsesPage() {
         {/* Development Environment Section */}
         <section className="mb-24">
           <div className="flex items-center gap-4 mb-10">
-            <span className="w-16 h-px bg-gradient-to-r from-primary to-transparent"></span>
+            <span className="w-16 h-px bg-linear-to-r from-primary to-transparent"></span>
             <h2 className="text-sm font-bold text-white tracking-[0.4em] uppercase">Development_Environment</h2>
           </div>
 
@@ -167,9 +167,9 @@ export default function UsesPage() {
             {setup.development.map((item, idx) => (
               <div
                 key={idx}
-                className="group relative p-6 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-primary/30 hover:bg-neutral-800 transition-all duration-500"
+                className="group relative p-6 rounded-2xl bg-surface border border-white/10 hover:border-primary/30 hover:bg-surface-hover transition-all duration-500"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+                <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
                 <div className="relative">
                   <div className="flex items-start justify-between mb-4">
@@ -204,7 +204,7 @@ export default function UsesPage() {
         {/* Tools Section */}
         <section className="mb-24">
           <div className="flex items-center gap-4 mb-10">
-            <span className="w-16 h-px bg-gradient-to-r from-primary to-transparent"></span>
+            <span className="w-16 h-px bg-linear-to-r from-primary to-transparent"></span>
             <h2 className="text-sm font-bold text-white tracking-[0.4em] uppercase">Tools_&_Utilities</h2>
           </div>
 
@@ -212,7 +212,7 @@ export default function UsesPage() {
             {setup.tools.map((tool, idx) => (
               <div
                 key={idx}
-                className="group p-6 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-primary/30 transition-all duration-300"
+                className="group p-6 rounded-xl bg-surface border border-white/10 hover:border-primary/30 transition-all duration-300"
               >
                 <h3 className="text-base font-bold text-white mb-2 group-hover:text-primary transition-colors">
                   {tool.name}
@@ -226,14 +226,14 @@ export default function UsesPage() {
         {/* Tech Stack Section */}
         <section className="mb-20">
           <div className="flex items-center gap-4 mb-10">
-            <span className="w-16 h-px bg-gradient-to-r from-primary to-transparent"></span>
+            <span className="w-16 h-px bg-linear-to-r from-primary to-transparent"></span>
             <h2 className="text-sm font-bold text-white tracking-[0.4em] uppercase">Primary_Technology_Stack</h2>
           </div>
 
           <div className="space-y-8">
             {Object.entries(setup.stack).map(([category, techs], idx) => (
               <div key={idx} className="relative">
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-transparent opacity-50"></div>
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-primary to-transparent opacity-50"></div>
                 <div className="pl-8">
                   <h3 className="text-xs text-primary uppercase tracking-wider mb-4 font-bold flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
@@ -243,7 +243,7 @@ export default function UsesPage() {
                     {techs.map((tech, i) => (
                       <span
                         key={i}
-                        className="px-4 py-2 text-sm rounded-lg bg-neutral-900 border border-neutral-800 text-gray-300 hover:border-primary/30 hover:text-white hover:bg-neutral-800 transition-all cursor-default"
+                        className="px-4 py-2 text-sm rounded-lg bg-surface border border-white/10 text-gray-300 hover:border-primary/30 hover:text-white hover:bg-surface-hover transition-all cursor-default"
                       >
                         {tech}
                       </span>

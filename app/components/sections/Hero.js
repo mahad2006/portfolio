@@ -90,7 +90,7 @@ export const Hero = () => {
     <header id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff05_1px,transparent_1px)] [background-size:24px_24px] opacity-20"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff05_1px,transparent_1px)] bg-size-[24px_24px] opacity-20"></div>
       </div>
 
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto animate-fade-up">

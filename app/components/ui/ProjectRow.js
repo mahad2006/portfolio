@@ -31,12 +31,12 @@ export const ProjectRow = ({ title, projects, index = 0 }) => {
       <div className="relative">
         {/* Left Fade Gradient */}
         {showLeftFade && (
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#050505] to-transparent z-10 pointer-events-none" />
+          <div className="absolute left-0 top-0 bottom-0 w-32 bg-linear-to-r from-bg to-transparent z-10 pointer-events-none" />
         )}
         
         {/* Right Fade Gradient */}
         {showRightFade && (
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#050505] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-32 bg-linear-to-l from-bg to-transparent z-10 pointer-events-none" />
         )}
 
         {/* Scrollable Row */}
@@ -51,7 +51,7 @@ export const ProjectRow = ({ title, projects, index = 0 }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + i * 0.05 }}
-              className="flex-shrink-0 w-[400px] snap-start"
+              className="shrink-0 w-100 snap-start"
             >
               <ProjectCard project={project} />
             </motion.div>
@@ -75,7 +75,7 @@ const ProjectCard = ({ project }) => {
     >
       <div className="card-base rounded-xl overflow-hidden h-full transition-all duration-300">
         {/* Image/Thumbnail */}
-        <div className="relative h-56 bg-gradient-to-br from-[#1a1a1a] to-black overflow-hidden">
+        <div className="relative h-56 bg-linear-to-br from-surface to-black overflow-hidden">
           {project.image ? (
             <Image
               src={project.image}

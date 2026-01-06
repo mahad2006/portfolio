@@ -28,7 +28,7 @@ const featuredArticles = [
 
 export const Writing = () => {
   return (
-    <section id="writing" className="py-24 relative border-t border-[var(--border-subtle)]">
+    <section id="writing" className="py-24 relative border-t border-(--border-subtle)">
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex justify-between items-center mb-12">
           <h2 className="text-3xl font-bold flex items-center gap-3">
@@ -47,8 +47,8 @@ export const Writing = () => {
               className="block p-8 rounded-2xl card-base border border-transparent transition-all group relative overflow-hidden"
               style={{'--hover-color': post.color}}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--hover-color)]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="absolute inset-0 border border-transparent group-hover:border-[var(--hover-color)] rounded-2xl transition-colors duration-300"></div>
+              <div className="absolute inset-0 bg-linear-to-br from-(--hover-color)/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 border border-transparent group-hover:border-(--hover-color) rounded-2xl transition-colors duration-300"></div>
 
               {post.isPopular && (
                 <div className="absolute top-0 right-0 bg-primary/20 text-primary text-[10px] font-bold px-3 py-1 rounded-bl-lg">POPULAR</div>
@@ -60,7 +60,7 @@ export const Writing = () => {
                   <span>{post.date}</span>
                 </div>
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[var(--hover-color)] transition-colors">{post.title}</h3>
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-(--hover-color) transition-colors">{post.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed mb-4">{post.description}</p>
               <div className="flex items-center text-sm font-bold text-white group-hover:translate-x-2 transition-transform">Read Article <span className="ml-2">→</span></div>
             </Link>

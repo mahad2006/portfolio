@@ -21,7 +21,7 @@ const TechCard = ({ icon, name, category, color, level, evidence }) => {
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
     >
-      <SpotlightCard className="group relative w-full h-full p-6 rounded-xl card-base hover:border-[var(--border-highlight)] transition-all duration-300 hover:-translate-y-2 overflow-hidden">
+      <SpotlightCard className="group relative w-full h-full p-6 rounded-xl card-base hover:border-(--border-highlight) transition-all duration-300 hover:-translate-y-2 overflow-hidden">
         <div className={`absolute top-0 left-0 w-full h-1 ${getColorClass(color)} opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-xl shadow-[0_2px_10px_rgba(255,255,255,0.1)]`}></div>
         <div className="absolute top-2 right-2 text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 px-2 py-0.5 rounded text-gray-300">{level}</div>
         <div className="mb-4 text-gray-300 group-hover:text-white transition-colors transform group-hover:scale-110 duration-300 origin-left">{icon}</div>
@@ -78,20 +78,20 @@ export const Stack = () => {
           <div className="relative flex overflow-hidden">
             <div className="flex gap-6 animate-marquee-left whitespace-nowrap py-4 px-4">
               {[...row1, ...row1, ...row1, ...row1].map((item, idx) => (
-                <div key={`r1-${idx}`} className="w-[280px] flex-shrink-0"><TechCard {...item} /></div>
+                <div key={`r1-${idx}`} className="w-[280px] shrink-0"><TechCard {...item} /></div>
               ))}
             </div>
-            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[var(--bg-page)] to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[var(--bg-page)] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-32 h-full bg-linear-to-r from-(--bg-page) to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-32 h-full bg-linear-to-l from-(--bg-page) to-transparent z-10 pointer-events-none"></div>
           </div>
           <div className="relative flex overflow-hidden">
             <div className="flex gap-6 animate-marquee-right whitespace-nowrap py-4 px-4">
               {[...row2, ...row2, ...row2, ...row2].map((item, idx) => (
-                <div key={`r2-${idx}`} className="w-[280px] flex-shrink-0"><TechCard {...item} /></div>
+                <div key={`r2-${idx}`} className="w-[280px] shrink-0"><TechCard {...item} /></div>
               ))}
             </div>
-            <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-[var(--bg-page)] to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-[var(--bg-page)] to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 left-0 w-32 h-full bg-linear-to-r from-(--bg-page) to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-32 h-full bg-linear-to-l from-(--bg-page) to-transparent z-10 pointer-events-none"></div>
           </div>
         </div>
       </div>

@@ -81,7 +81,7 @@ export default function ProjectsPage() {
       {/* Hero Header */}
       <div className="relative pt-8 pb-16 -mt-12">
         {/* Spotlight Background Effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
         
         <div className="max-w-7xl mx-auto">
           <motion.h1
@@ -207,7 +207,7 @@ const GridProjectCard = ({ project }) => {
       className="glass-panel border border-white/10 rounded-xl overflow-hidden h-full hover:border-primary/50 transition-all duration-300"
     >
       {/* Image/Thumbnail */}
-      <div className="relative h-56 bg-gradient-to-br from-[#1a1a1a] to-black overflow-hidden">
+      <div className="relative h-56 bg-linear-to-br from-surface to-black overflow-hidden">
         {project.image ? (
           <Image
             src={project.image}

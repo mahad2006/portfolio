@@ -89,20 +89,20 @@ export default function TelemetryPage() {
     >
       {/* Animated Grid Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-10 -z-10">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(var(--color-primary-rgb),0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--color-primary-rgb),0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(var(--color-primary-rgb),0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--color-primary-rgb),0.03)_1px,transparent_1px)] bg-size-[50px_50px]"></div>
       </div>
 
         {/* ===== INPUT VELOCITY MATRIX ===== */}
         <div className="mb-20">
           <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-            <span className="w-12 h-px bg-gradient-to-r from-cyan-400 to-transparent"></span>
+            <span className="w-12 h-px bg-linear-to-r from-cyan-400 to-transparent"></span>
             Input_Velocity_Matrix
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             {/* WPM Card */}
-            <div className={`group relative p-8 rounded-2xl bg-neutral-900 border ${isElite ? 'border-cyan-400/50 shadow-[0_0_30px_rgba(34,211,238,0.15)]' : 'border-neutral-800'} hover:border-cyan-400/30 transition-all duration-500 overflow-hidden`}>
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className={`group relative p-8 rounded-2xl bg-surface border ${isElite ? 'border-cyan-400/50 shadow-[0_0_30px_rgba(34,211,238,0.15)]' : 'border-white/10'} hover:border-cyan-400/30 transition-all duration-500 overflow-hidden`}>
+              <div className="absolute inset-0 bg-linear-to-br from-cyan-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               {isElite && (
                 <div className="absolute top-4 right-4 px-3 py-1 bg-cyan-400 text-black text-[8px] font-bold tracking-widest rounded-full">
                   {typingStats.rank}
@@ -124,8 +124,8 @@ export default function TelemetryPage() {
             </div>
 
             {/* Accuracy Card */}
-            <div className="group relative p-8 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-blue-400/30 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="group relative p-8 rounded-2xl bg-surface border border-white/10 hover:border-blue-400/30 transition-all duration-500">
+              <div className="absolute inset-0 bg-linear-to-br from-blue-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-1.5 h-1.5 rounded-full bg-blue-400"></div>
@@ -142,8 +142,8 @@ export default function TelemetryPage() {
             </div>
 
             {/* Uptime Card */}
-            <div className="group relative p-8 rounded-2xl bg-neutral-900 border border-neutral-800 hover:border-purple-400/30 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="group relative p-8 rounded-2xl bg-surface border border-white/10 hover:border-purple-400/30 transition-all duration-500">
+              <div className="absolute inset-0 bg-linear-to-br from-purple-400/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <div className="relative z-10">
                 <div className="flex items-center gap-2 mb-4">
                   <div className="w-1.5 h-1.5 rounded-full bg-purple-400"></div>
@@ -162,8 +162,8 @@ export default function TelemetryPage() {
 
           {/* Race Button */}
           <a href={SOCIAL_LINKS.monkeytype.url} target="_blank" rel="noopener noreferrer" className="group relative block overflow-hidden rounded-2xl">
-            <div className="absolute -inset-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 rounded-2xl opacity-60 group-hover:opacity-100 blur-lg group-hover:blur-xl transition-all duration-500"></div>
-            <div className="relative flex items-center justify-between p-8 bg-[#050505] border border-cyan-400/50 rounded-2xl">
+            <div className="absolute -inset-1 bg-linear-to-r from-cyan-400 via-blue-500 to-cyan-400 rounded-2xl opacity-60 group-hover:opacity-100 blur-lg group-hover:blur-xl transition-all duration-500"></div>
+            <div className="relative flex items-center justify-between p-8 bg-bg border border-cyan-400/50 rounded-2xl">
               <div>
                 <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors flex items-center gap-3">
                   <span className="text-3xl">🏁</span>
@@ -181,16 +181,16 @@ export default function TelemetryPage() {
         {/* ===== CAREER ANALYTICS (SOLVER & BUILDER NODES) ===== */}
         <div className="mb-20">
           <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-            <span className="w-12 h-px bg-gradient-to-r from-primary to-transparent"></span>
+            <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
             System_Nodes_Analytics
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
             {/* SOLVER NODE (Competitive Programming) */}
-            <div className="group relative overflow-hidden rounded-3xl border border-orange-500/30 bg-neutral-900 hover:border-orange-500/50 transition-all duration-500 hover:shadow-[0_0_50px_rgba(249,115,22,0.2)]">
+            <div className="group relative overflow-hidden rounded-3xl border border-orange-500/30 bg-surface hover:border-orange-500/50 transition-all duration-500 hover:shadow-[0_0_50px_rgba(249,115,22,0.2)]">
               {/* Animated Glow */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-orange-500/30 to-transparent blur-3xl group-hover:w-72 group-hover:h-72 transition-all duration-500"></div>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-orange-500/30 to-transparent blur-3xl group-hover:w-72 group-hover:h-72 transition-all duration-500"></div>
 
               <div className="relative p-10">
                 {/* Header */}
@@ -240,9 +240,9 @@ export default function TelemetryPage() {
             </div>
 
             {/* BUILDER NODE (Development) */}
-            <div className="group relative overflow-hidden rounded-3xl border border-primary/30 bg-neutral-900 hover:border-primary/50 transition-all duration-500">
+            <div className="group relative overflow-hidden rounded-3xl border border-primary/30 bg-surface hover:border-primary/50 transition-all duration-500">
               {/* Animated Glow */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/30 to-transparent blur-3xl group-hover:w-72 group-hover:h-72 transition-all duration-500"></div>
+              <div className="absolute top-0 right-0 w-64 h-64 bg-linear-to-br from-primary/30 to-transparent blur-3xl group-hover:w-72 group-hover:h-72 transition-all duration-500"></div>
 
               <div className="relative p-10">
                 {/* Header */}
@@ -300,7 +300,7 @@ export default function TelemetryPage() {
         {/* ===== PERFORMANCE METRICS ===== */}
         <div className="mb-20">
           <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-            <span className="w-12 h-px bg-gradient-to-r from-primary to-transparent"></span>
+            <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
             Performance_Metrics
           </h2>
 
@@ -315,8 +315,8 @@ export default function TelemetryPage() {
               const colors = colorMap[metric.color];
 
               return (
-                <div key={key} className={`group relative p-6 rounded-xl bg-neutral-900 border border-neutral-800 hover:${colors.border} transition-all duration-300`}>
-                  <div className={`absolute inset-0 bg-gradient-to-br ${colors.glow} to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl`}></div>
+                <div key={key} className={`group relative p-6 rounded-xl bg-surface border border-white/10 hover:${colors.border} transition-all duration-300`}>
+                  <div className={`absolute inset-0 bg-linear-to-br ${colors.glow} to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl`}></div>
                   <div className="relative z-10">
                     <div className="text-[10px] text-gray-400 uppercase tracking-wider mb-3">{metric.label}</div>
                     <div className={`text-4xl font-bold text-white group-hover:${colors.text} transition-colors mb-2`}>
@@ -333,16 +333,16 @@ export default function TelemetryPage() {
         {/* ===== LOADED MODULES ===== */}
         <div className="mb-20">
           <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-            <span className="w-12 h-px bg-gradient-to-r from-primary to-transparent"></span>
+            <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
             Loaded_Modules
           </h2>
 
-          <div className="p-8 rounded-2xl bg-neutral-900 border border-neutral-800">
+          <div className="p-8 rounded-2xl bg-surface border border-white/10">
             <div className="flex flex-wrap gap-3">
               {loadedModules.map((module, idx) => (
                 <div
                   key={idx}
-                  className="group relative px-5 py-3 rounded-lg bg-white/[0.03] border border-white/10 hover:border-primary/30 transition-all cursor-default"
+                  className="group relative px-5 py-3 rounded-lg bg-white/3 border border-white/10 hover:border-primary/30 transition-all cursor-default"
                 >
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></div>

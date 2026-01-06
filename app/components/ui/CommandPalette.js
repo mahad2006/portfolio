@@ -171,7 +171,7 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4" onClick={onClose}>
+    <div className="fixed inset-0 z-100 flex items-start justify-center pt-[15vh] px-4" onClick={onClose}>
       {/* Enhanced Glassmorphism Backdrop */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-xl"></div>
       
@@ -185,8 +185,8 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
         aria-label="Command Palette"
       >
         {/* Spotlight-style Input Section */}
-        <div className="flex items-center px-6 py-5 border-b border-white/5 bg-white/[0.02]">
-          <svg className="w-6 h-6 text-gray-400 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="flex items-center px-6 py-5 border-b border-white/5 bg-white/2">
+          <svg className="w-6 h-6 text-gray-400 mr-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
           <input
@@ -245,12 +245,12 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
                     aria-selected={isSelected}
                   >
                     <div className="flex items-center gap-4 flex-1 min-w-0">
-                      <div className={`flex-shrink-0 ${item.color ? 'w-5 h-5 rounded-full border-2 border-white/20' : ''}`} style={item.color ? { backgroundColor: item.color } : {}}>
+                      <div className={`shrink-0 ${item.color ? 'w-5 h-5 rounded-full border-2 border-white/20' : ''}`} style={item.color ? { backgroundColor: item.color } : {}}>
                         {!item.color && <item.icon className={`w-5 h-5 ${isSelected ? 'text-primary' : 'text-gray-500 group-hover:text-gray-300'}`} />}
                       </div>
                       <span className="text-base font-medium truncate">{item.label}</span>
                     </div>
-                    <div className="flex items-center gap-3 flex-shrink-0">
+                    <div className="flex items-center gap-3 shrink-0">
                       {item.shortcut && (
                         <kbd className={`hidden sm:inline-flex items-center px-2 py-1 text-xs font-mono rounded ${
                           isSelected
