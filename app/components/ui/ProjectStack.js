@@ -312,13 +312,13 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
               {project.tags.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-1 text-[10px] uppercase tracking-wider font-mono rounded bg-white/5 text-gray-400 border border-white/5"
+                  className="px-2 py-1 text-[10px] uppercase tracking-wider font-mono rounded bg-white/5 text-gray-300 border border-white/10"
                 >
                   {tag}
                 </span>
               ))}
               {project.tags.length > 3 && (
-                <span className="px-2 py-1 text-[10px] text-gray-400">
+                <span className="px-2 py-1 text-[10px] text-gray-300">
                   +{project.tags.length - 3}
                 </span>
               )}
