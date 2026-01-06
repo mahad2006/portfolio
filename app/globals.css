@@ -157,3 +157,45 @@ h1, h2, h3, .mono {
   width: 0;
   transition: width 0.1s ease-out;
 }
+
+/* Cursor Styles */
+[data-cursor="block"] * {
+  caret-color: var(--color-primary);
+}
+
+[data-cursor="block"] input,
+[data-cursor="block"] textarea {
+  caret-shape: block;
+}
+
+[data-cursor="line"] input,
+[data-cursor="line"] textarea {
+  caret-shape: bar;
+  caret-color: var(--color-primary);
+}
+
+[data-cursor="underline"] input,
+[data-cursor="underline"] textarea {
+  caret-shape: underscore;
+  caret-color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+}
+
+[data-cursor="underline"] input:focus,
+[data-cursor="underline"] textarea:focus {
+  text-decoration-color: var(--color-primary);
+}
+
+/* Border Radius Variable */
+:root {
+  --radius: 0.5rem;
+}
+
+[data-radius="square"] {
+  --radius: 0px;
+}
+
+[data-radius="rounded"] {
+  --radius: 0.5rem;
+}

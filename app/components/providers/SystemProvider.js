@@ -16,6 +16,9 @@ const DEFAULTS = {
   matrixSpeed: 5,
   accentColor: '#6DB33F',
   reduceMotion: false,
+  cursorStyle: 'block',
+  fontMode: 'sans',
+  borderRadius: 'rounded',
 };
 
 export const SystemProvider = ({ children }) => {
@@ -24,6 +27,9 @@ export const SystemProvider = ({ children }) => {
   const [matrixSpeed, setMatrixSpeed] = useState(DEFAULTS.matrixSpeed);
   const [accentColor, setAccentColor] = useState(DEFAULTS.accentColor);
   const [reduceMotion, setReduceMotion] = useState(DEFAULTS.reduceMotion);
+  const [cursorStyle, setCursorStyle] = useState(DEFAULTS.cursorStyle);
+  const [fontMode, setFontMode] = useState(DEFAULTS.fontMode);
+  const [borderRadius, setBorderRadius] = useState(DEFAULTS.borderRadius);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
@@ -46,6 +52,15 @@ export const SystemProvider = ({ children }) => {
 
     const savedReduceMotion = localStorage.getItem('reduce_motion');
     if (savedReduceMotion !== null) setReduceMotion(JSON.parse(savedReduceMotion));
+
+    const savedCursorStyle = localStorage.getItem('cursor_style');
+    if (savedCursorStyle !== null) setCursorStyle(savedCursorStyle);
+
+    const savedFontMode = localStorage.getItem('font_mode');
+    if (savedFontMode !== null) setFontMode(savedFontMode);
+
+    const savedBorderRadius = localStorage.getItem('border_radius');
+    if (savedBorderRadius !== null) setBorderRadius(savedBorderRadius);
   }, []);
 
   // Save settings to localStorage
@@ -54,6 +69,9 @@ export const SystemProvider = ({ children }) => {
   useEffect(() => { localStorage.setItem('matrix_speed', String(matrixSpeed)); }, [matrixSpeed]);
   useEffect(() => { localStorage.setItem('accent_color', accentColor); }, [accentColor]);
   useEffect(() => { localStorage.setItem('reduce_motion', JSON.stringify(reduceMotion)); }, [reduceMotion]);
+  useEffect(() => { localStorage.setItem('cursor_style', cursorStyle); }, [cursorStyle]);
+  useEffect(() => { localStorage.setItem('font_mode', fontMode); }, [fontMode]);
+  useEffect(() => { localStorage.setItem('border_radius', borderRadius); }, [borderRadius]);
 
   // Apply accent color to CSS variable for instant site-wide updates
   useEffect(() => {
@@ -73,6 +91,37 @@ export const SystemProvider = ({ children }) => {
       }
     }
   }, [reduceMotion]);
+
+  // Apply cursor style
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-cursor', cursorStyle);
+      document.documentElement.style.setProperty('--cursor-style', cursorStyle);
+    }
+  }, [cursorStyle]);
+
+  // Apply font mode
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-font', fontMode);
+      if (fontMode === 'mono') {
+        document.body.classList.add('font-mono');
+        document.body.classList.remove('font-sans');
+      } else {
+        document.body.classList.add('font-sans');
+        document.body.classList.remove('font-mono');
+      }
+    }
+  }, [fontMode]);
+
+  // Apply border radius
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.setAttribute('data-radius', borderRadius);
+      const radiusValue = borderRadius === 'square' ? '0px' : '0.5rem';
+      document.documentElement.style.setProperty('--radius', radiusValue);
+    }
+  }, [borderRadius]);
 
 
   useEffect(() => {
@@ -118,11 +167,17 @@ export const SystemProvider = ({ children }) => {
     setMatrixSpeed(DEFAULTS.matrixSpeed);
     setAccentColor(DEFAULTS.accentColor);
     setReduceMotion(DEFAULTS.reduceMotion);
+    setCursorStyle(DEFAULTS.cursorStyle);
+    setFontMode(DEFAULTS.fontMode);
+    setBorderRadius(DEFAULTS.borderRadius);
     localStorage.removeItem('sound_muted');
     localStorage.removeItem('matrix_mode');
     localStorage.removeItem('matrix_speed');
     localStorage.removeItem('accent_color');
     localStorage.removeItem('reduce_motion');
+    localStorage.removeItem('cursor_style');
+    localStorage.removeItem('font_mode');
+    localStorage.removeItem('border_radius');
   }, []);
 
   // Global keydown listener
@@ -162,6 +217,9 @@ export const SystemProvider = ({ children }) => {
       matrixSpeed, setMatrixSpeed,
       accentColor, setAccentColor,
       reduceMotion, setReduceMotion,
+      cursorStyle, setCursorStyle,
+      fontMode, setFontMode,
+      borderRadius, setBorderRadius,
       showDashboard, setShowDashboard, toggleDashboard,
       isCommandPaletteOpen, toggleCommandPalette,
       isSettingsModalOpen, toggleSettingsModal,

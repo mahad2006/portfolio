@@ -2,28 +2,47 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSystem } from '@/hooks/useSystem';
-import { Switch } from '@/components/ui/Switch';
+import { PillButton } from '@/components/ui/PillButton';
 import { ColorSwatch } from '@/components/ui/ColorSwatch';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
 
 const ACCENT_COLORS = [
   { value: '#6DB33F', label: 'Green' },
+  { value: '#06b6d4', label: 'Cyan' },
+  { value: '#8b5cf6', label: 'Purple' },
+  { value: '#f59e0b', label: 'Amber' },
   { value: '#FF8C00', label: 'Orange' },
   { value: '#00BFFF', label: 'Blue' },
   { value: '#FF0000', label: 'Red' },
-  { value: '#9400D3', label: 'Purple' },
+  { value: '#9400D3', label: 'Purple (Old)' },
   { value: '#FFD700', label: 'Gold' },
 ];
+
+const SettingRow = ({ label, children, description }) => (
+  <div className="flex items-center justify-between py-4 border-b border-white/5 last:border-0">
+    <div className="flex-1 min-w-0 pr-8">
+      <h3 className="text-white font-medium text-base mb-1">{label}</h3>
+      {description && <p className="text-xs text-gray-500">{description}</p>}
+    </div>
+    <div className="flex items-center gap-2 flex-shrink-0">
+      {children}
+    </div>
+  </div>
+);
 
 export default function SettingsPage() {
   const {
     isMuted,
     setIsMuted,
     soundEnabled,
-    reduceMotion,
-    setReduceMotion,
     accentColor,
     setAccentColor,
+    cursorStyle,
+    setCursorStyle,
+    fontMode,
+    setFontMode,
+    borderRadius,
+    setBorderRadius,
     resetSettings,
   } = useSystem();
 
@@ -50,88 +69,143 @@ export default function SettingsPage() {
         </div>
       </nav>
 
-      <main className="relative z-10 max-w-4xl mx-auto px-6 pt-32 pb-24">
+      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-24">
         {/* Header */}
-        <header className="mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 leading-none tracking-tighter">
-            Control Center
+        <header className="mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-2 leading-none tracking-tighter">
+            Config Dashboard
           </h1>
-          <p className="text-lg text-gray-400 border-l-2 border-primary pl-4">
-            Customize your browsing experience with precision controls.
+          <p className="text-sm text-gray-500">
+            Customize your experience with precision controls
           </p>
         </header>
 
-        {/* Settings Sections */}
-        <div className="space-y-8">
+        {/* Settings Container */}
+        <div className="glass-panel border border-white/10 rounded-xl overflow-hidden">
           {/* Appearance Section */}
-          <section className="glass-panel border border-white/5 rounded-2xl p-8">
-            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-              <span className="text-primary mono text-xl">01.</span>
+          <div className="p-6">
+            <h2 className="text-lg font-semibold text-white mb-6 pb-2 border-b border-white/10">
               Appearance
             </h2>
             
-            <div>
-              <h3 className="text-white font-semibold mb-4">Accent Color</h3>
-              <p className="text-sm text-gray-400 mb-6">
-                Choose your preferred accent color. Changes apply instantly across the site.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                {ACCENT_COLORS.map((color) => (
-                  <ColorSwatch
-                    key={color.value}
-                    color={color.value}
-                    isActive={accentColor === color.value}
-                    onClick={() => setAccentColor(color.value)}
-                    label={color.label}
-                  />
-                ))}
-              </div>
+            <div className="space-y-0">
+              <SettingRow
+                label="Accent Color"
+                description="Primary color used throughout the interface"
+              >
+                <div className="flex items-center gap-3">
+                  {ACCENT_COLORS.map((color) => (
+                    <ColorSwatch
+                      key={color.value}
+                      color={color.value}
+                      isActive={accentColor === color.value}
+                      onClick={() => setAccentColor(color.value)}
+                      label={color.label}
+                    />
+                  ))}
+                </div>
+              </SettingRow>
+
+              <SettingRow
+                label="Font Mode"
+                description="Choose between sans-serif and monospace fonts"
+              >
+                <PillButton
+                  label="Sans"
+                  isActive={fontMode === 'sans'}
+                  onClick={() => setFontMode('sans')}
+                />
+                <PillButton
+                  label="Mono"
+                  isActive={fontMode === 'mono'}
+                  onClick={() => setFontMode('mono')}
+                />
+              </SettingRow>
+
+              <SettingRow
+                label="Border Radius"
+                description="Control the roundness of UI elements"
+              >
+                <PillButton
+                  label="Rounded"
+                  isActive={borderRadius === 'rounded'}
+                  onClick={() => setBorderRadius('rounded')}
+                />
+                <PillButton
+                  label="Square"
+                  isActive={borderRadius === 'square'}
+                  onClick={() => setBorderRadius('square')}
+                />
+              </SettingRow>
             </div>
-          </section>
+          </div>
 
           {/* Interface Section */}
-          <section className="glass-panel border border-white/5 rounded-2xl p-8">
-            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-              <span className="text-primary mono text-xl">02.</span>
+          <div className="p-6 border-t border-white/10">
+            <h2 className="text-lg font-semibold text-white mb-6 pb-2 border-b border-white/10">
               Interface
             </h2>
             
-            <div className="space-y-4">
-              <Switch
-                enabled={soundEnabled}
-                onChange={() => setIsMuted(!isMuted)}
-                label="Sound Effects"
-                description="Enable or disable UI sound effects and audio feedback."
-              />
-              
-              <Switch
-                enabled={reduceMotion}
-                onChange={() => setReduceMotion(!reduceMotion)}
-                label="Reduced Motion"
-                description="Reduce animations and motion effects for better accessibility."
-              />
-            </div>
-          </section>
+            <div className="space-y-0">
+              <SettingRow
+                label="Sound"
+                description="Enable or disable UI sound effects"
+              >
+                <PillButton
+                  label="On"
+                  isActive={soundEnabled}
+                  onClick={() => setIsMuted(false)}
+                />
+                <PillButton
+                  label="Off"
+                  isActive={!soundEnabled}
+                  onClick={() => setIsMuted(true)}
+                />
+              </SettingRow>
 
-          {/* Data Section */}
-          <section className="glass-panel border border-white/5 rounded-2xl p-8">
-            <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-              <span className="text-primary mono text-xl">03.</span>
-              Data
+              <SettingRow
+                label="Cursor Style"
+                description="Visual style of the text cursor"
+              >
+                <PillButton
+                  label="Block █"
+                  isActive={cursorStyle === 'block'}
+                  onClick={() => setCursorStyle('block')}
+                />
+                <PillButton
+                  label="Line |"
+                  isActive={cursorStyle === 'line'}
+                  onClick={() => setCursorStyle('line')}
+                />
+                <PillButton
+                  label="Underline _"
+                  isActive={cursorStyle === 'underline'}
+                  onClick={() => setCursorStyle('underline')}
+                />
+              </SettingRow>
+            </div>
+          </div>
+
+          {/* Danger Zone */}
+          <div className="p-6 border-t border-red-500/20 bg-red-500/5">
+            <h2 className="text-lg font-semibold text-red-400 mb-6 pb-2 border-b border-red-500/20">
+              Danger Zone
             </h2>
             
-            <div className="space-y-4">
-              <p className="text-sm text-gray-400 mb-4">
-                Reset all settings to their default values. This action cannot be undone.
-              </p>
-              <button
-                onClick={() => setShowResetModal(true)}
-                className="w-full px-6 py-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400 font-bold hover:bg-red-500/20 hover:border-red-500/50 transition-all"
+            <div className="space-y-0">
+              <SettingRow
+                label="Reset to Defaults"
+                description="This will reset all settings to their default values. This action cannot be undone."
               >
-                Reset to Defaults
-              </button>
+                <button
+                  onClick={() => setShowResetModal(true)}
+                  className="px-6 py-2 rounded-lg text-sm font-medium bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30 hover:border-red-500/50 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                >
+                  Reset All
+                </button>
+              </SettingRow>
             </div>
-          </section>
+          </div>
         </div>
       </main>
 
