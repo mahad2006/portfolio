@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
+import { PageShell } from '@/components/layout/PageShell';
 
 // Animated Counter Component
 function AnimatedCounter({ target, duration = 2000, suffix = '' }) {
@@ -80,14 +80,14 @@ export default function TelemetryPage() {
   const isElite = wpmNum >= 120;
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-200 font-mono selection:bg-primary selection:text-black">
+    <div className="min-h-screen text-gray-200 font-mono selection:bg-primary selection:text-black" style={{ backgroundColor: 'var(--bg-page)' }}>
       {/* Animated Grid Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-10">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(var(--color-primary-rgb),0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(var(--color-primary-rgb),0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
+      <nav className="fixed top-0 w-full z-50 backdrop-blur-xl border-b border-[var(--border-subtle)] px-6 py-4" style={{ backgroundColor: 'rgba(var(--bg-page-rgb), 0.9)' }}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
@@ -96,26 +96,11 @@ export default function TelemetryPage() {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-24">
-        {/* Terminal Back Button */}
-        <div className="mb-8">
-          <TerminalBackButton />
-        </div>
-
-        {/* Header */}
-        <div className="mb-20">
-          <div className="flex items-start gap-4 mb-6">
-            <div>
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-none tracking-tighter uppercase">
-                Career<span className="text-primary">_</span>Analytics
-              </h1>
-              <p className="text-lg text-gray-400 max-w-3xl leading-relaxed">
-                Real-time performance diagnostics • Competitive programming • Development activity
-              </p>
-            </div>
-          </div>
-        </div>
+      <PageShell 
+        title="Career_Analytics" 
+        description="Real-time performance diagnostics • Competitive programming • Development activity"
+        backButton={true}
+      >
 
         {/* ===== INPUT VELOCITY MATRIX ===== */}
         <div className="mb-20">
@@ -387,8 +372,7 @@ export default function TelemetryPage() {
             <span className="text-primary font-bold">SYSTEM_NOTE:</span> Career analytics powered by Codolio • MonkeyType API integration • Real-time GitHub synchronization
           </p>
         </div>
-
-      </main>
+      </PageShell>
     </div>
   );
 }

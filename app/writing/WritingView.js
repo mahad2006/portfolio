@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
+import { PageShell } from '@/components/layout/PageShell';
 
 const allPosts = [
   {
@@ -28,7 +28,7 @@ const allPosts = [
 const PostCard = ({ post }) => (
   <Link
     href={`/writing/${post.slug}`}
-    className="block p-8 rounded-2xl glass-panel border border-white/5 hover:border-primary hover:bg-white/[0.02] transition-all group relative overflow-hidden animate-fade-up"
+    className="block p-8 rounded-2xl card-base hover:border-[var(--border-highlight)] transition-all group relative overflow-hidden animate-fade-up"
   >
     <div className="flex justify-between items-start mb-4">
       <span className="text-xs font-mono text-primary">{post.category}</span>
@@ -54,20 +54,10 @@ const WritingView = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
-      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-24">
-        {/* Terminal Back Button */}
-        <div className="mb-8">
-          <TerminalBackButton />
-        </div>
-        <header className="mb-12">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 leading-none tracking-tighter">
-            Technical Writing
-          </h1>
-          <p className="text-xl text-gray-400 border-l-2 border-primary pl-6">
-            A collection of articles on backend engineering, system design, and performance.
-          </p>
-        </header>
+    <PageShell
+      title="Technical Writing"
+      description="A collection of articles on backend engineering, system design, and performance."
+    >
 
         <div className="mb-12 flex flex-wrap gap-3">
           {categories.map(category => (
@@ -92,8 +82,7 @@ const WritingView = () => {
             </div>
           ))}
         </div>
-      </main>
-    </div>
+    </PageShell>
   );
 };
 

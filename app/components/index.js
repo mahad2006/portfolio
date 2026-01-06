@@ -2,6 +2,7 @@
 export { Navbar } from './layout/Navbar';
 export { Footer } from './layout/Footer';
 export { default as ClientLayout } from './layout/ClientLayout';
+export { PageShell } from './layout/PageShell';
 
 // Section Components
 export { Hero } from './sections/Hero';

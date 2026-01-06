@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
+import { PageShell } from '@/components/layout/PageShell';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDiscord, faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
@@ -66,14 +66,14 @@ const UBITCommunityPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-mono selection:bg-primary selection:text-black">
+    <div className="min-h-screen text-gray-300 font-mono selection:bg-primary selection:text-black" style={{ backgroundColor: 'var(--bg-page)' }}>
       {/* Animated Grid Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-10">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(109,179,63,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(109,179,63,0.04)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
+      <nav className="fixed top-0 w-full z-50 backdrop-blur-xl border-b border-[var(--border-subtle)] px-6 py-4" style={{ backgroundColor: 'rgba(var(--bg-page-rgb), 0.9)' }}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
@@ -82,13 +82,7 @@ const UBITCommunityPage = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-24">
-        {/* Terminal Back Button */}
-        <div className="mb-8">
-          <TerminalBackButton />
-        </div>
-
+      <PageShell title={null} backButton={true}>
         {/* Hero Section */}
         <header className="mb-24 text-center">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none tracking-tighter uppercase">
@@ -202,7 +196,7 @@ const UBITCommunityPage = () => {
                 </a>
             </div>
         </section>
-      </main>
+      </PageShell>
     </div>
   );
 };

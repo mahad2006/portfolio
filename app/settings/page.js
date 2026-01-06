@@ -5,7 +5,7 @@ import { useSystem } from '@/hooks/useSystem';
 import { PillButton } from '@/components/ui/PillButton';
 import { ColorSwatch } from '@/components/ui/ColorSwatch';
 import { ConfirmModal } from '@/components/ui/ConfirmModal';
-import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
+import { PageShell } from '@/components/layout/PageShell';
 
 const ACCENT_COLORS = [
   { value: '#6DB33F', label: 'Green' },
@@ -57,19 +57,10 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen text-gray-300 font-mono selection:bg-primary selection:text-black" style={{ backgroundColor: 'var(--bg-page)' }}>
-      <div className="max-w-4xl mx-auto px-6 pt-24 pb-24">
-        {/* Terminal Back Button */}
-        <div className="mb-8">
-          <TerminalBackButton />
-        </div>
-
-        {/* Header */}
-        <header className="mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-2 leading-none tracking-tighter">
-            Settings
-          </h1>
-        </header>
+    <PageShell
+      title="Settings"
+      backButton={true}
+    >
 
         {/* Settings Container */}
         <div className="card-base rounded-xl overflow-hidden">
@@ -192,7 +183,6 @@ export default function SettingsPage() {
             </div>
           </div>
         </div>
-      </div>
 
       {/* Reset Confirmation Modal */}
       <ConfirmModal
@@ -205,6 +195,6 @@ export default function SettingsPage() {
         cancelText="Cancel"
         danger={true}
       />
-    </div>
+    </PageShell>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
+import { PageShell } from '@/components/layout/PageShell';
 
 export default function SystemStatus() {
   const [uptime, setUptime] = useState('00:00:00');
@@ -26,18 +26,18 @@ export default function SystemStatus() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300 font-sans selection:bg-primary selection:text-black relative overflow-hidden">
+    <div className="min-h-screen text-gray-300 font-sans selection:bg-primary selection:text-black relative overflow-hidden" style={{ backgroundColor: 'var(--bg-page)' }}>
 
       {/* Premium Background Grid & Lighting Effects */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
         <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary opacity-10 blur-[100px]"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-page)] via-transparent to-transparent"></div>
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#050505]/70 backdrop-blur-xl border-b border-white/5 px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-3 bg-white/5 px-3 py-1 rounded-full border border-white/5">
+      <nav className="fixed top-0 w-full z-50 backdrop-blur-xl border-b border-[var(--border-subtle)] px-6 py-4 flex justify-between items-center" style={{ backgroundColor: 'rgba(var(--bg-page-rgb), 0.7)' }}>
+        <div className="flex items-center gap-3 bg-white/5 px-3 py-1 rounded-full border border-[var(--border-subtle)]">
           <div className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -46,21 +46,11 @@ export default function SystemStatus() {
         </div>
       </nav>
 
-      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-24 pb-24">
-        {/* Terminal Back Button */}
-        <div className="mb-8">
-          <TerminalBackButton />
-        </div>
-
-        {/* Header */}
-        <div className="mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none font-mono tracking-tighter uppercase">
-            System Status
-          </h1>
-          <p className="text-xl text-gray-400 max-w-2xl border-l-2 border-primary pl-6 font-light leading-relaxed">
-            Real-time telemetry and monitoring of portfolio infrastructure.
-          </p>
-        </div>
+      <PageShell
+        title="System Status"
+        description="Real-time telemetry and monitoring of portfolio infrastructure."
+        backButton={true}
+      >
 
         {/* Uptime Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-16">
@@ -154,7 +144,7 @@ export default function SystemStatus() {
             <span className="text-primary">sys_admin@mahad:~$</span> echo "Simulated status environment. Production data requires API keys."
           </p>
         </div>
-      </main>
+      </PageShell>
     </div>
   );
 }

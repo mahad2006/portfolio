@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projectsData } from '@/data/projects';
 import { ProjectRow } from '@/components/ui/ProjectRow';
-import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
+import { PageShell } from '@/components/layout/PageShell';
 import Image from 'next/image';
 
 // Category mapping based on tags
@@ -73,14 +73,9 @@ export default function ProjectsPage() {
   const showRows = !showGrid;
 
   return (
-    <div className="min-h-screen bg-[#050505] text-gray-300">
-      {/* Terminal Back Button */}
-      <div className="max-w-7xl mx-auto px-6 pt-8">
-        <TerminalBackButton />
-      </div>
-
+    <PageShell title={null} backButton={true}>
       {/* Hero Header */}
-      <div className="relative pt-8 pb-16 px-6">
+      <div className="relative pt-8 pb-16 -mt-12">
         {/* Spotlight Background Effect */}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
         
@@ -89,51 +84,51 @@ export default function ProjectsPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-6xl md:text-7xl font-bold text-white mb-8 leading-none tracking-tighter"
+            className="text-heading-1 mb-8"
           >
             Project<span className="text-primary">_</span>Archive
           </motion.h1>
 
-          {/* Search & Filter Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="glass-panel border border-white/10 rounded-2xl p-4 mb-8"
-          >
-            {/* Search Input */}
-            <div className="flex items-center gap-4 mb-4">
-              <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <input
-                type="text"
-                placeholder="Search projects..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="flex-1 bg-transparent border-none text-white text-lg placeholder-gray-500 focus:outline-none"
-              />
-            </div>
+        {/* Search & Filter Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="card-base rounded-2xl p-4 mb-8"
+        >
+          {/* Search Input */}
+          <div className="flex items-center gap-4 mb-4">
+            <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              placeholder="Search projects..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-1 bg-transparent border-none text-white text-lg placeholder-gray-500 focus:outline-none"
+            />
+          </div>
 
-            {/* Filter Pills */}
-            <div className="flex flex-wrap gap-3">
-              {FILTERS.map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    activeFilter === filter
-                      ? 'bg-primary text-black shadow-lg shadow-primary/20'
-                      : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-gray-300'
-                  }`}
-                >
-                  {filter}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        </div>
+          {/* Filter Pills */}
+          <div className="flex flex-wrap gap-3">
+            {FILTERS.map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  activeFilter === filter
+                    ? 'bg-primary text-black shadow-lg shadow-primary/20'
+                    : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10 hover:text-gray-300'
+                }`}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+        </motion.div>
       </div>
+    </div>
 
       {/* Content Area */}
       <div className="max-w-7xl mx-auto px-6 pb-24">
@@ -193,7 +188,7 @@ export default function ProjectsPage() {
           )}
         </AnimatePresence>
       </div>
-    </div>
+    </PageShell>
   );
 }
 

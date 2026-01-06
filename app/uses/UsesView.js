@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
+import { PageShell } from '@/components/layout/PageShell';
 
 export default function UsesPage() {
   const setup = {
@@ -93,7 +93,7 @@ export default function UsesPage() {
       </div>
 
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 px-6 py-4">
+      <nav className="fixed top-0 w-full z-50 backdrop-blur-xl border-b border-[var(--border-subtle)] px-6 py-4" style={{ backgroundColor: 'rgba(var(--bg-page-rgb), 0.9)' }}>
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
@@ -102,26 +102,11 @@ export default function UsesPage() {
         </div>
       </nav>
 
-      {/* Main Content */}
-      <main className="relative z-10 max-w-7xl mx-auto px-6 pt-24 pb-24">
-        {/* Terminal Back Button */}
-        <div className="mb-8">
-          <TerminalBackButton />
-        </div>
-
-        {/* Header Section */}
-        <div className="mb-20">
-          <div className="flex items-center gap-4 mb-6">
-            <div>
-              <h1 className="text-6xl md:text-8xl font-bold text-white leading-none tracking-tighter uppercase mb-4">
-                Uses<span className="text-primary">.</span>
-              </h1>
-              <p className="text-xl text-gray-400 max-w-2xl border-l-2 border-primary pl-6 leading-relaxed">
-                Hardware, software, and tools that power my development workflow
-              </p>
-            </div>
-          </div>
-        </div>
+      <PageShell
+        title="Uses."
+        description="Hardware, software, and tools that power my development workflow"
+        backButton={true}
+      >
 
         {/* Hardware Section */}
         <section className="mb-24">
@@ -289,7 +274,7 @@ export default function UsesPage() {
           </p>
         </div>
 
-      </main>
+      </PageShell>
     </div>
   );
 }

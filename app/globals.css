@@ -42,6 +42,7 @@
 
   /* Design System - Semantic Variables */
   --bg-page: #050505;
+  --bg-page-rgb: 5, 5, 5;
   --bg-surface: #141414;
   --bg-surface-hover: #1A1A1A;
   --border-subtle: rgba(255, 255, 255, 0.08);
