@@ -142,7 +142,7 @@ const ProjectCard = ({ project }) => {
               </span>
             ))}
             {project.tags.length > 3 && (
-              <span className="px-2 py-1 text-[10px] text-gray-500">
+              <span className="px-2 py-1 text-[10px] text-gray-400">
                 +{project.tags.length - 3}
               </span>
             )}

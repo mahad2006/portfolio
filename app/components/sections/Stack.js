@@ -26,7 +26,7 @@ const TechCard = ({ icon, name, category, color, level, evidence }) => {
         <div className="absolute top-2 right-2 text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity bg-white/10 px-2 py-0.5 rounded text-gray-300">{level}</div>
         <div className="mb-4 text-gray-300 group-hover:text-white transition-colors transform group-hover:scale-110 duration-300 origin-left">{icon}</div>
         <h3 className="text-lg font-bold text-white mb-1">{name}</h3>
-        <p className="text-xs text-gray-500 font-mono uppercase tracking-wider">{category}</p>
+        <p className="text-xs text-gray-400 font-mono uppercase tracking-wider">{category}</p>
       </SpotlightCard>
 
       {/* Tooltip with Evidence */}

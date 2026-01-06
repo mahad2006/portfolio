@@ -8,9 +8,12 @@ import { AUTHOR_NAME, COPYRIGHT_TEXT, UPTIME_DISPLAY } from '@/config/site';
 export const Footer = () => {
   const { isMuted, setIsMuted, playClick } = useSystem(); // Get sound controls
   const [latency, setLatency] = useState(null);
-  const [region, setRegion] = useState('TCP/IP');
+  const [region, setRegion] = useState(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     // Console ASCII Art Easter Egg
     console.log(`
 %c
@@ -70,11 +73,11 @@ export const Footer = () => {
             <div className="flex gap-8 text-gray-400 text-sm font-mono">
                 <div className="flex flex-col">
                     <span className="text-primary text-[10px] mb-1">LATENCY</span>
-                    <span>{latency ? `${latency}ms` : '--'}</span>
+                    <span>{mounted && latency ? `${latency}ms` : '--'}</span>
                 </div>
                 <div className="flex flex-col">
                     <span className="text-primary text-[10px] mb-1">REGION</span>
-                    <span>{region}</span>
+                    <span>{mounted && region ? region : '--'}</span>
                 </div>
                 <div className="flex flex-col">
                     <span className="text-primary text-[10px] mb-1">UPTIME</span>
@@ -119,12 +122,12 @@ export const Footer = () => {
                   aria-label={isMuted ? "Unmute sound" : "Mute sound"}
                 >
                   <span className="relative z-10 flex items-center gap-2">
-                    {isMuted ? (
+                    {mounted && isMuted ? (
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.858 5.858a1 1 0 00-1.414 1.414l12.728 12.728a1 1 0 001.414-1.414L5.858 5.858zM10 12a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     ) : (
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.536 8.464a5 5 0 010 7.072M12 6v12m0-12a2 2 0 012 2v8a2 2 0 01-2 2m0-12a2 2 0 00-2 2v8a2 2 0 002 2"></path></svg>
                     )}
-                    {isMuted ? 'Sound Off' : 'Sound On'}
+                    {mounted ? (isMuted ? 'Sound Off' : 'Sound On') : 'Sound'}
                   </span>
                 </button>
             </div>

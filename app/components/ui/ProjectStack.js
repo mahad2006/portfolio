@@ -165,18 +165,24 @@ export const ProjectStack = ({ projects }) => {
       </div>
 
       {/* Navigation Dots */}
-      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+      <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3 z-20">
         {projects.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`h-2 rounded-full transition-all duration-300 ${
+            className={`min-w-[44px] min-h-[44px] flex items-center justify-center rounded-full transition-all duration-300 ${
               index === currentIndex
-                ? 'bg-primary w-8'
-                : 'bg-white/20 w-2 hover:bg-white/40'
+                ? 'bg-primary/20'
+                : 'bg-transparent hover:bg-white/10'
             }`}
             aria-label={`Go to project ${index + 1}`}
-          />
+          >
+            <span className={`block rounded-full transition-all duration-300 ${
+              index === currentIndex
+                ? 'bg-primary w-8 h-3'
+                : 'bg-white/30 w-3 h-3 hover:bg-white/50'
+            }`} />
+          </button>
         ))}
       </div>
     </div>
@@ -312,7 +318,7 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
                 </span>
               ))}
               {project.tags.length > 3 && (
-                <span className="px-2 py-1 text-[10px] text-gray-500">
+                <span className="px-2 py-1 text-[10px] text-gray-400">
                   +{project.tags.length - 3}
                 </span>
               )}

@@ -40,7 +40,7 @@ export const Connect = () => {
                   {emailCopied ? (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 6 9 17 4 12"/></svg>) : (<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>)}
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Email {emailCopied && <span className="text-primary text-xs ml-2 animate-fade-up">Copied!</span>}</p>
+                  <p className="text-sm text-gray-400">Email {emailCopied && <span className="text-primary text-xs ml-2 animate-fade-up">Copied!</span>}</p>
                   <p className="text-white font-mono text-sm group-hover:text-primary transition-colors">{CONTACT_INFO.email}</p>
                 </div>
               </button>
@@ -55,14 +55,14 @@ export const Connect = () => {
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400 group-hover:text-primary"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">{SOCIAL_LINKS.linkedin.label}</p>
+                  <p className="text-sm text-gray-400">{SOCIAL_LINKS.linkedin.label}</p>
                   <p className="text-white font-mono text-sm group-hover:text-primary transition-colors">{SOCIAL_LINKS.linkedin.display}</p>
                 </div>
               </a>
               <div className="flex gap-4 pt-4">
-                <a href={SOCIAL_LINKS.github.url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.github.label} profile`}>{SOCIAL_LINKS.github.label}</a>
-                <a href={SOCIAL_LINKS.leetcode.url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.leetcode.label} profile`}>{SOCIAL_LINKS.leetcode.label}</a>
-                <a href={SOCIAL_LINKS.codolio.url} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.codolio.label} profile`}>{SOCIAL_LINKS.codolio.label}</a>
+                <a href={SOCIAL_LINKS.github.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.github.label} profile`}>{SOCIAL_LINKS.github.label}</a>
+                <a href={SOCIAL_LINKS.leetcode.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.leetcode.label} profile`}>{SOCIAL_LINKS.leetcode.label}</a>
+                <a href={SOCIAL_LINKS.codolio.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.codolio.label} profile`}>{SOCIAL_LINKS.codolio.label}</a>
               </div>
           </div>
           <form className="card-base p-8 rounded-2xl space-y-4 relative" onSubmit={handleSubmit}>

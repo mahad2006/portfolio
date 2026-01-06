@@ -29,16 +29,18 @@ export default function Home() {
         <PrintStyles />
 
         {/* Visible Content */}
-        <Hero />
-        <About />
-        <Philosophy />
-        <Projects />
-        <Stack />
-        <Writing />
-        <CommandPalette />
-        <Impact />
-        <Experience />
-        <Connect />
+        <main>
+          <Hero />
+          <About />
+          <Philosophy />
+          <Projects />
+          <Stack />
+          <Writing />
+          <CommandPalette />
+          <Impact />
+          <Experience />
+          <Connect />
+        </main>
         <Footer />
       </div>
     </>
