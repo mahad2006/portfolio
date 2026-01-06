@@ -14,7 +14,8 @@ const DEFAULTS = {
   isMuted: true,
   matrixActive: false,
   matrixSpeed: 5,
-  accentColor: 'green',
+  accentColor: '#6DB33F',
+  reduceMotion: false,
 };
 
 export const SystemProvider = ({ children }) => {
@@ -22,8 +23,10 @@ export const SystemProvider = ({ children }) => {
   const [matrixActive, setMatrixActive] = useState(DEFAULTS.matrixActive);
   const [matrixSpeed, setMatrixSpeed] = useState(DEFAULTS.matrixSpeed);
   const [accentColor, setAccentColor] = useState(DEFAULTS.accentColor);
+  const [reduceMotion, setReduceMotion] = useState(DEFAULTS.reduceMotion);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(false);
   const [konamiIndex, setKonamiIndex] = useState(0);
   const [audioCtx, setAudioCtx] = useState(null);
 
@@ -40,6 +43,9 @@ export const SystemProvider = ({ children }) => {
 
     const savedAccentColor = localStorage.getItem('accent_color');
     if (savedAccentColor !== null) setAccentColor(savedAccentColor);
+
+    const savedReduceMotion = localStorage.getItem('reduce_motion');
+    if (savedReduceMotion !== null) setReduceMotion(JSON.parse(savedReduceMotion));
   }, []);
 
   // Save settings to localStorage
@@ -47,11 +53,26 @@ export const SystemProvider = ({ children }) => {
   useEffect(() => { localStorage.setItem('matrix_mode', JSON.stringify(matrixActive)); }, [matrixActive]);
   useEffect(() => { localStorage.setItem('matrix_speed', String(matrixSpeed)); }, [matrixSpeed]);
   useEffect(() => { localStorage.setItem('accent_color', accentColor); }, [accentColor]);
+  useEffect(() => { localStorage.setItem('reduce_motion', JSON.stringify(reduceMotion)); }, [reduceMotion]);
 
-  // Apply accent color to the body element
+  // Apply accent color to CSS variable for instant site-wide updates
   useEffect(() => {
-    document.body.setAttribute('data-accent', accentColor);
+    if (typeof document !== 'undefined') {
+      document.documentElement.style.setProperty('--color-primary', accentColor);
+      document.body.setAttribute('data-accent', accentColor);
+    }
   }, [accentColor]);
+
+  // Apply reduce motion preference
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      if (reduceMotion) {
+        document.documentElement.style.setProperty('--motion-reduce', '1');
+      } else {
+        document.documentElement.style.setProperty('--motion-reduce', '0');
+      }
+    }
+  }, [reduceMotion]);
 
 
   useEffect(() => {
@@ -89,16 +110,19 @@ export const SystemProvider = ({ children }) => {
   const toggleMatrix = useCallback(() => setMatrixActive(prev => !prev), []);
   const toggleCommandPalette = useCallback(() => setIsCommandPaletteOpen(prev => !prev), []);
   const toggleSettingsModal = useCallback(() => setIsSettingsModalOpen(prev => !prev), []);
+  const toggleDashboard = useCallback(() => setShowDashboard(prev => !prev), []);
 
   const resetSettings = useCallback(() => {
     setIsMuted(DEFAULTS.isMuted);
     setMatrixActive(DEFAULTS.matrixActive);
     setMatrixSpeed(DEFAULTS.matrixSpeed);
     setAccentColor(DEFAULTS.accentColor);
+    setReduceMotion(DEFAULTS.reduceMotion);
     localStorage.removeItem('sound_muted');
     localStorage.removeItem('matrix_mode');
     localStorage.removeItem('matrix_speed');
     localStorage.removeItem('accent_color');
+    localStorage.removeItem('reduce_motion');
   }, []);
 
   // Global keydown listener
@@ -133,9 +157,12 @@ export const SystemProvider = ({ children }) => {
   return (
     <SystemContext.Provider value={{
       isMuted, setIsMuted,
+      soundEnabled: !isMuted, // Alias for clarity
       matrixActive, setMatrixActive, toggleMatrix,
       matrixSpeed, setMatrixSpeed,
       accentColor, setAccentColor,
+      reduceMotion, setReduceMotion,
+      showDashboard, setShowDashboard, toggleDashboard,
       isCommandPaletteOpen, toggleCommandPalette,
       isSettingsModalOpen, toggleSettingsModal,
       playClick, playType, playSuccess,

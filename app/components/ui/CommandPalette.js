@@ -12,47 +12,89 @@ import {
   SparklesIcon,
   ComputerDesktopIcon,
   SpeakerWaveIcon,
+  SpeakerXMarkIcon,
   ArrowTopRightOnSquareIcon,
   DocumentTextIcon,
   ArrowRightIcon,
+  PaintBrushIcon,
+  EyeSlashIcon,
 } from '@heroicons/react/24/outline';
 
 const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
-  const { toggleMatrix, isMuted, setIsMuted, playClick, showDashboard, toggleDashboard, toggleSettingsModal } = useSystem();
+  const {
+    toggleMatrix,
+    isMuted,
+    setIsMuted,
+    soundEnabled,
+    playClick,
+    showDashboard,
+    toggleDashboard,
+    toggleSettingsModal,
+    reduceMotion,
+    setReduceMotion,
+    accentColor,
+    setAccentColor,
+  } = useSystem();
+
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const paletteRef = useRef(null);
   const activeItemRef = useRef(null);
 
+  // Play sound when opening/closing
+  useEffect(() => {
+    if (isOpen && soundEnabled) {
+      playClick();
+    }
+  }, [isOpen, soundEnabled, playClick]);
+
+  const ACCENT_COLORS = [
+    { value: '#6DB33F', label: 'Green' },
+    { value: '#FF8C00', label: 'Orange' },
+    { value: '#00BFFF', label: 'Blue' },
+    { value: '#FF0000', label: 'Red' },
+    { value: '#9400D3', label: 'Purple' },
+    { value: '#FFD700', label: 'Gold' },
+  ];
+
   const commandGroups = useMemo(() => [
     {
-      title: 'Navigate',
+      title: 'Navigation',
       commands: [
-        { id: 'home', label: 'Home', action: () => onNavigate('hero'), icon: HomeIcon },
-        { id: 'about', label: 'About', action: () => onNavigate('about'), icon: UserIcon },
-        { id: 'projects', label: 'Projects', action: () => onNavigate('projects'), icon: CodeBracketIcon },
-        { id: 'stack', label: 'Tech Stack', action: () => onNavigate('stack'), icon: CommandLineIcon },
-        { id: 'writing', label: 'Writing', action: () => onNavigate('writing'), icon: PencilSquareIcon },
-        { id: 'connect', label: 'Contact', action: () => onNavigate('connect'), icon: EnvelopeIcon },
+        { id: 'home', label: 'Go to Home', action: () => onNavigate('hero'), icon: HomeIcon, shortcut: '↵' },
+        { id: 'about', label: 'Go to About', action: () => onNavigate('about'), icon: UserIcon, shortcut: '↵' },
+        { id: 'projects', label: 'Go to Projects', action: () => onNavigate('projects'), icon: CodeBracketIcon, shortcut: '↵' },
+        { id: 'stack', label: 'Go to Tech Stack', action: () => onNavigate('stack'), icon: CommandLineIcon, shortcut: '↵' },
+        { id: 'writing', label: 'Go to Writing', action: () => onNavigate('writing'), icon: PencilSquareIcon, shortcut: '↵' },
+        { id: 'connect', label: 'Go to Contact', action: () => onNavigate('connect'), icon: EnvelopeIcon, shortcut: '↵' },
       ]
     },
     {
       title: 'Actions',
       commands: [
         { id: 'settings', label: 'Open Settings', shortcut: 'Shift+S', action: toggleSettingsModal, icon: CogIcon },
-        { id: 'matrix', label: 'Toggle Matrix Mode', action: toggleMatrix, icon: SparklesIcon },
-        { id: 'dashboard', label: showDashboard ? 'Hide System Dashboard' : 'Show System Dashboard', action: toggleDashboard, icon: ComputerDesktopIcon },
-        { id: 'sound', label: isMuted ? 'Enable Sound' : 'Mute Sound', action: () => setIsMuted(!isMuted), icon: SpeakerWaveIcon },
+        { id: 'sound', label: soundEnabled ? 'Mute Sound' : 'Enable Sound', action: () => setIsMuted(!isMuted), icon: soundEnabled ? SpeakerWaveIcon : SpeakerXMarkIcon, shortcut: '↵' },
+        { id: 'matrix', label: 'Toggle Matrix Mode', action: toggleMatrix, icon: SparklesIcon, shortcut: '↵' },
+        { id: 'motion', label: reduceMotion ? 'Enable Animations' : 'Reduce Motion', action: () => setReduceMotion(!reduceMotion), icon: EyeSlashIcon, shortcut: '↵' },
+        { id: 'dashboard', label: showDashboard ? 'Hide System Dashboard' : 'Show System Dashboard', action: toggleDashboard, icon: ComputerDesktopIcon, shortcut: '↵' },
+        ...ACCENT_COLORS.map(color => ({
+          id: `color-${color.value}`,
+          label: `Set Accent to ${color.label}`,
+          action: () => setAccentColor(color.value),
+          icon: PaintBrushIcon,
+          shortcut: '↵',
+          color: color.value,
+        })),
       ]
     },
     {
-      title: 'Links',
+      title: 'External Links',
       commands: [
-        { id: 'resume', label: 'View Resume', action: () => window.open('/resume.pdf', '_blank'), icon: DocumentTextIcon },
-        { id: 'github', label: 'GitHub Profile', action: () => window.open('https://github.com/mahad2006', '_blank'), icon: ArrowTopRightOnSquareIcon },
+        { id: 'resume', label: 'View Resume', action: () => window.open('/resume.pdf', '_blank'), icon: DocumentTextIcon, shortcut: '↵' },
+        { id: 'github', label: 'Open GitHub Profile', action: () => window.open('https://github.com/mahad2006', '_blank'), icon: ArrowTopRightOnSquareIcon, shortcut: '↵' },
       ]
     }
-  ], [isMuted, showDashboard, onNavigate, toggleDashboard, toggleMatrix, toggleSettingsModal, setIsMuted]);
+  ], [isMuted, soundEnabled, showDashboard, reduceMotion, accentColor, onNavigate, toggleDashboard, toggleMatrix, toggleSettingsModal, setIsMuted, setReduceMotion, setAccentColor]);
 
   const { groupedResults, selectableOptions } = useMemo(() => {
     const results = {
@@ -60,7 +102,10 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
       selectableOptions: []
     };
     commandGroups.forEach(group => {
-      const filteredCommands = group.commands.filter(cmd => cmd.label.toLowerCase().includes(query.toLowerCase()));
+      const filteredCommands = group.commands.filter(cmd => 
+        cmd.label.toLowerCase().includes(query.toLowerCase()) ||
+        cmd.id.toLowerCase().includes(query.toLowerCase())
+      );
       if (filteredCommands.length > 0) {
         results.groupedResults.push({ isGroup: true, title: group.title });
         results.groupedResults.push(...filteredCommands);
@@ -92,16 +137,20 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
       if (e.key === 'ArrowDown') {
         e.preventDefault();
         setSelectedIndex(i => (i + 1) % (selectableOptions.length || 1));
+        if (soundEnabled) playClick();
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         setSelectedIndex(i => (i - 1 + selectableOptions.length) % (selectableOptions.length || 1));
+        if (soundEnabled) playClick();
       } else if (e.key === 'Enter') {
         e.preventDefault();
         if (selectableOptions[selectedIndex]) {
+          if (soundEnabled) playClick();
           selectableOptions[selectedIndex].action();
           onClose();
         }
       } else if (e.key === 'Escape') {
+        if (soundEnabled) playClick();
         onClose();
       } else if (e.key === 'Tab') {
         if (e.shiftKey) {
@@ -122,74 +171,131 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
     paletteRef.current?.querySelector('input')?.focus();
 
     return () => window.removeEventListener('keydown', handleKey);
-  }, [isOpen, selectableOptions, selectedIndex, onClose]);
+  }, [isOpen, selectableOptions, selectedIndex, onClose, soundEnabled, playClick]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh] px-4" onClick={onClose}>
-      <div className="absolute inset-0 bg-black/50 backdrop-blur-md"></div>
+    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4" onClick={onClose}>
+      {/* Enhanced Glassmorphism Backdrop */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-xl"></div>
+      
+      {/* Command Palette Container */}
       <div
         ref={paletteRef}
-        className="relative w-full max-w-xl bg-gray-900/80 border border-white/10 rounded-2xl shadow-2xl overflow-hidden animate-fade-up backdrop-blur-xl"
+        className="relative w-full max-w-2xl glass-panel border border-white/10 rounded-3xl shadow-2xl overflow-hidden animate-fade-up"
         onClick={e => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label="Command Palette"
       >
-        <div className="flex items-center px-4 border-b border-white/5">
-          <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        {/* Spotlight-style Input Section */}
+        <div className="flex items-center px-6 py-5 border-b border-white/5 bg-white/[0.02]">
+          <svg className="w-6 h-6 text-gray-400 mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
           <input
             autoFocus
             type="text"
-            placeholder="What do you need?"
-            className="w-full bg-transparent border-none text-white px-4 py-4 focus:ring-0 placeholder-gray-500 outline-none"
+            placeholder="Type a command or search..."
+            className="flex-1 bg-transparent border-none text-white text-lg placeholder-gray-500 focus:ring-0 outline-none font-medium"
             value={query}
             onChange={e => setQuery(e.target.value)}
           />
-          <span className="text-xs text-gray-500 font-mono border border-white/10 px-2 py-1 rounded-md">ESC</span>
+          <div className="flex items-center gap-2 ml-4">
+            <kbd className="hidden sm:inline-flex items-center px-2 py-1 text-xs font-mono text-gray-400 bg-white/5 border border-white/10 rounded">ESC</kbd>
+          </div>
         </div>
-        <div className="max-h-[50vh] overflow-y-auto p-2">
+
+        {/* Results Section */}
+        <div className="max-h-[60vh] overflow-y-auto">
           {selectableOptions.length === 0 ? (
-            <div className="px-6 py-12 text-center text-gray-400">
-              <p className="text-lg font-medium">No results found.</p>
-              <p className="text-sm text-gray-500">Try a different search term.</p>
+            <div className="px-6 py-16 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center">
+                <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <p className="text-lg font-medium text-gray-300 mb-2">No results found</p>
+              <p className="text-sm text-gray-500">Try a different search term</p>
             </div>
           ) : (
-            groupedResults.map((item, i) => {
-              if (item.isGroup) {
-                return <div key={item.title} className="px-3 pt-3 pb-1 text-xs font-medium text-gray-400 uppercase tracking-wider">{item.title}</div>;
-              }
+            <div className="p-2">
+              {groupedResults.map((item, i) => {
+                if (item.isGroup) {
+                  return (
+                    <div key={item.title} className="px-4 pt-4 pb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                      {item.title}
+                    </div>
+                  );
+                }
 
-              const isSelected = selectableOptions[selectedIndex]?.id === item.id;
+                const isSelected = selectableOptions[selectedIndex]?.id === item.id;
 
-              return (
-                <button
-                  ref={isSelected ? activeItemRef : null}
-                  key={item.id}
-                  onClick={() => { item.action(); playClick(); onClose(); }}
-                  className={`w-full text-left px-4 py-3 flex items-center justify-between transition-all duration-150 rounded-lg ${isSelected ? 'bg-white/10 text-white' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
-                  role="option"
-                  aria-selected={isSelected}
-                >
-                  <div className="flex items-center gap-4">
-                    <item.icon className="w-5 h-5 text-gray-500" />
-                    <span className="text-base">{item.label}</span>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    {item.shortcut && <span className="text-xs text-gray-500 font-mono bg-white/5 px-2 py-1 rounded-md">{item.shortcut}</span>}
-                    {isSelected && <ArrowRightIcon className="w-5 h-5 text-gray-400" />}
-                  </div>
-                </button>
-              );
-            })
+                return (
+                  <button
+                    ref={isSelected ? activeItemRef : null}
+                    key={item.id}
+                    onClick={() => {
+                      if (soundEnabled) playClick();
+                      item.action();
+                      onClose();
+                    }}
+                    className={`w-full text-left px-4 py-3.5 flex items-center justify-between transition-all duration-150 rounded-xl group ${
+                      isSelected
+                        ? 'bg-primary/20 text-white border border-primary/30'
+                        : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                    }`}
+                    role="option"
+                    aria-selected={isSelected}
+                  >
+                    <div className="flex items-center gap-4 flex-1 min-w-0">
+                      <div className={`flex-shrink-0 ${item.color ? 'w-5 h-5 rounded-full border-2 border-white/20' : ''}`} style={item.color ? { backgroundColor: item.color } : {}}>
+                        {!item.color && <item.icon className={`w-5 h-5 ${isSelected ? 'text-primary' : 'text-gray-500 group-hover:text-gray-300'}`} />}
+                      </div>
+                      <span className="text-base font-medium truncate">{item.label}</span>
+                    </div>
+                    <div className="flex items-center gap-3 flex-shrink-0">
+                      {item.shortcut && (
+                        <kbd className={`hidden sm:inline-flex items-center px-2 py-1 text-xs font-mono rounded ${
+                          isSelected
+                            ? 'bg-primary/30 text-primary border border-primary/50'
+                            : 'bg-white/5 text-gray-500 border border-white/10'
+                        }`}>
+                          {item.shortcut}
+                        </kbd>
+                      )}
+                      {isSelected && (
+                        <ArrowRightIcon className="w-5 h-5 text-primary" />
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
           )}
         </div>
-        <div className="px-4 py-3 bg-black/20 border-t border-white/5 flex justify-between items-center text-xs text-gray-500 font-mono">
+
+        {/* Footer with Keyboard Hints */}
+        <div className="px-6 py-4 bg-black/20 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-gray-500">
+          <div className="flex items-center gap-4 flex-wrap">
             <div className="flex items-center gap-2">
-              <span>Navigate with ↑↓</span>
+              <kbd className="px-2 py-1 bg-white/5 border border-white/10 rounded font-mono">↑</kbd>
+              <kbd className="px-2 py-1 bg-white/5 border border-white/10 rounded font-mono">↓</kbd>
+              <span className="text-gray-400">Navigate</span>
             </div>
-            <span>Press <span className="font-sans bg-white/10 text-gray-400 px-1.5 py-0.5 rounded-sm">↵</span> to select</span>
+            <div className="flex items-center gap-2">
+              <kbd className="px-2 py-1 bg-white/5 border border-white/10 rounded font-mono">↵</kbd>
+              <span className="text-gray-400">Select</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <kbd className="px-2 py-1 bg-white/5 border border-white/10 rounded font-mono">ESC</kbd>
+              <span className="text-gray-400">Close</span>
+            </div>
+          </div>
+          <div className="text-gray-400 font-mono">
+            {selectableOptions.length} {selectableOptions.length === 1 ? 'result' : 'results'}
+          </div>
         </div>
       </div>
     </div>
@@ -197,4 +303,3 @@ const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
 };
 
 export default CommandPalette;
-
