@@ -1,8 +1,65 @@
-export const projectsData = [
+// Type definitions for projects
+export type ProjectType = 'backend' | 'mobile-app' | 'documentation' | 'system-design' | 'console';
+
+export interface ProjectStat {
+  label: string;
+  value: string;
+}
+
+export interface CaseStudyChallenge {
+  title: string;
+  desc: string;
+}
+
+export interface CaseStudy {
+  problem: string;
+  approach: string;
+  outcome: string;
+  architecture: string;
+  challenges: CaseStudyChallenge[];
+}
+
+export interface DiagramConfig {
+  title: string;
+  components: string[];
+}
+
+export interface ProjectDiagrams {
+  architecture: DiagramConfig;
+}
+
+export interface AppScreen {
+  name: string;
+  desc: string;
+}
+
+export interface DocSection {
+  title: string;
+  count: number;
+}
+
+export interface Project {
+  title: string;
+  slug: string;
+  type: ProjectType;
+  isFlagship: boolean;
+  image?: string;
+  tagline: string;
+  stats: ProjectStat[];
+  caseStudy: CaseStudy;
+  diagrams?: ProjectDiagrams;
+  screens?: AppScreen[];
+  appFeatures?: string[];
+  sections?: DocSection[];
+  tags: string[];
+  link: string;
+}
+
+export const projectsData: Project[] = [
   {
     title: "Scalable E-Commerce API",
     slug: "scalable-ecommerce",
-    type: "backend", // backend | mobile-app | documentation | system-design
+    type: "backend",
     isFlagship: true,
     tagline: "High-concurrency systems architecture with Spring Boot & PostgreSQL",
     stats: [
@@ -20,7 +77,6 @@ export const projectsData = [
         { title: "Query Optimization", desc: "Eliminated N+1 query overhead by implementing Entity Graphs and DTO Projections." }
       ]
     },
-    // Architecture diagram config for backend projects
     diagrams: {
       architecture: {
         title: "System Architecture",
@@ -52,7 +108,6 @@ export const projectsData = [
         { title: "UI Performance", desc: "Bypassed heavy WebView rendering by building a custom Canvas-based math engine to display LaTeX-style equations smoothy." }
       ]
     },
-    // Mobile app specific config
     screens: [
       { name: "Home", desc: "Enter mathematical expressions" },
       { name: "Solution", desc: "Step-by-step differentiation" },
@@ -175,7 +230,6 @@ export const projectsData = [
         { title: "SEO Optimization", desc: "Structured the metadata to rank for specific University curriculum keywords." }
       ]
     },
-    // Documentation specific sections
     sections: [
       { title: "Arrays & Strings", count: 12 },
       { title: "Linked Lists", count: 8 },
@@ -186,9 +240,6 @@ export const projectsData = [
     tags: ['Documentation', 'Community', 'Education', 'DSA'],
     link: "https://github.com/mahad2006"
   },
-  // =====================
-  // Console & DSA Projects (C++ Terminal-based)
-  // =====================
   {
     title: "Snake Game",
     slug: "snake-game-cpp",
@@ -311,7 +362,7 @@ export const projectsData = [
   }
 ];
 
-export const projectsMap = projectsData.reduce((acc, project) => {
+export const projectsMap: Record<string, Project> = projectsData.reduce((acc, project) => {
   acc[project.slug] = project;
   return acc;
-}, {});
+}, {} as Record<string, Project>);
