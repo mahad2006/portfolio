@@ -13,7 +13,7 @@ export const Projects = () => {
   );
 
   return (
-    <section id="projects" className="py-32 relative bg-[#080808]">
+    <section id="projects" className="py-32 relative" style={{ backgroundColor: 'var(--bg-surface-dark)' }}>
       <div className="max-w-7xl mx-auto px-6">
         <FadeUp>
           <div className="mb-12">
@@ -21,7 +21,7 @@ export const Projects = () => {
               <span className="text-primary mono text-2xl">03.</span> Featured Projects
             </h2>
             <p className="text-gray-400 max-w-2xl text-lg mb-8">
-              A selection of native mobile applications and backend systems. I focus on <span className="text-white">solving real problems</span> with constraints, trade-offs, and scalability in mind.
+              A selection of native mobile applications and backend systems. I focus on <span style={{ color: 'var(--text-main)' }}>solving real problems</span> with constraints, trade-offs, and scalability in mind.
             </p>
           </div>
         </FadeUp>
@@ -42,7 +42,7 @@ export const Projects = () => {
           >
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-primary transition-colors">
+                <h3 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors" style={{ color: 'var(--text-main)' }}>
                   Explore Full Archive
                 </h3>
                 <p className="text-gray-400 text-sm">

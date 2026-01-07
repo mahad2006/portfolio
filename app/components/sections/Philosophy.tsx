@@ -35,7 +35,7 @@ const philosophies = [
 
 export const Philosophy = () => {
   return (
-    <section id="philosophy" className="py-24 relative border-t border-white/5 bg-black/20">
+    <section id="philosophy" className="py-24 relative border-t" style={{ backgroundColor: 'var(--bg-surface-dark)', borderColor: 'var(--border-subtle)' }}>
       <div className="max-w-6xl mx-auto px-6">
         <FadeUp>
           <div className="mb-12 md:text-center max-w-2xl mx-auto">

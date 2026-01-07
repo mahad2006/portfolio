@@ -69,8 +69,8 @@ const CourseCard = ({ icon, name, semester, status, onHover }) => {
     >
       <SpotlightCard className="group relative w-full h-full p-5 rounded-xl card-base hover:border-(--border-highlight) transition-all duration-300 hover:-translate-y-2 overflow-hidden">
         <div className="flex items-center gap-3 mb-2">
-          <div className="text-gray-300 group-hover:text-white transition-colors">{icon}</div>
-          <h3 className="text-base font-bold text-white">{name}</h3>
+          <div className="text-gray-300 transition-colors" style={{ ['&.group:hover' as any]: { color: 'var(--text-main)' } }}>{icon}</div>
+          <h3 className="text-base font-bold" style={{ color: 'var(--text-main)' }}>{name}</h3>
         </div>
         <div className="flex items-center gap-2">
           <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${statusColors[status]}`}>

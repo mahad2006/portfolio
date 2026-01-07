@@ -47,9 +47,9 @@ export const Writing = () => {
                     <span>{post.date}</span>
                   </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-(--hover-color) transition-colors">{post.title}</h3>
+                <h3 className="text-xl font-bold mb-3 group-hover:text-(--hover-color) transition-colors" style={{ color: 'var(--text-main)' }}>{post.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed mb-4">{post.description}</p>
-                <div className="flex items-center text-sm font-bold text-white group-hover:translate-x-2 transition-transform">Read Article <span className="ml-2">→</span></div>
+                <div className="flex items-center text-sm font-bold group-hover:translate-x-2 transition-transform" style={{ color: 'var(--text-main)' }}>Read Article <span className="ml-2">→</span></div>
               </Link>
             </StaggerItem>
           ))}

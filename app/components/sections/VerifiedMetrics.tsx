@@ -54,7 +54,7 @@ const MetricCard = ({
           </div>
         </div>
       </div>
-      <div className="text-3xl font-bold text-white mb-3">
+      <div className="text-3xl font-bold mb-3" style={{ color: 'var(--text-main)' }}>
         {mounted ? value : '—'}
       </div>
       <VerifyLink url={verifyUrl} label="Verify Profile" />
@@ -64,7 +64,7 @@ const MetricCard = ({
 
 export const VerifiedMetrics = () => {
   return (
-    <section id="metrics" className="py-24 relative bg-black/20 border-t border-white/5">
+    <section id="metrics" className="py-24 relative border-t" style={{ backgroundColor: 'var(--bg-surface-dark)', borderColor: 'var(--border-subtle)' }}>
       <div className="max-w-6xl mx-auto px-6">
         <FadeUp>
           <div className="mb-12 text-center max-w-2xl mx-auto">
