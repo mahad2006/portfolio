@@ -6,107 +6,17 @@ import { ConfirmModal } from '@/components/ui/ConfirmModal';
 import { PageShell } from '@/components/layout/PageShell';
 import { ACCENT_COLORS } from '@/config/theme';
 import { AUTHOR_NAME } from '@/config/site';
+import {
+  SectionHeader,
+  SettingCard,
+  SettingRow,
+  ToggleSwitch,
+  SegmentedControl,
+} from '@/components/settings';
 
 // ============================================================================
 // Premium UI Components
 // ============================================================================
-
-const SectionHeader = ({ icon, title, description, accentColor }) => (
-  <div className="flex items-start gap-4 mb-8">
-    <div 
-      className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-      style={{ backgroundColor: `${accentColor}15`, border: `1px solid ${accentColor}30`, color: accentColor }}
-    >
-      {icon}
-    </div>
-    <div>
-      <h2 className="text-xl font-bold text-white mb-1">{title}</h2>
-      <p className="text-sm text-gray-500">{description}</p>
-    </div>
-  </div>
-);
-
-const SettingCard = ({ children, className = '' }) => (
-  <div className={`bg-white/2 rounded-2xl border border-white/6 p-6 backdrop-blur-sm ${className}`}>
-    {children}
-  </div>
-);
-
-const SettingRow = ({ label, description, children, preview }: { label: string; description?: string; children?: React.ReactNode; preview?: React.ReactNode }) => (
-  <div className="group py-5 border-b border-white/4 last:border-0 last:pb-0 first:pt-0">
-    <div className="flex items-center justify-between gap-6">
-      <div className="flex-1 min-w-0">
-        <h3 className="text-white font-medium text-[15px] mb-1 group-hover:text-primary transition-colors">{label}</h3>
-        {description && <p className="text-xs text-gray-500 leading-relaxed">{description}</p>}
-      </div>
-      <div className="flex items-center gap-3 shrink-0">
-        {children}
-      </div>
-    </div>
-    {preview && (
-      <div className="mt-4 p-4 rounded-xl bg-black/30 border border-white/4">
-        {preview}
-      </div>
-    )}
-  </div>
-);
-
-const ToggleSwitch = ({ isOn, onToggle, disabled = false }) => (
-  <button
-    onClick={onToggle}
-    disabled={disabled}
-    className={`relative w-14 h-7 rounded-full transition-all duration-300 ${
-      disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-    }`}
-    style={{ 
-      backgroundColor: isOn ? 'var(--color-primary)' : 'rgba(255,255,255,0.1)',
-      boxShadow: isOn ? '0 0 20px var(--color-primary)40' : 'none'
-    }}
-  >
-    <motion.div
-      className="absolute top-1 w-5 h-5 rounded-full bg-white shadow-lg"
-      animate={{ left: isOn ? '32px' : '4px' }}
-      transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-    />
-  </button>
-);
-
-const SegmentedControl = ({ options, value, onChange, size = 'md' }) => {
-  const sizeClasses = {
-    sm: 'text-xs px-3 py-1.5',
-    md: 'text-sm px-4 py-2',
-    lg: 'text-base px-5 py-2.5'
-  };
-
-  return (
-    <div className="flex bg-white/4 rounded-xl p-1 border border-white/6">
-      {options.map((option) => (
-        <button
-          key={option.value}
-          onClick={() => onChange(option.value)}
-          className={`relative ${sizeClasses[size]} rounded-lg font-medium transition-all duration-200 ${
-            value === option.value 
-              ? 'text-black' 
-              : 'text-gray-400 hover:text-white'
-          }`}
-        >
-          {value === option.value && (
-            <motion.div
-              layoutId="segment-active"
-              className="absolute inset-0 rounded-lg"
-              style={{ backgroundColor: 'var(--color-primary)' }}
-              transition={{ type: 'spring', stiffness: 500, damping: 35 }}
-            />
-          )}
-          <span className="relative z-10 flex items-center gap-2">
-            {option.icon && <span>{option.icon}</span>}
-            {option.label}
-          </span>
-        </button>
-      ))}
-    </div>
-  );
-};
 
 // Premium Color Picker
 const ColorPicker = ({ colors, value, onChange, playClick }) => {
@@ -559,7 +469,7 @@ export default function SettingsPage() {
                   { value: 'mono', label: 'Mono', icon: '</>' },
                 ]}
                 value={fontMode}
-                onChange={setFontMode}
+                onChange={(value) => setFontMode(value as 'sans' | 'mono')}
               />
             </SettingRow>
 
@@ -570,10 +480,11 @@ export default function SettingsPage() {
               <SegmentedControl
                 options={[
                   { value: 'block', label: 'Block', icon: '█' },
-                  { value: 'line', label: 'Line', icon: '│' },
+                  { value: 'underline', label: 'Line', icon: '_' },
+                  { value: 'bar', label: 'Bar', icon: '│' },
                 ]}
                 value={cursorStyle}
-                onChange={setCursorStyle}
+                onChange={(value) => setCursorStyle(value as 'block' | 'underline' | 'bar')}
               />
             </SettingRow>
 
@@ -581,14 +492,14 @@ export default function SettingsPage() {
               label="Reduce Motion"
               description="Minimize animations for accessibility or preference"
             >
-              <ToggleSwitch isOn={reduceMotion} onToggle={() => setReduceMotion(!reduceMotion)} />
+              <ToggleSwitch isOn={reduceMotion} onToggle={() => setReduceMotion(!reduceMotion)} ariaLabel="Toggle reduce motion" />
             </SettingRow>
 
             <SettingRow
               label="Sound Effects"
               description="UI interaction sounds and audio feedback"
             >
-              <ToggleSwitch isOn={soundEnabled} onToggle={() => setIsMuted(!isMuted)} />
+              <ToggleSwitch isOn={soundEnabled} onToggle={() => setIsMuted(!isMuted)} ariaLabel="Toggle sound effects" />
             </SettingRow>
           </SettingCard>
 
@@ -605,7 +516,7 @@ export default function SettingsPage() {
               label="Matrix Mode"
               description="Enable falling code rain effect (or use Konami code ↑↑↓↓←→←→BA)"
             >
-              <ToggleSwitch isOn={matrixActive} onToggle={() => setMatrixActive(!matrixActive)} />
+              <ToggleSwitch isOn={matrixActive} onToggle={() => setMatrixActive(!matrixActive)} ariaLabel="Toggle matrix rain effect" />
             </SettingRow>
 
             <SettingRow

@@ -1,17 +1,18 @@
 import { projectsData } from '@/data/projects';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
 import { PageShell } from '@/components/layout/PageShell';
 import { generateProjectMetadata } from '@/components/layout/pageMetadata';
-import {
-  PhoneMockupGallery,
-  ArchitectureDiagram,
-  DocumentationVisual,
-  PlaceholderVisual,
-  AppFeaturesGrid,
-  TerminalMockup,
-} from '@/components/projects/ProjectVisuals';
+import { ProjectSchema } from '@/components/projects/ProjectSchema';
+import { PlaceholderVisual, AppFeaturesGrid } from '@/components/projects/ProjectVisuals';
+
+// Lazy load heavy visual components
+const PhoneMockupGallery = dynamic(() => import('@/components/projects/ProjectVisuals').then(mod => ({ default: mod.PhoneMockupGallery })), { loading: () => <div className="h-96 flex items-center justify-center text-gray-500">Loading...</div> });
+const ArchitectureDiagram = dynamic(() => import('@/components/projects/ProjectVisuals').then(mod => ({ default: mod.ArchitectureDiagram })), { loading: () => <div className="h-96 flex items-center justify-center text-gray-500">Loading...</div> });
+const DocumentationVisual = dynamic(() => import('@/components/projects/ProjectVisuals').then(mod => ({ default: mod.DocumentationVisual })), { loading: () => <div className="h-96 flex items-center justify-center text-gray-500">Loading...</div> });
+const TerminalMockup = dynamic(() => import('@/components/projects/ProjectVisuals').then(mod => ({ default: mod.TerminalMockup })), { loading: () => <div className="h-96 flex items-center justify-center text-gray-500">Loading...</div> });
 
 // This function tells Next.js which slugs to pre-render
 export async function generateStaticParams() {
@@ -53,6 +54,13 @@ const ProjectPage = async ({ params }) => {
 
   return (
     <PageShell title={null} headerTag="CASE_STUDY">
+      <ProjectSchema
+        title={project.title}
+        description={project.tagline}
+        tags={project.tags}
+        slug={project.slug}
+        image={project.image}
+      />
       {/* Project Hero Section */}
       <header className="mb-10 md:mb-12">
         {/* Type Badge */}

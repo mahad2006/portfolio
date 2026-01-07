@@ -111,6 +111,7 @@ export default function ProjectsPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-1 bg-transparent border-none text-white text-lg placeholder-gray-500 focus:outline-none"
+              aria-label="Search projects by name, tags, or description"
             />
           </div>
 

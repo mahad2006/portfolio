@@ -2,6 +2,8 @@ import { notFound } from 'next/navigation';
 import { allPosts } from '@/data/writing';
 import { WritingDetailClient } from './WritingDetailClient';
 import { generateWritingMetadata } from '@/components/layout/pageMetadata';
+import { ReadingProgress } from '@/components/writing/ReadingProgress';
+import { ArticleSchema } from '@/components/writing/ArticleSchema';
 
 export async function generateStaticParams() {
   return allPosts.map((post) => ({
@@ -25,6 +27,14 @@ const PostPage = async ({ params }) => {
 
   return (
     <div className="min-h-screen bg-bg text-gray-300 font-mono selection:bg-primary selection:text-black">
+      <ReadingProgress />
+      <ArticleSchema
+        title={post.title}
+        description={post.description}
+        datePublished={post.date}
+        slug={post.slug}
+        category={post.category}
+      />
       <main className="relative z-10 max-w-4xl mx-auto px-6 pt-24 pb-24">
         <WritingDetailClient>
           <header className="mb-12">
