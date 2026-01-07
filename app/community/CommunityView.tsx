@@ -45,7 +45,7 @@ const UBITCommunityPage = () => {
 
         {/* Hero Section */}
         <header className="mb-24 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-none tracking-tighter uppercase" style={{ color: 'var(--text-main)' }}>
+          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none tracking-tighter uppercase">
             The<span className="text-primary">_</span>Digital<span className="text-primary">_</span>Campus
           </h1>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
@@ -69,7 +69,7 @@ const UBITCommunityPage = () => {
 
         {/* Network Topology Section */}
         <section className="mb-24">
-            <h2 className="text-sm font-bold mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70" style={{ color: 'var(--text-main)' }}>
+            <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
                 <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
                 Network_Topology
             </h2>
@@ -102,7 +102,7 @@ const UBITCommunityPage = () => {
                         <div className="relative text-primary w-8 h-8 mx-auto mb-4 group-hover:text-green-300 transition-colors duration-300">
                             {getIconComponent(group.icon)}
                         </div>
-                        <h3 className="text-sm font-bold" style={{ color: 'var(--text-main)' }}>{group.name}</h3>
+                        <h3 className="text-sm font-bold text-white">{group.name}</h3>
                     </div>
                 ))}
             </div>
@@ -120,7 +120,7 @@ const UBITCommunityPage = () => {
                         <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div className="relative">
                             <div className="text-primary w-8 h-8 mb-4 group-hover:text-green-300 transition-colors duration-300">{getIconComponent(feature.icon)}</div>
-                            <h3 className="text-xl font-bold mb-3" style={{ color: 'var(--text-main)' }}>{feature.title}</h3>
+                            <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
                             <p className="text-gray-400 leading-relaxed">{feature.description}</p>
                         </div>
                     </div>
@@ -143,7 +143,7 @@ const UBITCommunityPage = () => {
 
         {/* Call to Action */}
         <section className="text-center">
-            <h2 className="text-3xl font-bold mb-4" style={{ color: 'var(--text-main)' }}>Join the Node</h2>
+            <h2 className="text-3xl font-bold text-white mb-4">Join the Node</h2>
             <p className="text-gray-400 mb-8 max-w-xl mx-auto">Become part of a structured peer-learning ecosystem built by students, for students.</p>
             <div className="flex justify-center gap-4">
                 <a href="https://chat.whatsapp.com/G6rOqzJ0RDQ7YgURVYu8JU" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 bg-[#25D366] text-white font-bold rounded-lg hover:bg-[#20ba5a] transition-all transform hover:scale-105">

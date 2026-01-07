@@ -3,7 +3,6 @@ import React, { createContext, useState, useEffect, useCallback, ReactNode } fro
 
 // Type definitions
 export type OscillatorType = 'sine' | 'square' | 'sawtooth' | 'triangle';
-export type ThemeMode = 'light' | 'dark';
 
 export interface SystemContextType {
   isMuted: boolean;
@@ -18,9 +17,6 @@ export interface SystemContextType {
   setAccentColor: React.Dispatch<React.SetStateAction<string>>;
   reduceMotion: boolean;
   setReduceMotion: React.Dispatch<React.SetStateAction<boolean>>;
-  theme: ThemeMode;
-  setTheme: React.Dispatch<React.SetStateAction<ThemeMode>>;
-  toggleTheme: () => void;
   showDashboard: boolean;
   setShowDashboard: React.Dispatch<React.SetStateAction<boolean>>;
   toggleDashboard: () => void;
@@ -42,7 +38,6 @@ interface SystemDefaults {
   matrixSpeed: number;
   accentColor: string;
   reduceMotion: boolean;
-  theme: ThemeMode;
 }
 
 export const SystemContext = createContext<SystemContextType | null>(null);
@@ -57,9 +52,8 @@ const DEFAULTS: SystemDefaults = {
   isMuted: true,
   matrixActive: false,
   matrixSpeed: 5,
-  accentColor: '#6366f1',
+  accentColor: '#6DB33F',
   reduceMotion: false,
-  theme: 'dark',
 };
 
 export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
@@ -68,7 +62,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
   const [matrixSpeed, setMatrixSpeed] = useState<number>(DEFAULTS.matrixSpeed);
   const [accentColor, setAccentColor] = useState<string>(DEFAULTS.accentColor);
   const [reduceMotion, setReduceMotion] = useState<boolean>(DEFAULTS.reduceMotion);
-  const [theme, setTheme] = useState<ThemeMode>(DEFAULTS.theme);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
   const [showDashboard, setShowDashboard] = useState<boolean>(false);
   const [konamiIndex, setKonamiIndex] = useState<number>(0);
@@ -90,9 +83,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
 
     const savedReduceMotion = localStorage.getItem('reduce_motion');
     if (savedReduceMotion !== null) setReduceMotion(JSON.parse(savedReduceMotion));
-
-    const savedTheme = localStorage.getItem('theme_mode');
-    if (savedTheme !== null) setTheme(savedTheme as ThemeMode);
   }, []);
 
   // Save settings to localStorage
@@ -101,7 +91,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
   useEffect(() => { localStorage.setItem('matrix_speed', String(matrixSpeed)); }, [matrixSpeed]);
   useEffect(() => { localStorage.setItem('accent_color', accentColor); }, [accentColor]);
   useEffect(() => { localStorage.setItem('reduce_motion', JSON.stringify(reduceMotion)); }, [reduceMotion]);
-  useEffect(() => { localStorage.setItem('theme_mode', theme); }, [theme]);
 
   // Apply accent color to CSS variable for instant site-wide updates
   useEffect(() => {
@@ -121,15 +110,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
       }
     }
   }, [reduceMotion]);
-
-  // Apply theme
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('data-theme', theme);
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-      document.documentElement.classList.toggle('light', theme === 'light');
-    }
-  }, [theme]);
 
   useEffect(() => {
     if (!isMuted && !audioCtx && typeof window !== 'undefined') {
@@ -166,7 +146,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
   const toggleMatrix = useCallback((): void => setMatrixActive(prev => !prev), []);
   const toggleCommandPalette = useCallback((): void => setIsCommandPaletteOpen(prev => !prev), []);
   const toggleDashboard = useCallback((): void => setShowDashboard(prev => !prev), []);
-  const toggleTheme = useCallback((): void => setTheme(prev => prev === 'dark' ? 'light' : 'dark'), []);
 
   const resetSettings = useCallback((): void => {
     setIsMuted(DEFAULTS.isMuted);
@@ -174,13 +153,11 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
     setMatrixSpeed(DEFAULTS.matrixSpeed);
     setAccentColor(DEFAULTS.accentColor);
     setReduceMotion(DEFAULTS.reduceMotion);
-    setTheme(DEFAULTS.theme);
     localStorage.removeItem('sound_muted');
     localStorage.removeItem('matrix_mode');
     localStorage.removeItem('matrix_speed');
     localStorage.removeItem('accent_color');
     localStorage.removeItem('reduce_motion');
-    localStorage.removeItem('theme_mode');
   }, []);
 
   // Global keydown listener
@@ -220,7 +197,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
       matrixSpeed, setMatrixSpeed,
       accentColor, setAccentColor,
       reduceMotion, setReduceMotion,
-      theme, setTheme, toggleTheme,
       showDashboard, setShowDashboard, toggleDashboard,
       isCommandPaletteOpen, toggleCommandPalette,
       playClick, playType, playSuccess,

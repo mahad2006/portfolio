@@ -69,8 +69,8 @@ const CourseCard = ({ icon, name, semester, status, onHover }) => {
     >
       <SpotlightCard className="group relative w-full h-full p-5 rounded-xl card-base hover:border-(--border-highlight) transition-all duration-300 hover:-translate-y-2 overflow-hidden">
         <div className="flex items-center gap-3 mb-2">
-          <div className="text-gray-300 transition-colors" style={{ ['&.group:hover' as any]: { color: 'var(--text-main)' } }}>{icon}</div>
-          <h3 className="text-base font-bold" style={{ color: 'var(--text-main)' }}>{name}</h3>
+          <div className="text-gray-300 group-hover:text-white transition-colors">{icon}</div>
+          <h3 className="text-base font-bold text-white">{name}</h3>
         </div>
         <div className="flex items-center gap-2">
           <span className={`text-[10px] font-mono px-2 py-0.5 rounded border ${statusColors[status]}`}>
@@ -133,7 +133,7 @@ export const Stack = () => {
             <div className="relative flex overflow-hidden">
               <div className={`flex gap-6 animate-marquee-left whitespace-nowrap py-4 px-4 ${isPaused ? 'marquee-paused' : ''}`}>
                 {[...row1, ...row1, ...row1, ...row1].map((item, idx) => (
-                  <div key={`r1-${idx}`} className="w-[260px] shrink-0"><TechCard {...item} onHover={handleCardHover} /></div>
+                  <div key={`r1-${idx}`} className="w-65 shrink-0"><TechCard {...item} onHover={handleCardHover} /></div>
                 ))}
               </div>
               <div className="absolute top-0 left-0 w-32 h-full bg-linear-to-r from-(--bg-page) to-transparent z-10 pointer-events-none"></div>
@@ -145,7 +145,7 @@ export const Stack = () => {
             <div className="relative flex overflow-hidden">
               <div className={`flex gap-6 animate-marquee-right whitespace-nowrap py-4 px-4 ${isPaused ? 'marquee-paused' : ''}`}>
                 {[...row2, ...row2, ...row2, ...row2].map((item, idx) => (
-                  <div key={`r2-${idx}`} className="w-[260px] shrink-0"><TechCard {...item} onHover={handleCardHover} /></div>
+                  <div key={`r2-${idx}`} className="w-65 shrink-0"><TechCard {...item} onHover={handleCardHover} /></div>
                 ))}
               </div>
               <div className="absolute top-0 left-0 w-32 h-full bg-linear-to-r from-(--bg-page) to-transparent z-10 pointer-events-none"></div>
@@ -162,7 +162,7 @@ export const Stack = () => {
               <div className="relative flex overflow-hidden">
                 <div className={`flex gap-6 animate-marquee-slow whitespace-nowrap py-4 px-4 ${isPaused ? 'marquee-paused' : ''}`}>
                   {[...courses, ...courses, ...courses, ...courses].map((item, idx) => (
-                    <div key={`c-${idx}`} className="w-[260px] shrink-0"><CourseCard {...item} onHover={handleCardHover} /></div>
+                    <div key={`c-${idx}`} className="w-65 shrink-0"><CourseCard {...item} onHover={handleCardHover} /></div>
                   ))}
                 </div>
                 <div className="absolute top-0 left-0 w-32 h-full bg-linear-to-r from-(--bg-page) to-transparent z-10 pointer-events-none"></div>

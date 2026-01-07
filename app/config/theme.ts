@@ -49,12 +49,12 @@ export const BASE_COLORS = {
 // ============================================================================
 
 export const BRAND_COLORS = {
-  /** Primary brand color (Electric Indigo) */
-  primary: '#6366f1',
-  primaryRgb: '99, 102, 241',
+  /** Primary brand color (Spring Boot green) */
+  primary: '#6DB33F',
+  primaryRgb: '109, 179, 63',
   
-  /** Primary hover state (darker indigo) */
-  primaryHover: '#4f46e5',
+  /** Primary hover state (darker green) */
+  primaryHover: '#5aa035',
   
   /** Secondary brand color (Java orange) */
   secondary: '#E76F00',
@@ -174,7 +174,7 @@ export const ACCENT_COLORS = [
 ] as const;
 
 /** Default accent color ID */
-export const DEFAULT_ACCENT = 'indigo';
+export const DEFAULT_ACCENT = 'spring';
 
 // ============================================================================
 // Social Platform Brand Colors

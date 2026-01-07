@@ -106,7 +106,7 @@ export const Hero: React.FC = () => {
           Backend Engineer @ UBIT
         </div>
 
-        <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-6 leading-tight" style={{ color: 'var(--text-main)' }}>
+        <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-6 text-white leading-tight">
           Building <span className="text-gradient glitch-text">Systems</span> <br />
           That <span className="mono text-primary glitch-text">Scale.</span>
         </h1>
@@ -141,7 +141,7 @@ export const Hero: React.FC = () => {
                   <div className="flex gap-2">
                     <span className="text-primary">➜</span>
                     <span className="text-blue-400">~</span>
-                    <span style={{ color: 'var(--text-main)' }}>{line.text}</span>
+                    <span className="text-white">{line.text}</span>
                   </div>
                 ) : (
                   <div className={`whitespace-pre-wrap ${line.color || 'text-gray-400'}`}>
@@ -164,8 +164,7 @@ export const Hero: React.FC = () => {
             <input 
               ref={inputRef}
               type="text" 
-              className="bg-transparent border-none outline-none font-mono text-sm w-full focus:ring-0"
-              style={{ color: 'var(--text-main)' }}
+              className="bg-transparent border-none outline-none text-white font-mono text-sm w-full focus:ring-0"
               placeholder="Type a command (help, about, projects)..."
               value={inputVal}
               onChange={(e) => {
@@ -193,8 +192,7 @@ export const Hero: React.FC = () => {
           </button>
           <button 
             onClick={() => document.getElementById('connect').scrollIntoView({ behavior: 'smooth' })}
-            className="px-8 py-3 bg-white/5 font-bold border border-white/10 rounded-md hover:bg-white/10 transition-all w-full sm:w-auto"
-            style={{ color: 'var(--text-main)' }}
+            className="px-8 py-3 bg-white/5 text-white font-bold border border-white/10 rounded-md hover:bg-white/10 transition-all w-full sm:w-auto"
           >
             Get In Touch
           </button>
