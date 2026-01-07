@@ -1,11 +1,13 @@
 'use client';
 
+
 import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { useSystem } from '@/hooks/useSystem';
 import { ROUTES } from '@/config/routes';
+import React, { useState } from 'react';
 
 // Dynamic imports for non-critical overlays to reduce initial bundle
 const MatrixRain = dynamic(() => import('@/components/ui/MatrixRain').then(mod => mod.MatrixRain), { ssr: false });
@@ -30,6 +32,7 @@ export default function ClientLayout({ children }) {
   const pathname = usePathname();
   const { isCommandPaletteOpen, toggleCommandPalette } = useSystem();
   const isHome = pathname === ROUTES.HOME;
+  const [bootComplete, setBootComplete] = useState(false);
 
   const handleNavigate = (id: string): void => {
     const element = document.getElementById(id);
@@ -47,29 +50,33 @@ export default function ClientLayout({ children }) {
       >
         Skip to main content
       </a>
-      
+
       {/* Global Overlays - Always present, outside any transforms */}
       <MatrixRain />
-      <BootScreen />
       <RequestLogger />
       <CommandPalette
         isOpen={isCommandPaletteOpen}
         onClose={toggleCommandPalette}
         onNavigate={handleNavigate}
       />
-      
-      {/* Page Container - no transform to preserve fixed positioning */}
-      <div 
-        id="main-content"
-        className="min-h-screen text-gray-300 font-mono selection:bg-primary selection:text-black bg-page antialiased"
-        key={pathname}
-      >
-        {children}
-      </div>
-      
-      {/* Analytics - Always present */}
-      <Analytics />
-      <SpeedInsights />
+
+      {/* BootScreen gate: only render page after boot completes */}
+      {!bootComplete && <BootScreen onComplete={() => setBootComplete(true)} />}
+      {bootComplete && (
+        <>
+          {/* Page Container - no transform to preserve fixed positioning */}
+          <div
+            id="main-content"
+            className="min-h-screen text-gray-300 font-mono selection:bg-primary selection:text-black bg-page antialiased"
+            key={pathname}
+          >
+            {children}
+          </div>
+          {/* Analytics - Always present */}
+          <Analytics />
+          <SpeedInsights />
+        </>
+      )}
     </>
   );
 }
