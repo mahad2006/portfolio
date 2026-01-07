@@ -20,7 +20,7 @@ export const About = () => {
         <SlideInRight>
           <div className="space-y-8">
           <h2 className="text-3xl font-bold flex items-center gap-3"><span className="text-primary mono text-2xl">01.</span> About Me</h2>
-          <div className="space-y-6 text-gray-400 text-lg leading-relaxed">
+          <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
             <div><h3 className="text-white font-bold mb-2 text-xl">The Journey to Backend</h3><p>I started in native Android development, obsessing over user experience. But as I built more complex apps, I realized the real magic happens on the server. I shifted my focus to <span className="text-white">backend engineering with Java & Spring Boot</span> to build the robust systems that power great products.</p></div>
             <div><h3 className="text-white font-bold mb-2 text-xl">How I Think</h3><p>I don't just write code; I design systems. I care deeply about <span className="text-white">data structures, memory efficiency, and the "why"</span> behind every architectural decision. Algorithms aren't just interview questions to me—they are the toolkit for scalability.</p></div>
             
@@ -35,7 +35,7 @@ export const About = () => {
                   <div className="w-2 h-2 rounded-full bg-primary mt-2"></div>
                   <div>
                     <p className="text-white font-medium">BSSE @ UBIT, University of Karachi</p>
-                    <p className="text-sm text-gray-500">3rd Semester · 2025 - 2028 · DSA, OOP, Backend Engineering</p>
+                    <p className="text-sm text-gray-300">3rd Semester · 2025 - 2028 · DSA, OOP, Backend Engineering</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

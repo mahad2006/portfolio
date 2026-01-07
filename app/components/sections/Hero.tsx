@@ -111,7 +111,7 @@ export const Hero: React.FC = () => {
           That <span className="mono text-primary glitch-text">Scale.</span>
         </h1>
 
-        <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium">
+        <p className="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium">
           I care about latency, memory usage, and why systems fail. 
           Currently building distributed infrastructures.
         </p>
@@ -125,7 +125,7 @@ export const Hero: React.FC = () => {
               <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
               <div className="w-3 h-3 rounded-full bg-primary/50"></div>
             </div>
-            <div className="text-[10px] text-gray-400 font-mono flex items-center gap-2">
+            <div className="text-[10px] text-gray-300 font-mono flex items-center gap-2">
                 <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 bash — 80x24
             </div>
@@ -144,7 +144,7 @@ export const Hero: React.FC = () => {
                     <span className="text-white">{line.text}</span>
                   </div>
                 ) : (
-                  <div className={`whitespace-pre-wrap ${line.color || 'text-gray-400'}`}>
+                  <div className={`whitespace-pre-wrap ${line.color || 'text-gray-300'}`}>
                     {line.text}
                   </div>
                 )}

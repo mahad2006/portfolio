@@ -188,23 +188,27 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose, onNavi
         onClick={e => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label="Command Palette"
+        aria-labelledby="command-palette-title"
+        aria-describedby="command-palette-description"
       >
+        <h2 id="command-palette-title" className="sr-only">Command Palette</h2>
+        <p id="command-palette-description" className="sr-only">Search and execute commands or navigate to different sections</p>
         {/* Spotlight-style Input Section */}
         <div className="flex items-center px-6 py-5 border-b border-white/5 bg-white/2">
-          <svg className="w-6 h-6 text-gray-400 mr-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6 text-gray-300 mr-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
           </svg>
           <input
             autoFocus
             type="text"
             placeholder="Type a command or search..."
-            className="flex-1 bg-transparent border-none text-white text-lg placeholder-gray-500 focus:ring-0 outline-none font-medium"
+            className="flex-1 bg-transparent border-none text-white text-lg placeholder-gray-400 focus:ring-0 outline-none font-medium"
             value={query}
             onChange={e => setQuery(e.target.value)}
+            aria-label="Command search input"
           />
           <div className="flex items-center gap-2 ml-4">
-            <kbd className="hidden sm:inline-flex items-center px-2 py-1 text-xs font-mono text-gray-400 bg-white/5 border border-white/10 rounded">ESC</kbd>
+            <kbd className="hidden sm:inline-flex items-center px-2 py-1 text-xs font-mono text-gray-300 bg-white/5 border border-white/10 rounded">ESC</kbd>
           </div>
         </div>
 
@@ -213,19 +217,19 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose, onNavi
           {selectableOptions.length === 0 ? (
             <div className="px-6 py-16 text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-white/5 flex items-center justify-center">
-                <svg className="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
               </div>
               <p className="text-lg font-medium text-gray-300 mb-2">No results found</p>
-              <p className="text-sm text-gray-500">Try a different search term</p>
+              <p className="text-sm text-gray-300">Try a different search term</p>
             </div>
           ) : (
             <div className="p-2">
               {groupedResults.map((item, i) => {
                 if (item.isGroup) {
                   return (
-                    <div key={item.title} className="px-4 pt-4 pb-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+                    <div key={item.title} className="px-4 pt-4 pb-2 text-xs font-semibold text-gray-300 uppercase tracking-wider">
                       {item.title}
                     </div>
                   );
@@ -245,14 +249,15 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose, onNavi
                     className={`w-full text-left px-4 py-3.5 flex items-center justify-between transition-all duration-150 rounded-xl group ${
                       isSelected
                         ? 'bg-primary/20 text-white border border-primary/30'
-                        : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                        : 'text-gray-300 hover:bg-white/5 hover:text-white'
                     }`}
                     role="option"
                     aria-selected={isSelected}
+                    aria-label={item.label}
                   >
                     <div className="flex items-center gap-4 flex-1 min-w-0">
                       <div className={`shrink-0 ${item.color ? 'w-5 h-5 rounded-full border-2 border-white/20' : ''}`} style={item.color ? { backgroundColor: item.color } : {}}>
-                        {!item.color && <item.icon className={`w-5 h-5 ${isSelected ? 'text-primary' : 'text-gray-500 group-hover:text-gray-300'}`} />}
+                        {!item.color && <item.icon className={`w-5 h-5 ${isSelected ? 'text-primary' : 'text-gray-300 group-hover:text-white'}`} />}
                       </div>
                       <span className="text-base font-medium truncate">{item.label}</span>
                     </div>

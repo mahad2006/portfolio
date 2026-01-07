@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { motion } from 'framer-motion';
 
 interface SegmentedControlOption {
   value: string;
@@ -28,18 +27,16 @@ export const SegmentedControl = ({ options, value, onChange, size = 'md' }: Segm
         <button
           key={option.value}
           onClick={() => onChange(option.value)}
-          className={`relative ${sizeClasses[size]} rounded-lg font-medium transition-all duration-200 ${
+          className={`relative ${sizeClasses[size]} rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-black ${
             value === option.value 
               ? 'text-black' 
-              : 'text-gray-400 hover:text-white'
+              : 'text-gray-300 hover:text-white'
           }`}
         >
           {value === option.value && (
-            <motion.div
-              layoutId="segment-active"
-              className="absolute inset-0 rounded-lg"
+            <div
+              className="absolute inset-0 rounded-lg transition-all duration-200"
               style={{ backgroundColor: 'var(--color-primary)' }}
-              transition={{ type: 'spring', stiffness: 500, damping: 35 }}
             />
           )}
           <span className="relative z-10 flex items-center gap-2">

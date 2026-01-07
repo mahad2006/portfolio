@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import { motion } from 'framer-motion';
 
 interface ToggleSwitchProps {
   isOn: boolean;
@@ -16,7 +15,7 @@ export const ToggleSwitch = ({ isOn, onToggle, disabled = false, ariaLabel = '' 
     role="switch"
     aria-checked={isOn}
     aria-label={ariaLabel}
-    className={`relative w-14 h-7 rounded-full transition-all duration-300 ${
+    className={`relative w-14 h-7 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-black ${
       disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
     }`}
     style={{ 
@@ -24,10 +23,9 @@ export const ToggleSwitch = ({ isOn, onToggle, disabled = false, ariaLabel = '' 
       boxShadow: isOn ? '0 0 20px var(--color-primary)40' : 'none'
     }}
   >
-    <motion.div
-      className="absolute top-1 w-5 h-5 rounded-full bg-white shadow-lg"
-      animate={{ left: isOn ? '32px' : '4px' }}
-      transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+    <div
+      className="absolute top-1 w-5 h-5 rounded-full bg-white shadow-lg transition-all duration-300"
+      style={{ left: isOn ? '32px' : '4px' }}
     />
   </button>
 );

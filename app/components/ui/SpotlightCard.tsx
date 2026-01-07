@@ -72,7 +72,10 @@ const SpotlightCard = ({ children, className = "" }) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleFocus}
       onMouseLeave={handleBlur}
-      className={`relative overflow-hidden ${className}`}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      tabIndex={0}
+      className={`relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-black ${className}`}
     >
       <div
         className="pointer-events-none absolute -inset-px transition-opacity duration-300"
