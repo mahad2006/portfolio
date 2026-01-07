@@ -36,6 +36,7 @@ interface GraphNode {
     isHub?: boolean;
     x?: number;
     y?: number;
+    emoji?: string;
 }
 
 const NetworkTopology: React.FC = () => {
@@ -193,4 +194,3 @@ const NetworkTopology: React.FC = () => {
 };
 
 export default NetworkTopology;
-
