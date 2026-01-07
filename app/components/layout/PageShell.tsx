@@ -79,7 +79,7 @@ export const PageShell: React.FC<PageShellProps> = ({
               <button
                 onClick={() => setPaletteOpen(true)}
                 onMouseEnter={playClick}
-                className="p-2 text-gray-400 hover:text-white transition-colors"
+                className="p-2 text-gray-400 hover:text-white transition-colors icon-glow"
                 title="Search (Cmd+K)"
                 aria-label="Open Command Palette"
               >
@@ -90,7 +90,7 @@ export const PageShell: React.FC<PageShellProps> = ({
               <button
                 onClick={() => setIsMuted(!isMuted)}
                 onMouseEnter={playClick}
-                className="p-2 text-gray-400 hover:text-white transition-colors"
+                className="p-2 text-gray-400 hover:text-white transition-colors icon-wiggle"
                 title={soundEnabled ? "Mute Sound" : "Unmute Sound"}
                 aria-label={soundEnabled ? "Mute Sound" : "Unmute Sound"}
               >

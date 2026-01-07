@@ -91,94 +91,7 @@ export default function StatsPage() {
       maxWidth="page"
     >
       {/* ═══════════════════════════════════════════════════════════════════
-          TYPING SPEED SECTION
-      ═══════════════════════════════════════════════════════════════════ */}
-      <section className="mb-20">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-surface border border-white/10 flex items-center justify-center">
-              <BoltIcon className="w-5 h-5 text-primary" />
-            </div>
-            <div>
-              <h2 className="text-lg font-bold text-white">Typing Speed</h2>
-              <p className="text-xs text-gray-500">Personal Bests on MonkeyType</p>
-            </div>
-          </div>
-          <VerifyLink url={TYPING_STATS.profileUrl} label="Verify" />
-        </div>
-
-        {/* Personal Bests - MAIN CARDS with spotlight effect */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {Object.entries(TYPING_STATS.personalBests).map(([duration, data]) => (
-            <SpotlightCard
-              key={duration} 
-              className="rounded-xl bg-surface border border-white/10 hover:border-primary/30 transition-colors"
-            >
-              <div className="relative p-6">
-                {/* Crown badge */}
-                <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 rounded-full bg-amber-500/10 border border-amber-500/30">
-                  <CrownIcon className="w-3.5 h-3.5 text-amber-500" />
-                  <span className="text-[10px] font-bold text-amber-500">PB</span>
-                </div>
-                
-                <div className="text-xs text-gray-500 uppercase tracking-wider mb-3">{duration}s</div>
-                <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-4xl font-bold text-white">
-                    {mounted ? <AnimatedCounter target={data.wpm} /> : data.wpm}
-                  </span>
-                  <span className="text-sm text-gray-500">WPM</span>
-                </div>
-                <div className="text-xs text-gray-600">{data.accuracy}% accuracy</div>
-              </div>
-            </SpotlightCard>
-          ))}
-        </div>
-
-        {/* Typing Stats Row - basic cards, no spotlight */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <StatCard 
-            icon={DocumentCheckIcon} 
-            label="Tests Completed" 
-            value={mounted ? <AnimatedCounter target={TYPING_STATS.testsCompleted} /> : TYPING_STATS.testsCompleted} 
-          />
-          <StatCard 
-            icon={ClockIcon} 
-            label="Time Typing" 
-            value={TYPING_STATS.timeTypingHours} 
-            suffix="hrs"
-          />
-          <StatCard 
-            icon={TrophyIcon} 
-            label="Leaderboard" 
-            value={`Top ${TYPING_STATS.leaderboard['60sec'].topPercent}%`}
-            subtext="60 second mode"
-          />
-        </div>
-
-        {/* MonkeyType Link - MAIN CARD with spotlight */}
-        <SpotlightCard className="rounded-xl bg-surface border border-white/10 hover:border-primary/50 transition-all">
-          <a 
-            href={TYPING_STATS.profileUrl} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="group flex items-center justify-between p-6"
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <SiMonkeytype className="w-6 h-6 text-primary" />
-              </div>
-              <div>
-                <div className="text-base font-semibold text-white group-hover:text-primary transition-colors">MonkeyType Profile</div>
-                <div className="text-sm text-gray-500">@CodeWithMahad1 · {TYPING_STATS.testsStarted.toLocaleString()} tests started</div>
-              </div>
-            </div>
-            <ArrowRightIcon className="w-5 h-5 text-gray-500 group-hover:text-primary group-hover:translate-x-1 transition-all" />
-          </a>
-        </SpotlightCard>
-      </section>
-
-      {/* ═══════════════════════════════════════════════════════════════════
-          COMPETITIVE PROGRAMMING SECTION
+          COMPETITIVE PROGRAMMING
       ═══════════════════════════════════════════════════════════════════ */}
       <section className="mb-20">
         <div className="flex items-center justify-between mb-8">
@@ -317,6 +230,52 @@ export default function StatsPage() {
             </div>
           </div>
         </SpotlightCard>
+      </section>
+
+      {/* ═══════════════════════════════════════════════════════════════════
+          TYPING SPEED - Personal Best
+      ═══════════════════════════════════════════════════════════════════ */}
+      <section className="mb-16">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-surface border border-white/10 flex items-center justify-center">
+              <BoltIcon className="w-5 h-5 text-primary" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-white">Typing Speed</h2>
+              <p className="text-xs text-gray-500">Personal Best on MonkeyType</p>
+            </div>
+          </div>
+          <VerifyLink url={TYPING_STATS.profileUrl} label="Verify" />
+        </div>
+
+        {/* Peak Speed - Featured */}
+        <SpotlightCard className="rounded-xl bg-surface border border-primary/30 mb-4">
+          <div className="p-6 flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
+                <CrownIcon className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <span className="text-xs text-gray-500 uppercase tracking-wider">Peak Speed • 10 Words</span>
+                <div className="text-3xl font-bold text-white">
+                  {mounted ? <AnimatedCounter target={TYPING_STATS.personalBests[10].wpm} /> : TYPING_STATS.personalBests[10].wpm}
+                  <span className="text-lg text-gray-500 ml-1">WPM</span>
+                </div>
+              </div>
+            </div>
+            <span className="px-3 py-1 text-xs font-semibold text-primary bg-primary/10 rounded-full">
+              {TYPING_STATS.personalBests[10].accuracy}% Accuracy
+            </span>
+          </div>
+        </SpotlightCard>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <StatCard icon={BoltIcon} label="15s Sprint" value={mounted ? <AnimatedCounter target={TYPING_STATS.personalBests[15].wpm} /> : TYPING_STATS.personalBests[15].wpm} suffix="WPM" subtext={`${TYPING_STATS.personalBests[15].accuracy}% accuracy`} />
+          <StatCard icon={ClockIcon} label="30s Test" value={mounted ? <AnimatedCounter target={TYPING_STATS.personalBests[30].wpm} /> : TYPING_STATS.personalBests[30].wpm} suffix="WPM" subtext={`${TYPING_STATS.personalBests[30].accuracy}% accuracy`} />
+          <StatCard icon={TrophyIcon} label="60s Test" value={mounted ? <AnimatedCounter target={TYPING_STATS.personalBests[60].wpm} /> : TYPING_STATS.personalBests[60].wpm} suffix="WPM" subtext={`${TYPING_STATS.personalBests[60].accuracy}% accuracy`} />
+          <StatCard icon={StarIcon} label="120s Marathon" value={mounted ? <AnimatedCounter target={TYPING_STATS.personalBests[120].wpm} /> : TYPING_STATS.personalBests[120].wpm} suffix="WPM" subtext={`${TYPING_STATS.personalBests[120].accuracy}% accuracy`} />
+        </div>
       </section>
 
       {/* Data Notice */}

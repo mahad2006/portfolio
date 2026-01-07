@@ -34,6 +34,9 @@ export const ROUTES = {
   
   /** Blog/writing archive */
   WRITING: '/writing',
+
+  /** More page - Stack, Philosophy, Writing, etc. */
+  MORE: '/more',
 } as const;
 
 // ============================================================================

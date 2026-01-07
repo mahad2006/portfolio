@@ -1,3 +1,24 @@
+/* Unique icon hover effects for PageShell */
+@keyframes icon-glow {
+  0% { filter: drop-shadow(0 0 0px var(--color-primary)); }
+  100% { filter: drop-shadow(0 0 8px var(--color-primary)); }
+}
+.icon-glow:hover svg {
+  transform: scale(1.15);
+  animation: icon-glow 0.4s forwards;
+}
+
+@keyframes icon-wiggle {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-10deg); }
+  40% { transform: rotate(8deg); }
+  60% { transform: rotate(-6deg); }
+  80% { transform: rotate(4deg); }
+  100% { transform: rotate(0deg); }
+}
+.icon-wiggle:hover svg {
+  animation: icon-wiggle 0.5s;
+}
 @import "tailwindcss";
 
 @theme {

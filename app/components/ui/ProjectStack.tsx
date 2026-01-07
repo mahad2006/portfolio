@@ -270,20 +270,41 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
           {/* Content */}
           <div className="p-6 flex flex-col h-[calc(100%-14rem)]">
             {project.isFlagship && (
-              <span className="text-primary text-xs font-bold tracking-widest uppercase mb-2 block">
-                ⭐ Flagship
+              <span className="text-primary text-xs font-bold tracking-widest uppercase mb-2 flex items-center gap-1.5">
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                Flagship
               </span>
             )}
             <h3
-              className={`text-2xl font-bold mb-3 transition-colors ${
+              className={`text-xl font-bold mb-2 transition-colors ${
                 isActive && isHovered ? 'text-primary' : 'text-white'
               }`}
             >
               {project.title}
             </h3>
-            <p className="text-sm text-gray-400 mb-4 line-clamp-3 grow">
+            <p className="text-sm text-gray-400 mb-3 line-clamp-2">
               {project.tagline || project.caseStudy?.problem}
             </p>
+
+            {/* Impact Statement - Key metric/outcome */}
+            {project.caseStudy?.outcome && isActive && (
+              <div className="text-xs text-primary/80 mb-3 line-clamp-2 border-l-2 border-primary/40 pl-2 flex items-start gap-1.5">
+                <svg className="w-3 h-3 mt-0.5 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>{project.caseStudy.outcome}</span>
+              </div>
+            )}
+
+            {/* Quick Stats */}
+            {project.stats && project.stats.length > 0 && (
+              <div className="flex gap-3 mb-3 text-xs">
+                {project.stats.slice(0, 2).map((stat, idx) => (
+                  <div key={idx} className="text-center">
+                    <div className="text-white font-bold">{stat.value}</div>
+                    <div className="text-gray-500 text-[10px]">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {/* Tags */}
             <div className="flex flex-wrap gap-2 mt-auto">

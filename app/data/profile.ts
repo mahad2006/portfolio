@@ -40,6 +40,7 @@ export const TYPING_STATS = {
   timeTypingHours: 75,
   currentStreak: 7,
   personalBests: {
+    10: { wpm: 192, accuracy: 100 }, // 10 words - Peak Speed
     15: { wpm: 138, accuracy: 100 },
     30: { wpm: 124, accuracy: 94 },
     60: { wpm: 116, accuracy: 95 },

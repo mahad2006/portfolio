@@ -38,90 +38,88 @@ const UBITCommunityPage = () => {
 
   return (
     <PageShell title={null} headerTag="UBIT_HUB">
-      {/* Animated Grid Background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none opacity-10 -z-10">
+      {/* Animated Grid Background - hidden on mobile for performance */}
+      <div className="hidden md:block fixed inset-0 overflow-hidden pointer-events-none opacity-10 -z-10">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(109,179,63,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(109,179,63,0.04)_1px,transparent_1px)] bg-size-[50px_50px]"></div>
       </div>
 
         {/* Hero Section */}
-        <header className="mb-24 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none tracking-tighter uppercase">
+        <header className="mb-12 md:mb-24 text-center px-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 md:mb-6 leading-none tracking-tighter uppercase">
             The<span className="text-primary">_</span>Digital<span className="text-primary">_</span>Campus
           </h1>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm md:text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
             A structured peer-learning ecosystem I founded to help UBIT students learn, collaborate, and grow together.
           </p>
-          <div className="mt-12 flex justify-center gap-8">
+          <div className="mt-8 md:mt-12 flex justify-center gap-6 md:gap-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-primary">
+              <div className="text-2xl md:text-4xl font-bold text-primary">
                 {mounted ? <AnimatedCounter target={stats.peers} suffix="+" /> : `${stats.peers}+`}
               </div>
-              <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">Connected Peers</div>
+              <div className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest mt-1">Connected Peers</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-primary">
+              <div className="text-2xl md:text-4xl font-bold text-primary">
                 {mounted ? <AnimatedCounter target={stats.resources} suffix="+" /> : `${stats.resources}+`}
               </div>
-              <div className="text-xs text-gray-500 uppercase tracking-widest mt-1">Resources Shared</div>
+              <div className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest mt-1">Resources Shared</div>
             </div>
           </div>
         </header>
 
         {/* Network Topology Section */}
-        <section className="mb-24">
-            <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-                <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
+        <section className="mb-12 md:mb-24">
+            <h2 className="text-xs md:text-sm font-bold text-white mb-4 md:mb-8 flex items-center gap-3 md:gap-4 tracking-[0.2em] md:tracking-[0.3em] uppercase opacity-70">
+                <span className="w-8 md:w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
                 Network_Topology
             </h2>
             {mounted && <NetworkTopology />}
         </section>
 
         {/* Why I Created UBIT Hub */}
-        <section className="mb-24">
-            <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-                <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
+        <section className="mb-12 md:mb-24">
+            <h2 className="text-xs md:text-sm font-bold text-white mb-4 md:mb-8 flex items-center gap-3 md:gap-4 tracking-[0.2em] md:tracking-[0.3em] uppercase opacity-70">
+                <span className="w-8 md:w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
                 Mission_Objective
             </h2>
-            <div className="p-8 rounded-2xl bg-surface border border-white/10">
-                <p className="text-lg text-gray-400 leading-relaxed">
+            <div className="p-4 md:p-8 rounded-xl md:rounded-2xl bg-surface border border-white/10">
+                <p className="text-sm md:text-lg text-gray-400 leading-relaxed">
                 At UBIT, many students struggle to find the right guidance, focused discussion spaces without distractions, and seniors or peers who can help with real problems. To solve this, I designed UBIT Hub as a well-structured learning community, not just another WhatsApp group.
                 </p>
             </div>
         </section>
 
         {/* Community Structure */}
-        <section className="mb-24">
-            <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-                <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
+        <section className="mb-12 md:mb-24">
+            <h2 className="text-xs md:text-sm font-bold text-white mb-4 md:mb-8 flex items-center gap-3 md:gap-4 tracking-[0.2em] md:tracking-[0.3em] uppercase opacity-70">
+                <span className="w-8 md:w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
                 Community_Structure
             </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-4">
                 {groups.map(group => (
-                    <div key={group.name} className="group relative p-6 rounded-xl bg-surface border border-white/10 text-center hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
-                        <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div className="relative text-primary w-8 h-8 mx-auto mb-4 group-hover:text-green-300 transition-colors duration-300">
+                    <div key={group.name} className="group relative p-3 md:p-6 rounded-lg md:rounded-xl bg-surface border border-white/10 text-center hover:border-primary transition-colors duration-200">
+                        <div className="relative text-primary w-5 h-5 md:w-8 md:h-8 mx-auto mb-2 md:mb-4">
                             {getIconComponent(group.icon)}
                         </div>
-                        <h3 className="text-sm font-bold text-white">{group.name}</h3>
+                        <h3 className="text-[10px] md:text-sm font-bold text-white leading-tight">{group.name}</h3>
                     </div>
                 ))}
             </div>
         </section>
 
         {/* Features Section */}
-        <section className="mb-24">
-            <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-                <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
+        <section className="mb-12 md:mb-24">
+            <h2 className="text-xs md:text-sm font-bold text-white mb-4 md:mb-8 flex items-center gap-3 md:gap-4 tracking-[0.2em] md:tracking-[0.3em] uppercase opacity-70">
+                <span className="w-8 md:w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
                 Core_Protocols
             </h2>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
                 {features.map(feature => (
-                    <div key={feature.title} className="group relative p-8 rounded-2xl bg-surface border border-white/10 hover:border-primary transition-all duration-300 transform hover:-translate-y-1">
-                        <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div key={feature.title} className="group relative p-4 md:p-8 rounded-xl md:rounded-2xl bg-surface border border-white/10 hover:border-primary transition-colors duration-200">
                         <div className="relative">
-                            <div className="text-primary w-8 h-8 mb-4 group-hover:text-green-300 transition-colors duration-300">{getIconComponent(feature.icon)}</div>
-                            <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
-                            <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                            <div className="text-primary w-6 h-6 md:w-8 md:h-8 mb-3 md:mb-4">{getIconComponent(feature.icon)}</div>
+                            <h3 className="text-base md:text-xl font-bold text-white mb-2 md:mb-3">{feature.title}</h3>
+                            <p className="text-sm md:text-base text-gray-400 leading-relaxed">{feature.description}</p>
                         </div>
                     </div>
                 ))}
@@ -129,29 +127,71 @@ const UBITCommunityPage = () => {
         </section>
 
         {/* My Role Section */}
-        <section className="mb-24">
-            <h2 className="text-sm font-bold text-white mb-8 flex items-center gap-4 tracking-[0.3em] uppercase opacity-70">
-                <span className="w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
+        <section className="mb-12 md:mb-24">
+            <h2 className="text-xs md:text-sm font-bold text-white mb-4 md:mb-8 flex items-center gap-3 md:gap-4 tracking-[0.2em] md:tracking-[0.3em] uppercase opacity-70">
+                <span className="w-8 md:w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
                 My_Role
             </h2>
-            <div className="p-8 rounded-2xl bg-surface border border-white/10">
-                <p className="text-lg text-gray-400 leading-relaxed">
+            <div className="p-4 md:p-8 rounded-xl md:rounded-2xl bg-surface border border-white/10">
+                <p className="text-sm md:text-lg text-gray-400 leading-relaxed">
                 As the Founder & Organizer, I designed the community structure, created and managed all groups, defined and enforced group rules, guided juniors, and moderated discussions to maintain quality. This initiative reflects my interest in leadership and community-driven learning.
                 </p>
             </div>
         </section>
 
+        {/* Social Proof - WhatsApp Screenshots */}
+        <section className="mb-12 md:mb-24">
+            <h2 className="text-xs md:text-sm font-bold text-white mb-4 md:mb-8 flex items-center gap-3 md:gap-4 tracking-[0.2em] md:tracking-[0.3em] uppercase opacity-70">
+                <span className="w-8 md:w-12 h-px bg-linear-to-r from-primary to-transparent"></span>
+                Live_Preview
+            </h2>
+            <div className="flex flex-wrap justify-center gap-4 md:gap-8">
+                {/* Screenshot 1 */}
+                <div className="relative">
+                    <div className="relative w-[160px] h-[320px] md:w-[220px] md:h-[440px] bg-zinc-900 rounded-[1.5rem] md:rounded-[2rem] p-1.5 md:p-2 shadow-xl border-2 border-zinc-800">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 md:w-24 h-4 md:h-5 bg-zinc-900 rounded-b-lg md:rounded-b-xl z-20" />
+                        <div className="relative w-full h-full rounded-[1.2rem] md:rounded-[1.5rem] overflow-hidden bg-black">
+                            <img src="/community/screenshot-1.jpg" alt="UBIT Hub Community" className="w-full h-full object-cover object-top" loading="lazy" />
+                        </div>
+                    </div>
+                    <p className="text-center text-[10px] md:text-xs text-gray-500 mt-2 md:mt-4">Community Overview</p>
+                </div>
+
+                {/* Screenshot 2 */}
+                <div className="relative">
+                    <div className="relative w-[160px] h-[320px] md:w-[220px] md:h-[440px] bg-zinc-900 rounded-[1.5rem] md:rounded-[2rem] p-1.5 md:p-2 shadow-xl border-2 border-zinc-800">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 md:w-24 h-4 md:h-5 bg-zinc-900 rounded-b-lg md:rounded-b-xl z-20" />
+                        <div className="relative w-full h-full rounded-[1.2rem] md:rounded-[1.5rem] overflow-hidden bg-black">
+                            <img src="/community/screenshot-2.jpg" alt="UBIT Central Hub" className="w-full h-full object-cover object-top" loading="lazy" />
+                        </div>
+                    </div>
+                    <p className="text-center text-[10px] md:text-xs text-gray-500 mt-2 md:mt-4">372+ Active Members</p>
+                </div>
+
+                {/* Screenshot 3 */}
+                <div className="relative">
+                    <div className="relative w-[160px] h-[320px] md:w-[220px] md:h-[440px] bg-zinc-900 rounded-[1.5rem] md:rounded-[2rem] p-1.5 md:p-2 shadow-xl border-2 border-zinc-800">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 md:w-24 h-4 md:h-5 bg-zinc-900 rounded-b-lg md:rounded-b-xl z-20" />
+                        <div className="relative w-full h-full rounded-[1.2rem] md:rounded-[1.5rem] overflow-hidden bg-black">
+                            <img src="/community/screenshot-3.jpg" alt="UBIT Hub Groups" className="w-full h-full object-cover object-top" loading="lazy" />
+                        </div>
+                    </div>
+                    <p className="text-center text-[10px] md:text-xs text-gray-500 mt-2 md:mt-4">19 Structured Groups</p>
+                </div>
+            </div>
+        </section>
+
         {/* Call to Action */}
-        <section className="text-center">
-            <h2 className="text-3xl font-bold text-white mb-4">Join the Node</h2>
-            <p className="text-gray-400 mb-8 max-w-xl mx-auto">Become part of a structured peer-learning ecosystem built by students, for students.</p>
-            <div className="flex justify-center gap-4">
-                <a href="https://chat.whatsapp.com/G6rOqzJ0RDQ7YgURVYu8JU" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 bg-[#25D366] text-white font-bold rounded-lg hover:bg-[#20ba5a] transition-all transform hover:scale-105">
-                    <FontAwesomeIcon icon={faWhatsapp} size="lg" />
+        <section className="text-center px-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 md:mb-4">Join the Node</h2>
+            <p className="text-sm md:text-base text-gray-400 mb-6 md:mb-8 max-w-xl mx-auto">Become part of a structured peer-learning ecosystem built by students, for students.</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
+                <a href="https://chat.whatsapp.com/G6rOqzJ0RDQ7YgURVYu8JU" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 md:gap-3 px-5 md:px-6 py-2.5 md:py-3 bg-[#25D366] text-white text-sm md:text-base font-bold rounded-lg hover:bg-[#20ba5a] transition-colors">
+                    <FontAwesomeIcon icon={faWhatsapp} className="text-lg md:text-xl" />
                     Join WhatsApp
                 </a>
-                <a href="https://discord.gg/YdUcFWugSz" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 bg-[#5865F2] text-white font-bold rounded-lg hover:bg-[#4f5bda] transition-all transform hover:scale-105">
-                    <FontAwesomeIcon icon={faDiscord} size="lg" />
+                <a href="https://discord.gg/YdUcFWugSz" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 md:gap-3 px-5 md:px-6 py-2.5 md:py-3 bg-[#5865F2] text-white text-sm md:text-base font-bold rounded-lg hover:bg-[#4f5bda] transition-colors">
+                    <FontAwesomeIcon icon={faDiscord} className="text-lg md:text-xl" />
                     Join Discord
                 </a>
             </div>
