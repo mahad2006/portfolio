@@ -24,7 +24,13 @@ import {
   EyeSlashIcon,
 } from '@heroicons/react/24/outline';
 
-const CommandPalette = ({ isOpen, onClose, onNavigate }) => {
+interface CommandPaletteProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onNavigate?: (id: string) => void;
+}
+
+const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose, onNavigate }) => {
   const router = useRouter();
   const {
     toggleMatrix,

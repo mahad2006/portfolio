@@ -17,6 +17,7 @@ export interface CaseStudy {
   outcome: string;
   architecture: string;
   challenges: CaseStudyChallenge[];
+  lessons?: string;
 }
 
 export interface DiagramConfig {

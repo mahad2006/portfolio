@@ -2,23 +2,37 @@
 import React, { useState, useEffect } from 'react';
 import { useSystem } from '@/hooks/useSystem';
 
-export const SystemDashboard = () => {
+interface Metrics {
+  cpu: number;
+  mem: number;
+  net: string;
+  uptime: string;
+}
+
+export const SystemDashboard: React.FC = () => {
   const { showDashboard, toggleDashboard } = useSystem();
-  const [metrics, setMetrics] = useState({
+  const [metrics, setMetrics] = useState<Metrics>({
     cpu: 0,
     mem: 0,
-    net: 0,
+    net: '0',
     uptime: '00:00:00'
   });
+
+  const formatUptime = (ms: number): string => {
+    const s = Math.floor(ms / 1000);
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+  };
 
   useEffect(() => {
     const startTime = Date.now();
     
     const interval = setInterval(() => {
-      // Simulate fluctuating metrics
       setMetrics({
-        cpu: Math.floor(Math.random() * 15) + 5, // 5-20%
-        mem: Math.floor(Math.random() * 10) + 40, // 40-50%
+        cpu: Math.floor(Math.random() * 15) + 5,
+        mem: Math.floor(Math.random() * 10) + 40,
         net: (Math.random() * 2).toFixed(2),
         uptime: formatUptime(Date.now() - startTime)
       });
@@ -26,14 +40,6 @@ export const SystemDashboard = () => {
 
     return () => clearInterval(interval);
   }, []);
-
-  const formatUptime = (ms) => {
-    const s = Math.floor(ms / 1000);
-    const h = Math.floor(s / 3600);
-    const m = Math.floor((s % 3600) / 60);
-    const sec = s % 60;
-    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
-  };
 
   return (
     <div className={`fixed bottom-32 right-6 z-100 hidden lg:block transition-all duration-700 ease-in-out transform ${showDashboard ? 'translate-x-0 opacity-100' : 'translate-x-[calc(100%+24px)] opacity-50 hover:opacity-100'}`}>

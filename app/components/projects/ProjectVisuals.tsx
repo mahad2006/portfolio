@@ -1,5 +1,7 @@
 'use client';
 
+import React, { ReactNode } from 'react';
+
 /**
  * Project Visuals - Type-specific visual components for project detail pages
  * 
@@ -14,7 +16,14 @@
 // Phone Mockup Component - For Mobile App Projects
 // ============================================================================
 
-export const PhoneMockup = ({ screenName, description, accentColor = 'var(--color-primary)', children }) => (
+interface PhoneMockupProps {
+  screenName?: string;
+  description?: string;
+  accentColor?: string;
+  children?: ReactNode;
+}
+
+export const PhoneMockup: React.FC<PhoneMockupProps> = ({ screenName, description, accentColor = 'var(--color-primary)', children }) => (
   <div className="relative mx-auto" style={{ width: '180px' }}>
     {/* Phone Frame */}
     <div className="relative bg-surface rounded-4xl p-2 shadow-2xl shadow-black/50 border border-white/10">
@@ -218,8 +227,13 @@ const DefaultScreenContent = ({ screenName, accentColor }) => {
   return screens[screenName] || screens['Home'];
 };
 
+interface PhoneMockupGalleryProps {
+  screens?: Array<{ name: string; desc: string }>;
+  accentColor?: string;
+}
+
 // Phone Mockups Gallery for Mobile Apps
-export const PhoneMockupGallery = ({ screens = [], accentColor }) => (
+export const PhoneMockupGallery: React.FC<PhoneMockupGalleryProps> = ({ screens = [], accentColor }) => (
   <div className="py-8">
     <h3 className="text-sm font-bold text-white tracking-[0.2em] uppercase mb-8 flex items-center gap-2">
       <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -555,7 +569,13 @@ const TERMINAL_DATA = {
   },
 };
 
-export const TerminalMockup = ({ slug, title, lines = [] }) => {
+interface TerminalMockupProps {
+  slug?: string;
+  title?: string;
+  lines?: Array<{ type: string; text: string }>;
+}
+
+export const TerminalMockup: React.FC<TerminalMockupProps> = ({ slug, title, lines = [] }) => {
   // Get terminal data from slug or use provided props
   const terminalConfig = slug ? TERMINAL_DATA[slug] : null;
   const displayTitle = terminalConfig?.title || title || 'Terminal';

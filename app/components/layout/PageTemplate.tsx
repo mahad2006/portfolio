@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
 import { 
   Z_INDEX_CLASSES, 
@@ -10,25 +10,20 @@ import {
   MARGIN_BOTTOM_CLASSES,
 } from '@/styles/tokens';
 
+interface PageTemplateProps {
+  title: ReactNode;
+  description?: string;
+  headerTag?: string;
+  maxWidth?: 'page' | 'content' | 'narrow';
+  showHeader?: boolean;
+  action?: ReactNode;
+  children: ReactNode;
+}
+
 /**
  * PageTemplate - Enhanced page layout component for sub-pages
- * 
- * Features:
- * - Fixed header with back navigation and page tag
- * - Configurable max width (page, content, narrow)
- * - Standard section spacing with design tokens
- * - Page heading with optional description
- * - Optional action slot for page-level buttons
- * 
- * @param {string} title - Main page heading (h1)
- * @param {string} description - Optional description text below title
- * @param {string} headerTag - Tag displayed in fixed header (e.g., "SYSTEM_CONFIGURATION")
- * @param {'page' | 'content' | 'narrow'} maxWidth - Container max-width variant
- * @param {boolean} showHeader - Whether to show the fixed header (default: true)
- * @param {ReactNode} action - Optional action element (button, link) for header area
- * @param {ReactNode} children - Page content
  */
-export const PageTemplate = ({ 
+export const PageTemplate: React.FC<PageTemplateProps> = ({ 
   title, 
   description, 
   headerTag = 'SYSTEM',

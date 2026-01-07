@@ -32,7 +32,7 @@ const SettingCard = ({ children, className = '' }) => (
   </div>
 );
 
-const SettingRow = ({ label, description, children, preview }) => (
+const SettingRow = ({ label, description, children, preview }: { label: string; description?: string; children?: React.ReactNode; preview?: React.ReactNode }) => (
   <div className="group py-5 border-b border-white/4 last:border-0 last:pb-0 first:pt-0">
     <div className="flex items-center justify-between gap-6">
       <div className="flex-1 min-w-0">

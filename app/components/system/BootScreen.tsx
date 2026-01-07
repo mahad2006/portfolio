@@ -2,14 +2,24 @@
 import React, { useState, useEffect } from 'react';
 import { useSystem } from '@/hooks/useSystem';
 
-export const BootScreen = ({ onComplete }) => {
+interface BootScreenProps {
+    onComplete?: () => void;
+}
+
+interface LogMessage {
+    text: string;
+    type: 'head' | 'sys';
+    delay: number;
+}
+
+export const BootScreen: React.FC<BootScreenProps> = ({ onComplete }) => {
     const { playType, playSuccess } = useSystem();
-    const [logs, setLogs] = useState([]);
+    const [logs, setLogs] = useState<LogMessage[]>([]);
     const [progress, setProgress] = useState(0);
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        const messages = [
+        const messages: LogMessage[] = [
             { text: ">>> INITIALIZING BOOT_SEQUENCE v4.2.0", type: "head", delay: 100 },
             { text: "CORE: ATOMIC_KERNEL_7.1.4_STABLE", type: "sys", delay: 50 },
             { text: "MEM_CHECK: 64GB LPDDR5X ... [ OK ]", type: "sys", delay: 150 },
@@ -37,7 +47,7 @@ export const BootScreen = ({ onComplete }) => {
                 }
             }, currentDelay);
         });
-    }, [onComplete]);
+    }, [onComplete, playType, playSuccess]);
 
     if (!isVisible) return null;
 

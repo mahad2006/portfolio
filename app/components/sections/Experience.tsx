@@ -27,7 +27,7 @@ export const Experience = () => {
               
               {item.link ? (
                 <Link href={item.link} passHref>
-                  <SpotlightCard as="a" className="card-base p-8 rounded-xl block transition-colors group">
+                  <SpotlightCard className="card-base p-8 rounded-xl block transition-colors group">
                     <p className="text-gray-400 mb-4">{item.description}</p>
                     {item.achievements.length > 0 && (
                       <ul className="space-y-2 text-sm text-gray-400 mb-6">

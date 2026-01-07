@@ -82,7 +82,7 @@ export const Connect = () => {
               <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-500 text-xs mt-1" />
             </div>
             <div>
-              <textarea id="message" name="message" rows="4" placeholder="Your Message" required className="input-field resize-none"></textarea>
+              <textarea id="message" name="message" rows={4} placeholder="Your Message" required className="input-field resize-none"></textarea>
               <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-500 text-xs mt-1" />
             </div>
             <button type="submit" disabled={state.submitting} className="w-full py-4 font-bold rounded-lg transition-all flex justify-center items-center gap-2 transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed bg-primary text-black hover:opacity-90">

@@ -19,7 +19,15 @@ import { AUTHOR_NAME, AUTHOR_TITLE } from './site';
  * - isClear: Whether this is a clear command
  * - color: Optional text color class
  */
-export const HERO_COMMANDS = {
+
+export interface HeroCommand {
+  text: string;
+  action?: (toggleMatrix?: () => void) => void;
+  isClear?: boolean;
+  color?: string;
+}
+
+export const HERO_COMMANDS: Record<string, HeroCommand> = {
   help: {
     text: `Available commands:
   about     - Brief bio

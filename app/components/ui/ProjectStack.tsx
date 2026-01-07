@@ -192,9 +192,9 @@ const ProjectCard = ({ project, position, config, isActive, onClick }) => {
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={(e) => {
+      onClick={(e: React.MouseEvent<HTMLDivElement>) => {
         // If clicking on an interactive element inside, don't navigate
-        if (e.target.closest('a, button')) return;
+        if ((e.target as HTMLElement).closest('a, button')) return;
         if (isActive) {
           router.push(`/projects/${project.slug}`);
         } else {

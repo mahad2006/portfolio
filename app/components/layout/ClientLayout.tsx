@@ -31,7 +31,7 @@ export default function ClientLayout({ children }) {
   const { isCommandPaletteOpen, toggleCommandPalette } = useSystem();
   const isHome = pathname === ROUTES.HOME;
 
-  const handleNavigate = (id) => {
+  const handleNavigate = (id: string): void => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });

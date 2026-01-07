@@ -2,8 +2,9 @@
 import React, { useRef, useEffect } from 'react';
 import ForceGraph2D from 'react-force-graph-2d';
 
-const NetworkTopology = () => {
-    const graphRef = useRef();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const NetworkTopology: React.FC = () => {
+    const graphRef = useRef<any>(null);
 
     useEffect(() => {
         if (graphRef.current) {
@@ -34,7 +35,8 @@ const NetworkTopology = () => {
                 linkColor={() => 'rgba(255,255,255,0.2)'}
                 linkWidth={1}
                 backgroundColor="transparent"
-                enableZoomPanInteraction={false}
+                enableZoomInteraction={false}
+                enablePanInteraction={false}
             />
         </div>
     );

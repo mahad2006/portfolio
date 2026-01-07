@@ -86,7 +86,7 @@ const HardwareItem = ({ item, featured = false }) => {
 };
 
 // Tool card component - basic card, NO spotlight, arrow gray -> accent on hover
-const ToolCard = ({ name, category, desc, link, icon: Icon }) => (
+const ToolCard = ({ name, category, desc, link, icon: Icon }: { name: string; category: string; desc: string; link?: string; icon: React.ElementType }) => (
   <div className="p-5 h-full rounded-xl bg-surface border border-white/10 hover:border-white/20 transition-colors">
     <div className="flex items-start justify-between mb-3">
       <div className="flex items-center gap-3">

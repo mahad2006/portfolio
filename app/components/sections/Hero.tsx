@@ -1,18 +1,24 @@
 'use client';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, KeyboardEvent } from 'react';
 import { useSystem } from '@/hooks/useSystem';
 import { HERO_COMMANDS } from '@/config/commands';
 
-export const Hero = () => {
+interface HistoryItem {
+  text: string;
+  type: string;
+  color?: string;
+}
+
+export const Hero: React.FC = () => {
   const { playType, playClick, playSuccess, toggleMatrix } = useSystem();
-  const [history, setHistory] = useState([
+  const [history, setHistory] = useState<HistoryItem[]>([
     { text: "System initialized. Ready for commands.", type: "system" },
     { text: "Type 'help' to see available commands.", type: "system" },
   ]);
   const [inputVal, setInputVal] = useState('');
-  const [isTyping, setIsTyping] = useState(true); // Initial typewriter effect
-  const chatRef = useRef(null);
-  const inputRef = useRef(null);
+  const [isTyping, setIsTyping] = useState(true);
+  const chatRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Auto-scroll to bottom of terminal
   useEffect(() => {
@@ -46,13 +52,13 @@ export const Hero = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleCommand = (e) => {
+  const handleCommand = (e: KeyboardEvent<HTMLInputElement>): void => {
     if (e.key === 'Enter') {
       playClick();
       const cmd = inputVal.trim().toLowerCase();
-      const newHistory = [...history, { text: `$ ${inputVal}`, type: "command" }];
+      const newHistory: HistoryItem[] = [...history, { text: `$ ${inputVal}`, type: "command" }];
       
-      let response = { text: "", type: "output" };
+      let response: HistoryItem = { text: "", type: "output" };
 
       const command = HERO_COMMANDS[cmd];
       if (command) {
@@ -80,7 +86,7 @@ export const Hero = () => {
         }
       }
 
-      if (cmd) newHistory.push({ ...response, text: response.text }); // Add response
+      if (cmd) newHistory.push({ ...response, text: response.text });
       setHistory(newHistory);
       setInputVal('');
     }

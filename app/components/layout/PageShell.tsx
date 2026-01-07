@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import Link from 'next/link';
 import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
 import CommandPalette from '@/components/ui/CommandPalette';
@@ -15,6 +15,14 @@ import {
   LAYOUT 
 } from '@/styles/tokens';
 
+interface PageShellProps {
+  title?: React.ReactNode;
+  description?: string | null;
+  headerTag?: string;
+  hideActions?: boolean;
+  children: ReactNode;
+}
+
 /**
  * PageShell - Standardized page layout wrapper for sub-pages
  * 
@@ -24,14 +32,8 @@ import {
  * - Right: Search, Mute, Settings icons (optional)
  * 
  * Uses design tokens from @/styles/tokens for consistent spacing
- * 
- * @param {string} title - Main page heading
- * @param {string} description - Optional description text below title
- * @param {string} headerTag - Tag displayed in the fixed header (e.g., "UBIT_HUB")
- * @param {boolean} hideActions - Hide the action icons (search, mute, settings)
- * @param {ReactNode} children - Page content
  */
-export const PageShell = ({ 
+export const PageShell: React.FC<PageShellProps> = ({ 
   title, 
   description, 
   headerTag = 'SYSTEM',
@@ -43,7 +45,7 @@ export const PageShell = ({
 
   // Keyboard shortcut for command palette
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         setPaletteOpen(open => !open);

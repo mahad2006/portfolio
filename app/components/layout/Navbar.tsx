@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import CommandPalette from '@/components/ui/CommandPalette';
+import { TerminalBackButton } from '@/components/ui/TerminalBackButton';
 import { useSystem } from '@/hooks/useSystem';
 import { ROUTES, NAV_LINKS, SECTIONS } from '@/config/routes';
 import { AUTHOR_NAME } from '@/config/site';
 
-export const Navbar = () => {
+export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const isHome = pathname === ROUTES.HOME;
   const { playClick, isMuted, setIsMuted, soundEnabled } = useSystem();

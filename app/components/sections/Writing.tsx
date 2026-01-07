@@ -32,7 +32,7 @@ export const Writing = () => {
               <Link
                 href={writingRoute(post.slug)}
                 className="block p-8 rounded-2xl card-base border border-transparent transition-all group relative overflow-hidden h-full"
-                style={{'--hover-color': post.color}}
+                style={{'--hover-color': post.color} as React.CSSProperties}
               >
                 <div className="absolute inset-0 bg-linear-to-br from-(--hover-color)/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute inset-0 border border-transparent group-hover:border-(--hover-color) rounded-2xl transition-colors duration-300"></div>
