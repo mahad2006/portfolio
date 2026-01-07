@@ -27,7 +27,7 @@ export const RequestLogger = () => {
 
     // Use incrementing counter for unique IDs instead of Date.now()
     logIdRef.current += 1;
-    
+
     const newLog = {
       id: `log-${logIdRef.current}-${Date.now()}`,
       timestamp,
@@ -48,7 +48,7 @@ export const RequestLogger = () => {
   if (isDismissed) return null;
 
   return (
-    <div className={`fixed bottom-6 left-6 z-100 hidden lg:block transition-all duration-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`}>
+    <div className={`fixed bottom-6 left-6 z-100 hidden lg:block transition-all duration-300 opacity-60 hover:opacity-100 ${isVisible ? 'translate-y-0' : 'translate-y-4 pointer-events-none'}`}>
       <div className="card-base p-3 rounded-lg w-72 font-mono text-[9px] pointer-events-auto">
         <div className="flex items-center justify-between mb-2 pb-2 border-b border-(--border-subtle)">
           <div className="flex items-center gap-2">

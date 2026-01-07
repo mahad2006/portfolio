@@ -34,7 +34,7 @@ export const Hero: React.FC = () => {
       playClick();
       const cmd = inputVal.trim().toLowerCase();
       const newHistory: HistoryItem[] = [...history, { text: `$ ${inputVal}`, type: "command" }];
-      
+
       let response: HistoryItem = { text: "", type: "output" };
 
       const command = HERO_COMMANDS[cmd];
@@ -89,7 +89,7 @@ export const Hero: React.FC = () => {
         </h1>
 
         <p className="text-gray-300 text-sm md:text-lg lg:text-xl max-w-2xl mx-auto mb-8 md:mb-12 font-medium px-2">
-          I care about latency, memory usage, and why systems fail. 
+          I care about latency, memory usage, and why systems fail.
           Currently building distributed infrastructures.
         </p>
 
@@ -105,7 +105,7 @@ export const Hero: React.FC = () => {
             <div className="text-[8px] md:text-[10px] text-gray-500 font-mono">bash</div>
           </div>
           {/* Terminal Content */}
-          <div 
+          <div
             ref={chatRef}
             className="p-3 md:p-6 h-40 md:h-64 overflow-y-auto font-mono text-xs md:text-sm text-left scroll-smooth bg-terminal"
           >
@@ -135,9 +135,9 @@ export const Hero: React.FC = () => {
           {/* Terminal Input */}
           <div className="px-3 md:px-4 py-2 md:py-3 bg-white/5 border-t border-white/5 flex items-center gap-2">
             <span className="text-primary font-mono text-xs md:text-sm">➜</span>
-            <input 
+            <input
               ref={inputRef}
-              type="text" 
+              type="text"
               className="bg-transparent border-none outline-none text-white font-mono text-xs md:text-sm w-full focus:ring-0"
               placeholder="Type 'help' for commands..."
               value={inputVal}
@@ -146,7 +146,6 @@ export const Hero: React.FC = () => {
                 if (e.target.value.length > inputVal.length) playType();
               }}
               onKeyDown={handleCommand}
-              disabled={isTyping}
               aria-label="Terminal command input"
               aria-describedby="terminal-help"
             />
@@ -158,13 +157,13 @@ export const Hero: React.FC = () => {
 
         {/* CTA Buttons */}
         <div className="mt-8 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
-          <button 
+          <button
             onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
             className="px-6 md:px-8 py-2.5 md:py-3 bg-primary text-black text-sm md:text-base font-bold rounded-md hover:opacity-90 transition-all w-full sm:w-auto"
           >
             View Projects
           </button>
-          <a 
+          <a
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
@@ -172,14 +171,14 @@ export const Hero: React.FC = () => {
           >
             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
             <svg className="w-4 h-4 md:w-5 md:h-5 text-primary relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
             <span className="relative z-10">Resume</span>
             <svg className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary/70 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
-          <button 
+          <button
             onClick={() => document.getElementById('connect')?.scrollIntoView({ behavior: 'smooth' })}
             className="px-6 md:px-8 py-2.5 md:py-3 bg-transparent text-primary text-sm md:text-base font-bold border border-primary/50 rounded-md hover:bg-primary/10 transition-all w-full sm:w-auto"
           >

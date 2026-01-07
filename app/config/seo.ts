@@ -8,10 +8,10 @@
  *   import { DEFAULT_SEO, PAGE_SEO, getPageSEO } from '@/config/seo';
  */
 
-import { 
-  SITE_NAME, 
-  SITE_URL, 
-  SITE_DESCRIPTION, 
+import {
+  SITE_NAME,
+  SITE_URL,
+  SITE_DESCRIPTION,
   AUTHOR_NAME,
   AUTHOR_EMAIL,
   SOCIAL_LINKS,
@@ -59,31 +59,34 @@ export const DEFAULT_OG_IMAGE = {
 /** Default SEO metadata applied to all pages via layout.js */
 export const DEFAULT_SEO = {
   metadataBase: SITE_URL,
-  
+
   title: {
     default: `${AUTHOR_NAME} | Backend Engineer`,
     template: `%s | ${AUTHOR_NAME}`,
   },
-  
+
   description: SITE_DESCRIPTION,
-  
+
   keywords: [
     AUTHOR_NAME,
     'Backend Engineer',
-    'Systems Engineer', 
+    'Backend Developer',
+    'Software Engineering Student',
+    'Systems Engineer',
     'Java Developer',
     'Spring Boot',
+    'Next.js',
     'Next.js Portfolio',
     'Distributed Systems',
     'Performance Engineering',
     'Karachi Software Engineer',
     'UBIT',
   ],
-  
+
   authors: [{ name: AUTHOR_NAME, url: SITE_URL }],
   creator: AUTHOR_NAME,
   publisher: AUTHOR_NAME,
-  
+
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -93,7 +96,7 @@ export const DEFAULT_SEO = {
     description: SITE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE],
   },
-  
+
   twitter: {
     card: 'summary_large_image',
     site: SOCIAL_LINKS.twitter.display,
@@ -102,7 +105,7 @@ export const DEFAULT_SEO = {
     description: SITE_DESCRIPTION,
     images: [PROFILE_IMAGE_URL],
   },
-  
+
   robots: {
     index: true,
     follow: true,
@@ -114,7 +117,7 @@ export const DEFAULT_SEO = {
       'max-snippet': -1,
     },
   },
-  
+
   alternates: {
     canonical: SITE_URL,
     types: {
@@ -140,7 +143,7 @@ export const PAGE_SEO: Record<string, PageSEOConfig> = {
     priority: 1.0,
     changeFrequency: 'daily',
   },
-  
+
   // Community page
   community: {
     title: 'UBIT Community',
@@ -149,7 +152,7 @@ export const PAGE_SEO: Record<string, PageSEOConfig> = {
     priority: 0.8,
     changeFrequency: 'monthly',
   },
-  
+
   // Stats page
   stats: {
     title: 'Career Analytics',
@@ -158,7 +161,7 @@ export const PAGE_SEO: Record<string, PageSEOConfig> = {
     priority: 0.7,
     changeFrequency: 'weekly',
   },
-  
+
   // Uses page
   uses: {
     title: 'Uses',
@@ -167,7 +170,7 @@ export const PAGE_SEO: Record<string, PageSEOConfig> = {
     priority: 0.6,
     changeFrequency: 'yearly',
   },
-  
+
   // Writing archive
   writing: {
     title: 'Writing & Articles',
@@ -176,7 +179,7 @@ export const PAGE_SEO: Record<string, PageSEOConfig> = {
     priority: 0.7,
     changeFrequency: 'weekly',
   },
-  
+
   // Projects archive
   projects: {
     title: 'Projects',
@@ -185,7 +188,7 @@ export const PAGE_SEO: Record<string, PageSEOConfig> = {
     priority: 0.8,
     changeFrequency: 'monthly',
   },
-  
+
   // Settings page (noIndex - user preference page)
   settings: {
     title: 'Settings',
@@ -225,9 +228,9 @@ export const getCanonicalUrl = (path: string): string => {
  * @param project - Project data object
  * @returns PageSEOConfig for the project
  */
-export const getProjectSEO = (project: { 
-  slug: string; 
-  title: string; 
+export const getProjectSEO = (project: {
+  slug: string;
+  title: string;
   tagline: string;
   image?: string;
 }): PageSEOConfig => ({
