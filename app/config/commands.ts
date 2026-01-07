@@ -32,7 +32,6 @@ export const HERO_COMMANDS: Record<string, HeroCommand> = {
     text: `Available commands:
   about     - Brief bio
   projects  - View work
-  stack     - Tech stack
   stats     - Performance metrics
   uses      - My dev setup
   status    - System health
@@ -51,10 +50,6 @@ export const HERO_COMMANDS: Record<string, HeroCommand> = {
   projects: {
     text: "Navigating to Projects section...",
     action: () => document.getElementById(SECTIONS.PROJECTS)?.scrollIntoView({ behavior: 'smooth' }),
-  },
-  stack: {
-    text: "Navigating to Tech Stack...",
-    action: () => document.getElementById(SECTIONS.STACK)?.scrollIntoView({ behavior: 'smooth' }),
   },
   contact: {
     text: "Opening comms channel...",
@@ -93,6 +88,7 @@ export const HERO_COMMANDS: Record<string, HeroCommand> = {
     text: "Nice try. I have backups.",
     color: "text-red-500",
   },
+    // Remove any other commands referencing removed sections (philosophy, writing, impact) if present
 };
 
 export default HERO_COMMANDS;
