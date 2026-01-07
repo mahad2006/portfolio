@@ -65,9 +65,7 @@ export const SECTIONS = {
   HERO: 'hero',
   ABOUT: 'about',
   PROJECTS: 'projects',
-  STACK: 'stack',
   EXPERIENCE: 'experience',
-  WRITING: 'writing',
   CONNECT: 'connect',
 } as const;
 
@@ -96,8 +94,8 @@ export const STATIC_ROUTES = {
 export const NAV_LINKS = [
   { label: 'About', id: SECTIONS.ABOUT },
   { label: 'Projects', id: SECTIONS.PROJECTS },
-  { label: 'Stack', id: SECTIONS.STACK },
-  { label: 'Writing', id: SECTIONS.WRITING },
+  { label: 'Experience', id: SECTIONS.EXPERIENCE },
+  { label: 'Connect', id: SECTIONS.CONNECT },
 ] as const;
 
 // ============================================================================
