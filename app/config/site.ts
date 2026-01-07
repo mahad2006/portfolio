@@ -22,7 +22,7 @@ export const SITE_TITLE = "Shaikh Mahad's Portfolio";
 export const SITE_URL = 'https://shaikhmahad.vercel.app';
 
 /** Site description for SEO and metadata */
-export const SITE_DESCRIPTION = '2rd-year UBIT student building backend systems with Java, Spring Boot, PostgreSQL. 1521 LeetCode rating, 231 problems solved.';
+export const SITE_DESCRIPTION = '2nd-year UBIT student building backend systems with Java, Spring Boot, PostgreSQL. 1521 LeetCode rating, 231 problems solved.';
 
 // ============================================================================
 // Author Information
