@@ -260,3 +260,32 @@ h1, h2, h3, .mono {
 [data-radius="rounded"] {
   --radius: 0.5rem;
 }
+
+/* Marquee Animations for Stack Section */
+@keyframes marquee-left {
+  0% { transform: translate(0); }
+  to { transform: translate(-50%); }
+}
+@keyframes marquee-right {
+  0% { transform: translate(-50%); }
+  to { transform: translate(0); }
+}
+.animate-marquee-left {
+  animation: 40s linear infinite marquee-left;
+}
+.animate-marquee-right {
+  animation: 40s linear infinite marquee-right;
+}
+.animate-marquee-slow {
+  animation: 50s linear infinite marquee-left;
+}
+.marquee-paused {
+  animation-play-state: paused !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left,
+  .animate-marquee-right,
+  .animate-marquee-slow {
+    animation: none;
+  }
+}

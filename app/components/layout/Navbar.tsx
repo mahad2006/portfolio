@@ -27,7 +27,7 @@ export const Navbar: React.FC = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setScrolled(window.scrollY > 50);
-          const sections = [SECTIONS.ABOUT, SECTIONS.PROJECTS, SECTIONS.EXPERIENCE, SECTIONS.IMPACT, SECTIONS.CONNECT];
+          const sections = [SECTIONS.ABOUT, SECTIONS.PROJECTS, SECTIONS.EXPERIENCE, SECTIONS.CONNECT];
           const scrollPosition = window.scrollY + 250;
           for (const section of sections) {
             const element = document.getElementById(section);
