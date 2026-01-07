@@ -7,8 +7,10 @@ import { ROUTES } from '@/config/routes';
 import { FadeUp, ScaleUp } from '@/components/ui/AnimatedSection';
 
 export const Projects = () => {
-  // Use all projects for the infinite loop
-  const allProjects = projectsData;
+  // Filter out console/C++ projects and DSA documentation from homepage
+  const allProjects = projectsData.filter(project => 
+    project.type !== 'console' && !project.title.toLowerCase().includes('dsa')
+  );
 
   return (
     <section id="projects" className="py-32 relative bg-[#080808]">
