@@ -146,6 +146,10 @@ const UBITCommunityPage = () => {
             <h2 className="text-3xl font-bold text-white mb-4">Join the Node</h2>
             <p className="text-gray-400 mb-8 max-w-xl mx-auto">Become part of a structured peer-learning ecosystem built by students, for students.</p>
             <div className="flex justify-center gap-4">
+                <a href="https://chat.whatsapp.com/G6rOqzJ0RDQ7YgURVYu8JU" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 bg-[#25D366] text-white font-bold rounded-lg hover:bg-[#20ba5a] transition-all transform hover:scale-105">
+                    <FontAwesomeIcon icon={faWhatsapp} size="lg" />
+                    Join WhatsApp
+                </a>
                 <a href="https://discord.gg/YdUcFWugSz" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 px-6 py-3 bg-[#5865F2] text-white font-bold rounded-lg hover:bg-[#4f5bda] transition-all transform hover:scale-105">
                     <FontAwesomeIcon icon={faDiscord} size="lg" />
                     Join Discord

@@ -8,6 +8,7 @@ const Projects = dynamic(() => import('@/components/sections/Projects').then(mod
 const Stack = dynamic(() => import('@/components/sections/Stack').then(mod => mod.Stack));
 const Writing = dynamic(() => import('@/components/sections/Writing').then(mod => mod.Writing));
 const CommandPalette = dynamic(() => import('@/components/ui/CommandPalette'));
+const VerifiedMetrics = dynamic(() => import('@/components/sections/VerifiedMetrics').then(mod => mod.VerifiedMetrics));
 const Impact = dynamic(() => import('@/components/sections/Impact').then(mod => mod.Impact));
 const Experience = dynamic(() => import('@/components/sections/Experience').then(mod => mod.Experience));
 const Connect = dynamic(() => import('@/components/sections/Connect').then(mod => mod.Connect));
@@ -35,6 +36,7 @@ export default function Home() {
           <Philosophy />
           <Projects />
           <Stack />
+          <VerifiedMetrics />
           <Writing />
           <Impact />
           <Experience />

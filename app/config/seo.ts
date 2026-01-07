@@ -53,7 +53,7 @@ export const DEFAULT_OG_IMAGE = {
   url: PROFILE_IMAGE_URL,
   width: 1200,
   height: 630,
-  alt: `${AUTHOR_NAME} - Backend Systems Engineer`,
+  alt: `${AUTHOR_NAME} - Backend Engineer`,
 };
 
 /** Default SEO metadata applied to all pages via layout.js */
@@ -61,7 +61,7 @@ export const DEFAULT_SEO = {
   metadataBase: SITE_URL,
   
   title: {
-    default: `${AUTHOR_NAME} | Backend Systems Engineer`,
+    default: `${AUTHOR_NAME} | Backend Engineer`,
     template: `%s | ${AUTHOR_NAME}`,
   },
   
@@ -89,7 +89,7 @@ export const DEFAULT_SEO = {
     locale: 'en_US',
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: `${AUTHOR_NAME} | Backend Systems Engineer`,
+    title: `${AUTHOR_NAME} | Backend Engineer`,
     description: SITE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE],
   },

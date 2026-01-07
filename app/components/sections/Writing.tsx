@@ -18,7 +18,7 @@ export const Writing = () => {
         <FadeUp>
           <div className="flex justify-between items-center mb-12">
             <h2 className="text-3xl font-bold flex items-center gap-3">
-              <span className="text-primary mono text-2xl">05.</span> Technical Writing
+              <span className="text-primary mono text-2xl">06.</span> Technical Writing
             </h2>
             <Link href={ROUTES.WRITING} className="group text-sm font-bold text-gray-400 hover:text-white transition-colors flex items-center gap-2">
               View All Articles

@@ -68,6 +68,21 @@ export const Connect = () => {
                 <a href={SOCIAL_LINKS.leetcode.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.leetcode.label} profile`}>{SOCIAL_LINKS.leetcode.label}</a>
                 <a href={SOCIAL_LINKS.codolio.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors hover:underline" aria-label={`View ${SOCIAL_LINKS.codolio.label} profile`}>{SOCIAL_LINKS.codolio.label}</a>
               </div>
+
+              {/* Resume Download Button */}
+              <a
+                href="/resume.pdf"
+                download
+                className="flex items-center justify-center gap-3 p-4 card-base rounded-lg hover:border-(--border-highlight) transition-all group hover:-translate-y-1 bg-primary/5 hover:bg-primary/10 mt-6"
+                aria-label="Download Resume"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7 10 12 15 17 10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                <span className="text-white font-semibold group-hover:text-primary transition-colors">Download Resume</span>
+              </a>
             </div>
           </SlideInLeft>
           <SlideInRight delay={0.3}>

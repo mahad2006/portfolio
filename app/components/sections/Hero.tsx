@@ -103,12 +103,12 @@ export const Hero: React.FC = () => {
         {/* Status Badge */}
         <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-primary text-xs font-bold tracking-widest uppercase hover:bg-primary/10 transition-colors cursor-default hover:scale-105 transform duration-300">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-          BSSE @ UBIT · 3rd Semester
+          Backend Engineer @ UBIT
         </div>
 
         <h1 className="text-5xl md:text-8xl font-bold tracking-tighter mb-6 text-white leading-tight">
-          Engineering <span className="text-gradient glitch-text">Backend</span> <br />
-          Systems <span className="mono text-primary glitch-text">At Scale.</span>
+          Building <span className="text-gradient glitch-text">Systems</span> <br />
+          That <span className="mono text-primary glitch-text">Scale.</span>
         </h1>
 
         <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 font-medium">

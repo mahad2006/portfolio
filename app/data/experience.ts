@@ -45,7 +45,7 @@ export const EXPERIENCE_ITEMS = [
 
 export const EXPERIENCE_SECTION = {
   title: 'Impact & Leadership',
-  sectionNumber: '06',
+  sectionNumber: '08',
 };
 
 // ============================================================================

@@ -22,7 +22,7 @@ export const SITE_TITLE = "Shaikh Mahad's Portfolio";
 export const SITE_URL = 'https://shaikhmahad.vercel.app';
 
 /** Site description for SEO and metadata */
-export const SITE_DESCRIPTION = 'Backend Systems Engineer specializing in distributed systems, Java, Spring Boot, and scalable architectures.';
+export const SITE_DESCRIPTION = '3rd-year UBIT student building backend systems with Java, Spring Boot, PostgreSQL. 1521 LeetCode rating, 231 problems solved.';
 
 // ============================================================================
 // Author Information
@@ -32,7 +32,7 @@ export const SITE_DESCRIPTION = 'Backend Systems Engineer specializing in distri
 export const AUTHOR_NAME = 'Shaikh Mahad';
 
 /** Author's job title */
-export const AUTHOR_TITLE = 'Backend Systems Engineer';
+export const AUTHOR_TITLE = 'Backend Engineer';
 
 /** Author's primary email */
 export const AUTHOR_EMAIL = 'codewithmahad@gmail.com';
