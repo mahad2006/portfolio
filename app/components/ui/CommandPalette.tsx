@@ -65,8 +65,8 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({ isOpen, onClose, onNavi
         { id: 'home', label: 'Go to Home', action: () => onNavigate(SECTIONS.HERO), icon: HomeIcon, shortcut: '↵' },
         { id: 'about', label: 'Go to About', action: () => onNavigate(SECTIONS.ABOUT), icon: UserIcon, shortcut: '↵' },
         { id: 'projects', label: 'Go to Projects', action: () => onNavigate(SECTIONS.PROJECTS), icon: CodeBracketIcon, shortcut: '↵' },
-        { id: 'stack', label: 'Go to Tech Stack', action: () => onNavigate(SECTIONS.STACK), icon: CommandLineIcon, shortcut: '↵' },
-        { id: 'writing', label: 'Go to Writing', action: () => onNavigate(SECTIONS.WRITING), icon: PencilSquareIcon, shortcut: '↵' },
+        { id: 'stack', label: 'Go to Tech Stack', action: () => { router.push(ROUTES.MORE); onClose(); }, icon: CommandLineIcon, shortcut: '↵' },
+        { id: 'writing', label: 'Go to Writing', action: () => { router.push(ROUTES.WRITING); onClose(); }, icon: PencilSquareIcon, shortcut: '↵' },
         { id: 'connect', label: 'Go to Contact', action: () => onNavigate(SECTIONS.CONNECT), icon: EnvelopeIcon, shortcut: '↵' },
       ]
     },

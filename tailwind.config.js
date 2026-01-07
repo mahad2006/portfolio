@@ -4,6 +4,12 @@ module.exports = {
         "./app/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
     ],
+    safelist: [
+        'animate-marquee-left',
+        'animate-marquee-right',
+        'animate-marquee-slow',
+        'marquee-paused',
+    ],
     theme: {
         extend: {
             colors: {
