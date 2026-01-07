@@ -241,28 +241,28 @@ const THEME_PRESETS = [
     name: 'Developer',
     description: 'Clean and focused for coding',
     icon: Icons.developer,
-    settings: { accentColor: '#6DB33F', fontMode: 'mono', reduceMotion: false }
+    settings: { accentColor: '#6DB33F', reduceMotion: false }
   },
   {
     id: 'minimal',
     name: 'Minimal',
     description: 'Distraction-free experience',
     icon: Icons.minimal,
-    settings: { accentColor: '#64748b', fontMode: 'sans', reduceMotion: true }
+    settings: { accentColor: '#64748b', reduceMotion: true }
   },
   {
     id: 'creative',
     name: 'Creative',
     description: 'Bold and expressive',
     icon: Icons.creative,
-    settings: { accentColor: '#d946ef', fontMode: 'sans', reduceMotion: false }
+    settings: { accentColor: '#d946ef', reduceMotion: false }
   },
   {
     id: 'hacker',
     name: 'Hacker',
     description: 'Matrix-style terminal vibes',
     icon: Icons.hacker,
-    settings: { accentColor: '#22c55e', fontMode: 'mono', reduceMotion: false }
+    settings: { accentColor: '#22c55e', reduceMotion: false }
   },
 ];
 
@@ -277,10 +277,6 @@ export default function SettingsPage() {
     soundEnabled,
     accentColor,
     setAccentColor,
-    cursorStyle,
-    setCursorStyle,
-    fontMode,
-    setFontMode,
     reduceMotion,
     setReduceMotion,
     matrixActive,
@@ -297,11 +293,10 @@ export default function SettingsPage() {
   useEffect(() => {
     const current = THEME_PRESETS.find(preset => 
       preset.settings.accentColor === accentColor &&
-      preset.settings.fontMode === fontMode &&
       preset.settings.reduceMotion === reduceMotion
     );
     setActivePreset(current?.id || null);
-  }, [accentColor, fontMode, reduceMotion]);
+  }, [accentColor, reduceMotion]);
 
   const handleReset = () => {
     resetSettings();
@@ -311,7 +306,6 @@ export default function SettingsPage() {
   const applyPreset = (preset) => {
     playClick?.();
     setAccentColor(preset.settings.accentColor);
-    setFontMode(preset.settings.fontMode);
     setReduceMotion(preset.settings.reduceMotion);
     setActivePreset(preset.id);
   };
@@ -319,8 +313,6 @@ export default function SettingsPage() {
   const exportSettings = () => {
     const settings = {
       accentColor,
-      fontMode,
-      cursorStyle,
       reduceMotion,
       soundEnabled,
       matrixActive,
@@ -391,11 +383,6 @@ export default function SettingsPage() {
                 icon={<div className="w-4 h-4 rounded-full" style={{ backgroundColor: accentColor }} />}
               />
               <StatsBadge 
-                label="Font Style" 
-                value={fontMode === 'mono' ? 'Monospace' : 'Sans-Serif'} 
-                icon={<span className="text-sm">Aa</span>}
-              />
-              <StatsBadge 
                 label="Sound" 
                 value={soundEnabled ? 'Enabled' : 'Muted'} 
                 icon={soundEnabled ? Icons.soundOn : Icons.soundOff}
@@ -459,35 +446,6 @@ export default function SettingsPage() {
               accentColor={accentColor}
             />
             
-            <SettingRow
-              label="Typography"
-              description="Choose between modern sans-serif or classic monospace"
-            >
-              <SegmentedControl
-                options={[
-                  { value: 'sans', label: 'Sans', icon: 'Aa' },
-                  { value: 'mono', label: 'Mono', icon: '</>' },
-                ]}
-                value={fontMode}
-                onChange={(value) => setFontMode(value as 'sans' | 'mono')}
-              />
-            </SettingRow>
-
-            <SettingRow
-              label="Cursor Style"
-              description="Terminal cursor appearance in code blocks"
-            >
-              <SegmentedControl
-                options={[
-                  { value: 'block', label: 'Block', icon: '█' },
-                  { value: 'underline', label: 'Line', icon: '_' },
-                  { value: 'bar', label: 'Bar', icon: '│' },
-                ]}
-                value={cursorStyle}
-                onChange={(value) => setCursorStyle(value as 'block' | 'underline' | 'bar')}
-              />
-            </SettingRow>
-
             <SettingRow
               label="Reduce Motion"
               description="Minimize animations for accessibility or preference"

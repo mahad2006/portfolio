@@ -2,9 +2,6 @@
 import React, { createContext, useState, useEffect, useCallback, ReactNode } from 'react';
 
 // Type definitions
-export type CursorStyle = 'block' | 'underline' | 'bar';
-export type FontMode = 'sans' | 'mono';
-export type BorderRadius = 'rounded' | 'square';
 export type OscillatorType = 'sine' | 'square' | 'sawtooth' | 'triangle';
 
 export interface SystemContextType {
@@ -20,12 +17,6 @@ export interface SystemContextType {
   setAccentColor: React.Dispatch<React.SetStateAction<string>>;
   reduceMotion: boolean;
   setReduceMotion: React.Dispatch<React.SetStateAction<boolean>>;
-  cursorStyle: CursorStyle;
-  setCursorStyle: React.Dispatch<React.SetStateAction<CursorStyle>>;
-  fontMode: FontMode;
-  setFontMode: React.Dispatch<React.SetStateAction<FontMode>>;
-  borderRadius: BorderRadius;
-  setBorderRadius: React.Dispatch<React.SetStateAction<BorderRadius>>;
   showDashboard: boolean;
   setShowDashboard: React.Dispatch<React.SetStateAction<boolean>>;
   toggleDashboard: () => void;
@@ -47,9 +38,6 @@ interface SystemDefaults {
   matrixSpeed: number;
   accentColor: string;
   reduceMotion: boolean;
-  cursorStyle: CursorStyle;
-  fontMode: FontMode;
-  borderRadius: BorderRadius;
 }
 
 export const SystemContext = createContext<SystemContextType | null>(null);
@@ -66,9 +54,6 @@ const DEFAULTS: SystemDefaults = {
   matrixSpeed: 5,
   accentColor: '#6DB33F',
   reduceMotion: false,
-  cursorStyle: 'block',
-  fontMode: 'sans',
-  borderRadius: 'rounded',
 };
 
 export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
@@ -77,9 +62,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
   const [matrixSpeed, setMatrixSpeed] = useState<number>(DEFAULTS.matrixSpeed);
   const [accentColor, setAccentColor] = useState<string>(DEFAULTS.accentColor);
   const [reduceMotion, setReduceMotion] = useState<boolean>(DEFAULTS.reduceMotion);
-  const [cursorStyle, setCursorStyle] = useState<CursorStyle>(DEFAULTS.cursorStyle);
-  const [fontMode, setFontMode] = useState<FontMode>(DEFAULTS.fontMode);
-  const [borderRadius, setBorderRadius] = useState<BorderRadius>(DEFAULTS.borderRadius);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
   const [showDashboard, setShowDashboard] = useState<boolean>(false);
   const [konamiIndex, setKonamiIndex] = useState<number>(0);
@@ -101,15 +83,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
 
     const savedReduceMotion = localStorage.getItem('reduce_motion');
     if (savedReduceMotion !== null) setReduceMotion(JSON.parse(savedReduceMotion));
-
-    const savedCursorStyle = localStorage.getItem('cursor_style');
-    if (savedCursorStyle !== null) setCursorStyle(savedCursorStyle as CursorStyle);
-
-    const savedFontMode = localStorage.getItem('font_mode');
-    if (savedFontMode !== null) setFontMode(savedFontMode as FontMode);
-
-    const savedBorderRadius = localStorage.getItem('border_radius');
-    if (savedBorderRadius !== null) setBorderRadius(savedBorderRadius as BorderRadius);
   }, []);
 
   // Save settings to localStorage
@@ -118,9 +91,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
   useEffect(() => { localStorage.setItem('matrix_speed', String(matrixSpeed)); }, [matrixSpeed]);
   useEffect(() => { localStorage.setItem('accent_color', accentColor); }, [accentColor]);
   useEffect(() => { localStorage.setItem('reduce_motion', JSON.stringify(reduceMotion)); }, [reduceMotion]);
-  useEffect(() => { localStorage.setItem('cursor_style', cursorStyle); }, [cursorStyle]);
-  useEffect(() => { localStorage.setItem('font_mode', fontMode); }, [fontMode]);
-  useEffect(() => { localStorage.setItem('border_radius', borderRadius); }, [borderRadius]);
 
   // Apply accent color to CSS variable for instant site-wide updates
   useEffect(() => {
@@ -140,37 +110,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
       }
     }
   }, [reduceMotion]);
-
-  // Apply cursor style
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('data-cursor', cursorStyle);
-      document.documentElement.style.setProperty('--cursor-style', cursorStyle);
-    }
-  }, [cursorStyle]);
-
-  // Apply font mode
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('data-font', fontMode);
-      if (fontMode === 'mono') {
-        document.body.classList.add('font-mono');
-        document.body.classList.remove('font-sans');
-      } else {
-        document.body.classList.add('font-sans');
-        document.body.classList.remove('font-mono');
-      }
-    }
-  }, [fontMode]);
-
-  // Apply border radius
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.documentElement.setAttribute('data-radius', borderRadius);
-      const radiusValue = borderRadius === 'square' ? '0px' : '0.5rem';
-      document.documentElement.style.setProperty('--radius', radiusValue);
-    }
-  }, [borderRadius]);
 
   useEffect(() => {
     if (!isMuted && !audioCtx && typeof window !== 'undefined') {
@@ -214,17 +153,11 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
     setMatrixSpeed(DEFAULTS.matrixSpeed);
     setAccentColor(DEFAULTS.accentColor);
     setReduceMotion(DEFAULTS.reduceMotion);
-    setCursorStyle(DEFAULTS.cursorStyle);
-    setFontMode(DEFAULTS.fontMode);
-    setBorderRadius(DEFAULTS.borderRadius);
     localStorage.removeItem('sound_muted');
     localStorage.removeItem('matrix_mode');
     localStorage.removeItem('matrix_speed');
     localStorage.removeItem('accent_color');
     localStorage.removeItem('reduce_motion');
-    localStorage.removeItem('cursor_style');
-    localStorage.removeItem('font_mode');
-    localStorage.removeItem('border_radius');
   }, []);
 
   // Global keydown listener
@@ -264,9 +197,6 @@ export const SystemProvider: React.FC<SystemProviderProps> = ({ children }) => {
       matrixSpeed, setMatrixSpeed,
       accentColor, setAccentColor,
       reduceMotion, setReduceMotion,
-      cursorStyle, setCursorStyle,
-      fontMode, setFontMode,
-      borderRadius, setBorderRadius,
       showDashboard, setShowDashboard, toggleDashboard,
       isCommandPaletteOpen, toggleCommandPalette,
       playClick, playType, playSuccess,
