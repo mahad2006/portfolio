@@ -92,7 +92,7 @@ export const projectsData: Project[] = [
     slug: "derivify-calculus",
     type: "mobile-app",
     isFlagship: false,
-    image: "/derivify.png",
+    image: "/banner.png",
     tagline: "A low-latency Recursive Descent Parser for offline symbolic computation",
     stats: [
       { label: "Execution Time", value: "8ms" },
@@ -153,7 +153,7 @@ export const projectsData: Project[] = [
     slug: "quizzler-app",
     type: "mobile-app",
     isFlagship: false,
-    image: "/quizzler.png",
+    image: "/banner.png",
     tagline: "Memory-optimized MVC architecture for native Android environments",
     stats: [
       { label: "Memory Leakage", value: "0%" },

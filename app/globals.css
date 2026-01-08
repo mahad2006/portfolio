@@ -7,15 +7,32 @@
   --animate-fade-up: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
-  --accent-green-rgb: 109, 179, 63;
-  --accent-orange-rgb: 255, 140, 0;
-  --accent-blue-rgb: 0, 191, 255;
-  --accent-red-rgb: 255, 0, 0;
-  --accent-purple-rgb: 148, 0, 211;
+  --accent-green-rgb: 109,
+  179,
+  63;
+  --accent-orange-rgb: 255,
+  140,
+  0;
+  --accent-blue-rgb: 0,
+  191,
+  255;
+  --accent-red-rgb: 255,
+  0,
+  0;
+  --accent-purple-rgb: 148,
+  0,
+  211;
 
   --color-primary-rgb: var(--accent-green-rgb);
 
@@ -56,41 +73,75 @@
   --animate-glitch: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
 }
 
-body[data-accent="green"] { --color-primary-rgb: var(--accent-green-rgb); }
-body[data-accent="orange"] { --color-primary-rgb: var(--accent-orange-rgb); }
-body[data-accent="blue"] { --color-primary-rgb: var(--accent-blue-rgb); }
-body[data-accent="red"] { --color-primary-rgb: var(--accent-red-rgb); }
-body[data-accent="purple"] { --color-primary-rgb: var(--accent-purple-rgb); }
+body[data-accent="green"] {
+  --color-primary-rgb: var(--accent-green-rgb);
+}
+
+body[data-accent="orange"] {
+  --color-primary-rgb: var(--accent-orange-rgb);
+}
+
+body[data-accent="blue"] {
+  --color-primary-rgb: var(--accent-blue-rgb);
+}
+
+body[data-accent="red"] {
+  --color-primary-rgb: var(--accent-red-rgb);
+}
+
+body[data-accent="purple"] {
+  --color-primary-rgb: var(--accent-purple-rgb);
+}
 
 
 @keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+  0% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    transform: translate(-2px, -2px);
+  }
+
+  60% {
+    transform: translate(2px, 2px);
+  }
+
+  80% {
+    transform: translate(2px, -2px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
 }
 
 .glitch-text:hover {
   animation: var(--animate-glitch);
   text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
-               -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
-               0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+    -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+    0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
 }
 
 @keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
 }
 
 .bg-scanline {
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(var(--color-primary-rgb), 0.05) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(var(--color-primary-rgb), 0.05) 50%,
+      transparent 100%);
   background-size: 100% 100px;
   animation: var(--animate-scanline);
 }
@@ -106,14 +157,32 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .mono {
+h1,
+h2,
+h3 {
+  font-family: 'Inter', sans-serif;
+}
+
+.mono {
   font-family: 'JetBrains Mono', monospace;
 }
 
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #0a0a0a; }
-::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #444; }
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
 
 .scrollbar-hide {
   -ms-overflow-style: none;
@@ -129,8 +198,6 @@ h1, h2, h3, .mono {
   background-color: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 .card-base:hover {
@@ -167,14 +234,13 @@ h1, h2, h3, .mono {
 /* Legacy support (deprecated - use card-base instead) */
 .glass-panel {
   background: var(--bg-surface);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-card);
 }
 
 .tech-card-gradient {
-  background: linear-gradient(145deg, #161616 0%, #0a0a0a 100%); /* Made slightly lighter start color */
+  background: linear-gradient(145deg, #161616 0%, #0a0a0a 100%);
+  /* Made slightly lighter start color */
 }
 
 .text-gradient {
@@ -183,8 +249,21 @@ h1, h2, h3, .mono {
   -webkit-text-fill-color: transparent;
 }
 
-.cursor-blink { animation: blink 1s step-end infinite; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
 
 .input-field {
   width: 100%;
@@ -195,6 +274,7 @@ h1, h2, h3, .mono {
   color: white;
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+
 .input-field:focus {
   outline: none;
   border-color: var(--color-primary);
@@ -263,26 +343,43 @@ h1, h2, h3, .mono {
 
 /* Marquee Animations for Stack Section */
 @keyframes marquee-left {
-  0% { transform: translate(0); }
-  to { transform: translate(-50%); }
+  0% {
+    transform: translate(0);
+  }
+
+  to {
+    transform: translate(-50%);
+  }
 }
+
 @keyframes marquee-right {
-  0% { transform: translate(-50%); }
-  to { transform: translate(0); }
+  0% {
+    transform: translate(-50%);
+  }
+
+  to {
+    transform: translate(0);
+  }
 }
+
 .animate-marquee-left {
   animation: 40s linear infinite marquee-left;
 }
+
 .animate-marquee-right {
   animation: 40s linear infinite marquee-right;
 }
+
 .animate-marquee-slow {
   animation: 50s linear infinite marquee-left;
 }
+
 .marquee-paused {
   animation-play-state: paused !important;
 }
+
 @media (prefers-reduced-motion: reduce) {
+
   .animate-marquee-left,
   .animate-marquee-right,
   .animate-marquee-slow {
